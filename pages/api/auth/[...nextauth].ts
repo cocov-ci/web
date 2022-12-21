@@ -11,5 +11,10 @@ export default NextAuth({
   pages: {
     signIn: '/auth/signin',
   },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return Promise.resolve(baseUrl)
+    }
+  },
   secret: process.env.NEXTAUTH_SECRET
 })
