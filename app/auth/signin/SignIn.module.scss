@@ -1,0 +1,45 @@
+@import 'styles/variables';
+
+.signin {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+
+  .box {
+    max-width: 335px;
+  }
+
+  h1 {
+    font-size: 24px;
+    font-variation-settings: 'wght' 600;
+  }
+
+  .description,
+  .error {
+    font-size: 15px;
+  }
+
+  .error {
+    color: $colorRed;
+    margin-top: 10px;
+  }
+
+  .button {
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background-color: $colorGrayDark;
+    font-size: 17px;
+    color: $colorWhite;
+    border: none;
+
+    img {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 15px;
+    }
+  }
+}

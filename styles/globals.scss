@@ -10,6 +10,8 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  min-height: 100vh;
+  font-size: 15px;
 }
 
 body {
@@ -17,10 +19,12 @@ body {
   flex-direction: column;
   align-items: center;
   color: $colorBlack;
+  background: linear-gradient(180deg, #EDEEF0 0%, #E6E7E8 100%);;
 }
 
 main {
   width: $contentWidth;
+  flex: 1;
 }
 
 a {
