@@ -1,0 +1,52 @@
+@import 'styles/variables';
+
+.header {
+  border-bottom: 1px solid $colorGray;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .content {
+    width: $contentWidth;
+    height: 63px;
+    display: flex;
+    align-items: center;
+    padding: 0 32px 0 6px;
+  }
+
+  .logo {
+    align-self: end;
+  }
+
+  .title {
+    flex: 1;
+    font-size: 24px;
+    letter-spacing: -0.8px;
+    margin-left: 10px;
+    font-variation-settings: 'wght' 700;
+
+    span {
+      font-size: initial;
+      letter-spacing: initial;
+      color: $colorGrayDark;
+      font-variation-settings: 'wght' 400;
+    }
+  }
+
+  .menu {
+    display: inline-flex;
+    list-style-type: none;
+
+    li {
+      font-size: 15px;
+      padding-right: 16px;
+      font-variation-settings: 'wght' 500;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:last-of-type {
+        padding-right: 0;
+      }
+    }
+  }
+}

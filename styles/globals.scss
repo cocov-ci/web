@@ -1,4 +1,4 @@
-
+@import 'styles/variables';
 
 * {
   box-sizing: border-box;
@@ -12,6 +12,16 @@ body {
   overflow-x: hidden;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $colorBlack;
+}
+
+main {
+  width: $contentWidth;
+}
 
 a {
   color: inherit;
