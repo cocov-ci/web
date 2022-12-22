@@ -1,4 +1,4 @@
-@import 'styles/variables';
+@import "styles/variables";
 
 .header {
   border-bottom: 1px solid $colorGray;
@@ -16,7 +16,13 @@
   }
 
   .logo {
-    align-self: end;
+    display: inline-flex;
+    align-items: flex-end;
+    height: 100%;
+
+    img {
+      align-self: end;
+    }
   }
 
   .title {
@@ -24,13 +30,13 @@
     font-size: 24px;
     letter-spacing: -0.8px;
     margin-left: 10px;
-    font-variation-settings: 'wght' 700;
+    font-variation-settings: "wght" 700;
 
     span {
       font-size: initial;
       letter-spacing: initial;
       color: $colorGrayMedium;
-      font-variation-settings: 'wght' 400;
+      font-variation-settings: "wght" 400;
     }
   }
 
@@ -41,11 +47,13 @@
     li {
       font-size: 15px;
       padding-right: 16px;
-      font-variation-settings: 'wght' 500;
+      font-variation-settings: "wght" 500;
       cursor: pointer;
+
       &:hover {
         text-decoration: underline;
       }
+
       &:last-of-type {
         padding-right: 0;
       }

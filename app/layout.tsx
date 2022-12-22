@@ -1,23 +1,23 @@
-import React from 'react';
-import 'styles/globals.scss';
-import localFont from '@next/font/local';
+import localFont from '@next/font/local'
+import React from 'react'
+import 'styles/globals.scss'
 
-import Header from 'app/common/Header';
-import AuthContext from 'app/AuthContext';
+import { AuthProvider } from 'app/AuthContext'
+import Header from 'app/common/Header'
 
-const satoshi = localFont({ src: '../public/fonts/Satoshi.ttf' });
+const satoshi = localFont({ src: '../public/fonts/Satoshi.ttf' })
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body className={satoshi.className}>
-        <AuthContext>
+        <AuthProvider>
           <Header />
           <main>{children}</main>
-        </AuthContext>
+        </AuthProvider>
       </body>
     </html>
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout

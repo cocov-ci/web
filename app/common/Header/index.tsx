@@ -1,42 +1,42 @@
-'use client';
+'use client'
 
-import { useSession, signOut } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import styles from './Header.module.scss';
+import Image from 'next/image'
+import Link from 'next/link'
+import { Suspense } from 'react'
+
+import { useAuth } from 'app/AuthContext'
+import Loading from 'app/loading'
+
+import styles from './Header.module.scss'
+import Menu from './Menu'
 
 const Header = () => {
-  const { data: session } = useSession();
+  const { user } = useAuth()
 
   return (
     <header className={styles.header}>
       <div className={styles.content}>
-        <Image
-          className={styles.logo}
-          src='/icons/logo.png'
-          width='46'
-          height='54'
-          alt='Cocov logo'
-        />
+        <Link className={styles.logo} href="/">
+          <Image
+            alt="Cocov logo"
+            height="54"
+            src="/icons/logo.png"
+            width="46"
+          />
+        </Link>
         <p className={styles.title}>
-          Cocov <span>v0.1 beta</span>
+          <Link href="/">
+            Cocov <span>v0.1 beta</span>
+          </Link>
         </p>
-
-        {session && (
-          <nav>
-            <ul className={styles.menu}>
-              <li>
-                <Link href='#'>Repositories</Link>
-              </li>
-              <li>
-                <p onClick={() => signOut()}>Sign Out</p>
-              </li>
-            </ul>
-          </nav>
+        {user && (
+          <Suspense fallback={<Loading width="200px" />}>
+            <Menu />
+          </Suspense>
         )}
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

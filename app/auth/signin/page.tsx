@@ -1,31 +1,20 @@
-'use client';
+import { redirect } from 'next/navigation'
 
-import { useState } from 'react';
-import { redirect } from 'next/navigation';
-import { signIn, useSession } from 'next-auth/react';
+import Box from 'app/common/Box'
+import { fetchUser } from 'services/api/users'
+import { UserProps } from 'types/User'
 
-import Box from 'app/common/Box';
-import SignInButton from './SignInButton';
-import styles from './SignIn.module.scss';
-import Loading from './loading';
+import SignInButton from './Button'
+import styles from './SignIn.module.scss'
 
-const SignIn = ({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) => {
-  const [loading, setLoading] = useState(false);
+const getUser = () => fetchUser()
 
-  const { data: session } = useSession();
+const SignIn = async () => {
+  const user: UserProps = await getUser()
 
-  if (session) {
-    redirect('/');
+  if (user) {
+    redirect('/')
   }
-
-  const onButtonClick = () => {
-    signIn('github');
-    setLoading(true);
-  };
 
   return (
     <div className={styles.signin}>
@@ -35,20 +24,10 @@ const SignIn = ({
           To continue, please authenticate using your GitHub account.
         </p>
 
-        {loading ? (
-          <Loading />
-        ) : (
-          <SignInButton onButtonClick={async () => onButtonClick()} />
-        )}
-
-        {searchParams?.error && !loading && (
-          <p className={styles.error}>
-            Unable to authenticate, please try again!
-          </p>
-        )}
+        <SignInButton />
       </Box>
     </div>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn

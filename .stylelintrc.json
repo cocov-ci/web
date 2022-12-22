@@ -1,0 +1,29 @@
+
+{
+  "extends": "stylelint-config-standard",
+  "plugins": ["stylelint-scss"],
+  "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    "function-name-case": null,
+    "function-no-unknown": null,
+    "selector-class-pattern": [
+      "^[a-z0-9]+(-?-[a-zA-Z0-9]+)*",
+      {
+        "message": "Class names should begin with lowercase, and can be separated by hyphens"
+      }
+    ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["export"]
+      }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreSelectors": [":export"]
+      }
+    ]
+  }
+}

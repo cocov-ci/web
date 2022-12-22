@@ -1,0 +1,107 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:@next/next/recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  },
+  "rules": {
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-console": [
+      "error",
+      {
+        "allow": ["error", "warn"]
+      }
+    ],
+    "spaced-comment": ["error", "always"],
+    "react/display-name": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/self-closing-comp": "error",
+    "react/no-array-index-key": "error",
+    "react/jsx-uses-react": "off",
+    "react/jsx-sort-props": "error",
+    "react/jsx-pascal-case": "error",
+    "react/jsx-curly-brace-presence": ["error", "never"],
+    "react/jsx-no-useless-fragment": "error",
+    "react/jsx-fragments": ["error", "syntax"],
+    "react-hooks/exhaustive-deps": "off",
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [
+          { "char": ">", "alternatives": ["&gt;"] },
+          { "char": "}", "alternatives": ["&#125;"] }
+        ]
+      }
+    ],
+    "newline-before-return": "error",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true
+      }
+    ],
+    "import/named": "off",
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true,
+        },
+        "newlines-between": "always",
+        "groups": [
+          ["builtin", "external"],
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ]
+      }
+    ],
+    "import/no-absolute-path": ["error"],
+    "no-restricted-imports": ["error"],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "block-like" },
+      { "blankLine": "always", "prev": "block-like", "next": "*" }
+    ],
+    "jsx-a11y/no-onchange": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "@next/next/no-css-tags": "off"
+  },
+  "ignorePatterns": ["public/**", "src/bc-craft-assets/**"]
+}
