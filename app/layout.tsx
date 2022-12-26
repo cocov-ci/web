@@ -1,8 +1,9 @@
 import localFont from '@next/font/local'
 import React from 'react'
+
 import 'styles/globals.scss'
 
-import { AuthProvider } from 'app/AuthContext'
+import AuthProvider from 'app/AuthContext'
 import Header from 'app/common/Header'
 
 const satoshi = localFont({ src: '../public/fonts/Satoshi.ttf' })

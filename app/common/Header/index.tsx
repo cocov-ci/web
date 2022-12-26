@@ -11,7 +11,7 @@ import styles from './Header.module.scss'
 import Menu from './Menu'
 
 const Header = () => {
-  const { user } = useAuth()
+  const { isAuthenticated } = useAuth()
 
   return (
     <header className={styles.header}>
@@ -29,7 +29,7 @@ const Header = () => {
             Cocov <span>v0.1 beta</span>
           </Link>
         </p>
-        {user && (
+        {isAuthenticated && (
           <Suspense fallback={<Loading width="200px" />}>
             <Menu />
           </Suspense>

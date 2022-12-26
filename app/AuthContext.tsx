@@ -1,7 +1,6 @@
 'use client'
 
-import { deleteCookie, setCookie } from 'cookies-next'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, {
   createContext,
   useContext,
@@ -10,74 +9,78 @@ import React, {
   useState,
 } from 'react'
 
-import { fetchAPI } from 'services/api/fetch'
-import { fetchUser } from 'services/api/users'
-import { UserProps } from 'types/User'
+import Auth from 'services/auth'
+import Repositories from 'services/repositories'
+import { AuthBeginReponseProps, AuthPropsContext } from 'types/Auth'
 
-type AuthState = {
-  loading: boolean
-  login: () => void
-  logout: () => void
-  user: UserProps
-}
-
-const StateContext = createContext<AuthState>({
-  user: null,
+const StateContext = createContext<AuthPropsContext>({
   login: () => null,
   logout: () => null,
   loading: false,
+  isAuthenticated: false,
 })
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<UserProps>(null)
-  const [loading, setLoading] = useState<boolean>(true)
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const router = useRouter()
+  const pathname = usePathname()
+
+  const unauthorizedRedirection = () => {
+    if (!pathname?.includes('auth/signin')) {
+      router.push(`/auth/signin?next=${pathname}`)
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => await fetchUser()
+    const validateToken = async () => {
+      try {
+        const repositories = await Repositories.get()
 
-    fetchData()
-      .then((data: UserProps) => setUser(data))
-      .catch(error => {
-        console.error(error)
-      })
-      .finally(() => setLoading(false))
+        if (repositories.data.code === 'auth.no_authorization') {
+          unauthorizedRedirection()
+          Auth.deleteToken()
+        } else {
+          setIsAuthenticated(true)
+        }
+      } catch (err) {
+        unauthorizedRedirection()
+      }
+    }
+
+    if (Auth.getToken()) {
+      validateToken()
+    } else {
+      unauthorizedRedirection()
+    }
   }, [])
 
   const login = async () => {
     setLoading(true)
 
-    await fetchAPI(
-      'https://run.mocky.io/v3/d6ac91ac-6dab-4ff0-a08e-9348d7deed51',
-    )
-      .then((data: UserProps) => {
-        // TODO: IMPLEMENT SESSIONS
-        setCookie('cocov_auth_token', data?.id)
+    try {
+      const { data }: AuthBeginReponseProps = await Auth.begin()
 
-        router.push('/')
-
-        setUser(data)
-      })
-      .catch(error => {
-        console.error(error)
-      })
-      .finally(() => setLoading(false))
+      window.location.href = data.redirect_to
+    } catch {
+      setLoading(false)
+      // TODO: HANDLE WITH THIS RESPONSE
+    }
   }
 
   const logout = () => {
-    deleteCookie('cocov_auth_token')
-    setUser(null)
+    Auth.deleteToken()
     router.push('/')
   }
 
   const memoedValue = useMemo(
     () => ({
-      user,
       loading,
       login,
       logout,
+      isAuthenticated,
     }),
-    [user, loading],
+    [isAuthenticated, loading],
   )
 
   return (
@@ -88,3 +91,5 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 }
 
 export const useAuth = () => useContext(StateContext)
+
+export default AuthProvider
