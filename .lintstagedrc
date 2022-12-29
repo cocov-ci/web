@@ -2,5 +2,7 @@
   "*.{js,ts,tsx}": [
     "yarn lint:fix"
   ],
- 
+  "*.{css,scss,sass}": [
+    "stylelint --fix"
+  ]
 }
