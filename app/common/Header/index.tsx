@@ -1,18 +1,10 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { Suspense } from 'react'
-
-import { useAuth } from 'app/AuthContext'
-import Loading from 'app/loading'
 
 import styles from './Header.module.scss'
 import Menu from './Menu'
 
 const Header = () => {
-  const { isAuthenticated } = useAuth()
-
   return (
     <header className={styles.header}>
       <div className={styles.content}>
@@ -29,11 +21,7 @@ const Header = () => {
             Cocov <span>v0.1 beta</span>
           </Link>
         </p>
-        {isAuthenticated && (
-          <Suspense fallback={<Loading width="200px" />}>
-            <Menu />
-          </Suspense>
-        )}
+        <Menu />
       </div>
     </header>
   )

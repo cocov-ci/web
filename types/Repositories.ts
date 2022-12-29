@@ -1,5 +1,9 @@
 export interface RepositoriesResponseProps {
-  data: {
-    code: string
-  }
+  repositories: string[]
+  paging: [
+    {
+      page: number
+      total_pages: number
+    },
+  ]
 }

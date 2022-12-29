@@ -1,9 +1,10 @@
-import { fetchClient } from 'pages/api/fetch'
 import { RepositoriesResponseProps } from 'types/Repositories'
+import Fetcher from 'utils/fetchServer'
 
 const Repositories = {
-  get: (): Promise<RepositoriesResponseProps> =>
-    fetchClient('/api/repositories'),
+  get: (): Promise<RepositoriesResponseProps> => {
+    return Fetcher('/v1/repositories')
+  },
 }
 
 export default Repositories

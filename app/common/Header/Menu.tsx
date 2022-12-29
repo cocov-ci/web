@@ -7,7 +7,9 @@ import { useAuth } from 'app/AuthContext'
 import styles from './Header.module.scss'
 
 const Menu = () => {
-  const { logout } = useAuth()
+  const { logout, isAuthenticated } = useAuth()
+
+  if (!isAuthenticated) return null
 
   return (
     <nav>

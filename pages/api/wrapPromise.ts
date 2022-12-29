@@ -1,6 +1,6 @@
 type StatusProps = 'pending' | 'error' | 'success'
 
-function wrapPromise<T>(promise: Promise<T>): () => T {
+const wrapPromise = <T>(promise: Promise<T>) => {
   let status: StatusProps = 'pending'
   let response: T
 

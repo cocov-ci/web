@@ -3,18 +3,18 @@
 import Image from 'next/image'
 
 import { useAuth } from 'app/AuthContext'
+import Button from 'app/common/Button'
+import Loading from 'app/loading'
 
-import Loading from '../Loading'
+import styles from './GitHubButton.module.scss'
 
-import styles from './Button.module.scss'
-
-const SignInButton = () => {
+const GitHubButton = () => {
   const { login, loading } = useAuth()
 
   if (loading) return <Loading />
 
   return (
-    <button className={styles.button} onClick={(): void => login()}>
+    <Button className={styles.button} onClick={(): void => login()}>
       <Image
         alt="GitHub logo"
         className={styles.logo}
@@ -23,8 +23,8 @@ const SignInButton = () => {
         width="20"
       />
       Log in with GitHub
-    </button>
+    </Button>
   )
 }
 
-export default SignInButton
+export default GitHubButton

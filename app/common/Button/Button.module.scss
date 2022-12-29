@@ -1,0 +1,16 @@
+@import "styles/variables";
+
+.button {
+  position: relative;
+  padding: 12px 16px;
+  border-radius: 23px;
+  cursor: pointer;
+  background-color: $colorBlue;
+  font-size: 17px;
+  color: $colorWhite;
+  border: none;
+
+  &.uppercase {
+    text-transform: uppercase;
+  }
+}

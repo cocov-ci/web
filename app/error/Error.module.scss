@@ -1,0 +1,9 @@
+.error {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+
+  .box {
+    transform: rotate(12deg);
+  }
+}

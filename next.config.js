@@ -1,5 +1,5 @@
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   experimental: {
     appDir: true,
     fontLoaders: [
@@ -16,6 +16,21 @@ const nextConfig = {
             value: 'application/json',
           },
         ],
+      },
+    ]
+  },
+  async redirects() {
+    return [
+      {
+        source: '/auth/signin',
+        has: [
+          {
+            type: 'cookie',
+            key: 'cocov_auth_token',
+          },
+        ],
+        permanent: false,
+        destination: '/',
       },
     ]
   },

@@ -1,14 +1,15 @@
 export interface AuthExchangeRequestProps {
-  exchange_token: string | undefined
-  code: string | undefined
+  exchange_token: string
+  code: string
   redirect: string | undefined
-  state: string | undefined
+  state: string
 }
 
 export interface AuthExchangeResponseProps {
   data: {
     token: string
     redirect: string
+    code: string
   }
 }
 
