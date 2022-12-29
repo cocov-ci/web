@@ -1,0 +1,15 @@
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    font-size: 38px;
+    letter-spacing: 0.9;
+    font-variation-settings: "wght" 700;
+  }
+
+  .actions {
+    flex: 1;
+  }
+}

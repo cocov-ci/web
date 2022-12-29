@@ -1,0 +1,22 @@
+@import "styles/variables";
+
+.searchField {
+  position: relative;
+
+  input {
+    border-radius: 8px;
+    width: 208px;
+    border: 1px solid $colorGray;
+    background-color: $colorGrayLight;
+    font-family: var(--satoshi-font);
+    font-size: 17px;
+    padding: 7px 10px 7px 33px;
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+  }
+}

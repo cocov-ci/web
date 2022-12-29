@@ -9,7 +9,11 @@ const fetcher = async (url: string, args?: RequestInit) => {
       ...args?.headers,
     },
     ...args,
-  }).then(resp => resp.json())
+  })
+    .then(resp => resp.json())
+    .catch(err => {
+      throw err
+    })
 }
 
 export default fetcher

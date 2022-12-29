@@ -1,4 +1,4 @@
-@import 'styles/variables';
+@import "styles/variables";
 
 * {
   box-sizing: border-box;
@@ -19,11 +19,13 @@ body {
   flex-direction: column;
   align-items: center;
   color: $colorBlack;
-  background: linear-gradient(180deg, #EDEEF0 0%, #E6E7E8 100%);;
+  background: linear-gradient(180deg, #edeef0 0%, #e6e7e8 100%);
 }
 
 main {
-  width: $contentWidth;
+  max-width: $contentWidth;
+  padding: 0 20px;
+  width: 100%;
   flex: 1;
 }
 
@@ -31,4 +33,3 @@ a {
   color: inherit;
   text-decoration: none;
 }
-

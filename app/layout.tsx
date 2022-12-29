@@ -6,7 +6,10 @@ import 'styles/globals.scss'
 import AuthProvider from 'app/AuthContext'
 import Header from 'app/common/Header'
 
-const satoshi = localFont({ src: '../public/fonts/Satoshi.ttf' })
+const satoshi = localFont({
+  src: '../public/fonts/Satoshi.ttf',
+  variable: '--satoshi-font',
+})
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (

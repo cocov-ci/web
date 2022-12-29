@@ -1,0 +1,45 @@
+@import "styles/variables";
+
+.empty {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-top: 32px;
+
+  .arrow {
+    position: absolute;
+    right: 80px;
+    top: -10px;
+  }
+
+  .box {
+    border-radius: 8px;
+    border: 1px solid $colorGray;
+    padding: 29px 40px 70px 28px;
+    width: 385px;
+    display: flex;
+
+    .content {
+      flex: 1;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-variation-settings: "wght" 600;
+      color: $colorGrayDark;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-variation-settings: "wght" 400;
+      color: $colorGrayDark;
+    }
+
+    .icon {
+      stroke-width: 1px;
+      margin-top: 2px;
+      margin-right: 22px;
+      color: $colorGrayDark;
+    }
+  }
+}
