@@ -11,10 +11,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
     - name: Login to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_LOGIN }}" --password-stdin
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag cocov/web:dev
-    - name: Push Docker Image
-      run: docker push cocov/web:dev
+
+    - name: Prepare buildx
+      run: docker buildx create --use --driver=docker-container
+
+
+    - name: Build and Push
+      run: |
+        docker buildx build --push \
+          --cache-to type=gha \
+          --cache-from type=gha \
+          --tag cocov/web:dev  .
+
+    - name: Trigger update
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USERNAME }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        port: ${{ secrets.DEPLOY_PORT }}
+        script: cocov/update
