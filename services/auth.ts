@@ -17,12 +17,7 @@ const Auth = {
     })
   },
   begin: async (): Promise<AuthBeginReponseProps> => {
-    return await Fetcher('/api/auth/begin', {
-      method: 'POST',
-      data: {
-        redirect: process.env.NEXT_PUBLIC_AUTH_REDIRECT,
-      },
-    })
+    return await Fetcher('/api/auth/begin')
   },
   setToken: (token: string) => setCookie('cocov_auth_token', token),
   getToken: () => getCookie('cocov_auth_token'),

@@ -14,6 +14,13 @@ export async function middleware(req: NextRequest) {
     response.headers.set('authorization', `bearer ${cocov_auth_token}`)
 
     return response
+  } else if (isPublicPage) {
+    // REDIRECT TO THE SIGNIN PAGE IF THE AUTH TOKEN IS INVALID
+    const isInvalidToken = req.nextUrl.searchParams.has('invalid_token')
+
+    if (cocov_auth_token && !isInvalidToken) {
+      return NextResponse.redirect(new URL('/repositories', req.url))
+    }
   }
 }
 

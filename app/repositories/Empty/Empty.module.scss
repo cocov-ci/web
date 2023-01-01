@@ -18,6 +18,8 @@
     padding: 29px 40px 70px 28px;
     width: 385px;
     display: flex;
+    position: relative;
+    z-index: 1;
 
     .content {
       flex: 1;

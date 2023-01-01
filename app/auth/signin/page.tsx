@@ -66,20 +66,25 @@ const SignIn = () => {
   }, [isExchangeFlow])
 
   useEffect(() => {
+    if (searchParams.get('invalid_token')) {
+      Auth.deleteToken()
+    }
+  }, [searchParams])
+
+  useEffect(() => {
     if (isExchangeFlow) {
       const params = {
         ...(exchangeParams.reduce(
           (ac, a) => ({ ...ac, [a]: searchParams.get(a) }),
           {},
         ) as AuthExchangeRequestProps),
-        redirect: process.env.NEXT_PUBLIC_AUTH_REDIRECT,
       }
 
       Auth.exchange(params)
         .then(({ data }: AuthExchangeResponseProps) => {
           if (data.token) {
             Auth.setToken(data.token)
-            router.push(searchParams.get('next') || '/')
+            router.push(searchParams.get('next') || '/repositories')
           } else {
             if (data.code === 'session.not_an_org_member') {
               setAccessDenied(true)

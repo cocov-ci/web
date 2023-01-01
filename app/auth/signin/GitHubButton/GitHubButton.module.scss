@@ -4,9 +4,9 @@
   width: 100%;
   position: relative;
   padding: 12px 16px;
-  border-radius: 8px;
+  border-radius: 8px !important;
   cursor: pointer;
-  background-color: $colorGrayDark;
+  background-color: $colorGrayDark !important;
   font-size: 17px;
   color: $colorWhite;
   border: none;

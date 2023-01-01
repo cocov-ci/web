@@ -7,9 +7,12 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-    const { data } = await Fetcher(`${process.env.API_URL}/auth/begin`, {
+    const { data } = await Fetcher(`${process.env.COCOV_API_URL}/auth/begin`, {
       method: 'POST',
-      data: req.body,
+      data: {
+        ...req.body,
+        redirect: `${process.env.COCOV_UI_URL}/auth/signin`,
+      },
     })
 
     res.status(200).json(data)
