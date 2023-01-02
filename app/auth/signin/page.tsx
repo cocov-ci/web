@@ -66,12 +66,6 @@ const SignIn = () => {
   }, [isExchangeFlow])
 
   useEffect(() => {
-    if (searchParams.get('invalid_token')) {
-      Auth.deleteToken()
-    }
-  }, [searchParams])
-
-  useEffect(() => {
     if (isExchangeFlow) {
       const params = {
         ...(exchangeParams.reduce(
@@ -88,6 +82,8 @@ const SignIn = () => {
           } else {
             if (data.code === 'session.not_an_org_member') {
               setAccessDenied(true)
+            } else if (data.code) {
+              router.replace('/auth/signin')
             }
           }
         })

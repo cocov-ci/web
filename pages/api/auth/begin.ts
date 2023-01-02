@@ -10,7 +10,6 @@ export default async function handler(
     const { data } = await Fetcher(`${process.env.COCOV_API_URL}/auth/begin`, {
       method: 'POST',
       data: {
-        ...req.body,
         redirect: `${process.env.COCOV_UI_URL}/auth/signin`,
       },
     })

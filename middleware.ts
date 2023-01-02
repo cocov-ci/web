@@ -2,14 +2,15 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(req: NextRequest) {
   const cocov_auth_token = req.cookies.get('cocov_auth_token')?.value
-
-  const isPublicPage = req.nextUrl.pathname === '/auth/signin'
+  const SigninPage = '/auth/signin'
+  const route = req.nextUrl.pathname
+  const isPublicPage = route === SigninPage
+  const response = NextResponse.next()
 
   if (!cocov_auth_token && !isPublicPage) {
     // REDIRECT UNLOGGED USER TO THE SIGNIN PAGE
-    return NextResponse.redirect(new URL('/auth/signin', req.url))
-  } else if (req.nextUrl.pathname.startsWith('/api')) {
-    const response = NextResponse.next()
+    return NextResponse.redirect(new URL(SigninPage, req.url))
+  } else if (route.startsWith('/api')) {
     // ADD AUTHORIZATION TOKEN TO THE API REQUESTS
     response.headers.set('authorization', `bearer ${cocov_auth_token}`)
 
@@ -18,9 +19,13 @@ export async function middleware(req: NextRequest) {
     // REDIRECT TO THE SIGNIN PAGE IF THE AUTH TOKEN IS INVALID
     const isInvalidToken = req.nextUrl.searchParams.has('invalid_token')
 
-    if (cocov_auth_token && !isInvalidToken) {
+    if (isInvalidToken) {
+      response.cookies.delete('cocov_auth_token')
+    } else if (cocov_auth_token) {
       return NextResponse.redirect(new URL('/repositories', req.url))
     }
+
+    return response
   }
 }
 

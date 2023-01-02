@@ -12,13 +12,12 @@ const Auth = {
     data: AuthExchangeRequestProps,
   ): Promise<AuthExchangeResponseProps> => {
     return await Fetcher('/api/auth/exchange', {
-      data: data,
       method: 'POST',
+      data: data,
     })
   },
-  begin: async (): Promise<AuthBeginReponseProps> => {
-    return await Fetcher('/api/auth/begin')
-  },
+  begin: async (): Promise<AuthBeginReponseProps> =>
+    await Fetcher('/api/auth/begin', { method: 'POST' }),
   setToken: (token: string) => setCookie('cocov_auth_token', token),
   getToken: () => getCookie('cocov_auth_token'),
   deleteToken: () => deleteCookie('cocov_auth_token'),
