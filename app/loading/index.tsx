@@ -9,11 +9,13 @@ import styles from './Loading.module.scss'
 interface LoadingProps {
   count?: number
   width?: string
+  height?: string
   type?: 'spinner' | 'skeleton'
 }
 
 const Loading = ({
   width = '300px',
+  height = '15px',
   count = 1,
   type = 'spinner',
 }: LoadingProps) => {
@@ -21,8 +23,8 @@ const Loading = ({
     <div className={styles.loading}>
       {type === 'spinner' && <RefreshCw className={styles.spinner} />}
       {type === 'skeleton' && (
-        <SkeletonTheme baseColor="#eee" highlightColor="#ddd">
-          <Skeleton count={count} width={width} />
+        <SkeletonTheme baseColor="#e4e4e4" highlightColor="#e9e9e9">
+          <Skeleton count={count} height={height} width={width} />
         </SkeletonTheme>
       )}
     </div>

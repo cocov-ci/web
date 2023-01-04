@@ -6,14 +6,16 @@ import ErrorHandler from './errorHandler'
 
 const fetcher = async (url: string, args?: AxiosRequestConfig) => {
   const response = await axios(url, args)
-    .then(resp => resp)
+    .then(resp => {
+      if (resp.data?.code) {
+        ErrorHandler(resp.data.code)
+      } else {
+        return resp
+      }
+    })
     .catch(err => {
       throw err
     })
-
-  if (response.data.code) {
-    await ErrorHandler(response.data.code)
-  }
 
   return response
 }

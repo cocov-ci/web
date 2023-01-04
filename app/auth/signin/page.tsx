@@ -93,9 +93,9 @@ const SignIn = () => {
     }
   }, [])
 
-  if (loadingPage) {
-    return <Loading />
-  }
+  // if (loadingPage) {
+  return <Loading count={1} height="200px" type="skeleton" />
+  // }
 
   return (
     <div className={styles.signin}>

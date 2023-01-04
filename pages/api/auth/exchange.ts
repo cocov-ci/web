@@ -19,7 +19,7 @@ export default async function handler(
     )
 
     res.status(200).json(data)
-  } catch ({ err }) {
-    res.status(400).json({ err })
+  } catch (err) {
+    res.status(400).json(err)
   }
 }

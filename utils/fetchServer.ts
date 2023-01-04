@@ -13,13 +13,16 @@ const fetcher = async (url: string, args?: RequestInit) => {
     ...args,
   })
     .then(resp => resp.json())
+    .then(resp => {
+      if (resp.code) {
+        ErrorHandler(resp.code)
+      } else {
+        return resp
+      }
+    })
     .catch(err => {
       throw err
     })
-
-  if (response.code) {
-    await ErrorHandler(response.code)
-  }
 
   return response
 }
