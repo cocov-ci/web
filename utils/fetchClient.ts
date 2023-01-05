@@ -9,9 +9,9 @@ const fetcher = async (url: string, args?: AxiosRequestConfig) => {
     .then(resp => {
       if (resp.data?.code) {
         ErrorHandler(resp.data.code)
-      } else {
-        return resp
       }
+
+      return resp
     })
     .catch(err => {
       throw err

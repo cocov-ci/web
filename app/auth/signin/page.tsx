@@ -6,11 +6,11 @@ import { useEffect, useMemo, useState } from 'react'
 
 import Box from 'app/common/Box'
 import Button from 'app/common/Button'
-import Loading from 'app/loading'
 import Auth from 'services/auth'
 import { AuthExchangeRequestProps, AuthExchangeResponseProps } from 'types/Auth'
 
 import GitHubButton from './GitHubButton'
+import Loading from './loading'
 import styles from './SignIn.module.scss'
 
 const exchangeParams = ['exchange_token', 'code', 'state']
@@ -80,22 +80,22 @@ const SignIn = () => {
             Auth.setToken(data.token)
             router.push(searchParams.get('next') || '/repositories')
           } else {
-            if (data.code === 'session.not_an_org_member') {
-              setAccessDenied(true)
-            } else if (data.code) {
-              router.replace('/auth/signin')
-            }
+            router.replace('/auth/signin')
           }
         })
-        .catch(() => {
-          // TODO: HANDLE WITH IT
+        .catch(err => {
+          if (err.code === 'session.not_an_org_member') {
+            setAccessDenied(true)
+          } else if (err.code) {
+            router.replace('/auth/signin')
+          }
         })
     }
   }, [])
 
-  // if (loadingPage) {
-  return <Loading count={1} height="200px" type="skeleton" />
-  // }
+  if (loadingPage) {
+    return <Loading />
+  }
 
   return (
     <div className={styles.signin}>

@@ -16,9 +16,9 @@ const fetcher = async (url: string, args?: RequestInit) => {
     .then(resp => {
       if (resp.code) {
         ErrorHandler(resp.code)
-      } else {
-        return resp
       }
+
+      return resp
     })
     .catch(err => {
       throw err

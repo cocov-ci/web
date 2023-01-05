@@ -1,6 +1,17 @@
 .loading {
   width: 100%;
-  text-align: center;
+
+  &.center {
+    text-align: center;
+  }
+
+  &.left {
+    text-align: left;
+  }
+
+  &.right {
+    text-align: right;
+  }
 
   .spinner {
     height: 40px;
