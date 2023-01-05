@@ -12,10 +12,10 @@ interface TopBarProps {
 
 const TopBar = ({ title, description, children, className }: TopBarProps) => {
   return (
-    <div className={styles.topBar}>
+    <div className={classNames(styles.topBar, className)}>
       <div>
-        <h1 className={classNames(styles.title, className)}>{title}</h1>
-        <p className={classNames(styles.title, className)}>{description}</p>
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
       </div>
       <div>{children}</div>
     </div>

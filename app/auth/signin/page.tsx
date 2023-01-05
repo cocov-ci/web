@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import Box from 'app/common/Box'
 import Button from 'app/common/Button'
+import Text from 'app/common/Text'
 import Auth from 'services/auth'
 import { AuthExchangeRequestProps, AuthExchangeResponseProps } from 'types/Auth'
 
@@ -17,11 +18,11 @@ const exchangeParams = ['exchange_token', 'code', 'state']
 
 const WelcomeContent = () => {
   return (
-    <Box
-      className={styles.box}
-      description="To continue, please authenticate using your GitHub account."
-      title="Welcome back!"
-    >
+    <Box className={styles.box}>
+      <Text variant="title">Welcome back!</Text>
+      <Text variant="description">
+        To continue, please authenticate using your GitHub account.
+      </Text>
       <GitHubButton />
     </Box>
   )
@@ -29,12 +30,12 @@ const WelcomeContent = () => {
 
 const AccessDeniedContent = () => {
   return (
-    <Box
-      className={styles.box}
-      description={`You are not allowed to access this resource.
-        Please contact your administrator.`}
-      title="Access Denied"
-    >
+    <Box className={styles.box}>
+      <Text variant="title">Access Denied</Text>
+      <Text variant="description">
+        {`You are not allowed to access this resource.
+        Textlease contact your administrator.`}
+      </Text>
       <Button className={styles.accessDeniedButton} uppercase>
         Ok
       </Button>

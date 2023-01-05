@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 
 import Box from 'app/common/Box'
+import Text from 'app/common/Text'
 
 import styles from './Error.module.scss'
 
@@ -14,18 +15,19 @@ export default function Error({
   reset: () => void
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
+    // TODO: ERROR REPORTING SERVICE HERE
     console.error(error)
   }, [error])
 
   return (
     <div className={styles.error}>
-      <Box
-        className={styles.box}
-        description="An internal error prevented this operation from completing. Please check
-    the instance's logs for further information."
-        title="Uh-oh. This is an error."
-      />
+      <Box className={styles.box}>
+        <Text variant="title">Uh-oh. This is an error.</Text>
+        <Text variant="description">
+          An internal error prevented this operation from completing. Please
+          check the instance's logs for further information.
+        </Text>
+      </Box>
     </div>
   )
 }

@@ -1,0 +1,40 @@
+@import "styles/variables";
+
+.repository {
+  margin-bottom: 32px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 116px;
+
+  .info {
+    padding: 28px;
+
+    .title {
+      font-variation-settings: "wght" 600;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      margin-bottom: 0;
+      &.disabled {
+        color: $colorGrayMedium;
+      }
+    }
+  }
+
+  .backgroundText {
+    position: absolute;
+    font-size: 141px;
+    white-space: nowrap;
+    opacity: 4%;
+    font-variation-settings: "wght" 700;
+    line-height: 138px;
+    left: 12px;
+    
+    &.small {
+      font-size: 100px;
+      line-height: 162px;
+    }
+  }
+}

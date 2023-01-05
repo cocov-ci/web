@@ -11,6 +11,7 @@ interface LoadingProps {
   count?: number
   width?: string
   height?: string
+  className?: string
   alignment?: 'center' | 'left' | 'right'
   type?: 'spinner' | 'skeleton'
 }
@@ -21,9 +22,10 @@ const Loading = ({
   count = 1,
   type = 'spinner',
   alignment = 'center',
+  className,
 }: LoadingProps) => {
   return (
-    <div className={classNames(styles.loading, styles[alignment])}>
+    <div className={classNames(styles.loading, styles[alignment], className)}>
       {type === 'spinner' && <RefreshCw className={styles.spinner} />}
       {type === 'skeleton' && (
         <SkeletonTheme baseColor="#e4e4e4" highlightColor="#e9e9e9">

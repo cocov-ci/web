@@ -1,0 +1,12 @@
+@import 'styles/variables';
+
+.title {
+  font-size: $fontTitle;
+  font-variation-settings: "wght" 400;
+}
+
+.description {
+  font-size: $fontDescription;
+  margin-bottom: 20px;
+  white-space: pre-line;
+}

@@ -4,7 +4,6 @@
   display: flex;
   justify-content: center;
   position: relative;
-  margin-top: 32px;
 
   .arrow {
     position: absolute;
@@ -26,13 +25,13 @@
     }
 
     h2 {
-      font-size: 24px;
+      font-size: $fontTitle;
       font-variation-settings: "wght" 600;
       color: $colorGrayDark;
     }
 
     h3 {
-      font-size: 15px;
+      font-size: $fontDescription;
       font-variation-settings: "wght" 400;
       color: $colorGrayDark;
     }
