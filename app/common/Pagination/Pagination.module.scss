@@ -1,0 +1,33 @@
+@import "styles/variables";
+
+.pagination {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 60px;
+  margin-top: 50px; 
+  .pages {
+    list-style-type: none;
+    display: inline-flex;
+    align-items: center;
+
+    .page {
+      font-size: 17px;
+      border-radius: 8px;
+      margin: 0 4px;
+      width: 37px;
+      height: 37px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &.active {
+        border: 1px solid $colorGray;
+        font-variation-settings: "wght" 600;
+        background-color: $colorGrayLighter;
+      }
+      &:hover {
+        border: 1px solid $colorGray;
+      }
+    }
+  }
+}

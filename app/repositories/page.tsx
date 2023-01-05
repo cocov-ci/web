@@ -1,3 +1,4 @@
+import Pagination from 'app/common/Pagination'
 import TopBar from 'app/common/TopBar'
 // import Empty from 'app/repositories/Empty'
 import Repository from 'app/repositories/Repository'
@@ -36,6 +37,7 @@ const Page = async () => {
       <TopBar title="Repositories">
         <TopBarActions />
       </TopBar>
+
       {/* {data.repositories?.length === 0 && <Empty />} */}
       {repositories.map(item => (
         <Repository
@@ -44,6 +46,8 @@ const Page = async () => {
           title={item.title}
         />
       ))}
+
+      <Pagination total={5} />
     </div>
   )
 }
