@@ -47,7 +47,7 @@ const Page = async () => {
         />
       ))}
 
-      <Pagination total={5} />
+      <Pagination currentPage={1} total={5} />
     </div>
   )
 }
