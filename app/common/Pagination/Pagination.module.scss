@@ -4,11 +4,21 @@
   width: 100%;
   text-align: center;
   margin-bottom: 60px;
-  margin-top: 50px; 
+  margin-top: 50px;
+
   .pages {
     list-style-type: none;
     display: inline-flex;
     align-items: center;
+
+    .arrow {
+      cursor: pointer;
+      margin: 0 8px;
+
+      &.disabled {
+        color: $colorGray;
+      }
+    }
 
     .page {
       font-size: 17px;
@@ -20,11 +30,13 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+
       &.active {
         border: 1px solid $colorGray;
-        font-variation-settings: "wght" 600;
+        font-variation-settings: "wght" 500;
         background-color: $colorGrayLighter;
       }
+
       &:hover {
         border: 1px solid $colorGray;
       }
