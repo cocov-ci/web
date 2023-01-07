@@ -6,7 +6,7 @@
   position: relative;
   overflow: hidden;
   min-height: 116px;
-  flex-direction: row;
+  flex-direction: row !important;
   justify-content: space-between;
 
   .info {
