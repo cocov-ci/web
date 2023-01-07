@@ -1,16 +1,13 @@
 import classNames from 'classnames'
 
 import Box from 'app/common/Box'
+import Stats from 'app/common/Stats'
 import Text from 'app/common/Text'
+import { RepositoriesProps } from 'types/Repositories'
 
 import styles from './Repository.module.scss'
 
-interface RepositoriesProps {
-  title: string
-  description?: string
-}
-
-const Repository = ({ title, description }: RepositoriesProps) => {
+const Repository = ({ title, description, stats }: RepositoriesProps) => {
   return (
     <Box className={styles.repository}>
       <span
@@ -32,6 +29,10 @@ const Repository = ({ title, description }: RepositoriesProps) => {
         >
           {description || 'No description'}
         </Text>
+      </div>
+      <div className={styles.stats}>
+        <Stats data={stats.issues} type="issues" />
+        <Stats data={stats.coverage} type="coverage" />
       </div>
     </Box>
   )

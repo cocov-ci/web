@@ -6,6 +6,8 @@
   position: relative;
   overflow: hidden;
   min-height: 116px;
+  flex-direction: row;
+  justify-content: space-between;
 
   .info {
     padding: 28px;
@@ -17,21 +19,26 @@
 
     .description {
       margin-bottom: 0;
+
       &.disabled {
         color: $colorGrayMedium;
       }
     }
   }
 
+  .stats {
+    display: flex;
+  }
+
   .backgroundText {
     position: absolute;
     font-size: 141px;
     white-space: nowrap;
-    opacity: 4%;
+    opacity: 0.04;
     font-variation-settings: "wght" 700;
     line-height: 138px;
     left: 12px;
-    
+
     &.small {
       font-size: 100px;
       line-height: 162px;

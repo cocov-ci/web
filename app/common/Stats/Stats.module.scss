@@ -1,0 +1,36 @@
+@import "styles/variables";
+
+.stats {
+  width: 173px;
+  height: 100%;
+  border-left: 1px solid $colorGray;
+  background: $colorGrayLight;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  .value,
+  .description {
+    position: relative;
+    z-index: 1;
+  }
+
+  .value {
+    font-size: 40px;
+    font-variation-settings: "wght" 700;
+  }
+
+  .description {
+    margin-bottom: 0;
+  }
+
+  .chart {
+    position: absolute;
+    left: -5px;
+    bottom: -5px;
+  }
+}
