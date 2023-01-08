@@ -15,8 +15,10 @@
 
   .icon {
     position: absolute;
+    text-align: left;
     top: 50%;
     left: 8px;
+    display: inline-flex;
     transform: translateY(-50%);
   }
 }

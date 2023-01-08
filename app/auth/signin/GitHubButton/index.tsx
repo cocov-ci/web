@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 
-import { useAuth } from 'app/AuthContext'
 import Button from 'app/common/Button'
 import Loading from 'app/common/Loading'
+import { useAuth } from 'app/context/AuthContext'
 
 import styles from './GitHubButton.module.scss'
 

@@ -1,6 +1,7 @@
 import Pagination from 'app/common/Pagination'
 import TopBar from 'app/common/TopBar'
 // import Empty from 'app/repositories/Empty'
+// import NoResults from 'app/repositories/NoResults'
 import Repository from 'app/repositories/Repository'
 import TopBarActions from 'app/repositories/TopBarActions'
 import Repositories from 'services/repositories'
@@ -67,6 +68,7 @@ const Page = async () => {
       </TopBar>
 
       {/* {data.repositories?.length === 0 && <Empty />} */}
+      {/* {data.repositories?.length === 0 && <NoResults />} */}
       {repositories.map(item => (
         <Repository
           description={item.description}

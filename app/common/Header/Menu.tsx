@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 
-import { useAuth } from 'app/AuthContext'
+import { useAuth } from 'app/context/AuthContext'
 
 import styles from './Header.module.scss'
 

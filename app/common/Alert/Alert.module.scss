@@ -1,0 +1,40 @@
+@import "styles/variables";
+
+.alert {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  .box {
+    border-radius: 8px;
+    border: 1px solid $colorGray;
+    padding: 29px 40px 70px 28px;
+    width: 385px;
+    display: flex;
+    position: relative;
+    z-index: 1;
+
+    .content {
+      flex: 1;
+    }
+
+    h2 {
+      font-size: $fontTitle;
+      font-variation-settings: "wght" 600;
+      color: $colorGrayDark;
+    }
+
+    h3 {
+      font-size: $fontDescription;
+      font-variation-settings: "wght" 400;
+      color: $colorGrayDark;
+    }
+
+    .icon {
+      stroke-width: 1px;
+      margin-top: 2px;
+      margin-right: 22px;
+      color: $colorGrayDark;
+    }
+  }
+}

@@ -3,8 +3,8 @@ import React from 'react'
 
 import 'styles/globals.scss'
 
-import AuthProvider from 'app/AuthContext'
 import Header from 'app/common/Header'
+import AuthProvider from 'app/context/AuthContext'
 
 const satoshi = localFont({
   src: '../public/fonts/Satoshi.ttf',
