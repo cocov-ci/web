@@ -21,19 +21,19 @@ export const Default: Story = {
   },
 }
 
-export const Title: Story = {
+export const WithTitle: Story = {
   args: {
     title: 'Title here...',
   },
 }
 
-export const Description: Story = {
+export const WithDescription: Story = {
   args: {
     description: 'Description here...',
   },
 }
 
-export const Icon: Story = {
+export const WithIcon: Story = {
   args: {
     icon: Ghost,
   },
