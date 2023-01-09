@@ -6,6 +6,8 @@
   margin-bottom: 60px;
   margin-top: 50px;
 
+  $defaultTransition: border 0.1s ease-in-out, background-color 0.1s ease-in-out, color 1s ease-in-out;
+
   .pages {
     list-style-type: none;
     display: inline-flex;
@@ -14,9 +16,11 @@
     .arrow {
       cursor: pointer;
       margin: 0 8px;
+      transition: $defaultTransition;
 
       &.disabled {
         color: $colorGray;
+        cursor: default;
       }
     }
 
@@ -30,6 +34,8 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      transition: $defaultTransition;
+      border: 1px solid transparent;
 
       &.active {
         border: 1px solid $colorGray;
