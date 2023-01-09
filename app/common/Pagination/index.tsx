@@ -13,6 +13,21 @@ interface PaginationProps {
 
 interface ArrowProps {
   direction: 'previous' | 'next'
+  disabled: boolean
+  onClick: () => void
+}
+
+const Arrow = ({ direction, disabled, onClick }: ArrowProps) => {
+  const Component = direction === 'previous' ? ChevronFirst : ChevronLast
+
+  return (
+    <Component
+      className={classNames(styles.arrow, {
+        [styles.disabled]: disabled,
+      })}
+      onClick={onClick}
+    />
+  )
 }
 
 const Pagination = ({ total, currentPage }: PaginationProps) => {
@@ -20,32 +35,14 @@ const Pagination = ({ total, currentPage }: PaginationProps) => {
   const firstPage = active === 1
   const lastPage = active === total
 
-  const Arrow = ({ direction }: ArrowProps) => {
-    if (direction === 'previous') {
-      return (
-        <ChevronFirst
-          className={classNames(styles.arrow, {
-            [styles.disabled]: firstPage,
-          })}
-          onClick={() => !firstPage && setActive(active - 1)}
-        />
-      )
-    } else {
-      return (
-        <ChevronLast
-          className={classNames(styles.arrow, {
-            [styles.disabled]: lastPage,
-          })}
-          onClick={() => !lastPage && setActive(active + 1)}
-        />
-      )
-    }
-  }
-
   return (
     <div className={styles.pagination}>
       <ul className={styles.pages}>
-        <Arrow direction="previous" />
+        <Arrow
+          direction="previous"
+          disabled={firstPage}
+          onClick={() => !firstPage && setActive(active - 1)}
+        />
 
         {[...Array(total)].map((item, index): React.ReactElement => {
           const pageNumber = index + 1
@@ -63,7 +60,11 @@ const Pagination = ({ total, currentPage }: PaginationProps) => {
           )
         })}
 
-        <Arrow direction="next" />
+        <Arrow
+          direction="next"
+          disabled={lastPage}
+          onClick={() => !lastPage && setActive(active + 1)}
+        />
       </ul>
     </div>
   )

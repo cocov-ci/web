@@ -94,9 +94,9 @@ const SignIn = () => {
     }
   }, [])
 
-  // if (loadingPage) {
-  return <Loading />
-  // }
+  if (loadingPage) {
+    return <Loading />
+  }
 
   return (
     <div className={styles.signin}>
