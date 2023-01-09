@@ -2,15 +2,48 @@
 
 .button {
   position: relative;
-  padding: 12px 16px;
-  border-radius: 23px;
   cursor: pointer;
-  background-color: $colorBlue;
-  font-size: 17px;
   color: $colorWhite;
   border: none;
+  transition: background-color 0.1s ease-in-out;
+  font-variation-settings: "wght" 550;
+  border-radius: 23px;
 
   &.uppercase {
     text-transform: uppercase;
+  }
+
+  @mixin button-style($color, $padding: 10px 16px, $fontSize: 14px, $hoverColor: darken($color, 10%)) {
+    background-color: $color;
+    padding: $padding;
+    font-size: $fontSize;
+
+    &:hover {
+      background-color: $hoverColor;
+    }
+  }
+
+  &.primary {
+    @include button-style($colorBlue, $padding: 12px 16px, $fontSize: 17px);
+
+    line-height: 21px;
+  }
+
+  &.secondary {
+    @include button-style($colorGrayDark);
+  }
+
+  &.inactive {
+    @include button-style(transparent, $hoverColor: darken($colorGrayLighter, 10%));
+
+    color: $colorGrayDark;
+  }
+
+  &.danger {
+    @include button-style($colorRedMedium);
+  }
+
+  &.mini {
+    @include button-style($colorGrayDark, $padding: 8px 10px, $fontSize: 12px);
   }
 }

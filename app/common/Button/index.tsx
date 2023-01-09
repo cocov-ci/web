@@ -8,12 +8,19 @@ interface ButtonProps {
   className?: string
   uppercase?: boolean
   onClick?: () => void
+  style?: 'primary' | 'secondary' | 'inactive' | 'danger' | 'mini'
 }
 
-const Button = ({ children, uppercase, className, onClick }: ButtonProps) => {
+const Button = ({
+  children,
+  uppercase,
+  className,
+  onClick,
+  style = 'primary',
+}: ButtonProps) => {
   return (
     <button
-      className={classNames(styles.button, className, {
+      className={classNames(styles.button, className, styles[style], {
         [styles.uppercase]: uppercase,
       })}
       onClick={onClick}
