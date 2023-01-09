@@ -11,6 +11,14 @@
     font-family: var(--satoshi-font);
     font-size: 17px;
     padding: 7px 10px 7px 33px;
+    transition: border 0.1s ease-out;
+
+    &:focus {
+      outline: none;
+      background: $colorGrayLighter;
+      border-color: $colorBlue;
+      box-shadow: 0 0 5px 1px $colorInputFocusShadow;
+    }
   }
 
   .icon {
