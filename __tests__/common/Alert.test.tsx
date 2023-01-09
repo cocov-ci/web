@@ -19,9 +19,33 @@ describe('Alert', () => {
     expect(screen.getByText('description here..')).toBeVisible()
     expect(container.querySelector('svg')).toBeVisible()
   })
-})
 
-it('renders Alert snapshots', () => {
-  const { container } = render(<Alert />)
-  expect(container).toMatchSnapshot()
+  it('renders Alert only with "title" param', () => {
+    const { container } = render(<Alert title="title here.." />)
+
+    expect(container.querySelector('h2')).toBeTruthy()
+    expect(container.querySelector('h3')).toBeFalsy()
+    expect(container.querySelector('svg')).toBeFalsy()
+  })
+
+  it('renders Alert only with "description" param', () => {
+    const { container } = render(<Alert description="description here.." />)
+
+    expect(container.querySelector('h2')).toBeFalsy()
+    expect(container.querySelector('h3')).toBeTruthy()
+    expect(container.querySelector('svg')).toBeFalsy()
+  })
+
+  it('renders Alert only with "icon" param', () => {
+    const { container } = render(<Alert icon={Ghost} />)
+
+    expect(container.querySelector('h2')).toBeFalsy()
+    expect(container.querySelector('h3')).toBeFalsy()
+    expect(container.querySelector('svg')).toBeTruthy()
+  })
+
+  it('renders Alert snapshots', () => {
+    const { container } = render(<Alert />)
+    expect(container).toMatchSnapshot()
+  })
 })

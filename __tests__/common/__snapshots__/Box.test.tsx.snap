@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Box renders Box snapshots 1`] = `
+<div>
+  <div
+    class="box"
+  >
+    <p>
+      children
+    </p>
+  </div>
+</div>
+`;

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopBar renders TopBar snapshots 1`] = `
+<div>
+  <div
+    class="topBar"
+  >
+    <div>
+      <h1
+        class="title"
+      />
+      <p
+        class="description"
+      />
+    </div>
+    <div />
+  </div>
+</div>
+`;

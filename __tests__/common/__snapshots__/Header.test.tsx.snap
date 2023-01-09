@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders Header snapshots 1`] = `
+<div>
+  <header
+    class="header"
+  >
+    <div
+      class="content"
+    >
+      <a
+        class="logo"
+        href="/"
+      >
+        <img
+          alt="Cocov logo"
+          data-nimg="1"
+          decoding="async"
+          height="54"
+          loading="lazy"
+          src="/_next/image?url=%2Ficons%2Flogo.png&w=96&q=75"
+          srcset="/_next/image?url=%2Ficons%2Flogo.png&w=48&q=75 1x, /_next/image?url=%2Ficons%2Flogo.png&w=96&q=75 2x"
+          style="color: transparent;"
+          width="46"
+        />
+      </a>
+      <p
+        class="title"
+      >
+        <a
+          href="/"
+        >
+          Cocov 
+          <span>
+            v0.1 beta
+          </span>
+        </a>
+      </p>
+    </div>
+  </header>
+</div>
+`;
