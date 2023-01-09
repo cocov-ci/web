@@ -11,6 +11,7 @@ interface LoadingProps extends SpinnerProps, SkeletonProps {
   className?: string
   alignment: 'center' | 'left' | 'right'
   type: 'spinner' | 'skeleton'
+  tiny?: boolean
 }
 
 interface SpinnerProps {
@@ -47,9 +48,14 @@ const Loading = ({
   size,
   spinnerIcon,
   className,
+  tiny,
 }: LoadingProps) => {
   return (
-    <div className={classNames(styles.loading, styles[alignment], className)}>
+    <div
+      className={classNames(styles.loading, styles[alignment], className, {
+        [styles.tiny]: tiny,
+      })}
+    >
       {type === 'spinner' && (
         <SpinnerComponent size={size} spinnerIcon={spinnerIcon} />
       )}

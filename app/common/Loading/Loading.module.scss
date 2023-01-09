@@ -13,6 +13,10 @@
     text-align: right;
   }
 
+  &.tiny {
+    width: 18px;
+  }
+
   .spinner {
     height: 40px;
     animation: spin 1s linear infinite;
