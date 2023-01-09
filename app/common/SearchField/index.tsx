@@ -17,7 +17,12 @@ const SearchField = ({ className, loading }: SearchFieldProps) => {
   return (
     <label className={classNames(styles.searchField, className)}>
       {loading ? (
-        <Loading className={styles.icon} size={18} spinnerIcon={Loader} />
+        <Loading
+          className={styles.icon}
+          size={18}
+          spinnerIcon={Loader}
+          tiny={true}
+        />
       ) : (
         <Search className={styles.icon} size={18} />
       )}
