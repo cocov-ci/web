@@ -13,12 +13,17 @@
     text-transform: uppercase;
   }
 
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
   @mixin button-style($color, $padding: 10px 16px, $fontSize: 14px, $hoverColor: darken($color, 10%)) {
     background-color: $color;
     padding: $padding;
     font-size: $fontSize;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: $hoverColor;
     }
   }
