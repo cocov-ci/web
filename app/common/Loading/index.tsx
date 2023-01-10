@@ -21,8 +21,8 @@ interface SpinnerProps {
 
 interface SkeletonProps {
   count?: number
-  width: string
-  height: string
+  width?: string
+  height?: string
 }
 
 const SkeletonComponent = ({ count, height, width }: SkeletonProps) => {
