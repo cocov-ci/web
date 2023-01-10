@@ -39,3 +39,9 @@ export const options = {
     },
   },
 }
+
+export const makeFakePoints = () =>
+  new Array(31)
+    .fill(0)
+    .map(() => Math.random() * 100)
+    .map(Math.ceil)

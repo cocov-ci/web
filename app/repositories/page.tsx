@@ -1,6 +1,6 @@
 import ListItem from 'app/common/ListItem'
 import Pagination from 'app/common/Pagination'
-import { makeFakePoints } from 'app/common/Stats'
+import { makeFakePoints } from 'app/common/Stats/Utils'
 import TopBar from 'app/common/TopBar'
 // import Empty from 'app/repositories/Empty'
 // import NoResults from 'app/repositories/NoResults'

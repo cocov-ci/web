@@ -77,10 +77,4 @@ const Stats = ({ data: dataChart, type }: StatsComponentProps) => {
   )
 }
 
-export const makeFakePoints = () =>
-  new Array(31)
-    .fill(0)
-    .map(() => Math.random() * 100)
-    .map(Math.ceil)
-
 export default Stats
