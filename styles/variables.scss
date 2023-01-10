@@ -3,8 +3,8 @@ $contentWidth: 1024px;
 
 // COLORS
 $colorGray: #cacaca;
-$colorGrayLight: #efefef;
 $colorGrayLighter: #ebebeb;
+$colorGrayLight: #efefef;
 $colorGrayMedium: #808080;
 $colorGrayDark: #333;
 $colorWhite: #fff;
@@ -13,6 +13,11 @@ $colorRed: #dc2331;
 $colorRedMedium: #b31714;
 $colorBlue: #1196ff;
 $colorInputFocusShadow: rgb(17 150 255 / 19%);
+
+// Why can't this be $colorGrayLighter? Great question! The Cie76 algorithm value for the
+// difference between $colorGrayLighter and $pillNavBackground is 2.6892, so the difference
+// is perceivable.
+$pillNavBackground: #e4e4e4;
 
 // FONT-SIZES
 $fontTitle: 24px;
