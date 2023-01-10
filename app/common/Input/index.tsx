@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { LucideIcon } from 'lucide-react'
-import React, { ChangeEventHandler, useRef } from 'react'
+import React, { ChangeEventHandler, useRef, useState } from 'react'
 
 import Loading from '../Loading'
 
@@ -14,7 +14,7 @@ interface InputProps {
   placeholder?: string
   onChange?: ChangeEventHandler
   errored?: boolean
-  type?: string
+  type: React.HTMLInputTypeAttribute
   label?: string
   width?: string
   loading?: boolean
@@ -34,42 +34,65 @@ const Input = ({
   icon: Icon,
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const [focused, setFocused] = useState(false)
+
+  const updateFocusState = () => {
+    if (inputRef.current && document.activeElement !== null) {
+      setFocused(document.activeElement === inputRef.current)
+    }
+  }
+
+  const captureFocus = () => inputRef.current && inputRef.current.focus()
 
   return (
     <div className={styles.base} style={{ width }}>
       {label && (
         <label
-          className={classNames(styles.label, className, {
+          className={classNames(styles.label, {
             [styles.labelDisabled]: disabled === true,
           })}
-          onClick={() => inputRef.current && inputRef.current.focus()}
+          onClick={captureFocus}
         >
           {label}
         </label>
       )}
-      {Icon && (
-        <div className={styles.iconContainer}>
-          <Icon size={18} />
-        </div>
-      )}
-      <input
-        className={classNames(styles.input, className, {
+      <div
+        className={classNames(styles.inputWrapper, className, {
+          [styles.focused]: focused,
           [styles.errored]: errored,
-          [styles.withIcon]: !!Icon,
-          [styles.withSpinner]: !!loading,
+          [styles.disabled]: disabled === true,
         })}
-        disabled={disabled === true}
-        onChange={onChange}
-        placeholder={placeholder}
-        ref={inputRef}
-        type={type}
-        value={value}
-      />
-      {loading && (
-        <div className={classNames(styles.loading)}>
-          <Loading size={20} tiny={true} type="spinner" />
+      >
+        {Icon && (
+          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+          <div className={styles.iconContainer} onClick={captureFocus}>
+            <Icon size={18} />
+          </div>
+        )}
+        <input
+          className={classNames(styles.input, {
+            [styles.withIcon]: !!Icon,
+            [styles.withSpinner]: !!loading,
+          })}
+          disabled={disabled === true}
+          onBlur={updateFocusState}
+          onChange={onChange}
+          onFocus={updateFocusState}
+          placeholder={placeholder}
+          ref={inputRef}
+          type={type}
+          value={value}
+        />
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+        <div
+          className={classNames(styles.loadingWrapper, {
+            [styles.loadingVisible]: loading,
+          })}
+          onClick={captureFocus}
+        >
+          <Loading size={15} tiny={true} type="spinner" />
         </div>
-      )}
+      </div>
     </div>
   )
 }

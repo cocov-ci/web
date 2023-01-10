@@ -7,6 +7,35 @@
   width: 100%;
 }
 
+.inputWrapper {
+  position: relative;
+  flex: 1;
+  border: 1px solid $colorInputBorder;
+  border-radius: 4px;
+  background: $colorInputBackground;
+  overflow: hidden;
+  display: inherit;
+  align-items: inherit;
+
+  &.disabled {
+    opacity: 0.7;
+  }
+
+  &.focused {
+    border: 1px solid $colorBlue;
+    background: $colorInputFocusBackground;
+    box-shadow: 0 0 5px 1px $colorInputFocusShadow;
+  }
+
+  &.errored {
+    border: 1px solid $colorInputErrorBorder;
+
+    &.focused {
+      box-shadow: 0 0 5px 1px $colorInputErrorFocusShadow;
+    }
+  }
+}
+
 .label {
   margin-right: 8px;
 
@@ -16,12 +45,10 @@
 }
 
 .input {
-  background: $colorInputBackground;
-  border: 1px solid $colorInputBorder;
-  border-radius: 4px;
+  background: transparent;
+  border: none;
   font-size: $fontInput;
   padding: 5px 10px 4px;
-  box-sizing: border-box;
   width: 100%;
 
   &::placeholder {
@@ -30,27 +57,16 @@
 
   &:focus {
     outline: 0;
-    border: 1px solid $colorBlue;
-    background: $colorInputFocusBackground;
-    box-shadow: 0 0 5px 1px $colorInputFocusShadow;
-  }
-
-  &.errored {
-    border: 1px solid $colorInputErrorBorder;
-
-    &:focus {
-      box-shadow: 0 0 5px 1px $colorInputErrorFocusShadow;
-    }
   }
 
   &.withIcon {
-    padding: 8px 0 8px 30px;
+    padding: 8px 8px 8px 30px;
     font-size: 17px;
     border-radius: 8px;
   }
 
   &.withSpinner {
-    padding-right: 30px;
+    padding-right: 26px;
   }
 }
 
@@ -62,9 +78,17 @@
   top: 1px;
 }
 
-.loading {
+.loadingWrapper {
   position: absolute;
+  justify-content: center;
   top: 50%;
   transform: translateY(-20px);
-  right: 8px;
+  right: -20px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, right 0.2s ease-in-out;
+
+  &.loadingVisible {
+    opacity: 1;
+    right: 5px;
+  }
 }
