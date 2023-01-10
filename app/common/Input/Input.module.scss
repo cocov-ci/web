@@ -1,0 +1,67 @@
+@import "styles/variables";
+
+.base {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.label {
+  margin-right: 8px;
+
+  &.labelDisabled {
+    opacity: 0.4;
+  }
+}
+
+.input {
+  background: $colorInputBackground;
+  border: 1px solid $colorInputBorder;
+  border-radius: 4px;
+  font-size: $fontInput;
+  padding: 5px 10px 4px;
+
+  &::placeholder {
+    color: $colorInputPlaceholder;
+  }
+
+  &:focus {
+    outline: 0;
+    border: 1px solid $colorBlue;
+    background: $colorInputFocusBackground;
+    box-shadow: 0 0 5px 1px $colorInputFocusShadow;
+  }
+
+  &.errored {
+    border: 1px solid $colorInputErrorBorder;
+
+    &:focus {
+      box-shadow: 0 0 5px 1px $colorInputErrorFocusShadow;
+    }
+  }
+
+  &.withIcon {
+    padding: 8px 0 8px 30px;
+    font-size: 17px;
+    border-radius: 8px;
+  }
+
+  &.withSpinner {
+    padding-right: 30px;
+  }
+}
+
+.iconContainer {
+  line-height: 15px;
+  position: relative;
+  margin-right: -18px;
+  left: 8px;
+  top: 1px;
+}
+
+.loading {
+  position: relative;
+  top: 2px;
+  left: -25px;
+}

@@ -11,13 +11,20 @@ $colorWhite: #fff;
 $colorBlack: #000;
 $colorRed: #b31714;
 $colorBlue: #1196ff;
-$colorInputFocusShadow: rgb(17 150 255 / 19%);
 
 // Why can't this be $colorGrayLighter? Great question! The Cie76 algorithm value for the
 // difference between $colorGrayLighter and $pillNavBackground is 2.6892, so the difference
 // is perceivable.
 $pillNavBackground: #e4e4e4;
+$colorInputBackground: #f8f8f8;
+$colorInputBorder: #c4c4c4;
+$colorInputFocusShadow: rgb(17 150 255 / 19%);
+$colorInputFocusBackground: #fcfcfc;
+$colorInputErrorBorder: #f11;
+$colorInputErrorFocusShadow: rgb(255 17 17 / 19%);
+$colorInputPlaceholder: #515151;
 
 // FONT-SIZES
 $fontTitle: 24px;
 $fontDescription: 15px;
+$fontInput: 15px;
