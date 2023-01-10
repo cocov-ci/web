@@ -14,7 +14,8 @@ type Story = StoryObj<typeof ListItem>
 
 export const Default: Story = {
   args: {
-    title: 'Title here...',
+    title:
+      'Titlefsdkjfjksdfljskdlkfjlsdjflksjdlfkjsldkfjlskdjflkjsdlkfjsldkfjlkdshere',
     description: 'Description here...',
     stats: {
       issues: {

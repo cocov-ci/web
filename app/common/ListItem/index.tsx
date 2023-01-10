@@ -18,7 +18,7 @@ const ListItem = ({ title, description, stats }: ListItemComponentProps) => {
         {title}
       </span>
       <div className={styles.info}>
-        <Text className={styles.title} variant="title">
+        <Text className={styles.title} title={title} variant="title">
           {title}
         </Text>
         <Text

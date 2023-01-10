@@ -6,11 +6,16 @@ import styles from './Text.module.scss'
 type TextProps = {
   children?: React.ReactNode
   className?: string
+  title?: string
   variant: 'title' | 'description'
 }
 
-const Text = ({ children, className, variant }: TextProps) => {
-  return <p className={classNames(styles[variant], className)}>{children}</p>
+const Text = ({ children, className, variant, title }: TextProps) => {
+  return (
+    <p className={classNames(styles[variant], className)} title={title}>
+      {children}
+    </p>
+  )
 }
 
 Text.defaultProps = {
