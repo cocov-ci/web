@@ -9,8 +9,8 @@ import styles from './Loading.module.scss'
 
 interface LoadingProps extends SpinnerProps, SkeletonProps {
   className?: string
-  alignment: 'center' | 'left' | 'right'
-  type: 'spinner' | 'skeleton'
+  alignment?: 'center' | 'left' | 'right'
+  type?: 'spinner' | 'skeleton'
   tiny?: boolean
 }
 
