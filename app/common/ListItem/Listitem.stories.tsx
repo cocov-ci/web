@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Repository from './index'
+import ListItem from './index'
 
-const meta: Meta<typeof Repository> = {
-  title: 'Repositories/Repository',
-  component: Repository,
+const meta: Meta<typeof ListItem> = {
+  title: 'Common/ListItem',
+  component: ListItem,
   tags: ['autodocs'],
 }
 
 export default meta
 
-type Story = StoryObj<typeof Repository>
+type Story = StoryObj<typeof ListItem>
 
 export const Default: Story = {
   args: {

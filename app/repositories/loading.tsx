@@ -1,14 +1,14 @@
+import LoadingListItem from 'app/common/ListItem/Loading'
 import LoadingToolbar from 'app/common/TopBar/Loading'
-import LoadingRepository from 'app/repositories/Repository/Loading'
 
 const LoadingPage = () => {
   return (
     <>
       <LoadingToolbar />
-      <LoadingRepository />
-      <LoadingRepository />
-      <LoadingRepository />
-      <LoadingRepository />
+      <LoadingListItem />
+      <LoadingListItem />
+      <LoadingListItem />
+      <LoadingListItem />
     </>
   )
 }

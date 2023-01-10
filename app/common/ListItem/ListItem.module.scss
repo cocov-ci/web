@@ -1,6 +1,6 @@
 @import "styles/variables";
 
-.repository {
+.listItem {
   margin-bottom: 32px;
   padding: 0 !important;
   position: relative;
@@ -35,11 +35,14 @@
   .skeleton {
     line-height: 0;
     border-radius: 0;
-    border-left: 1px solid $colorGray;
   }
 
   .stats {
     display: flex;
+
+    > div {
+      border-left: 1px solid $colorGray;
+    }
   }
 
   .backgroundText {

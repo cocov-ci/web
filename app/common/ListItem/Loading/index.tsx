@@ -1,16 +1,15 @@
 import classNames from 'classnames'
 
 import Box from 'app/common/Box'
+import styles from 'app/common/ListItem/ListItem.module.scss'
 import Loading from 'app/common/Loading'
-
-import styles from './Repository.module.scss'
 
 const randomBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1) + min)
 
-const LoadingRepository = () => {
+const LoadingListItem = () => {
   return (
-    <Box className={classNames(styles.repository, styles.loading)}>
+    <Box className={classNames(styles.listItem)}>
       <div className={styles.info}>
         <Loading
           alignment="left"
@@ -45,4 +44,4 @@ const LoadingRepository = () => {
   )
 }
 
-export default LoadingRepository
+export default LoadingListItem
