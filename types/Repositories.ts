@@ -1,5 +1,3 @@
-import { StatsProps } from './Stats'
-
 export interface RepositoriesResponseProps {
   repositories: string[]
   paging: [
@@ -8,10 +6,4 @@ export interface RepositoriesResponseProps {
       total_pages: number
     },
   ]
-}
-
-export interface RepositoriesProps {
-  title: string
-  description?: string
-  stats: StatsProps
 }

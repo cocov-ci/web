@@ -9,20 +9,20 @@ import styles from './Loading.module.scss'
 
 interface LoadingProps extends SpinnerProps, SkeletonProps {
   className?: string
-  alignment: 'center' | 'left' | 'right'
-  type: 'spinner' | 'skeleton'
+  alignment?: 'center' | 'left' | 'right'
+  type?: 'spinner' | 'skeleton'
   tiny?: boolean
 }
 
 interface SpinnerProps {
-  size: number
+  size?: number
   spinnerIcon?: LucideIcon
 }
 
 interface SkeletonProps {
-  count: number
-  width: string
-  height: string
+  count?: number
+  width?: string
+  height?: string
 }
 
 const SkeletonComponent = ({ count, height, width }: SkeletonProps) => {
@@ -40,12 +40,12 @@ const SpinnerComponent = ({ size, spinnerIcon = RefreshCw }: SpinnerProps) => {
 }
 
 const Loading = ({
-  width,
-  height,
-  count,
-  type,
-  alignment,
-  size,
+  width = '300px',
+  height = '15px',
+  count = 1,
+  type = 'spinner',
+  alignment = 'center',
+  size = 24,
   spinnerIcon,
   className,
   tiny,
@@ -64,15 +64,6 @@ const Loading = ({
       )}
     </div>
   )
-}
-
-Loading.defaultProps = {
-  width: '300px',
-  height: '15px',
-  count: 1,
-  type: 'spinner',
-  alignment: 'center',
-  size: 24,
 }
 
 export default Loading

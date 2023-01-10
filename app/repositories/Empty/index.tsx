@@ -15,7 +15,7 @@ const Empty = () => {
       />
 
       <Image
-        alt="arrow"
+        alt="An arrow pointing to the Add Repository button"
         className={styles.arrow}
         height="73"
         src="/icons/repositories/arrow.svg"

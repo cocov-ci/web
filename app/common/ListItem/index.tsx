@@ -3,13 +3,13 @@ import classNames from 'classnames'
 import Box from 'app/common/Box'
 import Stats from 'app/common/Stats'
 import Text from 'app/common/Text'
-import { RepositoriesProps } from 'types/Repositories'
+import { ListItemComponentProps } from 'types/ListItem'
 
-import styles from './Repository.module.scss'
+import styles from './ListItem.module.scss'
 
-const Repository = ({ title, description, stats }: RepositoriesProps) => {
+const ListItem = ({ title, description, stats }: ListItemComponentProps) => {
   return (
-    <Box className={styles.repository}>
+    <Box className={styles.listItem}>
       <span
         className={classNames(styles.backgroundText, {
           [styles.small]: title.length > 4,
@@ -38,4 +38,4 @@ const Repository = ({ title, description, stats }: RepositoriesProps) => {
   )
 }
 
-export default Repository
+export default ListItem

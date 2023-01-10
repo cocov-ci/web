@@ -1,6 +1,6 @@
 @import "styles/variables";
 
-.repository {
+.listItem {
   margin-bottom: 32px;
   padding: 0 !important;
   position: relative;
@@ -8,6 +8,7 @@
   min-height: 116px;
   flex-direction: row !important;
   justify-content: space-between;
+  cursor: pointer;
 
   .info {
     padding: 28px;
@@ -19,6 +20,7 @@
 
     .description {
       margin-bottom: 0;
+      font-variation-settings: "wght" 400;
 
       &.disabled {
         color: $colorGrayMedium;
@@ -26,8 +28,21 @@
     }
   }
 
+  &.loading {
+    cursor: wait;
+  }
+
+  .skeleton {
+    line-height: 0;
+    border-radius: 0;
+  }
+
   .stats {
     display: flex;
+
+    > div {
+      border-left: 1px solid $colorGray;
+    }
   }
 
   .backgroundText {
