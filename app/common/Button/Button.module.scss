@@ -45,7 +45,7 @@
   }
 
   &.danger {
-    @include button-style($colorRedMedium);
+    @include button-style($colorRed);
   }
 
   &.mini {
