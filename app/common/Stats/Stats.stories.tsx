@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Stats, { makeFakePoints } from './index'
+import { makeFakePoints } from './Utils'
+
+import Stats from './index'
 
 const meta: Meta<typeof Stats> = {
   title: 'Common/Stats',
