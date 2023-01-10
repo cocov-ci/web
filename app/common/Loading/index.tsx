@@ -3,9 +3,10 @@
 import classNames from 'classnames'
 import { LucideIcon, RefreshCw } from 'lucide-react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 
+import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './Loading.module.scss'
+import Spinner from './Spinner'
 
 interface LoadingProps extends SpinnerProps, SkeletonProps {
   className?: string
@@ -16,7 +17,7 @@ interface LoadingProps extends SpinnerProps, SkeletonProps {
 
 interface SpinnerProps {
   size?: number
-  spinnerIcon?: LucideIcon
+  spinnerIcon?: LucideIcon | typeof Spinner
 }
 
 interface SkeletonProps {
@@ -33,7 +34,7 @@ const SkeletonComponent = ({ count, height, width }: SkeletonProps) => {
   )
 }
 
-const SpinnerComponent = ({ size, spinnerIcon = RefreshCw }: SpinnerProps) => {
+const SpinnerComponent = ({ size, spinnerIcon = Spinner }: SpinnerProps) => {
   const Component = spinnerIcon
 
   return <Component className={styles.spinner} size={size} />

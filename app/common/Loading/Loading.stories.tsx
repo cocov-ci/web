@@ -22,7 +22,6 @@ export const Default: Story = {
     type: 'spinner',
     alignment: 'left',
     size: 18,
-    spinnerIcon: LucideLoader,
   },
 }
 
