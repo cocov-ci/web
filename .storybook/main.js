@@ -1,4 +1,3 @@
-const path = require('path')
 module.exports = {
   stories: [
     '../stories/**/*.mdx',
@@ -21,6 +20,10 @@ module.exports = {
     {
       from: '../public/',
       to: 'public/',
+    },
+    {
+      from: '../public/icons',
+      to: '/icons',
     },
   ],
 }
