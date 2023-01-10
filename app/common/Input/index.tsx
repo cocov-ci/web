@@ -16,6 +16,7 @@ interface InputProps {
   errored?: boolean
   type?: string
   label?: string
+  width?: string
   loading?: boolean
 }
 
@@ -29,12 +30,13 @@ const Input = ({
   type,
   label,
   loading,
+  width = '100%',
   icon: Icon,
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   return (
-    <div className={styles.base}>
+    <div className={styles.base} style={{ width }}>
       {label && (
         <label
           className={classNames(styles.label, className, {

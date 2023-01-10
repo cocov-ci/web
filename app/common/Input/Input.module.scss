@@ -1,10 +1,10 @@
 @import "styles/variables";
 
 .base {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
 }
 
 .label {
@@ -21,6 +21,8 @@
   border-radius: 4px;
   font-size: $fontInput;
   padding: 5px 10px 4px;
+  box-sizing: border-box;
+  width: 100%;
 
   &::placeholder {
     color: $colorInputPlaceholder;
@@ -61,7 +63,8 @@
 }
 
 .loading {
-  position: relative;
-  top: 2px;
-  left: -25px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-20px);
+  right: 8px;
 }

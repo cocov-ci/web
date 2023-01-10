@@ -7,6 +7,9 @@ const meta: Meta<typeof Input> = {
   title: 'Common/Input',
   component: Input,
   tags: ['autodocs'],
+  args: {
+    width: '200px',
+  },
 }
 
 export default meta
