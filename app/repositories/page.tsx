@@ -1,4 +1,5 @@
 import Pagination from 'app/common/Pagination'
+import { makeFakePoints } from 'app/common/Stats'
 import TopBar from 'app/common/TopBar'
 // import Empty from 'app/repositories/Empty'
 // import NoResults from 'app/repositories/NoResults'
@@ -13,11 +14,11 @@ const repositories = [
     description: 'Josie Platform Server',
     stats: {
       issues: {
-        data: [1, 100, 90, 110, 90],
+        data: makeFakePoints(),
         value: 5694,
       },
       coverage: {
-        data: [90, 100, 90, 80, 100],
+        data: makeFakePoints(),
         value: 100,
       },
     },
@@ -28,7 +29,7 @@ const repositories = [
     description: 'Josie CLI for Bootstrapping Microservices Projects',
     stats: {
       issues: {
-        data: [1, 100, 90, 110, 90],
+        data: makeFakePoints(),
         value: 5694,
       },
       coverage: undefined,
@@ -50,7 +51,7 @@ const repositories = [
     stats: {
       issues: undefined,
       coverage: {
-        data: [90, 100, 90, 80, 100],
+        data: makeFakePoints(),
         value: 100,
       },
     },

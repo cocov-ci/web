@@ -20,7 +20,7 @@ import { generateGradient, getBorderColor, options } from './Utils'
 
 ChartJS.register(CategoryScale, Filler, LinearScale, PointElement, LineElement)
 
-const labels = ['1', '2', '3', '4', '5']
+const labels = new Array(31).fill(0).map((_, i) => i + 1)
 
 const Stats = ({ data: dataChart, type }: StatsComponentProps) => {
   const { data, value } = dataChart || {}
@@ -59,7 +59,7 @@ const Stats = ({ data: dataChart, type }: StatsComponentProps) => {
         <div className={styles.chart}>
           <Line
             data={chartData}
-            height={coverage ? 60 : 80}
+            height={80}
             options={options}
             ref={chartRef}
             width={182}
@@ -76,5 +76,11 @@ const Stats = ({ data: dataChart, type }: StatsComponentProps) => {
     </div>
   )
 }
+
+export const makeFakePoints = () =>
+  new Array(31)
+    .fill(0)
+    .map(() => Math.random() * 100)
+    .map(Math.ceil)
 
 export default Stats
