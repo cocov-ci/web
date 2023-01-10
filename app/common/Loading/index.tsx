@@ -15,12 +15,12 @@ interface LoadingProps extends SpinnerProps, SkeletonProps {
 }
 
 interface SpinnerProps {
-  size: number
+  size?: number
   spinnerIcon?: LucideIcon
 }
 
 interface SkeletonProps {
-  count: number
+  count?: number
   width: string
   height: string
 }
@@ -40,12 +40,12 @@ const SpinnerComponent = ({ size, spinnerIcon = RefreshCw }: SpinnerProps) => {
 }
 
 const Loading = ({
-  width,
-  height,
-  count,
-  type,
-  alignment,
-  size,
+  width = '300px',
+  height = '15px',
+  count = 1,
+  type = 'spinner',
+  alignment = 'center',
+  size = 24,
   spinnerIcon,
   className,
   tiny,
@@ -64,15 +64,6 @@ const Loading = ({
       )}
     </div>
   )
-}
-
-Loading.defaultProps = {
-  width: '300px',
-  height: '15px',
-  count: 1,
-  type: 'spinner',
-  alignment: 'center',
-  size: 24,
 }
 
 export default Loading
