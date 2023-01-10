@@ -10,7 +10,7 @@ type BoxProps = {
 }
 
 const inconsolata = localFont({
-  src: '../public/fonts/Inconsolata.ttf',
+  src: '../../../public/fonts/Inconsolata.ttf',
   variable: '--inconsolata-font',
 })
 
