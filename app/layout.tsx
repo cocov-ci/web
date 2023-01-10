@@ -4,7 +4,7 @@ import React from 'react'
 import 'styles/globals.scss'
 
 import Header from 'app/common/Header'
-import AuthProvider from 'app/context/AuthContext'
+import AuthProvider from 'context/AuthContext'
 
 const satoshi = localFont({
   src: '../public/fonts/Satoshi.ttf',
