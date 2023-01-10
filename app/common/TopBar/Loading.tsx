@@ -8,7 +8,7 @@ const LoadingToolbar = () => {
       <Loading
         alignment="left"
         count={1}
-        height="50px"
+        height="65px"
         type="skeleton"
         width="300px"
       />

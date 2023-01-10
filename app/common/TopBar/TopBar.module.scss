@@ -8,14 +8,15 @@
 
   .title {
     font-size: 38px;
-    letter-spacing: 0.9;
+    letter-spacing: -0.9px;
     font-variation-settings: "wght" 700;
   }
 
   .description {
     font-size: $fontDescription;
-    letter-spacing: 0.9;
-    font-variation-settings: "wght" 700;
+    letter-spacing: 0;
+    font-variation-settings: "wght" 400;
+    padding-left: 8px;
   }
 
   .actions {
