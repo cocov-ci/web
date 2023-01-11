@@ -1,0 +1,23 @@
+@import "styles/variables";
+
+.base {
+  background: $colorGrayDark;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.round {
+  border: 1px solid $colorAccessoryButtonRoundBorder;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+
+.squared {
+  border-radius: 8px;
+  height: 33px;
+  width: 33px;
+  border: 0;
+}
