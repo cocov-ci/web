@@ -1,6 +1,7 @@
-import localFont from '@next/font/local'
 import classNames from 'classnames'
 import React from 'react'
+
+import { inconsolata } from 'utils/fonts'
 
 import styles from './Kbd.module.scss'
 
@@ -8,11 +9,6 @@ type BoxProps = {
   className?: string
   text: string
 }
-
-const inconsolata = localFont({
-  src: '../../../public/fonts/Inconsolata.ttf',
-  variable: '--inconsolata-font',
-})
 
 const Kbd = ({ className, text }: BoxProps) => {
   return (

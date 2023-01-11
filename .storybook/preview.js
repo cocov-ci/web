@@ -1,10 +1,5 @@
-import localFont from '@next/font/local'
+import { satoshi } from 'utils/fonts'
 import 'styles/globals.scss'
-
-const satoshi = localFont({
-  src: '../public/fonts/Satoshi.ttf',
-  variable: '--satoshi-font',
-})
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
