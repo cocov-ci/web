@@ -1,0 +1,25 @@
+@use "sass:color";
+@import "styles/variables";
+
+@mixin dot-color($name, $foreground, $shadow) {
+  &.#{$name} {
+    background: $foreground;
+    box-shadow: 0 0 4px 0 color.adjust($shadow, $alpha: -0.5);
+  }
+}
+
+.dot {
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  border-radius: 50%;
+
+  @include dot-color(green, #25AC4A, #60DD82);
+  @include dot-color(yellow, #F7C008, #FBE28D);
+  @include dot-color(grey, #727272, #999999);
+  @include dot-color(red, #DC2331, #E03D4A);
+
+  &.clickable {
+    cursor: pointer;
+  }
+}
