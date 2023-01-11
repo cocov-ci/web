@@ -79,7 +79,7 @@
       {
         "alphabetize": {
           "order": "asc",
-          "caseInsensitive": true,
+          "caseInsensitive": true
         },
         "newlines-between": "always",
         "groups": [

@@ -1,0 +1,41 @@
+@import "styles/variables";
+
+.base {
+  display: flex;
+  flex-direction: row;
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .avatarWrapper {
+    padding-right: 4px;
+  }
+
+  .infoWrapper {
+    display: flex;
+    flex-direction: column;
+
+    .commitMeta {
+      > * {
+        margin-right: 4px;
+      }
+
+      .username {
+        color: $colorBlack;
+        letter-spacing: 0;
+        font-variation-settings: "wght" 500;
+      }
+
+      .headLink {
+        letter-spacing: 0;
+      }
+    }
+
+    .commitTitle {
+      font-size: 17px;
+      letter-spacing: 0;
+      font-variation-settings: "wght" 600;
+    }
+  }
+}
