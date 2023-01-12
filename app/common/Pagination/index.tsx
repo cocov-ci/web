@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 
 import styles from './Pagination.module.scss'
 
-interface PaginationProps {
+export interface PaginationProps {
   total: number
   currentPage: number
 }
