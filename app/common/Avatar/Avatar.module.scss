@@ -2,7 +2,7 @@
 @import "styles/variables";
 
 .base {
-  background: $colorAvatarBackground;
+  background: $colorWhiteDark;
   box-shadow: 0 0 2px 0 color.adjust($colorBlack, $alpha: -0.5);
   border-radius: 50%;
 }
