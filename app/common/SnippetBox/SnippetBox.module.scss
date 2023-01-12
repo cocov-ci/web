@@ -1,0 +1,56 @@
+@use "sass:map";
+@import "styles/variables";
+
+.base {
+  display: flex;
+  position: relative;
+  background: map.get($colorSnippetBox, "background");
+  border: 1px solid map.get($colorSnippetBox, "border");
+  border-radius: 8px;
+  font-size: 17px;
+  color: $colorBlack;
+
+  .multilineInput {
+    resize: none;
+    min-height: 130px;
+  }
+
+  .multilineInput,
+  .singleLineInput {
+    margin: 0;
+    border: 0;
+    background: transparent;
+    display: block;
+    padding: 16px 50px 16px 15px;
+    flex: 1;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .copyButton {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    overflow: hidden;
+
+    .iconWrapper {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      transition: transform 0.1s ease-in;
+
+      &.check {
+        top: 100%;
+      }
+
+      &.moveUp {
+        transform: translateY(-100%);
+      }
+    }
+  }
+}
