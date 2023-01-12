@@ -10,6 +10,7 @@ export interface PaginationProps {
   total: number
   currentPage: number
   onPageClick: (page: number) => void
+  className?: string
 }
 
 interface ArrowProps {
@@ -31,12 +32,17 @@ const Arrow = ({ direction, disabled, onClick }: ArrowProps) => {
   )
 }
 
-const Pagination = ({ total, currentPage, onPageClick }: PaginationProps) => {
+const Pagination = ({
+  total,
+  currentPage,
+  onPageClick,
+  className,
+}: PaginationProps) => {
   const firstPage = currentPage === 1
   const lastPage = currentPage === total
 
   return (
-    <div className={styles.pagination}>
+    <div className={classNames(styles.pagination, className)}>
       <ul className={styles.pages}>
         <Arrow
           direction="previous"
