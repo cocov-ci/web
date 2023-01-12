@@ -1,0 +1,177 @@
+@use "sass:map";
+@import "styles/variables";
+
+$issuesWidth: 90px;
+
+.base {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    flex-shrink: 1;
+    border-bottom: 1px solid $colorGray;
+    font-size: 15px;
+    color: $colorBlack;
+    letter-spacing: 0;
+    font-variation-settings: "wgth" 500;
+
+    .commitColumn {
+      flex: 1;
+      border-right: 1px solid $colorGray;
+      padding: 9px 0 9px 32px;
+    }
+
+    .countersColumns {
+      display: flex;
+      width: 200px;
+      text-align: center;
+
+      > div {
+        padding: 9px;
+      }
+
+      .issuesColumn {
+        width: $issuesWidth;
+        border-right: 1px solid $colorGray;
+      }
+
+      .coverageColumn {
+        flex: 1;
+      }
+    }
+  }
+
+  .rows {
+    flex: 1;
+
+    .row {
+      position: relative;
+
+      .rowWrapper {
+        position: relative;
+        display: flex;
+        z-index: 1;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: background-color 0.1s ease-in-out, border 0.1s ease-in-out;
+
+        &:hover {
+          background-color: map.get($colorListItemActive, "background");
+          border: 1px solid map.get($colorListItemActive, "border");
+          border-radius: 4px;
+        }
+
+        .headerWrapper {
+          padding-left: 25px;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          flex: 1;
+        }
+
+        .counters {
+          display: flex;
+          width: 200px;
+          font-variation-settings: "wght" 600;
+
+          div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .issuesCounter {
+            width: $issuesWidth;
+          }
+
+          .coverageCounter {
+            flex: 1;
+          }
+        }
+      }
+
+      &.loading {
+        .rowWrapper {
+          cursor: default;
+
+          &:hover {
+            background-color: transparent;
+            border: 1px solid transparent;
+          }
+        }
+      }
+
+      &::after {
+        display: block;
+        content: " ";
+        width: 100%;
+        height: 1px;
+      }
+
+      &:first-of-type {
+        &::before {
+          display: block;
+          content: " ";
+          width: 100%;
+          height: 5px;
+        }
+      }
+
+      &:last-of-type {
+        &::after {
+          display: block;
+          content: " ";
+          width: 100%;
+          height: 5px;
+        }
+      }
+
+      .rail {
+        width: 4px;
+        height: 100%;
+        position: absolute;
+        background: #e4e4e4;
+        left: 36px;
+        top: 0;
+      }
+
+      .virtualSpacers {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        z-index: 0;
+        padding-left: 1px;
+        padding-right: 1px;
+        display: flex;
+
+        .commitSpacer {
+          flex: 1;
+        }
+
+        .countersSpacer {
+          display: flex;
+          width: 200px;
+
+          div {
+            border-left: 1px solid $colorGray;
+          }
+
+          .issuesSpacer { width: $issuesWidth; }
+          .coverageSpacer { flex: 1; }
+        }
+      }
+    }
+  }
+
+  .paging {
+    border-top: 1px solid $colorGray;
+
+    .paginationComponent {
+      padding: 10px 0;
+      margin: 0;
+    }
+  }
+}
