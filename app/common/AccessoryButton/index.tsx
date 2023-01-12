@@ -9,6 +9,7 @@ type AccessoryButtonProps = {
   className?: string
   kind: 'squared' | 'round'
   onClick?: (ev: React.MouseEvent) => void
+  title?: string
 }
 
 const AccessoryButton = ({
@@ -16,22 +17,28 @@ const AccessoryButton = ({
   className,
   kind,
   onClick,
+  title,
 }: AccessoryButtonProps) => {
   return (
     <button
       className={classNames(styles.base, className, styles[kind])}
       onClick={ev => onClick && onClick(ev)}
+      title={title}
     >
       {children}
     </button>
   )
 }
 
-export const CopyIcon = (
+export const CopyIcon = () => (
   <Image alt="" height={13} src="public/icons/copy.svg" width={13} />
 )
 
-export const HelpIcon = (
+export const CheckIcon = () => (
+  <Image alt="" height={11} src="public/icons/check.svg" width={16} />
+)
+
+export const HelpIcon = () => (
   <Image alt="" height={10.5} src="public/icons/help.svg" width={5.83} />
 )
 
