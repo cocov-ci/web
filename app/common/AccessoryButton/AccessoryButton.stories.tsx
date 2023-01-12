@@ -15,13 +15,13 @@ type Story = StoryObj<typeof AccessoryButton>
 export const CopyButton: Story = {
   args: {
     kind: 'squared',
-    children: CopyIcon,
+    children: <CopyIcon />,
   },
 }
 
 export const HelpButton: Story = {
   args: {
     kind: 'round',
-    children: HelpIcon,
+    children: <HelpIcon />,
   },
 }
