@@ -24,6 +24,7 @@ type CommitListProps = {
   paginationData?: {
     total: number
     currentPage: number
+    onPageClick: () => void
   }
   onChangePage?: (requestedPage: number) => void
   loading?: boolean
@@ -118,9 +119,9 @@ const CommitList = ({
       <div className={styles.paging}>
         {paginationData && (
           <Pagination
+            {...paginationData}
             className={styles.paginationComponent}
             onPageClick={p => onChangePage && onChangePage(p)}
-            {...paginationData}
           />
         )}
       </div>
