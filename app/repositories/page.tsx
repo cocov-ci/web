@@ -79,7 +79,7 @@ const Page = async () => {
         />
       ))}
 
-      <Pagination currentPage={1} total={5} />
+      <Pagination currentPage={1} onPageClick={() => null} total={5} />
     </div>
   )
 }
