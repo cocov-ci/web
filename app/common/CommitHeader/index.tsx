@@ -7,7 +7,7 @@ import { inconsolata } from 'utils/fonts'
 
 import styles from './CommitHeader.module.scss'
 
-type CommitHeaderProps = {
+export type CommitHeaderProps = {
   className?: string
   username: string
   avatarURL: string
@@ -15,6 +15,7 @@ type CommitHeaderProps = {
   headURL: string
   timestamp: Date
   commitMessage: string
+  readonly?: boolean
 }
 
 const CommitHeader = ({
@@ -25,6 +26,7 @@ const CommitHeader = ({
   headURL,
   timestamp,
   commitMessage,
+  readonly,
 }: CommitHeaderProps) => {
   return (
     <div className={classNames(styles.base, className)}>
@@ -33,29 +35,45 @@ const CommitHeader = ({
       </div>
       <div className={styles.infoWrapper}>
         <div className={styles.commitMeta}>
-          <a
-            className={styles.username}
-            href={`https://github.com/${username}`}
-            rel="noreferrer"
-            target="_blank"
-          >
-            {username}
-          </a>
+          {readonly ? (
+            <span className={styles.username}>{username}</span>
+          ) : (
+            <a
+              className={styles.username}
+              href={`https://github.com/${username}`}
+              rel="noreferrer"
+              target="_blank"
+            >
+              {username}
+            </a>
+          )}
           <span>committed</span>
-          <a
-            className={classNames(styles.headLink, inconsolata.className)}
-            href={headURL}
-            rel="noreferrer"
-            target="_blank"
-          >
-            {headSHA.substring(0, 6)}
-          </a>
+          {readonly ? (
+            <span
+              className={classNames(styles.headLink, inconsolata.className)}
+            >
+              {headSHA.substring(0, 6)}
+            </span>
+          ) : (
+            <a
+              className={classNames(styles.headLink, inconsolata.className)}
+              href={headURL}
+              rel="noreferrer"
+              target="_blank"
+            >
+              {headSHA.substring(0, 6)}
+            </a>
+          )}
           <RelativeTime timestamp={timestamp} />
         </div>
         <div className={styles.commitTitle}>
-          <a href={headURL} rel="noreferrer" target="_blank">
-            {commitMessage}
-          </a>
+          {readonly ? (
+            <span>{commitMessage}</span>
+          ) : (
+            <a href={headURL} rel="noreferrer" target="_blank">
+              {commitMessage}
+            </a>
+          )}
         </div>
       </div>
     </div>

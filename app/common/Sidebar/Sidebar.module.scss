@@ -28,18 +28,18 @@
 
   .counter {
     font-size: 12px;
-    color: #6d6d6d;
+    color: map.get($colorSidebar, "counter");
     letter-spacing: 0.96px;
     text-align: right;
   }
 
   &.selected {
-    background: map.get($colorSidebar, "selectedBackground");
-    border: 1px solid map.get($colorSidebar, "selectedBorder");
+    background: map.get($colorListItemActive, "background");
+    border: 1px solid map.get($colorListItemActive, "border");
   }
 
   &:not(.selected):hover {
-    background: color.adjust(map.get($colorSidebar, "selectedBackground"), $alpha: -0.5);
-    border: 1px solid color.adjust(map.get($colorSidebar, "selectedBorder"), $alpha: -0.5);
+    background: color.adjust(map.get($colorListItemActive, "background"), $alpha: -0.5);
+    border: 1px solid color.adjust(map.get($colorListItemActive, "border"), $alpha: -0.5);
   }
 }

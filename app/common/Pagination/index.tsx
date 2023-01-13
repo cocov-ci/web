@@ -2,13 +2,15 @@
 
 import classNames from 'classnames'
 import { ChevronFirst, ChevronLast } from 'lucide-react'
-import React, { useState } from 'react'
+import React from 'react'
 
 import styles from './Pagination.module.scss'
 
-interface PaginationProps {
+export interface PaginationProps {
   total: number
   currentPage: number
+  onPageClick: (page: number) => void
+  className?: string
 }
 
 interface ArrowProps {
@@ -30,18 +32,24 @@ const Arrow = ({ direction, disabled, onClick }: ArrowProps) => {
   )
 }
 
-const Pagination = ({ total, currentPage }: PaginationProps) => {
-  const [active, setActive] = useState<number>(currentPage)
-  const firstPage = active === 1
-  const lastPage = active === total
+const Pagination = ({
+  total,
+  currentPage,
+  onPageClick,
+  className,
+}: PaginationProps) => {
+  const firstPage = currentPage === 1
+  const lastPage = currentPage === total
 
   return (
-    <div className={styles.pagination}>
+    <div className={classNames(styles.pagination, className)}>
       <ul className={styles.pages}>
         <Arrow
           direction="previous"
           disabled={firstPage}
-          onClick={() => !firstPage && setActive(active - 1)}
+          onClick={() =>
+            !firstPage && onPageClick && onPageClick(currentPage - 1)
+          }
         />
 
         {[...Array(total)].map((item, index): React.ReactElement => {
@@ -50,10 +58,10 @@ const Pagination = ({ total, currentPage }: PaginationProps) => {
           return (
             <li
               className={classNames(styles.page, {
-                [styles.active]: pageNumber === active,
+                [styles.active]: pageNumber === currentPage,
               })}
               key={pageNumber}
-              onClick={() => setActive(pageNumber)}
+              onClick={() => onPageClick && onPageClick(pageNumber)}
             >
               {pageNumber}
             </li>
@@ -63,7 +71,9 @@ const Pagination = ({ total, currentPage }: PaginationProps) => {
         <Arrow
           direction="next"
           disabled={lastPage}
-          onClick={() => !lastPage && setActive(active + 1)}
+          onClick={() =>
+            !lastPage && onPageClick && onPageClick(currentPage + 1)
+          }
         />
       </ul>
     </div>

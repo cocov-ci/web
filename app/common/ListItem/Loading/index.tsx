@@ -3,9 +3,7 @@ import classNames from 'classnames'
 import Box from 'app/common/Box'
 import styles from 'app/common/ListItem/ListItem.module.scss'
 import Loading from 'app/common/Loading'
-
-const randomBetween = (min: number, max: number) =>
-  Math.floor(Math.random() * (max - min + 1) + min)
+import randomBetween from 'utils/randomBetween'
 
 const LoadingListItem = () => {
   return (
