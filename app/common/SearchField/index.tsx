@@ -13,7 +13,7 @@ interface SearchFieldProps {
   loading: boolean
 }
 
-const SearchField = ({ className, loading }: SearchFieldProps) => {
+const SearchField = ({ className, loading = false }: SearchFieldProps) => {
   return (
     <label className={classNames(styles.searchField, className)}>
       {loading ? (
@@ -29,10 +29,6 @@ const SearchField = ({ className, loading }: SearchFieldProps) => {
       <input onChange={e => null} placeholder="Type to Search" type="text" />
     </label>
   )
-}
-
-SearchField.defaultProps = {
-  loading: false,
 }
 
 export default SearchField

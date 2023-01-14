@@ -1,12 +1,25 @@
-import { redirect } from 'next/navigation'
+import axios from 'axios'
+import { NextApiResponse } from 'next'
 
-const errorHandler = (code: string) => {
-  switch (code) {
-    case 'auth.invalid_token':
-      redirect('/auth/signin?invalid_token=true')
-      break
-    default:
+export const ApiErrorHandler = ({
+  err,
+  res,
+}: {
+  err: Error
+  res: NextApiResponse
+}) => {
+  if (axios.isAxiosError(err) && err.response) {
+    return res.status(err.response.status).json(err.response.data)
+  } else {
+    return res.status(400).json(err)
   }
 }
 
-export default errorHandler
+export const ErrorHandler = (code: string): string | null => {
+  switch (code) {
+    case 'auth.invalid_token':
+      return '/auth/signin?invalid_token=true'
+    default:
+      return null
+  }
+}

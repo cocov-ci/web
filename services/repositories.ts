@@ -1,9 +1,9 @@
 import { RepositoriesResponseProps } from 'types/Repositories'
-import Fetcher from 'utils/fetchServer'
+import fetcher from 'utils/fetchClient'
 
 const Repositories = {
-  get: (): Promise<RepositoriesResponseProps> => {
-    return Fetcher('/v1/repositories')
+  get: async (): Promise<RepositoriesResponseProps> => {
+    return await fetcher('/api/repositories')
   },
 }
 

@@ -1,9 +1,11 @@
 export interface RepositoriesResponseProps {
-  repositories: string[]
-  paging: [
-    {
-      page: number
-      total_pages: number
-    },
-  ]
+  data: {
+    repositories: string[]
+    paging: [
+      {
+        page: number
+        total_pages: number
+      },
+    ]
+  }
 }

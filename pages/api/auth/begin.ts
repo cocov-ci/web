@@ -1,7 +1,7 @@
-import axios from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import Fetcher from 'utils/fetchClient'
+import { ApiErrorHandler } from 'utils/errorHandler'
+import Fetcher from 'utils/fetchAPI'
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,10 +17,8 @@ export default async function handler(
 
     res.status(200).json(data)
   } catch (err) {
-    if (axios.isAxiosError(err) && err.response) {
-      res.status(err.response.status).json(err.response.data)
-    } else {
-      res.status(400).json(err)
+    if (err instanceof Error) {
+      ApiErrorHandler({ res, err })
     }
   }
 }

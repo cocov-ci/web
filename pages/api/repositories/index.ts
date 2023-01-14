@@ -9,14 +9,8 @@ export default async function handler(
 ) {
   try {
     const { data } = await Fetcher(
-      `${process.env.COCOV_API_URL}/auth/exchange`,
-      {
-        method: 'POST',
-        data: {
-          ...req.body,
-          redirect: `${process.env.COCOV_UI_URL}/auth/signin`,
-        },
-      },
+      `${process.env.COCOV_API_URL}/v1/repositories`,
+      { headers: req.headers },
     )
 
     res.status(200).json(data)

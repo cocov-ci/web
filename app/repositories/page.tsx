@@ -1,3 +1,5 @@
+'use client'
+
 import ListItem from 'app/common/ListItem'
 import Pagination from 'app/common/Pagination'
 import { makeFakePoints } from 'app/common/Stats/Utils'
@@ -5,7 +7,7 @@ import TopBar from 'app/common/TopBar'
 // import Empty from 'app/repositories/Empty'
 // import NoResults from 'app/repositories/NoResults'
 import TopBarActions from 'app/repositories/TopBarActions'
-import Repositories from 'services/repositories'
+// import Repositories from 'services/repositories'
 
 const repositories = [
   {
@@ -58,10 +60,7 @@ const repositories = [
   },
 ]
 
-const Page = async () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const data = await Repositories.get()
-
+const Page = () => {
   return (
     <div>
       <TopBar title="Repositories">

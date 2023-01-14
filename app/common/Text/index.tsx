@@ -10,16 +10,12 @@ type TextProps = {
   variant: 'title' | 'description'
 }
 
-const Text = ({ children, className, variant, title }: TextProps) => {
+const Text = ({ children, className, variant = 'title', title }: TextProps) => {
   return (
     <p className={classNames(styles[variant], className)} title={title}>
       {children}
     </p>
   )
-}
-
-Text.defaultProps = {
-  variant: 'title',
 }
 
 export default Text

@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-import ErrorHandler from './errorHandler'
+import { ErrorHandler } from './errorHandler'
 
 const fetcher = async (url: string, args?: RequestInit) => {
   const nextCookies = cookies()
@@ -15,7 +16,7 @@ const fetcher = async (url: string, args?: RequestInit) => {
     .then(resp => resp.json())
     .then(resp => {
       if (resp.code) {
-        ErrorHandler(resp.code)
+        redirect(ErrorHandler(resp.code) as string)
       }
 
       return resp

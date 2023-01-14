@@ -1,19 +1,29 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import { getCookie } from 'cookies-next'
 
 import wrapPromise from '../pages/api/wrapPromise'
 
-import ErrorHandler from './errorHandler'
+import { ErrorHandler } from './errorHandler'
 
 const fetcher = async (url: string, args?: AxiosRequestConfig) => {
-  const response = await axios(url, args)
+  const response = await axios(url, {
+    headers: {
+      ...args?.headers,
+      Accept: 'application/json',
+      ...(getCookie('cocov_auth_token') && {
+        Authorization: `bearer ${getCookie('cocov_auth_token')}`,
+      }),
+    },
+    ...args,
+  })
     .then(resp => {
-      if (resp.data?.code) {
-        ErrorHandler(resp.data.code)
-      }
-
       return resp
     })
     .catch(err => {
+      if (ErrorHandler(err.response?.data?.code)) {
+        window.location.href = ErrorHandler(err.response.data.code) as string
+      }
+
       throw err
     })
 
