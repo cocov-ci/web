@@ -38,7 +38,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     router.push(SigninPage)
   }
 
-  const memoedValue = useMemo(
+  const memoizedValue = useMemo(
     () => ({
       loading,
       login,
@@ -49,7 +49,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   )
 
   return (
-    <StateContext.Provider value={memoedValue}>
+    <StateContext.Provider value={memoizedValue}>
       {children}
     </StateContext.Provider>
   )
