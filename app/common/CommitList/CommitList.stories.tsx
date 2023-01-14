@@ -17,7 +17,6 @@ export const Default: Story = {
     paginationData: {
       total: 10,
       currentPage: 2,
-      onPageClick: () => void 0,
     },
     commits: [
       {
