@@ -9,21 +9,12 @@ import { ListItemComponentProps } from 'types/ListItem'
 
 import styles from './ListItem.module.scss'
 
-const ListItem = ({
+const ListBox = ({
   title,
   description,
   stats,
-  href,
-}: ListItemComponentProps) => {
-  const wrapLink = (children: React.ReactNode) => {
-    if (href) {
-      return <Link href={href}>{children}</Link>
-    }
-
-    return children
-  }
-
-  return wrapLink(
+}: Omit<ListItemComponentProps, 'href'>): JSX.Element => {
+  return (
     <Box className={styles.listItem}>
       <span
         className={classNames(styles.backgroundText, {
@@ -49,8 +40,22 @@ const ListItem = ({
         <Stats data={stats?.issues} type="issues" />
         <Stats data={stats?.coverage} type="coverage" />
       </div>
-    </Box>,
+    </Box>
   )
+}
+
+const ListItem = (props: ListItemComponentProps) => {
+  const { href } = props
+
+  if (href) {
+    return (
+      <Link href={href}>
+        <ListBox {...props} />
+      </Link>
+    )
+  }
+
+  return <ListBox {...props} />
 }
 
 export default ListItem

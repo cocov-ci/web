@@ -1,7 +1,5 @@
-'use client'
-
 import classNames from 'classnames'
-import { LucideSearch } from 'lucide-react'
+import { Search } from 'lucide-react'
 import React from 'react'
 
 import Input from 'app/common/Input'
@@ -37,7 +35,7 @@ const SearchField = ({
     <div className={classNames(styles.searchField, className)}>
       <Input
         className={styles.input}
-        icon={LucideSearch}
+        icon={Search}
         loading={loading}
         onChange={e => SearchDebounce(e)}
         placeholder="Type to Search"

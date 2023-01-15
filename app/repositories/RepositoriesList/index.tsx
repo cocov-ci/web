@@ -5,9 +5,9 @@ interface ListProps {
   repositories: RepositoryResponseProps[]
 }
 
-const List = ({ repositories }: ListProps): JSX.Element => {
+const RepositoriesList = ({ repositories }: ListProps) => {
   return (
-    <>
+    <div>
       {repositories.map(item => (
         <ListItem
           description={item.description}
@@ -15,8 +15,8 @@ const List = ({ repositories }: ListProps): JSX.Element => {
           title={item.name}
         />
       ))}
-    </>
+    </div>
   )
 }
 
-export default List
+export default RepositoriesList

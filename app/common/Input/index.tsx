@@ -65,11 +65,11 @@ const Input = ({
           [styles.disabled]: disabled === true,
         })}
       >
-        {/* {Icon && (
+        {Icon && (
           <div className={styles.iconContainer}>
             <Icon onClick={captureFocus} size={18} />
           </div>
-        )} */}
+        )}
         <input
           className={classNames(styles.input, {
             [styles.withIcon]: !!Icon,

@@ -4,6 +4,6 @@ import Url from './Url'
 export interface ListItemComponentProps {
   title: string
   description?: string
-  stats: StatsProps
+  stats?: StatsProps
   href?: Url
 }
