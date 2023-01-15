@@ -1,9 +1,14 @@
+'use client'
+
 import classNames from 'classnames'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
-import CommitHeader, { CommitHeaderProps } from '../CommitHeader'
-import Loading from '../CommitHeader/Loading'
-import Pagination, { PaginationProps } from '../Pagination'
+import CommitHeader, { CommitHeaderProps } from 'app/common/CommitHeader'
+import Loading from 'app/common/CommitHeader/Loading'
+import Pagination from 'app/common/Pagination'
+import Url from 'types/Url'
 
 import styles from './CommitList.module.scss'
 
@@ -20,7 +25,6 @@ type CommitListProps = {
     total: number
     currentPage: number
   }
-  onClickItem?: (item: CommitListItem) => void
   onChangePage?: (requestedPage: number) => void
   loading?: boolean
 }
@@ -28,12 +32,16 @@ type CommitListProps = {
 type RowProps = {
   children?: React.ReactNode
   className?: string
-  onClick?: () => void
+  href: Url
 }
 
-const Row = ({ children, className, onClick }: RowProps) => (
-  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-  <div className={classNames(styles.row, className)} onClick={onClick}>
+type BaseRowProps = {
+  children?: React.ReactNode
+  className?: string
+}
+
+const BaseRow = ({ children, className }: BaseRowProps) => (
+  <div className={classNames(styles.row, className)}>
     <div className={styles.rail} />
     <div className={styles.virtualSpacers}>
       <div className={styles.commitSpacer} />
@@ -46,19 +54,28 @@ const Row = ({ children, className, onClick }: RowProps) => (
   </div>
 )
 
+const Row = ({ children, className, href }: RowProps) => (
+  <Link href={href}>
+    <BaseRow className={className}>{children}</BaseRow>
+  </Link>
+)
+
 const CommitList = ({
   className,
   commits,
   paginationData,
   loading,
   onChangePage,
-  onClickItem,
 }: CommitListProps) => {
+  const searchParams = useSearchParams()
+  const repositoryName = searchParams.get('repositoryName')
+  const branchName = searchParams.get('branchName')
+
   const commitList = () =>
     commits.map(c => (
       <Row
+        href={`/repos/${repositoryName}/branches/${branchName}/commits/${c.commitInfo.headSHA}`}
         key={c.commitInfo.headSHA}
-        onClick={() => onClickItem && onClickItem(c)}
       >
         <div className={styles.headerWrapper}>
           <CommitHeader {...c.commitInfo} readonly={true} />
@@ -73,7 +90,7 @@ const CommitList = ({
   const loadingList = () =>
     new Array(5).fill(0).map((e, idx) => (
       // eslint-disable-next-line react/no-array-index-key
-      <Row className={styles.loading} key={`loading_${idx}`}>
+      <BaseRow className={styles.loading} key={`loading_${idx}`}>
         <div className={styles.headerWrapper}>
           <Loading />
         </div>
@@ -81,7 +98,7 @@ const CommitList = ({
           <div className={styles.issuesCounter} />
           <div className={styles.coverageCounter} />
         </div>
-      </Row>
+      </BaseRow>
     ))
 
   return (

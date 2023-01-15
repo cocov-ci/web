@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import navigationProps from 'utils/navigationProps'
+
 import CommitList from './index'
 
 const meta: Meta<typeof CommitList> = {
@@ -13,6 +15,12 @@ export default meta
 type Story = StoryObj<typeof CommitList>
 
 export const Default: Story = {
+  ...navigationProps({
+    query: {
+      repositoryName: 'web',
+      branchName: 'main',
+    },
+  }),
   args: {
     paginationData: {
       total: 10,
