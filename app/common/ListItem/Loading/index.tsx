@@ -7,7 +7,7 @@ import randomBetween from 'utils/randomBetween'
 
 const LoadingListItem = () => {
   return (
-    <Box className={classNames(styles.listItem)}>
+    <Box className={classNames(styles.listItem, styles.loading)}>
       <div className={styles.info}>
         <Loading
           alignment="left"
