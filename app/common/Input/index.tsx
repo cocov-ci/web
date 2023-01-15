@@ -1,3 +1,5 @@
+'use client'
+
 import classNames from 'classnames'
 import { LucideIcon } from 'lucide-react'
 import React, { ChangeEventHandler, useRef, useState } from 'react'
@@ -12,7 +14,7 @@ interface InputProps {
   value?: string
   disabled?: boolean
   placeholder?: string
-  onChange?: ChangeEventHandler
+  onChange?: ChangeEventHandler<HTMLInputElement>
   errored?: boolean
   type: React.HTMLInputTypeAttribute
   label?: string
@@ -63,12 +65,11 @@ const Input = ({
           [styles.disabled]: disabled === true,
         })}
       >
-        {Icon && (
-          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-          <div className={styles.iconContainer} onClick={captureFocus}>
-            <Icon size={18} />
+        {/* {Icon && (
+          <div className={styles.iconContainer}>
+            <Icon onClick={captureFocus} size={18} />
           </div>
-        )}
+        )} */}
         <input
           className={classNames(styles.input, {
             [styles.withIcon]: !!Icon,

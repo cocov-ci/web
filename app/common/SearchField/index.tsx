@@ -39,7 +39,7 @@ const SearchField = ({
         className={styles.input}
         icon={LucideSearch}
         loading={loading}
-        onChange={SearchDebounce}
+        onChange={e => SearchDebounce(e)}
         placeholder="Type to Search"
         type="text"
         width="208px"

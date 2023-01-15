@@ -1,5 +1,3 @@
-'use client'
-
 import Button from 'app/common/Button'
 import SearchField from 'app/common/SearchField'
 
