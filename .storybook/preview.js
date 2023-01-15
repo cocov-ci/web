@@ -12,6 +12,9 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  nextjs: {
+    appDirectory: true,
+  },
 }
 
 export const decorators = [
