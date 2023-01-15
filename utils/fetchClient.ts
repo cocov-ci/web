@@ -17,7 +17,7 @@ const fetcher = async (url: string, args?: AxiosRequestConfig) => {
     ...args,
   })
     .then(resp => {
-      return resp
+      return resp.data
     })
     .catch(err => {
       if (ErrorHandler(err.response?.data?.code)) {

@@ -6,17 +6,13 @@ export interface AuthExchangeRequestProps {
 }
 
 export interface AuthExchangeResponseProps {
-  data: {
-    token: string
-    redirect: string
-    code: string
-  }
+  token: string
+  redirect: string
+  code: string
 }
 
 export interface AuthBeginReponseProps {
-  data: {
-    redirect_to: string
-  }
+  redirect_to: string
 }
 
 export interface AuthPropsContext {

@@ -46,8 +46,8 @@ const ListItem = ({
         </Text>
       </div>
       <div className={styles.stats}>
-        <Stats data={stats.issues} type="issues" />
-        <Stats data={stats.coverage} type="coverage" />
+        <Stats data={stats?.issues} type="issues" />
+        <Stats data={stats?.coverage} type="coverage" />
       </div>
     </Box>,
   )

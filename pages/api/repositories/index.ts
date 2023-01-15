@@ -10,7 +10,7 @@ export default async function handler(
   try {
     const { data } = await Fetcher(
       `${process.env.COCOV_API_URL}/v1/repositories`,
-      { headers: req.headers },
+      { headers: req.headers, params: { search_term: req.query.search_term } },
     )
 
     res.status(200).json(data)

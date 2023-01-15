@@ -1,10 +1,15 @@
-import { RepositoriesResponseProps } from 'types/Repositories'
-import fetcher from 'utils/fetchClient'
+// import { RepositoriesResponseProps } from 'types/Repositories'
+// import fetcher from 'utils/fetchClient'
 
 const Repositories = {
-  get: async (): Promise<RepositoriesResponseProps> => {
-    return await fetcher('/api/repositories')
-  },
+  // add: async (
+  //   data: RepositoriesRequestProps,
+  // ): Promise<RepositoriesResponseProps> => {
+  //   return await fetcher('/api/repositories', {
+  //     method: 'POST',
+  //     data: data,
+  //   })
+  // },
 }
 
 export default Repositories

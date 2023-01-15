@@ -3,15 +3,9 @@
 .searchField {
   position: relative;
 
-  input {
-    border-radius: 8px;
-    width: 208px;
+  .input {
     border: 1px solid $colorGray;
     background-color: $colorGrayLight;
-    font-family: var(--satoshi-font);
-    font-size: 17px;
-    padding: 7px 10px 7px 33px;
-    transition: border 0.1s ease-out;
 
     &:focus {
       outline: none;
@@ -19,14 +13,5 @@
       border-color: $colorBlue;
       box-shadow: 0 0 5px 1px $colorInputFocusShadow;
     }
-  }
-
-  .icon {
-    position: absolute;
-    text-align: left;
-    top: 50%;
-    left: 8px;
-    display: inline-flex;
-    transform: translateY(-50%);
   }
 }

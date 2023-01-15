@@ -1,33 +1,50 @@
 'use client'
 
 import classNames from 'classnames'
-import { Loader, Search } from 'lucide-react'
+import { LucideSearch } from 'lucide-react'
 import React from 'react'
 
-import Loading from 'app/common/Loading'
+import Input from 'app/common/Input'
 
 import styles from './SearchField.module.scss'
 
 interface SearchFieldProps {
   className?: string
-  loading: boolean
+  loading?: boolean
+  onSearch: (args: string) => void
 }
 
-const SearchField = ({ className, loading = false }: SearchFieldProps) => {
+const SearchField = ({
+  className,
+  loading = false,
+  onSearch,
+}: SearchFieldProps) => {
+  let timer: ReturnType<typeof setTimeout>
+
+  const SearchDebounce = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+
+    if (timer) {
+      clearTimeout(timer)
+    }
+
+    timer = setTimeout(() => {
+      onSearch(value)
+    }, 500)
+  }
+
   return (
-    <label className={classNames(styles.searchField, className)}>
-      {loading ? (
-        <Loading
-          className={styles.icon}
-          size={18}
-          spinnerIcon={Loader}
-          tiny={true}
-        />
-      ) : (
-        <Search className={styles.icon} size={18} />
-      )}
-      <input onChange={e => null} placeholder="Type to Search" type="text" />
-    </label>
+    <div className={classNames(styles.searchField, className)}>
+      <Input
+        className={styles.input}
+        icon={LucideSearch}
+        loading={loading}
+        onChange={SearchDebounce}
+        placeholder="Type to Search"
+        type="text"
+        width="208px"
+      />
+    </div>
   )
 }
 

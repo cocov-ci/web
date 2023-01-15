@@ -24,7 +24,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(true)
 
     try {
-      const { data }: AuthBeginReponseProps = await Auth.begin()
+      const data: AuthBeginReponseProps = await Auth.begin()
 
       window.location.href = data.redirect_to
     } catch {
