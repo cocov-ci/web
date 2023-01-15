@@ -11,13 +11,13 @@ type StatusDotProps = {
 
 const StatusDot = ({ className, onClick, color }: StatusDotProps) => {
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
-      className={classNames(styles.dot, styles[color], className, {
-        [styles.clickable]: onClick,
-      })}
-      onClick={e => onClick && onClick(e)}
-    />
+    <a href="javascript:void(0)" onClick={e => onClick && onClick(e)}>
+      <div
+        className={classNames(styles.dot, styles[color], className, {
+          [styles.clickable]: onClick,
+        })}
+      />
+    </a>
   )
 }
 
