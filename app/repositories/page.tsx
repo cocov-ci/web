@@ -90,7 +90,8 @@ const Page = () => {
       <TopBar title="Repositories">
         <TopBarActions
           onSearchChange={term => setSearch(term)}
-          searchBarLoading={isLoading && isSearching}
+          searchFieldDisabled={isLoading && !isSearching}
+          searchFieldLoading={isLoading && isSearching}
         />
       </TopBar>
 

@@ -4,20 +4,22 @@ import SearchField from 'app/common/SearchField'
 import styles from './TopBarActions.module.scss'
 
 interface TopBarActionsProps {
-  searchBarDisabled?: boolean
-  searchBarLoading?: boolean
+  searchFieldDisabled?: boolean
+  searchFieldLoading?: boolean
   onSearchChange: (arg: string) => void
 }
 
 const TopBarActions = ({
-  searchBarLoading = false,
+  searchFieldLoading = false,
+  searchFieldDisabled = false,
   onSearchChange,
 }: TopBarActionsProps) => {
   return (
     <div className={styles.topBarActions}>
       <SearchField
         className={styles.searchField}
-        loading={searchBarLoading}
+        disabled={searchFieldDisabled}
+        loading={searchFieldLoading}
         onSearch={onSearchChange}
       />
       <Button>Add Repository</Button>

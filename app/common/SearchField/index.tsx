@@ -9,6 +9,7 @@ import styles from './SearchField.module.scss'
 interface SearchFieldProps {
   className?: string
   loading?: boolean
+  disabled?: boolean
   onSearch: (args: string) => void
 }
 
@@ -16,6 +17,7 @@ const SearchField = ({
   className,
   loading = false,
   onSearch,
+  disabled = false,
 }: SearchFieldProps) => {
   let timer: ReturnType<typeof setTimeout>
 
@@ -35,6 +37,7 @@ const SearchField = ({
     <div className={classNames(styles.searchField, className)}>
       <Input
         className={styles.input}
+        disabled={disabled}
         icon={Search}
         loading={loading}
         onChange={e => SearchDebounce(e)}
