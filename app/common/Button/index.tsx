@@ -1,5 +1,8 @@
 import classNames from 'classnames'
+import Link from 'next/link'
 import React from 'react'
+
+import Url from 'types/Url'
 
 import styles from './Button.module.scss'
 
@@ -8,6 +11,7 @@ interface ButtonProps {
   className?: string
   uppercase?: boolean
   onClick?: () => void
+  href?: Url
   style?: 'primary' | 'secondary' | 'inactive' | 'danger' | 'mini'
   disabled?: boolean
 }
@@ -17,14 +21,27 @@ const Button = ({
   uppercase,
   className,
   onClick,
+  href,
   disabled,
   style = 'primary',
 }: ButtonProps) => {
+  const baseProps = {
+    className: classNames(styles.button, className, styles[style], {
+      [styles.uppercase]: uppercase,
+    }),
+  }
+
+  if (href && !disabled) {
+    return (
+      <Link href={href}>
+        <div {...baseProps}>{children}</div>
+      </Link>
+    )
+  }
+
   return (
     <button
-      className={classNames(styles.button, className, styles[style], {
-        [styles.uppercase]: uppercase,
-      })}
+      {...baseProps}
       disabled={disabled === true}
       onClick={() => onClick && !disabled && onClick()}
     >
