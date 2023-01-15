@@ -88,6 +88,7 @@ const BranchSwitcher = ({
         </div>
         <div className={styles.searchContainer}>
           <Input
+            autoFocus={true}
             className={styles.searchInput}
             icon={LucideSearch}
             loading={searchLoading}

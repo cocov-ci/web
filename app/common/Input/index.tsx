@@ -21,6 +21,7 @@ interface InputProps {
   variation?: 'light' | 'dark'
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void
+  autoFocus?: boolean
 }
 
 const Input = ({
@@ -37,6 +38,7 @@ const Input = ({
   variation = 'light',
   onKeyUp,
   onKeyDown,
+  autoFocus,
   icon: Icon,
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -82,6 +84,7 @@ const Input = ({
           </div>
         )}
         <input
+          autoFocus={autoFocus}
           className={classNames(styles.input, {
             [styles.withIcon]: !!Icon,
             [styles.withSpinner]: !!loading,
