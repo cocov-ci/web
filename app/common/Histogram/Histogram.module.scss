@@ -1,0 +1,48 @@
+@use "sass:map";
+@import "styles/variables";
+
+.base {
+  display: flex;
+
+  .labels {
+    text-align: right;
+
+    .label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 32px;
+      margin-bottom: 12px;
+
+      .labelWrapper {
+        padding: 8px 12px;
+      }
+    }
+  }
+
+  .values {
+    flex: 1;
+
+    .value {
+      height: 32px;
+      margin-bottom: 12px;
+      margin-left: 20px;
+
+      .valueWrapper {
+        padding: 8px 12px;
+        font-variation-settings: "wght" 500;
+        font-size: 12px;
+        color: map.get($colorHistogram, "value-color");
+        letter-spacing: 0.96px;
+        background-image:
+          linear-gradient(
+            180deg,
+            map.get($colorHistogram, "value-background-1") 0%,
+            map.get($colorHistogram, "value-background-2") 100%
+          );
+        border: 1px solid #a5d1f4;
+        border-radius: 8px;
+      }
+    }
+  }
+}
