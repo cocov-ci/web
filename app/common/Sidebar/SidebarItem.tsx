@@ -13,17 +13,17 @@ interface SidebarItemProps {
 
 export const SidebarItem = ({ item, selected, onClick }: SidebarItemProps) => {
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
+    <a
       className={classNames(styles.item, {
         [styles.selected]: selected,
       })}
+      href="javascript:void(0)"
       onClick={() => onClick && onClick(item)}
     >
       <span className={styles.label}>{item.name}</span>
       {item.counter !== undefined && (
         <span className={styles.counter}>{item.counter}</span>
       )}
-    </div>
+    </a>
   )
 }
