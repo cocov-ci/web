@@ -1,18 +1,11 @@
 @import "styles/variables";
 
-.base {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  width: 100%;
-}
-
 .inputWrapper {
   position: relative;
   flex: 1;
-  border: 1px solid $colorInputBorder;
+  border: 1px solid transparent;
   border-radius: 4px;
-  background: $colorInputBackground;
+  background: transparent;
   overflow: hidden;
   display: inherit;
   align-items: inherit;
@@ -22,17 +15,8 @@
   }
 
   &.focused {
-    border: 1px solid $colorBlue;
-    background: $colorInputFocusBackground;
-    box-shadow: 0 0 5px 1px $colorInputFocusShadow;
-  }
-
-  &.errored {
-    border: 1px solid $colorInputErrorBorder;
-
-    &.focused {
-      box-shadow: 0 0 5px 1px $colorInputErrorFocusShadow;
-    }
+    border: 1px solid transparent;
+    background: transparent;
   }
 }
 
@@ -50,10 +34,6 @@
   font-size: $fontInput;
   padding: 5px 10px 4px;
   width: 100%;
-
-  &::placeholder {
-    color: $colorInputPlaceholder;
-  }
 
   &:focus {
     outline: 0;
@@ -90,5 +70,74 @@
   &.loadingVisible {
     opacity: 1;
     right: 5px;
+  }
+}
+
+.base {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+
+  &.light {
+    .inputWrapper {
+      border-color: $colorInputLightBorder;
+      background: $colorInputLightBackground;
+
+      &.focused {
+        border-color: $colorBlue;
+        background: $colorInputLightFocusBackground;
+        box-shadow: 0 0 5px 1px $colorInputLightFocusShadow;
+      }
+
+      &.errored {
+        border: 1px solid $colorInputLightErrorBorder;
+
+        &.focused {
+          box-shadow: 0 0 5px 1px $colorInputLightErrorFocusShadow;
+        }
+      }
+    }
+
+    .input {
+      &::placeholder {
+        color: $colorInputLightPlaceholder;
+      }
+    }
+  }
+
+  &.dark {
+    .inputWrapper {
+      border-color: $colorInputDarkBorder;
+      background: $colorInputDarkBackground;
+
+      .iconContainer { color: $colorGray; }
+
+      &.focused {
+        border-color: $colorBlue;
+        background: $colorInputDarkFocusBackground;
+        box-shadow: 0 0 5px 1px $colorInputDarkFocusShadow;
+      }
+
+      &.errored {
+        border: 1px solid $colorInputDarkErrorBorder;
+
+        &.focused {
+          box-shadow: 0 0 5px 1px $colorInputDarkErrorFocusShadow;
+        }
+      }
+    }
+
+    .label {
+      color: $colorInputDarkTextColor;
+    }
+
+    .input {
+      color: $colorInputDarkTextColor;
+
+      &::placeholder {
+        color: $colorInputDarkPlaceholder;
+      }
+    }
   }
 }

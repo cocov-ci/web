@@ -24,13 +24,21 @@ $colorProgressBar: (
 // difference between $colorGrayLighter and $pillNavBackground is 2.6892, so the difference
 // is perceivable.
 $pillNavBackground: #e4e4e4;
-$colorInputBackground: #f8f8f8;
-$colorInputBorder: #c4c4c4;
-$colorInputFocusShadow: rgb(17 150 255 / 19%);
-$colorInputFocusBackground: #fcfcfc;
-$colorInputErrorBorder: #f11;
-$colorInputErrorFocusShadow: rgb(255 17 17 / 19%);
-$colorInputPlaceholder: #515151;
+$colorInputLightBackground: #f8f8f8;
+$colorInputLightBorder: #c4c4c4;
+$colorInputLightFocusShadow: rgb(17 150 255 / 19%);
+$colorInputLightFocusBackground: #fcfcfc;
+$colorInputLightErrorBorder: #f11;
+$colorInputLightErrorFocusShadow: rgb(255 17 17 / 19%);
+$colorInputLightPlaceholder: #515151;
+$colorInputDarkBackground: #535456;
+$colorInputDarkBorder: #696a6d;
+$colorInputDarkFocusShadow: rgb(17 150 255 / 19%);
+$colorInputDarkFocusBackground: #67696a;
+$colorInputDarkErrorBorder: #e22828;
+$colorInputDarkErrorFocusShadow: rgb(255 17 17 / 19%);
+$colorInputDarkPlaceholder: #919191;
+$colorInputDarkTextColor: #fff;
 
 // FONT-SIZES
 $fontTitle: 24px;
