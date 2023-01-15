@@ -1,0 +1,28 @@
+@import "styles/variables";
+
+.base {
+  display: flex;
+  border: 1px solid $colorGray;
+  border-radius: 8px;
+  justify-content: space-between;
+
+  .textContainer {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    .disclaimer {
+      margin-left: 14px;
+    }
+
+    .branchName {
+      font-variation-settings: "wght" 600;
+    }
+  }
+
+  .buttonContainer {
+    margin-right: 25px;
+    display: flex;
+    align-items: center;
+  }
+}
