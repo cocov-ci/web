@@ -8,6 +8,11 @@ export interface StatsProps {
   coverage: StatProps | undefined
 }
 
+export interface StatsResponseProps {
+  issues: number[]
+  coverage: number[]
+}
+
 export interface StatsComponentProps {
   data: StatProps | undefined
   type: 'issues' | 'coverage'
