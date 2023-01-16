@@ -12,7 +12,7 @@ interface ButtonProps {
   children: React.ReactNode
   className?: string
   uppercase?: boolean
-  onClick?: () => void
+  onClick?: (ev: React.MouseEvent) => void
   href?: Url
   style?: 'primary' | 'secondary' | 'inactive' | 'danger' | 'mini'
   disabled?: boolean
@@ -47,7 +47,7 @@ const Button = ({
     <button
       {...baseProps}
       disabled={disabled === true}
-      onClick={() => onClick && !disabled && onClick()}
+      onClick={ev => onClick && !disabled && onClick(ev)}
     >
       {children}
     </button>
