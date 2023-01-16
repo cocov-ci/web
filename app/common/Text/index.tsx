@@ -7,7 +7,7 @@ type TextProps = {
   children?: React.ReactNode
   className?: string
   title?: string
-  variant: 'title' | 'description'
+  variant?: 'title' | 'description'
 }
 
 const Text = ({ children, className, variant = 'title', title }: TextProps) => {

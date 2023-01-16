@@ -13,7 +13,7 @@ import { RepositoriesResponseProps } from 'types/Repositories'
 import fetcher from 'utils/fetchClient'
 
 import Loading from './loading'
-import RepositoriesList from './RepositoriesList'
+import Repository from './Repository'
 
 // const repositories = [
 //   {
@@ -76,7 +76,6 @@ const Page = () => {
   const { data, isLoading } = useSWR<RepositoriesResponseProps>(
     `/api/repositories?search_term=${search}`,
     fetcher,
-    { keepPreviousData: true },
   )
 
   const isSearching = useMemo(() => search.length > 0, [search])
@@ -102,7 +101,9 @@ const Page = () => {
 
       {!isEmpty && hasRepositoriesList(data) && (
         <>
-          <RepositoriesList repositories={data?.repositories} />
+          {data?.repositories.map(item => (
+            <Repository {...item} key={item.id} />
+          ))}
           {!isSearching && (
             <Pagination currentPage={1} onPageClick={() => null} total={5} />
           )}
