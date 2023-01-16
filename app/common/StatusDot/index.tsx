@@ -3,9 +3,11 @@ import React from 'react'
 
 import styles from './StatusDot.module.scss'
 
+export type StatusDotColor = 'red' | 'grey' | 'yellow' | 'green'
+
 type StatusDotProps = {
   className?: string
-  color: 'red' | 'grey' | 'yellow' | 'green'
+  color: StatusDotColor
   onClick?: (ev: React.MouseEvent) => void
 }
 

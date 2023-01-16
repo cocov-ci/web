@@ -2,7 +2,7 @@
 
 import classNames from 'classnames'
 import Link from 'next/link'
-import React from 'react'
+import React, { HTMLAttributeAnchorTarget } from 'react'
 
 import Url from 'types/Url'
 
@@ -16,6 +16,7 @@ interface ButtonProps {
   href?: Url
   style?: 'primary' | 'secondary' | 'inactive' | 'danger' | 'mini'
   disabled?: boolean
+  hrefTarget?: HTMLAttributeAnchorTarget
 }
 
 const Button = ({
@@ -25,6 +26,7 @@ const Button = ({
   onClick,
   href,
   disabled,
+  hrefTarget,
   style = 'primary',
 }: ButtonProps) => {
   const baseProps = {
@@ -35,7 +37,7 @@ const Button = ({
 
   if (href && !disabled) {
     return (
-      <Link href={href}>
+      <Link href={href} target={hrefTarget}>
         <div {...baseProps}>{children}</div>
       </Link>
     )

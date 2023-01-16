@@ -1,6 +1,9 @@
 import classNames from 'classnames'
 import Image from 'next/image'
-import React from 'react'
+import Link from 'next/link'
+import React, { HTMLAttributeAnchorTarget } from 'react'
+
+import Url from 'types/Url'
 
 import styles from './AccessoryButton.module.scss'
 
@@ -10,6 +13,8 @@ type AccessoryButtonProps = {
   kind: 'squared' | 'round'
   onClick?: (ev: React.MouseEvent) => void
   title?: string
+  href?: Url
+  hrefTarget?: HTMLAttributeAnchorTarget
 }
 
 const AccessoryButton = ({
@@ -18,13 +23,24 @@ const AccessoryButton = ({
   kind,
   onClick,
   title,
+  href,
+  hrefTarget,
 }: AccessoryButtonProps) => {
+  const baseProps = {
+    className: classNames(styles.base, className, styles[kind]),
+    title: title,
+  }
+
+  if (href) {
+    return (
+      <Link href={href} target={hrefTarget}>
+        <div {...baseProps}>{children}</div>
+      </Link>
+    )
+  }
+
   return (
-    <button
-      className={classNames(styles.base, className, styles[kind])}
-      onClick={ev => onClick && onClick(ev)}
-      title={title}
-    >
+    <button {...baseProps} onClick={ev => onClick && onClick(ev)}>
       {children}
     </button>
   )

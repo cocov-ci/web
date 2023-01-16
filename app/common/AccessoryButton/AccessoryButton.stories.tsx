@@ -25,3 +25,12 @@ export const HelpButton: Story = {
     children: <HelpIcon />,
   },
 }
+
+export const HelpButtonLink: Story = {
+  args: {
+    kind: 'round',
+    href: '/',
+    hrefTarget: '_blank',
+    children: <HelpIcon />,
+  },
+}
