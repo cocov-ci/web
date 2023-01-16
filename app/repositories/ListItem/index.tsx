@@ -12,23 +12,15 @@ const RepositoryListItem = ({
   coverage,
   name,
 }: RepositoryResponseProps) => {
-  const { data: dataCoverage } = useSWR(
-    `/api/repositories/${name}/graph/coverage`,
-    fetcher,
-  )
-
-  const { data: dataIssues } = useSWR(
-    `/api/repositories/${name}/graph/issues`,
-    fetcher,
-  )
+  const { data } = useSWR(`/api/repositories/${name}/graphs`, fetcher)
 
   return (
     <div>
       <ListItem
         description={description}
         stats={{
-          issues: { value: issues, data: dataIssues },
-          coverage: { value: coverage, data: dataCoverage },
+          issues: { value: issues, data: data?.issues },
+          coverage: { value: coverage, data: data?.coverage },
         }}
         title={name}
       />

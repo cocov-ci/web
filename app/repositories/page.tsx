@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import useSWR from 'swr'
 
 import Pagination from 'app/common/Pagination'
@@ -8,7 +8,7 @@ import TopBar from 'app/common/TopBar'
 import Empty from 'app/repositories/Empty'
 import NoResults from 'app/repositories/NoResults'
 import TopBarActions from 'app/repositories/TopBarActions'
-import { RepositoriesResponseProps } from 'types/Repositories'
+import { PagingProps, RepositoriesResponseProps } from 'types/Repositories'
 import fetcher from 'utils/fetchClient'
 
 import ListItem from './ListItem'
@@ -19,10 +19,11 @@ const hasRepositoriesList = (
 ): data is RepositoriesResponseProps =>
   (data as RepositoriesResponseProps)?.repositories !== undefined
 
-const Page = () => {
+const Repositories = () => {
   const [search, setSearch] = useState<string>('')
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const { data, isLoading } = useSWR<RepositoriesResponseProps>(
-    `/api/repositories?search_term=${search}`,
+    `/api/repositories?search_term=${search}&page=${currentPage}`,
     fetcher,
   )
 
@@ -32,12 +33,18 @@ const Page = () => {
     [data],
   )
   const hasPagination = useMemo(
-    () =>
-      hasRepositoriesList(data) &&
-      !isSearching &&
-      data.paging[0].total_pages > 1,
+    () => hasRepositoriesList(data) && data.paging[0].total_pages > 1,
     [isSearching, data],
   )
+
+  const paging: PagingProps = useMemo(
+    () => data?.paging[0] as PagingProps,
+    [data],
+  )
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [search])
 
   return (
     <div>
@@ -60,7 +67,11 @@ const Page = () => {
             <ListItem {...item} key={item.id} />
           ))}
           {hasPagination && (
-            <Pagination currentPage={1} onPageClick={() => null} total={5} />
+            <Pagination
+              currentPage={paging?.page}
+              onPageClick={page => setCurrentPage(page)}
+              total={paging?.total_pages}
+            />
           )}
         </>
       )}
@@ -68,4 +79,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Repositories

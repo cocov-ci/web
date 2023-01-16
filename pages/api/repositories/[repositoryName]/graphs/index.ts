@@ -11,7 +11,7 @@ export default async function handler(
 
   try {
     const { data } = await Fetcher(
-      `${process.env.COCOV_API_URL}/v1/repositories/${repositoryName}/graph/issues`,
+      `${process.env.COCOV_API_URL}/v1/repositories/${repositoryName}/graphs`,
       { headers: req.headers },
     )
 
