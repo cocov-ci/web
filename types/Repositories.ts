@@ -7,12 +7,12 @@ export interface RepositoryResponseProps {
   issues: number
 }
 
+export interface PagingProps {
+  page: number
+  total_pages: number
+}
+
 export interface RepositoriesResponseProps {
   repositories: RepositoryResponseProps[]
-  paging: [
-    {
-      page: number
-      total_pages: number
-    },
-  ]
+  paging: PagingProps[]
 }
