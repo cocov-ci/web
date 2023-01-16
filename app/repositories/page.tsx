@@ -11,8 +11,8 @@ import TopBarActions from 'app/repositories/TopBarActions'
 import { RepositoriesResponseProps } from 'types/Repositories'
 import fetcher from 'utils/fetchClient'
 
+import ListItem from './ListItem'
 import Loading from './loading'
-import Repository from './Repository'
 
 const hasRepositoriesList = (
   data: RepositoriesResponseProps | undefined,
@@ -57,7 +57,7 @@ const Page = () => {
       {!isEmpty && hasRepositoriesList(data) && (
         <>
           {data?.repositories.map(item => (
-            <Repository {...item} key={item.id} />
+            <ListItem {...item} key={item.id} />
           ))}
           {hasPagination && (
             <Pagination currentPage={1} onPageClick={() => null} total={5} />

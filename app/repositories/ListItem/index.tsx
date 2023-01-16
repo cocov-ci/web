@@ -6,7 +6,7 @@ import ListItem from 'app/common/ListItem'
 import { RepositoryResponseProps } from 'types/Repositories'
 import fetcher from 'utils/fetchClient'
 
-const Repository = ({
+const RepositoryListItem = ({
   description,
   issues,
   coverage,
@@ -36,4 +36,4 @@ const Repository = ({
   )
 }
 
-export default Repository
+export default RepositoryListItem
