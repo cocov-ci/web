@@ -9,7 +9,6 @@ import Empty from 'app/repositories/Empty'
 import NoResults from 'app/repositories/NoResults'
 import TopBarActions from 'app/repositories/TopBarActions'
 import { PagingProps, RepositoriesResponseProps } from 'types/Repositories'
-import fetcher from 'utils/fetchClient'
 
 import ListItem from './ListItem'
 import Loading from './loading'
@@ -24,7 +23,6 @@ const Repositories = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const { data, isLoading } = useSWR<RepositoriesResponseProps>(
     `/api/repositories?search_term=${search}&page=${currentPage}`,
-    fetcher,
   )
 
   const isSearching = useMemo(() => search.length > 0, [search])
