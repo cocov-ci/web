@@ -42,7 +42,8 @@ const Stats = ({ data: dataChart, type }: StatsComponentProps) => {
       labels,
       datasets: [
         {
-          data: data,
+          // Convert null values to Zero
+          data: data.map(item => (!item ? 0 : item)),
           borderColor: getBorderColor(coverage),
           backgroundColor: generateGradient({
             ctx: chart.ctx,
