@@ -21,11 +21,17 @@ const hasRepositoriesList = (
 const Repositories = () => {
   const [search, setSearch] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const { data, isLoading } = useSWR<RepositoriesResponseProps>(
-    `/api/repositories?search_term=${search}&page=${currentPage}`,
-  )
 
   const isSearching = useMemo(() => search.length > 0, [search])
+
+  const { data, isLoading } = useSWR<RepositoriesResponseProps>(
+    `/api/repositories?search_term=${search}&page=${currentPage}`,
+    null,
+    {
+      keepPreviousData: isSearching,
+    },
+  )
+
   const isEmpty = useMemo(
     () => hasRepositoriesList(data) && data.repositories.length === 0,
     [data],
