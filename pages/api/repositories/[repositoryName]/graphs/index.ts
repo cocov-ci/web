@@ -1,24 +1,9 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import APIProxy from 'utils/APIProxy'
 
-import { ApiErrorHandler } from 'utils/errorHandler'
-import Fetcher from 'utils/fetchAPI'
+export default new APIProxy()
+  .mapURL(req => {
+    const { repositoryName } = req.query
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const { repositoryName } = req.query
-
-  try {
-    const { data } = await Fetcher(
-      `${process.env.COCOV_API_URL}/v1/repositories/${repositoryName}/graphs`,
-      { headers: req.headers },
-    )
-
-    res.status(200).json(data)
-  } catch (err) {
-    if (err instanceof Error) {
-      ApiErrorHandler({ res, err })
-    }
-  }
-}
+    return `/v1/repositories/${repositoryName}/graphs`
+  })
+  .get()
