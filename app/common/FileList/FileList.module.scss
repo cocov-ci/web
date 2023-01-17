@@ -1,0 +1,76 @@
+@use "sass:map";
+@import "styles/variables";
+
+.base {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid $colorGray;
+
+    > div {
+      padding: 9px 15px;
+    }
+
+    .coverage {
+      width: 265px;
+    }
+
+    .file {
+      flex: 1;
+    }
+  }
+
+  .fileList {
+    overflow-y: scroll;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .fileItem {
+      display: flex;
+      border: 1px solid transparent;
+      border-radius: 8px;
+
+      &:nth-child(odd) {
+        background-color: map.get($colorFileList, "oddItemBackground");
+      }
+
+      &:hover {
+        background: map.get($colorFileList, "hoverItemBackground");
+        border: 1px solid map.get($colorFileList, "hoverItemBorder");
+      }
+
+      > .file,
+      .percentage {
+        padding: 6px 15px;
+      }
+
+      .file {
+        flex: 1;
+        display: flex;
+        align-items: center;
+      }
+
+      .percentage {
+        display: flex;
+        align-items: center;
+        width: 265px;
+        border-left: 1px solid $colorGray;
+
+        .percentageValue {
+          text-align: right;
+          width: 55px;
+          margin-right: 6px;
+        }
+
+        .percentageProgressBar {
+          width: 200px;
+        }
+      }
+    }
+  }
+}
