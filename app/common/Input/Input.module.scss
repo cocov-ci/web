@@ -1,38 +1,24 @@
+@use "sass:map";
 @import "styles/variables";
-
-.base {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  width: 100%;
-}
 
 .inputWrapper {
   position: relative;
   flex: 1;
-  border: 1px solid $colorInputBorder;
+  border: 1px solid transparent;
   border-radius: 4px;
-  background: $colorInputBackground;
+  background: transparent;
   overflow: hidden;
   display: inherit;
   align-items: inherit;
+  transition: border ease-out 0.1s, box-shadow ease-out 0.2s;
 
   &.disabled {
     opacity: 0.7;
   }
 
   &.focused {
-    border: 1px solid $colorBlue;
-    background: $colorInputFocusBackground;
-    box-shadow: 0 0 5px 1px $colorInputFocusShadow;
-  }
-
-  &.errored {
-    border: 1px solid $colorInputErrorBorder;
-
-    &.focused {
-      box-shadow: 0 0 5px 1px $colorInputErrorFocusShadow;
-    }
+    border: 1px solid transparent;
+    background: transparent;
   }
 }
 
@@ -50,10 +36,6 @@
   font-size: $fontInput;
   padding: 5px 10px 4px;
   width: 100%;
-
-  &::placeholder {
-    color: $colorInputPlaceholder;
-  }
 
   &:focus {
     outline: 0;
@@ -90,5 +72,74 @@
   &.loadingVisible {
     opacity: 1;
     right: 5px;
+  }
+}
+
+.base {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+
+  &.light {
+    .inputWrapper {
+      border-color: map.get($colorInputLight, "border");
+      background: map.get($colorInputLight, "background");
+
+      &.focused {
+        border-color: $colorBlue;
+        background: map.get($colorInputLight, "focusBackground");
+        box-shadow: 0 0 5px 1px map.get($colorInputLight, "focusShadow");
+      }
+
+      &.errored {
+        border: 1px solid map.get($colorInputLight, "errorBorder");
+
+        &.focused {
+          box-shadow: 0 0 5px 1px map.get($colorInputLight, "errorFocusShadow");
+        }
+      }
+    }
+
+    .input {
+      &::placeholder {
+        color: map.get($colorInputLight, "placeholder");
+      }
+    }
+  }
+
+  &.dark {
+    .inputWrapper {
+      border-color: map.get($colorInputDark, "border");
+      background: map.get($colorInputDark, "background");
+
+      .iconContainer { color: $colorGray; }
+
+      &.focused {
+        border-color: $colorBlue;
+        background: map.get($colorInputDark, "focusBackground");
+        box-shadow: 0 0 5px 1px map.get($colorInputDark, "focusShadow");
+      }
+
+      &.errored {
+        border: 1px solid map.get($colorInputDark, "errorBorder");
+
+        &.focused {
+          box-shadow: 0 0 5px 1px map.get($colorInputDark, "errorFocusShadow");
+        }
+      }
+    }
+
+    .label {
+      color: map.get($colorInputDark, "textColor");
+    }
+
+    .input {
+      color: map.get($colorInputDark, "textColor");
+
+      &::placeholder {
+        color: map.get($colorInputDark, "placeholder");
+      }
+    }
   }
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import classNames from 'classnames'
-import { LucideIcon, RefreshCw } from 'lucide-react'
+import { LucideIcon } from 'lucide-react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -12,32 +12,47 @@ interface LoadingProps extends SpinnerProps, SkeletonProps {
   className?: string
   alignment?: 'center' | 'left' | 'right'
   type?: 'spinner' | 'skeleton'
+  variation?: 'light' | 'dark'
   tiny?: boolean
 }
 
 interface SpinnerProps {
   size?: number
   spinnerIcon?: LucideIcon | typeof Spinner
+  dark?: boolean
 }
 
 interface SkeletonProps {
   count?: number
   width?: string
   height?: string
+  dark?: boolean
 }
 
-const SkeletonComponent = ({ count, height, width }: SkeletonProps) => {
+const SkeletonComponent = ({
+  count,
+  height,
+  width,
+  dark = false,
+}: SkeletonProps) => {
+  const baseColor = dark ? '#4d4d4d' : '#e4e4e4'
+  const highlightColor = dark ? '#575757' : '#e9e9e9'
+
   return (
-    <SkeletonTheme baseColor="#e4e4e4" highlightColor="#e9e9e9">
+    <SkeletonTheme baseColor={baseColor} highlightColor={highlightColor}>
       <Skeleton count={count} height={height} width={width} />
     </SkeletonTheme>
   )
 }
 
-const SpinnerComponent = ({ size, spinnerIcon = Spinner }: SpinnerProps) => {
+const SpinnerComponent = ({
+  size,
+  spinnerIcon = Spinner,
+  dark,
+}: SpinnerProps) => {
   const Component = spinnerIcon
 
-  return <Component className={styles.spinner} size={size} />
+  return <Component className={styles.spinner} dark={dark} size={size} />
 }
 
 const Loading = ({
@@ -50,6 +65,7 @@ const Loading = ({
   spinnerIcon,
   className,
   tiny,
+  variation = 'light',
 }: LoadingProps) => {
   return (
     <div
@@ -58,10 +74,19 @@ const Loading = ({
       })}
     >
       {type === 'spinner' && (
-        <SpinnerComponent size={size} spinnerIcon={spinnerIcon} />
+        <SpinnerComponent
+          dark={variation === 'dark'}
+          size={size}
+          spinnerIcon={spinnerIcon}
+        />
       )}
       {type === 'skeleton' && (
-        <SkeletonComponent count={count} height={height} width={width} />
+        <SkeletonComponent
+          count={count}
+          dark={variation == 'dark'}
+          height={height}
+          width={width}
+        />
       )}
     </div>
   )

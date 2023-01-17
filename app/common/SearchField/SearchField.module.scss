@@ -1,3 +1,4 @@
+@use "sass:map";
 @import "styles/variables";
 
 .searchField {
@@ -11,7 +12,7 @@
       outline: none;
       background: $colorGrayLighter;
       border-color: $colorBlue;
-      box-shadow: 0 0 5px 1px $colorInputFocusShadow;
+      box-shadow: 0 0 5px 1px map.get($colorInputLight, "focusShadow");
     }
   }
 }

@@ -101,7 +101,8 @@
     "jsx-a11y/no-onchange": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "jsx-a11y/click-events-have-key-events": "off",
-    "@next/next/no-css-tags": "off"
+    "@next/next/no-css-tags": "off",
+    "jsx-a11y/no-autofocus": "off"
   },
   "ignorePatterns": ["public/**", "src/bc-craft-assets/**"]
 }

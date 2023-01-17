@@ -20,6 +20,10 @@ interface InputProps {
   label?: string
   width?: string
   loading?: boolean
+  variation?: 'light' | 'dark'
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
+  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void
+  autoFocus?: boolean
 }
 
 const Input = ({
@@ -33,6 +37,10 @@ const Input = ({
   label,
   loading,
   width = '100%',
+  variation = 'light',
+  onKeyUp,
+  onKeyDown,
+  autoFocus,
   icon: Icon,
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -47,7 +55,13 @@ const Input = ({
   const captureFocus = () => inputRef.current && inputRef.current.focus()
 
   return (
-    <div className={styles.base} style={{ width }}>
+    <div
+      className={classNames(styles.base, {
+        [styles.light]: variation == 'light',
+        [styles.dark]: variation == 'dark',
+      })}
+      style={{ width }}
+    >
       {label && (
         <label
           className={classNames(styles.label, {
@@ -71,6 +85,7 @@ const Input = ({
           </div>
         )}
         <input
+          autoFocus={autoFocus}
           className={classNames(styles.input, {
             [styles.withIcon]: !!Icon,
             [styles.withSpinner]: !!loading,
@@ -79,6 +94,8 @@ const Input = ({
           onBlur={updateFocusState}
           onChange={onChange}
           onFocus={updateFocusState}
+          onKeyDown={e => onKeyDown && onKeyDown(e)}
+          onKeyUp={e => onKeyUp && onKeyUp(e)}
           placeholder={placeholder}
           ref={inputRef}
           type={type}
@@ -91,7 +108,7 @@ const Input = ({
           })}
           onClick={captureFocus}
         >
-          <Loading size={15} tiny={true} type="spinner" />
+          <Loading size={15} tiny={true} type="spinner" variation={variation} />
         </div>
       </div>
     </div>

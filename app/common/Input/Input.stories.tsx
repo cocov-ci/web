@@ -69,3 +69,64 @@ export const Disabled: Story = {
     disabled: true,
   },
 }
+
+export const DefaultDark: Story = {
+  args: {
+    variation: 'dark',
+    type: 'text',
+  },
+}
+
+export const WithPlaceholderDark: Story = {
+  args: {
+    variation: 'dark',
+    type: 'text',
+    placeholder: 'Placeholder',
+  },
+}
+
+export const WithLabelDark: Story = {
+  args: {
+    variation: 'dark',
+    label: 'Email:',
+    type: 'text',
+    placeholder: 'paul.appleseed@example.com',
+  },
+}
+
+export const WithLoadingDark: Story = {
+  args: {
+    variation: 'dark',
+    label: 'Name:',
+    type: 'text',
+    value: 'The name',
+    loading: true,
+  },
+}
+
+export const WithIconDark: Story = {
+  args: {
+    variation: 'dark',
+    type: 'text',
+    placeholder: 'Type to Search...',
+    loading: true,
+    icon: LucideSearch,
+  },
+}
+
+export const ErroredDark: Story = {
+  args: {
+    variation: 'dark',
+    type: 'text',
+    errored: true,
+  },
+}
+
+export const DisabledDark: Story = {
+  args: {
+    variation: 'dark',
+    label: 'Test:',
+    type: 'text',
+    disabled: true,
+  },
+}

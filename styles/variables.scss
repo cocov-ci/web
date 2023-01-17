@@ -24,21 +24,35 @@ $colorProgressBar: (
 // difference between $colorGrayLighter and $pillNavBackground is 2.6892, so the difference
 // is perceivable.
 $pillNavBackground: #e4e4e4;
-$colorInputBackground: #f8f8f8;
-$colorInputBorder: #c4c4c4;
-$colorInputFocusShadow: rgb(17 150 255 / 19%);
-$colorInputFocusBackground: #fcfcfc;
-$colorInputErrorBorder: #f11;
-$colorInputErrorFocusShadow: rgb(255 17 17 / 19%);
-$colorInputPlaceholder: #515151;
+$colorInputLight: (
+  background: #f8f8f8,
+  border: #c4c4c4,
+  focusShadow: rgb(17 150 255 / 19%),
+  focusBackground: #fcfcfc,
+  errorBorder: #f11,
+  errorFocusShadow: rgb(255 17 17 / 19%),
+  placeholder: #515151,
+);
+$colorInputDark: (
+  background: #535456,
+  border: #696a6d,
+  focusShadow: rgb(17 150 255 / 19%),
+  focusBackground: #67696a,
+  errorBorder: #e22828,
+  errorFocusShadow: rgb(255 17 17 / 19%),
+  placeholder: #919191,
+  textColor: #fff,
+);
 
 // FONT-SIZES
 $fontTitle: 24px;
 $fontDescription: 15px;
 $fontInput: 15px;
 $colorKbd: (
-  background: #eee,
-  border: #b4b4b4
+  background-light: #eee,
+  border-light: #b4b4b4,
+  background-dark: #333,
+  border-dark: #1a1a1a
 );
 $colorListItemActive: (
   background: #d4e4f1,
@@ -51,4 +65,8 @@ $colorAccessoryButtonRoundBorder: #4d4d4d;
 $colorSnippetBox: (
   background: #e9e9e9,
   border: #dedede,
+);
+$colorBranchSwitcher: (
+  active-item-background: #2a4860,
+  active-item-border: #44759c,
 );
