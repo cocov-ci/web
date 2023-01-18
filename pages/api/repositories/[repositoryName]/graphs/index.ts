@@ -6,4 +6,11 @@ export default new APIProxy()
 
     return `/v1/repositories/${repositoryName}/graphs`
   })
+  .mapResponse(data => {
+    for (const k in data) {
+      data[k] = Object.values(data[k])
+    }
+
+    return data
+  })
   .get()
