@@ -56,7 +56,7 @@ const Stats = ({ data: dataChart, type }: StatsComponentProps) => {
 
   return (
     <div className={styles.stats}>
-      {typeof value === 'number' && (
+      {typeof value === 'number' && data && (
         <div className={styles.chart}>
           <Line
             data={chartData}

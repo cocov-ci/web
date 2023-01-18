@@ -10,6 +10,8 @@ const chartColors = {
 }
 
 export const generateGradient = ({ ctx, isCoverage }: GradientProps) => {
+  if (!ctx) return
+
   const gradient = ctx.createLinearGradient(0, 35, 0, 80)
   const [colorStart, colorStop] = isCoverage
     ? chartColors.coverage

@@ -33,3 +33,13 @@ export const Issues: Story = {
     },
   },
 }
+
+export const NoData: Story = {
+  args: {
+    type: 'issues',
+    data: {
+      data: undefined,
+      value: undefined,
+    },
+  },
+}

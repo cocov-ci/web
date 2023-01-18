@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stats renders Stats snapshots 1`] = `
+<div>
+  <div
+    class="stats"
+  >
+    <p
+      class="description description"
+    >
+      Coverage
+    </p>
+    <p
+      class="title value"
+    >
+      —
+    </p>
+  </div>
+</div>
+`;

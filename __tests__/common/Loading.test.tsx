@@ -6,9 +6,9 @@ import '@testing-library/jest-dom'
 
 describe('Loading', () => {
   it('renders Loading spinner', () => {
-    const { container } = render(<Loading />)
+    const { container } = render(<Loading type="spinner" />)
 
-    expect(container.querySelector('svg')).toBeVisible()
+    expect(container.querySelector('img')).toBeVisible()
   })
 
   it('renders Loading skeleton', () => {
