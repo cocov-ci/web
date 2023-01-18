@@ -15,7 +15,10 @@ const Menu = () => {
     <nav>
       <ul className={styles.menu}>
         <li>
-          <Link href="#">Repositories</Link>
+          <Link href="/">Repositories</Link>
+        </li>
+        <li>
+          <Link href="#">Adminland</Link>
         </li>
         <li>
           <p onClick={() => logout()}>Sign Out</p>

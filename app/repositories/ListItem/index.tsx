@@ -20,6 +20,7 @@ const RepositoryListItem = ({
     <div>
       <ListItem
         description={description}
+        href={`/repositories/${name}`}
         stats={{
           issues: { value: issues, data: data?.issues },
           coverage: { value: coverage, data: data?.coverage },
