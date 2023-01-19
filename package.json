@@ -21,6 +21,7 @@
     "chart.js": "^4.1.2",
     "classnames": "^2.3.2",
     "cookies-next": "^2.1.1",
+    "ioredis": "^5.2.5",
     "lodash": "^4.17.21",
     "lucide-react": "^0.105.0-alpha.4",
     "next": "13.0.7",
@@ -29,7 +30,8 @@
     "react-dom": "18.2.0",
     "react-loading-skeleton": "^3.1.0",
     "swr": "^2.0.0",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.0-beta.20",
@@ -41,6 +43,7 @@
     "@storybook/testing-library": "^0.0.14-next.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@types/ioredis": "^5.0.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "18.11.17",
     "@types/react": "18.0.26",
