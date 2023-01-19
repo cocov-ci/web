@@ -5,14 +5,18 @@ import useSWR from 'swr'
 import TopBar from 'app/common/TopBar'
 import { RepositoryResponseProps } from 'types/Repositories'
 
-const Repositories = ({ params }: { params: { repository: string } }) => {
+const Repositories = ({
+  params,
+}: {
+  params: { repositoryName: string; branchName: string }
+}) => {
   const { data } = useSWR<RepositoryResponseProps>(
-    `/api/repositories/${params.repository}`,
+    `/api/repositories/${params.repositoryName}`,
   )
 
   return (
     <div>
-      <TopBar description={data?.description} title={params.repository} />
+      <TopBar description={data?.description} title={params.repositoryName} />
     </div>
   )
 }
