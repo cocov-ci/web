@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import NoResults from 'app/repositories/NoResults'
+import NoResults from 'app/repos/NoResults'
 
 import '@testing-library/jest-dom'
 

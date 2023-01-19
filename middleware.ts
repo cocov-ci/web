@@ -22,7 +22,7 @@ export async function middleware(req: NextRequest) {
     if (isInvalidToken) {
       response.cookies.delete('cocov_auth_token')
     } else if (cocov_auth_token) {
-      return NextResponse.redirect(new URL('/repositories', req.url))
+      return NextResponse.redirect(new URL('/', req.url))
     }
 
     return response

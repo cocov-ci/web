@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-import ListItem from 'app/repositories/ListItem'
+import ListItem from 'app/repos/ListItem'
 
 import '@testing-library/jest-dom'
 

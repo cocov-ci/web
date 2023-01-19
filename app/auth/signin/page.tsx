@@ -79,7 +79,7 @@ const SignIn = () => {
         .then((data: AuthExchangeResponseProps) => {
           if (data.token) {
             Auth.setToken(data.token)
-            router.push(searchParams.get('next') || '/repositories')
+            router.push(searchParams.get('next') || '/')
           } else {
             router.replace('/auth/signin')
           }

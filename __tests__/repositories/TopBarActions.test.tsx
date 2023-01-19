@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import TopBarActions from 'app/repositories/TopBarActions'
+import TopBarActions from 'app/repos/TopBarActions'
 
 import '@testing-library/jest-dom'
 

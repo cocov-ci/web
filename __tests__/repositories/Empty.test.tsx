@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import Empty from 'app/repositories/Empty'
+import Empty from 'app/repos/Empty'
 
 import '@testing-library/jest-dom'
 

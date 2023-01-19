@@ -22,7 +22,7 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
+        source: '/repos',
         has: [
           {
             type: 'cookie',
@@ -30,7 +30,7 @@ const nextConfig = {
           },
         ],
         permanent: false,
-        destination: '/repositories',
+        destination: '/',
       },
     ]
   },
