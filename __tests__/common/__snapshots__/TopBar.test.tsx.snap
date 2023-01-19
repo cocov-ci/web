@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TopBar renders TopBar snapshots 1`] = `
+exports[`common/TopBar renders TopBar snapshots 1`] = `
 <div>
   <div
     class="topBar"

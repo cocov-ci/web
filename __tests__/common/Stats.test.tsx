@@ -4,7 +4,7 @@ import Stats from 'app/common/Stats'
 
 import '@testing-library/jest-dom'
 
-describe('Stats', () => {
+describe('common/Stats', () => {
   it('renders Stats component without data', () => {
     const { container } = render(<Stats data={undefined} type="coverage" />)
 

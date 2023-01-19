@@ -4,7 +4,7 @@ import Loading from 'app/common/Loading'
 
 import '@testing-library/jest-dom'
 
-describe('Loading', () => {
+describe('common/Loading', () => {
   it('renders Loading spinner', () => {
     const { container } = render(<Loading type="spinner" />)
 

@@ -11,7 +11,10 @@ const RepositoryListItem = ({
   issues,
   coverage,
   name,
-}: RepositoryResponseProps) => {
+}: Pick<
+  RepositoryResponseProps,
+  'description' | 'issues' | 'coverage' | 'name'
+>) => {
   const { data } = useSWR<StatsResponseProps>(
     `/api/repositories/${name}/graphs`,
   )

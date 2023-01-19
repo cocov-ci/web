@@ -5,7 +5,7 @@ import Alert from 'app/common/Alert'
 
 import '@testing-library/jest-dom'
 
-describe('Alert', () => {
+describe('common/Alert', () => {
   it('renders Alert with all params', () => {
     const { container } = render(
       <Alert

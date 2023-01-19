@@ -4,21 +4,18 @@ import Box from 'app/common/Box'
 
 import '@testing-library/jest-dom'
 
-describe('Box', () => {
-  const BoxComponent = () => (
+describe('common/Box', () => {
+  const { container } = render(
     <Box>
       <p>children</p>
-    </Box>
+    </Box>,
   )
 
   it('renders Box', () => {
-    render(<BoxComponent />)
-
     expect(screen.getByText('children')).toBeVisible()
   })
 
   it('renders Box snapshots', () => {
-    const { container } = render(<BoxComponent />)
     expect(container).toMatchSnapshot()
   })
 })

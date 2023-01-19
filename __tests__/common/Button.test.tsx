@@ -5,7 +5,7 @@ import Button from 'app/common/Button'
 
 import '@testing-library/jest-dom'
 
-describe('Button', () => {
+describe('common/Button', () => {
   const ButtonComponent = ({
     onClick,
     children,

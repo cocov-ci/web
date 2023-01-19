@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button renders Button snapshots 1`] = `
+exports[`common/Button renders Button snapshots 1`] = `
 <div>
   <button
     class="button primary"

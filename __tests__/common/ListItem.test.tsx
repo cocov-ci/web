@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 
 import ListItem from 'app/common/ListItem'
 
 import '@testing-library/jest-dom'
 
-describe('ListItem', () => {
+describe('common/ListItem', () => {
   const ListItemComponent = () => (
     <ListItem
       description="description here..."
@@ -16,9 +16,9 @@ describe('ListItem', () => {
     />
   )
 
-  it('renders ListItem without stats info', () => {
-    const { container } = render(<ListItemComponent />)
+  const { container } = render(<ListItemComponent />)
 
+  it('renders ListItem without stats info', () => {
     expect(container.querySelector('span.backgroundText')).toHaveTextContent(
       'title here...',
     )
@@ -37,7 +37,6 @@ describe('ListItem', () => {
   })
 
   it('renders ListItem snapshots', () => {
-    const { container } = render(<ListItemComponent />)
     expect(container).toMatchSnapshot()
   })
 })

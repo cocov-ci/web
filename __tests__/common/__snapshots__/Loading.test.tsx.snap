@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Loading renders Loading snapshots 1`] = `
+exports[`common/Loading renders Loading snapshots 1`] = `
 <div>
   <div
     class="loading center"

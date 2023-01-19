@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/SearchField renders SearchField snapshots 1`] = `<div />`;

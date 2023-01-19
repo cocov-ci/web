@@ -4,7 +4,7 @@ import TopBar from 'app/common/TopBar'
 
 import '@testing-library/jest-dom'
 
-describe('TopBar', () => {
+describe('common/TopBar', () => {
   it('renders TopBar', () => {
     render(
       <TopBar description="description" title="title">

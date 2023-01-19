@@ -6,7 +6,7 @@ import TopBar from 'app/common/TopBar'
 import { RepositoryResponseProps } from 'types/Repositories'
 
 const Repositories = ({ params }: { params: { repository: string } }) => {
-  const { data, isLoading } = useSWR<RepositoryResponseProps>(
+  const { data } = useSWR<RepositoryResponseProps>(
     `/api/repositories/${params.repository}`,
   )
 

@@ -5,9 +5,8 @@ import Empty from 'app/repositories/Empty'
 import '@testing-library/jest-dom'
 
 describe('Repositories/Empty', () => {
+  const { container } = render(<Empty />)
   it('renders Empty component', () => {
-    const { container } = render(<Empty />)
-
     expect(
       screen.getByText('How about adding a new repository to get started?'),
     ).toBeVisible()
@@ -16,7 +15,6 @@ describe('Repositories/Empty', () => {
   })
 
   it('renders Empty snapshots', () => {
-    const { container } = render(<Empty />)
     expect(container).toMatchSnapshot()
   })
 })

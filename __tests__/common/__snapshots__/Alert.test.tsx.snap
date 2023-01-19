@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Alert renders Alert snapshots 1`] = `
+exports[`common/Alert renders Alert snapshots 1`] = `
 <div>
   <div
     class="alert"
