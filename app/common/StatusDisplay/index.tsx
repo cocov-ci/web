@@ -1,3 +1,5 @@
+'use client'
+
 import classNames from 'classnames'
 import React from 'react'
 
@@ -10,12 +12,10 @@ import Button from '../Button'
 
 import styles from './StatusDisplay.module.scss'
 
-type StatusKind = 'waiting' | 'processing' | 'processed' | 'failed'
-
 type DetailsKind = 'details' | 'help'
 
 type StatusDetails = {
-  status: StatusKind
+  statusColor: StatusDotColor
   message?: string
   messageBold?: boolean
   detailsKind?: DetailsKind
@@ -26,6 +26,7 @@ type StatusDisplayProps = {
   children?: React.ReactNode
   className?: string
   coverage: StatusDetails
+  gutterBottom?: boolean
   checks: StatusDetails
 }
 
@@ -33,21 +34,8 @@ interface CellProps extends StatusDetails {
   label: string
 }
 
-const orbColor = (status: StatusKind): StatusDotColor => {
-  switch (status) {
-    case 'waiting':
-      return 'grey'
-    case 'processing':
-      return 'yellow'
-    case 'processed':
-      return 'green'
-    case 'failed':
-      return 'red'
-  }
-}
-
 const StatusCell = ({
-  status,
+  statusColor,
   label,
   message,
   messageBold,
@@ -57,7 +45,7 @@ const StatusCell = ({
   return (
     <div className={styles.cell}>
       <span className={styles.text}>
-        <StatusDot className={styles.dot} color={orbColor(status)} />
+        <StatusDot className={styles.dot} color={statusColor} />
         <span className={styles.label}>{label}</span>
         <span
           className={classNames(styles.message, {
@@ -89,12 +77,18 @@ const StatusCell = ({
   )
 }
 
-const StatusDisplay = ({ coverage, checks }: StatusDisplayProps) => {
+const StatusDisplay = ({
+  coverage,
+  checks,
+  gutterBottom,
+}: StatusDisplayProps) => {
   return (
-    <Box className={styles.base}>
-      <StatusCell label="Coverage:" {...coverage} />
-      <StatusCell label="Checks:" {...checks} />
-    </Box>
+    <div className={styles.statusDisplay}>
+      <Box className={styles.base} gutterBottom={gutterBottom}>
+        <StatusCell label="Coverage:" {...coverage} />
+        <StatusCell label="Checks:" {...checks} />
+      </Box>
+    </div>
   )
 }
 

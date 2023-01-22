@@ -11,8 +11,8 @@ export async function middleware(req: NextRequest) {
     // REDIRECT UNLOGGED USER TO THE SIGNIN PAGE
     return NextResponse.redirect(new URL(SigninPage, req.url))
   } else if (route.startsWith('/api')) {
-    // ADD AUTHORIZATION TOKEN TO THE API REQUESTS
-    response.headers.set('authorization', `bearer ${cocov_auth_token}`)
+    // // ADD AUTHORIZATION TOKEN TO THE API REQUESTS
+    // response.headers.set('authorization', `bearer ${cocov_auth_token}`)
 
     return response
   } else if (isPublicPage) {

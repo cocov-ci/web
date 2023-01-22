@@ -1,4 +1,4 @@
-@import 'styles/variables';
+@import "styles/variables";
 
 .box {
   display: flex;
@@ -6,7 +6,29 @@
   background-color: $colorGrayLight;
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0,0,0, 0.24), 0px 11px 40px rgba(0,0,0, 0.24);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 24%), 0 11px 40px rgb(0 0 0 / 24%);
   width: 100%;
+  position: relative;
+  overflow: hidden;
 
+  &.gutterBottom {
+    margin-bottom: 32px;
+  }
+
+  .backgroundText {
+    position: absolute;
+    font-size: 141px;
+    white-space: nowrap;
+    opacity: 0.04;
+    font-variation-settings: "wght" 700;
+    line-height: 124px;
+    left: 12px;
+    bottom: -13px;
+
+    &.small {
+      font-size: 100px;
+      line-height: 150px;
+      bottom: -40px;
+    }
+  }
 }

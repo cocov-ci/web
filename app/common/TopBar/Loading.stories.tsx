@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import TopBarLoading from './Loading'
 
 const meta: Meta<typeof TopBarLoading> = {
-  title: 'Common/TopBar',
+  title: 'Common/TopBar/Loading',
   component: TopBarLoading,
   tags: ['autodocs'],
 }

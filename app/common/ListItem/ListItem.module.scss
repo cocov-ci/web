@@ -1,68 +1,52 @@
 @import "styles/variables";
 
-.listItem {
-  margin-bottom: 32px;
-  padding: 0 !important;
-  position: relative;
-  overflow: hidden;
-  min-height: 116px;
-  flex-direction: row !important;
-  justify-content: space-between;
-  cursor: pointer;
+.listBox {
+  .listItem {
+    padding: 0;
+    min-height: 116px;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
 
-  .info {
-    padding: 28px;
-    min-width: 0;
-    z-index: 1;
-    position: relative;
+    .info {
+      padding: 28px;
+      min-width: 0;
+      z-index: 1;
+      position: relative;
 
-    .title {
-      font-variation-settings: "wght" 600;
-      margin-bottom: 5px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+      .title {
+        font-variation-settings: "wght" 600;
+        margin-bottom: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
-    .description {
-      margin-bottom: 0;
-      font-variation-settings: "wght" 400;
+      .description {
+        margin-bottom: 0;
+        font-variation-settings: "wght" 400;
 
-      &.disabled {
-        color: $colorGrayMedium;
+        &.disabled {
+          color: $colorGrayMedium;
+        }
       }
     }
-  }
 
-  &.loading {
-    cursor: wait;
-  }
-
-  .skeleton {
-    line-height: 0;
-    border-radius: 0;
-  }
-
-  .stats {
-    display: flex;
-
-    > div {
-      border-left: 1px solid $colorGray;
+    &.loading {
+      cursor: wait;
     }
-  }
 
-  .backgroundText {
-    position: absolute;
-    font-size: 141px;
-    white-space: nowrap;
-    opacity: 0.04;
-    font-variation-settings: "wght" 700;
-    line-height: 138px;
-    left: 12px;
+    .skeleton {
+      line-height: 0;
+      border-radius: 0;
+    }
 
-    &.small {
-      font-size: 100px;
-      line-height: 162px;
+    .stats {
+      display: flex;
+
+      > div {
+        border-left: 1px solid $colorGray;
+      }
     }
   }
 }

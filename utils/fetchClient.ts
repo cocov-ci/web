@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { getCookie } from 'cookies-next'
 
 import wrapPromise from '../pages/api/wrapPromise'
 
@@ -10,9 +9,6 @@ const fetcher = async (url: string, args?: AxiosRequestConfig) => {
     headers: {
       ...args?.headers,
       Accept: 'application/json',
-      ...(getCookie('cocov_auth_token') && {
-        Authorization: `bearer ${getCookie('cocov_auth_token')}`,
-      }),
     },
     ...args,
   })

@@ -17,3 +17,10 @@ export const Default: Story = {
     branchName: 'master',
   },
 }
+
+export const GutterBottom: Story = {
+  args: {
+    branchName: 'master',
+    gutterBottom: true,
+  },
+}

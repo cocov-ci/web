@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { makeFakePoints } from './Utils'
+import { makeFakePoints } from 'app/common/Chart/Utils'
 
 import Stats from './index'
 

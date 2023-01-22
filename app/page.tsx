@@ -7,10 +7,11 @@ import Pagination from 'app/common/Pagination'
 import TopBar from 'app/common/TopBar'
 import Empty from 'app/repos/Empty'
 import ListItem from 'app/repos/ListItem'
-import Loading from 'app/repos/loading'
 import NoResults from 'app/repos/NoResults'
 import TopBarActions from 'app/repos/TopBarActions'
 import { PagingProps, RepositoriesResponseProps } from 'types/Repositories'
+
+import Loading from './loading'
 
 const hasRepositoriesList = (
   data: RepositoriesResponseProps | undefined,

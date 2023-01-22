@@ -41,6 +41,13 @@ export default class APIProxy {
   private async call(req: NextApiRequest, res: NextApiResponse) {
     let url: string
 
+    const cocov_auth_token = req.cookies['cocov_auth_token']
+
+    const headers = {
+      ...(cocov_auth_token && { authorization: `bearer ${cocov_auth_token}` }),
+      ...(req.headers || {}),
+    }
+
     if (this.url) {
       url = this.url
     } else if (this.urlMapper) {
@@ -54,7 +61,7 @@ export default class APIProxy {
     const args: AxiosRequestConfig = {
       url: `${this.baseURL}${url}`,
       method: this.method,
-      headers: req.headers || {},
+      headers: headers,
       params: {},
     }
 

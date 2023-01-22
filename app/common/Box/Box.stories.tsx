@@ -17,3 +17,23 @@ export const Default: Story = {
     children: <p>hey</p>,
   },
 }
+
+export const GutterBottom: Story = {
+  args: {
+    children: <p>hey</p>,
+    gutterBottom: true,
+  },
+}
+
+export const BackgroundTextLarge: Story = {
+  args: {
+    children: <p>hey</p>,
+    backgroundTextLarge: 'hey...',
+  },
+}
+export const backgroundTextSmall: Story = {
+  args: {
+    children: <p>hey</p>,
+    backgroundTextSmall: 'hey...',
+  },
+}

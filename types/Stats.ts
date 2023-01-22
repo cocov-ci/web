@@ -1,6 +1,8 @@
+import { ChartProps, ChartTypeProps } from './Chart'
+
 export interface StatProps {
-  data?: number[]
   value?: number
+  data?: ChartProps
 }
 
 export interface StatsProps {
@@ -15,5 +17,5 @@ export interface StatsResponseProps {
 
 export interface StatsComponentProps {
   data: StatProps | undefined
-  type: 'issues' | 'coverage'
+  type: ChartTypeProps
 }

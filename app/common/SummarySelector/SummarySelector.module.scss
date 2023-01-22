@@ -6,6 +6,10 @@
   border-radius: 8px;
   justify-content: space-between;
 
+  &.gutterBottom {
+    margin-bottom: 32px;
+  }
+
   .textContainer {
     padding: 20px;
     display: flex;

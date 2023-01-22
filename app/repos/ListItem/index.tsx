@@ -11,9 +11,10 @@ const RepositoryListItem = ({
   issues,
   coverage,
   name,
+  default_branch,
 }: Pick<
   RepositoryResponseProps,
-  'description' | 'issues' | 'coverage' | 'name'
+  'description' | 'issues' | 'coverage' | 'name' | 'default_branch'
 >) => {
   const { data } = useSWR<StatsResponseProps>(
     `/api/repositories/${name}/graphs`,
@@ -23,7 +24,7 @@ const RepositoryListItem = ({
     <div>
       <ListItem
         description={description}
-        href={`/repos/${name}`}
+        href={`/repos/${name}/branches/${default_branch}`}
         stats={{
           issues: { value: issues, data: data?.issues },
           coverage: { value: coverage, data: data?.coverage },

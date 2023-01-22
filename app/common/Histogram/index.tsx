@@ -22,7 +22,7 @@ const Histogram = ({ className, values }: HistogramProps) => {
   const autoWrap = (el: HistogramItem, children: JSX.Element) => {
     if (el.href) {
       return (
-        <Link href={el.href} target={el.hrefTarget}>
+        <Link href={el.href} key={`label-${el.label}`} target={el.hrefTarget}>
           {children}
         </Link>
       )
@@ -51,7 +51,7 @@ const Histogram = ({ className, values }: HistogramProps) => {
               <div
                 className={styles.valueWrapper}
                 style={{
-                  width: `${(obj.value / maxValue) * 100}%`,
+                  width: `${(obj.value / maxValue) * 95}%`,
                 }}
               >
                 {obj.value}

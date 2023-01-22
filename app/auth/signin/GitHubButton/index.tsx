@@ -14,16 +14,18 @@ const GitHubButton = () => {
   if (loading) return <Loading />
 
   return (
-    <Button className={styles.button} onClick={(): void => login()}>
-      <Image
-        alt="GitHub logo"
-        className={styles.logo}
-        height="20"
-        src="/icons/github.svg"
-        width="20"
-      />
-      Log in with GitHub
-    </Button>
+    <div className={styles.gitHubButton}>
+      <Button className={styles.button} onClick={(): void => login()}>
+        <Image
+          alt="GitHub logo"
+          className={styles.logo}
+          height="20"
+          src="/icons/github.svg"
+          width="20"
+        />
+        Log in with GitHub
+      </Button>
+    </div>
   )
 }
 

@@ -1,3 +1,5 @@
+'use client'
+
 import classNames from 'classnames'
 import { GitBranch } from 'lucide-react'
 import React from 'react'
@@ -9,6 +11,7 @@ import styles from './SummarySelector.module.scss'
 
 type SummarySelectorProps = {
   className?: string
+  gutterBottom?: boolean
   branchName: string
   onRequestSwitch?: (event: React.MouseEvent) => void
 }
@@ -17,9 +20,14 @@ const SummarySelector = ({
   className,
   branchName,
   onRequestSwitch,
+  gutterBottom,
 }: SummarySelectorProps) => {
   return (
-    <div className={classNames(styles.base, className)}>
+    <div
+      className={classNames(styles.base, className, {
+        [styles.gutterBottom]: gutterBottom,
+      })}
+    >
       <div className={styles.textContainer}>
         <GitBranch size={18} />
         <span className={styles.disclaimer}>

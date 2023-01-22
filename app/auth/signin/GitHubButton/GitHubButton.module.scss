@@ -1,20 +1,22 @@
 @import "styles/variables";
 
-.button {
-  width: 100%;
-  position: relative;
-  padding: 12px 16px;
-  border-radius: 8px !important;
-  cursor: pointer;
-  background-color: $colorGrayDark !important;
-  font-size: 17px;
-  color: $colorWhite;
-  border: none;
+.gitHubButton {
+  .button {
+    width: 100%;
+    position: relative;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: $colorGrayDark;
+    font-size: 17px;
+    color: $colorWhite;
+    border: none;
 
-  img {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 15px;
+    img {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 15px;
+    }
   }
 }

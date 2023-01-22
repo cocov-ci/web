@@ -1,0 +1,14 @@
+.lastCommit {
+  .title {
+    font-variation-settings: "wght" 600;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .commitHeader {
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+}

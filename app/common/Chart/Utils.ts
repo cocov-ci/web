@@ -1,6 +1,7 @@
 interface GradientProps {
   ctx: CanvasRenderingContext2D
   isCoverage: boolean
+  height: number
 }
 
 // Arrays containing gradient start, gradient stop, and border
@@ -9,10 +10,14 @@ const chartColors = {
   issues: ['rgba(205,29,141,0.36)', '#E8E8E8', '#CD1D8D'],
 }
 
-export const generateGradient = ({ ctx, isCoverage }: GradientProps) => {
+export const generateGradient = ({
+  ctx,
+  isCoverage,
+  height,
+}: GradientProps) => {
   if (!ctx) return
 
-  const gradient = ctx.createLinearGradient(0, 35, 0, 80)
+  const gradient = ctx.createLinearGradient(0, height / 2, 0, height)
   const [colorStart, colorStop] = isCoverage
     ? chartColors.coverage
     : chartColors.issues
@@ -42,7 +47,7 @@ export const options = {
   },
 }
 
-export const makeFakePoints = () =>
+export const makeFakePoints = (): number[] =>
   new Array(31)
     .fill(0)
     .map(() => Math.random() * 100)

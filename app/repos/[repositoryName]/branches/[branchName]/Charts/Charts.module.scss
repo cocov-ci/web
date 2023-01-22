@@ -1,0 +1,27 @@
+@import "styles/variables";
+
+.charts {
+  display: flex;
+  justify-content: space-between;
+
+  .chart {
+    &:first-of-type {
+      margin-right: 32px;
+    }
+
+    .title {
+      font-variation-settings: "wght" 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .description {
+      font-variation-settings: "wght" 400;
+      font-size: 13px;
+      margin-bottom: 10px;
+      color: $colorGrayMedium;
+      margin-left: 7px;
+    }
+  }
+}
