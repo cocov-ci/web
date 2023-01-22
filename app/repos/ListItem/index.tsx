@@ -1,10 +1,12 @@
 'use client'
 
-import useSWR from 'swr'
-
 import ListItem from 'app/common/ListItem'
+import useFetch from 'hooks/useFetch'
 import { RepositoryResponseProps } from 'types/Repositories'
 import { StatsResponseProps } from 'types/Stats'
+interface GraphsFetchResponse {
+  data: StatsResponseProps
+}
 
 const RepositoryListItem = ({
   description,
@@ -16,9 +18,10 @@ const RepositoryListItem = ({
   RepositoryResponseProps,
   'description' | 'issues' | 'coverage' | 'name' | 'default_branch'
 >) => {
-  const { data } = useSWR<StatsResponseProps>(
-    `/api/repositories/${name}/graphs`,
-  )
+  const { data } = useFetch({
+    url: `/api/repositories/${name}/graphs`,
+    handler: [name],
+  }) as GraphsFetchResponse
 
   return (
     <div>

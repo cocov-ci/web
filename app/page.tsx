@@ -1,7 +1,7 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
-import useSWR from 'swr'
 
 import Pagination from 'app/common/Pagination'
 import TopBar from 'app/common/TopBar'
@@ -9,9 +9,15 @@ import Empty from 'app/repos/Empty'
 import ListItem from 'app/repos/ListItem'
 import NoResults from 'app/repos/NoResults'
 import TopBarActions from 'app/repos/TopBarActions'
+import useFetch from 'hooks/useFetch'
 import { PagingProps, RepositoriesResponseProps } from 'types/Repositories'
 
 import Loading from './loading'
+
+interface RepositoriesFetchResponse {
+  data: RepositoriesResponseProps
+  loading: boolean
+}
 
 const hasRepositoriesList = (
   data: RepositoriesResponseProps | undefined,
@@ -24,13 +30,10 @@ const Repositories = () => {
 
   const isSearching = useMemo(() => search.length > 0, [search])
 
-  const { data, isLoading } = useSWR<RepositoriesResponseProps>(
-    `/api/repositories?search_term=${search}&page=${currentPage}`,
-    null,
-    {
-      keepPreviousData: isSearching,
-    },
-  )
+  const { data, loading } = useFetch({
+    url: `/api/repositories?search_term=${search}&page=${currentPage}`,
+    handler: [currentPage, search],
+  }) as RepositoriesFetchResponse
 
   const isEmpty = useMemo(
     () => hasRepositoriesList(data) && data.repositories.length === 0,
@@ -55,12 +58,12 @@ const Repositories = () => {
       <TopBar title="Repositories">
         <TopBarActions
           onSearchChange={term => setSearch(term)}
-          searchFieldDisabled={isLoading && !isSearching}
-          searchFieldLoading={isLoading && isSearching}
+          searchFieldDisabled={loading && !isSearching}
+          searchFieldLoading={loading && isSearching}
         />
       </TopBar>
 
-      {isLoading && !isSearching && <Loading />}
+      {loading && !isSearching && <Loading />}
 
       {isEmpty && isSearching && <NoResults />}
       {isEmpty && !isSearching && <Empty />}

@@ -6,13 +6,15 @@ import Box from 'app/common/Box'
 import Chart from 'app/common/Chart'
 import { makeFakePoints } from 'app/common/Chart/Utils'
 import Text from 'app/common/Text'
+// import useFetch from 'hooks/useFetch'
 
 import styles from './Charts.module.scss'
 
-const Charts = () => {
-  // const { data } = useSWR<RepositoryResponseProps>(
-  //   `/api/repositories/${params.repositoryName}`,
-  // )
+const Charts = ({ repositoryName }: { repositoryName: string }) => {
+  // const { data } = useFetch({
+  //   url: `/api/repositories/${repositoryName}`,
+  //   handler: [],
+  // })
 
   return (
     <div className={styles.charts}>

@@ -39,7 +39,7 @@ const Branch = async ({
       <SummarySelector branchName={dataBranch.name} gutterBottom />
       <StatusDisplay data={dataBranch.head} repositoryName={repositoryName} />
       <LastCommit />
-      <Charts />
+      <Charts repositoryName={repositoryName} />
       <TopIssues />
     </div>
   )
