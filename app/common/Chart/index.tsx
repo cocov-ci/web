@@ -68,6 +68,7 @@ const Chart = ({
           borderColor: getBorderColor(coverage),
           backgroundColor: generateGradient({
             height: chartHeight,
+            fullChart,
             ctx: chart.ctx,
             isCoverage: coverage,
           }),
@@ -90,7 +91,7 @@ const Chart = ({
           labels,
           maxValue: Math.max(...data),
         })}
-        plugins={getPlugins({ fullChart })}
+        plugins={[getPlugins({ fullChart })]}
         ref={chartRef}
         width={width}
       />

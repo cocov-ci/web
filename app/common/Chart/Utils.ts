@@ -1,4 +1,4 @@
-import { Tooltip } from 'chart.js'
+import { Chart, Plugin, Tooltip, TooltipItem } from 'chart.js'
 
 import variables from 'styles/variables.module.scss'
 import { ChartGradientProps, ChartOptionsProps } from 'types/Chart'
@@ -18,19 +18,14 @@ const kFormatter = (num: number) => {
     : Math.sign(num) * Math.abs(num)
 }
 
-// Create a custom tooltip positioner to put at the bottom of the chart area
 Tooltip.positioners.top = function (items) {
-  const pos = Tooltip.positioners.average(items)
+  if (!items.length) return false
 
-  // Happens when nothing is found
-  if (pos === false) {
-    return false
-  }
-
+  const topElement = items[0]
   const chart = this.chart
 
   return {
-    x: pos.x,
+    x: topElement.element.x,
     y: chart.chartArea.top,
     xAlign: 'center',
     yAlign: 'bottom',
@@ -41,6 +36,7 @@ export const generateGradient = ({
   ctx,
   isCoverage,
   height,
+  fullChart,
 }: ChartGradientProps) => {
   if (!ctx) return
 
@@ -50,7 +46,7 @@ export const generateGradient = ({
     : chartColors.issues
 
   gradient.addColorStop(0, colorStart)
-  gradient.addColorStop(0.6, colorStop)
+  fullChart && gradient.addColorStop(0.6, colorStop)
   gradient.addColorStop(1, colorStop)
 
   return gradient
@@ -61,27 +57,29 @@ export const getBorderColor = (isCoverage: boolean) =>
 
 export const getPlugins = ({
   fullChart,
-}: Pick<ChartOptionsProps, 'fullChart'>) => [
-  {
-    ...(fullChart && {
-      afterDraw: chart => {
-        if (chart.tooltip?._active?.length) {
-          const x = chart.tooltip._active[0].element.x
-          const yAxis = chart.scales.y
-          const ctx = chart.ctx
-          ctx.save()
-          ctx.beginPath()
-          ctx.moveTo(x, yAxis.top)
-          ctx.lineTo(x, yAxis.bottom)
-          ctx.lineWidth = 1
-          ctx.strokeStyle = variables.colorGray
-          ctx.stroke()
-          ctx.restore()
-        }
-      },
-    }),
-  },
-]
+}: Pick<ChartOptionsProps, 'fullChart'>): Plugin<'line'> => ({
+  id: 'line',
+  ...(fullChart && {
+    afterDraw: (chart: Chart) => {
+      const active = chart?.tooltip?.getActiveElements()
+
+      if (chart?.tooltip && active?.length) {
+        const x = chart.tooltip?.caretX
+        const yAxis = chart.scales.y
+        const ctx = chart.ctx
+        ctx.save()
+        ctx.beginPath()
+        ctx.moveTo(x, yAxis.top)
+        ctx.lineTo(x, yAxis.bottom)
+        ctx.lineWidth = 1
+        ctx.strokeStyle = variables.color_gray
+
+        ctx.stroke()
+        ctx.restore()
+      }
+    },
+  }),
+})
 
 export const getOptions = ({
   fullChart,
@@ -90,24 +88,23 @@ export const getOptions = ({
   maxValue,
 }: ChartOptionsProps) => ({
   pointStyle: false,
+  interaction: {
+    intersect: false,
+  },
   borderWidth: 1,
   font: {
     family: inconsolata.style.fontFamily,
   },
-  interaction: {
-    intersect: false,
-    mode: 'index',
-  },
   plugins: {
     tooltip: {
       enabled: fullChart,
-      position: 'top',
+      position: 'top' as const,
       displayColors: false,
-      bodyAlign: 'center',
+      bodyAlign: 'center' as const,
       titleMarginBottom: 1,
       callbacks: {
-        title: context => {
-          return context[0].label.split('/').reverse().join(' ')
+        title: (items: TooltipItem<'line'>[]) => {
+          return items[0].label.split('/').reverse().join(' ')
         },
       },
     },
@@ -125,21 +122,21 @@ export const getOptions = ({
         maxRotation: 35,
         padding: -5,
         autoSkip: false,
-        color: variables.colorGrayMedium,
+        color: variables.color_gray_medium,
         font: {
           size: 15,
         },
-        callback: (val: number, index: number) => {
-          return index % 3 === 0 && index !== 0 ? labels[val] : ''
+        callback: (val: string | number, index: number) => {
+          return index % 3 === 0 && index !== 0 ? labels[val as number] : ''
         },
       },
       border: {
         z: 1,
-        color: variables.colorGrayMedium,
+        color: variables.color_gray_medium,
         width: 1,
       },
       grid: {
-        color: null,
+        display: false,
       },
     },
     y: {
@@ -149,14 +146,15 @@ export const getOptions = ({
       beginAtZero: true,
       ticks: {
         stepSize: coverage ? 50 : Math.round(maxValue / 2),
-        color: variables.colorGrayMedium,
-        callback: (val: number) => (coverage ? `${val}%` : kFormatter(val)),
+        color: variables.color_gray_medium,
+        callback: (val: string | number) =>
+          coverage ? `${val}%` : kFormatter(val as number),
         font: {
           size: 15,
         },
       },
       border: {
-        color: variables.colorGrayMedium,
+        color: variables.color_gray_medium,
         width: 1,
       },
     },

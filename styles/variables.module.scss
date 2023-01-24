@@ -82,12 +82,12 @@ $colorHistogram: (
 );
 
 :export {
-  colorgray: $colorGray;
-  colorgraylighter: $colorGrayLighter;
-  colorgraylight: $colorGrayLight;
-  colorgraymedium: $colorGrayMedium;
-  colorgraydark: $colorGrayDark;
-  colorwhite: $colorWhite;
-  colorwhitedark: $colorWhiteDark;
-  colorblack: $colorBlack;
+  color_gray: $colorGray;
+  color_gray_lighter: $colorGrayLighter;
+  color_gray_light: $colorGrayLight;
+  color_gray_medium: $colorGrayMedium;
+  color_gray_dark: $colorGrayDark;
+  color_white: $colorWhite;
+  color_white_dark: $colorWhiteDark;
+  color_black: $colorBlack;
 }

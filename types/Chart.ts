@@ -26,6 +26,7 @@ export interface ChartResponseProps {
 
 export interface ChartGradientProps {
   ctx: CanvasRenderingContext2D
+  fullChart: boolean
   isCoverage: boolean
   height: number
 }
