@@ -1,6 +1,6 @@
 @use "sass:color";
 @use "sass:map";
-@import "styles/variables";
+@import "styles/variables.module";
 
 .base {
   box-shadow: 7px 2px 40px 0 color.adjust($colorBlack, $alpha: -0.5);

@@ -6,7 +6,7 @@ interface RelativeTimeProps {
   timestamp: Date
 }
 
-const getFormattedTitle = (date: Date): string | undefined => {
+export const getFormattedTitle = (date: Date): string | undefined => {
   return new Intl.DateTimeFormat('en', {
     day: 'numeric',
     month: 'short',

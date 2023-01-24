@@ -1,10 +1,10 @@
-@import "styles/variables";
+@import "styles/variables.module";
 
 .charts {
   display: flex;
   justify-content: space-between;
 
-  .chart {
+  .box {
     &:first-of-type {
       margin-right: 32px;
     }
@@ -22,6 +22,11 @@
       margin-bottom: 10px;
       color: $colorGrayMedium;
       margin-left: 7px;
+    }
+
+    .chart {
+      margin-left: -15px;
+      margin-bottom: -10px;
     }
   }
 }
