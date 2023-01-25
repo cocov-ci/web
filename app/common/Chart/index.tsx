@@ -8,38 +8,62 @@ import {
   LinearScale,
   LineElement,
   PointElement,
+  Tooltip,
 } from 'chart.js'
 import classNames from 'classnames'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Line } from 'react-chartjs-2'
 
 import { ChartComponentProps } from 'types/Chart'
 
 import styles from './Chart.module.scss'
-import { generateGradient, getBorderColor, options } from './Utils'
+import {
+  chartPadding,
+  generateGradient,
+  getBorderColor,
+  getOptions,
+  getPlugins,
+  makeFakePoints,
+} from './Utils'
 
-ChartJS.register(CategoryScale, Filler, LinearScale, PointElement, LineElement)
-
-const labels = new Array(31).fill(0).map((_, i) => i + 1)
+ChartJS.register(
+  CategoryScale,
+  Filler,
+  Tooltip,
+  LinearScale,
+  PointElement,
+  LineElement,
+)
 
 const Chart = ({
   data = [],
+  labels = new Array(31).fill(0).map((_, i) => i + 1),
   type,
   width,
   height,
   className,
+  fullChart = false,
 }: ChartComponentProps) => {
   const chartRef = useRef<ChartJS>(null)
   const [chartData, setChartData] = useState<ChartData<'line'>>({
     datasets: [],
   })
 
-  const coverage = type === 'coverage'
+  const chartHeight = useMemo(() => height + chartPadding, [height])
+  const dataType = useMemo(
+    () => (data.length === 0 ? 'empty' : type),
+    [type, data],
+  )
+
+  const dataPoints = useMemo(
+    () => (data.length === 0 ? makeFakePoints() : data),
+    [data],
+  )
 
   useEffect(() => {
     const chart = chartRef.current
 
-    if (!chart || data.length === 0) {
+    if (!chart) {
       return
     }
 
@@ -47,28 +71,37 @@ const Chart = ({
       labels,
       datasets: [
         {
-          // Convert null values to Zero
-          data: data.map(item => (!item ? 0 : item)),
-          borderColor: getBorderColor(coverage),
+          data: dataPoints,
+          tension: 0.1,
+          fill: true,
+          ...(dataType === 'empty' && { borderDash: [8, 5] }),
+          borderColor: getBorderColor(dataType),
           backgroundColor: generateGradient({
-            height: height,
+            height: chartHeight,
+            fullChart,
             ctx: chart.ctx,
-            isCoverage: coverage,
+            type: dataType,
           }),
         },
       ],
     })
-  }, [data])
+  }, [dataPoints])
 
   return (
     <div
       className={classNames(styles.chart, className)}
-      style={{ width, height }}
+      style={{ width, height: chartHeight }}
     >
       <Line
         data={chartData}
-        height={height}
-        options={options}
+        height={chartHeight}
+        options={getOptions({
+          fullChart,
+          type: dataType,
+          labels,
+          maxValue: data.length === 0 ? 100 : Math.max(...dataPoints),
+        })}
+        plugins={[getPlugins({ fullChart })]}
         ref={chartRef}
         width={width}
       />

@@ -1,10 +1,29 @@
-@import "styles/variables";
+@import "styles/variables.module";
 
 .charts {
   display: flex;
   justify-content: space-between;
 
-  .chart {
+  .empty {
+    max-width: 273px;
+    position: absolute;
+    top: 45%;
+    transform: translate(-25%, -25%);
+    left: 35%;
+    z-index: 1;
+
+    .emptyTitle {
+      font-size: 17px;
+      font-variation-settings: "wght" 600;
+    }
+
+    .settingUpLink {
+      font-variation-settings: "wght" 600;
+      text-decoration: underline;
+    }
+  }
+
+  .box {
     &:first-of-type {
       margin-right: 32px;
     }
@@ -22,6 +41,11 @@
       margin-bottom: 10px;
       color: $colorGrayMedium;
       margin-left: 7px;
+    }
+
+    .chart {
+      margin-left: -15px;
+      margin-bottom: -10px;
     }
   }
 }
