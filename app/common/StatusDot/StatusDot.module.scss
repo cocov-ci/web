@@ -18,8 +18,4 @@
   @include dot-color(yellow, #F7C008, #FBE28D);
   @include dot-color(grey, #727272, #999999);
   @include dot-color(red, #DC2331, #E03D4A);
-
-  &.clickable {
-    cursor: pointer;
-  }
 }

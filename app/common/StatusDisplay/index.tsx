@@ -5,10 +5,9 @@ import React from 'react'
 
 import AccessoryButton, { HelpIcon } from 'app/common/AccessoryButton'
 import Box from 'app/common/Box'
+import Button from 'app/common/Button'
 import StatusDot, { StatusDotColor } from 'app/common/StatusDot'
 import Url from 'types/Url'
-
-import Button from '../Button'
 
 import styles from './StatusDisplay.module.scss'
 
