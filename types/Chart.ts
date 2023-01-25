@@ -1,7 +1,6 @@
 export type ChartProps = number[]
 
-export type ChartTypeProps = 'issues' | 'coverage'
-
+export type ChartTypeProps = 'issues' | 'coverage' | 'empty'
 export interface ChartComponentProps {
   data?: ChartProps
   labels?: (number | string)[]
@@ -13,7 +12,7 @@ export interface ChartComponentProps {
 }
 
 export interface ChartOptionsProps {
-  coverage: boolean
+  type: ChartTypeProps
   labels: (number | string)[]
   maxValue: number
   fullChart: boolean
@@ -27,6 +26,6 @@ export interface ChartResponseProps {
 export interface ChartGradientProps {
   ctx: CanvasRenderingContext2D
   fullChart: boolean
-  isCoverage: boolean
+  type: ChartTypeProps
   height: number
 }

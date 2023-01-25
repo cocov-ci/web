@@ -23,6 +23,7 @@ import {
   getBorderColor,
   getOptions,
   getPlugins,
+  makeFakePoints,
 } from './Utils'
 
 ChartJS.register(
@@ -49,12 +50,20 @@ const Chart = ({
   })
 
   const chartHeight = useMemo(() => height + chartPadding, [height])
-  const coverage = useMemo(() => type === 'coverage', [type])
+  const dataType = useMemo(
+    () => (data.length === 0 ? 'empty' : type),
+    [type, data],
+  )
+
+  const dataPoints = useMemo(
+    () => (data.length === 0 ? makeFakePoints() : data),
+    [data],
+  )
 
   useEffect(() => {
     const chart = chartRef.current
 
-    if (!chart || data.length === 0) {
+    if (!chart) {
       return
     }
 
@@ -62,20 +71,21 @@ const Chart = ({
       labels,
       datasets: [
         {
-          data: data,
+          data: dataPoints,
           tension: 0.1,
           fill: true,
-          borderColor: getBorderColor(coverage),
+          ...(dataType === 'empty' && { borderDash: [8, 5] }),
+          borderColor: getBorderColor(dataType),
           backgroundColor: generateGradient({
             height: chartHeight,
             fullChart,
             ctx: chart.ctx,
-            isCoverage: coverage,
+            type: dataType,
           }),
         },
       ],
     })
-  }, [data])
+  }, [dataPoints])
 
   return (
     <div
@@ -87,9 +97,9 @@ const Chart = ({
         height={chartHeight}
         options={getOptions({
           fullChart,
-          coverage,
+          type: dataType,
           labels,
-          maxValue: Math.max(...data),
+          maxValue: data.length === 0 ? 100 : Math.max(...dataPoints),
         })}
         plugins={[getPlugins({ fullChart })]}
         ref={chartRef}

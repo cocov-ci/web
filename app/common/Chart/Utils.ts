@@ -1,7 +1,11 @@
 import { Chart, Plugin, Tooltip, TooltipItem } from 'chart.js'
 
 import variables from 'styles/variables.module.scss'
-import { ChartGradientProps, ChartOptionsProps } from 'types/Chart'
+import {
+  ChartGradientProps,
+  ChartOptionsProps,
+  ChartTypeProps,
+} from 'types/Chart'
 import { inconsolata } from 'utils/fonts'
 
 export const chartPadding = 55
@@ -10,6 +14,7 @@ export const chartPadding = 55
 const chartColors = {
   coverage: ['rgba(17, 150, 255, 0.16)', 'rgba(17, 150, 255, 0)', '#a5d1f4'],
   issues: ['rgba(233, 172, 211, 0.42)', 'rgba(233, 172, 211, 0)', '#e4aace'],
+  empty: ['rgba(173, 173, 173, 0.10)', 'rgba(233, 172, 211, 0)', '#CACACA'],
 }
 
 const kFormatter = (num: number) => {
@@ -34,16 +39,19 @@ Tooltip.positioners.top = function (items) {
 
 export const generateGradient = ({
   ctx,
-  isCoverage,
+  type,
   height,
   fullChart,
 }: ChartGradientProps) => {
   if (!ctx) return
 
   const gradient = ctx.createLinearGradient(0, height / 2, 0, height)
-  const [colorStart, colorStop] = isCoverage
-    ? chartColors.coverage
-    : chartColors.issues
+  const [colorStart, colorStop] =
+    type === 'empty'
+      ? chartColors.empty
+      : type === 'coverage'
+      ? chartColors.coverage
+      : chartColors.issues
 
   gradient.addColorStop(0, colorStart)
   fullChart && gradient.addColorStop(0.6, colorStop)
@@ -52,8 +60,12 @@ export const generateGradient = ({
   return gradient
 }
 
-export const getBorderColor = (isCoverage: boolean) =>
-  (isCoverage ? chartColors.coverage : chartColors.issues)[2]
+export const getBorderColor = (type: ChartTypeProps) =>
+  (type === 'empty'
+    ? chartColors.empty
+    : type === 'coverage'
+    ? chartColors.coverage
+    : chartColors.issues)[2]
 
 export const getPlugins = ({
   fullChart,
@@ -83,86 +95,98 @@ export const getPlugins = ({
 
 export const getOptions = ({
   fullChart,
-  coverage,
+  type,
   labels,
   maxValue,
-}: ChartOptionsProps) => ({
-  pointStyle: false,
-  interaction: {
-    intersect: false,
-  },
-  borderWidth: 1,
-  font: {
-    family: inconsolata.style.fontFamily,
-  },
-  plugins: {
-    tooltip: {
-      enabled: fullChart,
-      position: 'top' as const,
-      displayColors: false,
-      bodyAlign: 'center' as const,
-      titleMarginBottom: 1,
-      callbacks: {
-        title: (items: TooltipItem<'line'>[]) => {
-          return items[0].label.split('/').reverse().join(' ')
+}: ChartOptionsProps) => {
+  const coverage = type === 'coverage'
+  const empty = type === 'empty'
+  const max = maxValue > 0 ? maxValue : 2
+
+  return {
+    pointStyle: false,
+    interaction: {
+      intersect: false,
+    },
+    borderWidth: 1,
+    font: {
+      family: inconsolata.style.fontFamily,
+    },
+    plugins: {
+      tooltip: {
+        enabled: fullChart && !empty,
+        position: 'top' as const,
+        displayColors: false,
+        bodyAlign: 'center' as const,
+        titleMarginBottom: 1,
+        callbacks: {
+          title: (items: TooltipItem<'line'>[]) => {
+            return items[0].label.split('/').reverse().join(' ')
+          },
+          label: (item: TooltipItem<'line'>) => {
+            return coverage ? `${item.formattedValue}%` : item.formattedValue
+          },
         },
       },
     },
-  },
-  layout: {
-    padding: {
-      top: 55,
-    },
-  },
-  scales: {
-    x: {
-      display: fullChart,
-      beginAtZero: true,
-      ticks: {
-        maxRotation: 35,
-        padding: -5,
-        autoSkip: false,
-        color: variables.color_gray_medium,
-        font: {
-          size: 15,
-        },
-        callback: (val: string | number, index: number) => {
-          return index % 3 === 0 && index !== 0 ? labels[val as number] : ''
-        },
-      },
-      border: {
-        z: 1,
-        color: variables.color_gray_medium,
-        width: 1,
-      },
-      grid: {
-        display: false,
+    layout: {
+      padding: {
+        top: 55,
       },
     },
-    y: {
-      display: fullChart,
-      min: 0,
-      max: coverage ? 100 : maxValue,
-      beginAtZero: true,
-      ticks: {
-        stepSize: coverage ? 50 : Math.round(maxValue / 2),
-        color: variables.color_gray_medium,
-        callback: (val: string | number) =>
-          coverage ? `${val}%` : kFormatter(val as number),
-        font: {
-          size: 15,
+    scales: {
+      x: {
+        display: fullChart,
+        beginAtZero: true,
+        ticks: {
+          maxRotation: 35,
+          padding: -5,
+          autoSkip: false,
+          color: !empty ? variables.color_gray_medium : variables.color_gray,
+          font: {
+            size: 15,
+          },
+          callback: (val: string | number, index: number) => {
+            return index % 3 === 0 && index !== 0 ? labels[val as number] : ''
+          },
+        },
+        border: {
+          z: 1,
+          color: !empty ? variables.color_gray_medium : variables.color_gray,
+          width: 1,
+        },
+        grid: {
+          display: false,
         },
       },
-      border: {
-        color: variables.color_gray_medium,
-        width: 1,
+      y: {
+        display: fullChart,
+        min: 0,
+        max: coverage ? 100 : max,
+        beginAtZero: true,
+        ticks: {
+          stepSize: coverage ? 50 : Math.round(max / 2),
+          color: !empty ? variables.color_gray_medium : variables.color_gray,
+          callback: (val: string | number) =>
+            empty ? '' : coverage ? `${val}%` : kFormatter(val as number),
+          font: {
+            size: 15,
+          },
+        },
+        border: {
+          color: !empty ? variables.color_gray_medium : variables.color_gray,
+          width: 1,
+        },
+        grid: {
+          display: !empty,
+        },
       },
     },
-  },
-})
+  }
+}
 
 export const makeFakePoints = (): number[] =>
-  new Array(31)
+  new Array(32)
     .fill(0)
-    .map(() => Math.random() * 100)
+    .map(() => Math.random() * (80 - 60) + 60)
     .map(Math.ceil)

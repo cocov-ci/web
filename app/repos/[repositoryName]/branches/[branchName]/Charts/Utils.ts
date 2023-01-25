@@ -6,8 +6,16 @@ const formatDate = (date: string): string => {
     .join('/')
 }
 
-export const getLabels = (data: { [any: string]: number | null }) =>
-  Object.keys(data).map(key => formatDate(key))
+export const getLabels = (data: { [any: string]: number | null }) => {
+  return Object.keys(data).map(key => formatDate(key))
+}
 
-export const getData = (data: { [any: string]: number | null }) =>
-  Object.values(data).map(item => Number(item))
+export const getData = (data: { [any: string]: number | null }) => {
+  const values = Object.values(data).filter(item => item && item > 0)
+
+  if (values.length > 0) {
+    return Object.values(data).map(item => Number(item))
+  } else {
+    return []
+  }
+}

@@ -4,6 +4,25 @@
   display: flex;
   justify-content: space-between;
 
+  .empty {
+    max-width: 273px;
+    position: absolute;
+    top: 45%;
+    transform: translate(-25%, -25%);
+    left: 35%;
+    z-index: 1;
+
+    .emptyTitle {
+      font-size: 17px;
+      font-variation-settings: "wght" 600;
+    }
+
+    .settingUpLink {
+      font-variation-settings: "wght" 600;
+      text-decoration: underline;
+    }
+  }
+
   .box {
     &:first-of-type {
       margin-right: 32px;
