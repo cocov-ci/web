@@ -1,0 +1,11 @@
+@import "styles/variables.module";
+
+.empty {
+  margin-bottom: 25px;
+
+  .alert {
+    > div {
+      background-color: $colorGrayLight;
+    }
+  }
+}

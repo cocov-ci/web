@@ -2,6 +2,11 @@ const nextConfig = {
   reactStrictMode: false,
   experimental: {
     appDir: true,
+    serverComponentsExternalPackages: [
+      'chart.js',
+      'react-chartjs-2',
+      'classnames',
+    ],
     fontLoaders: [
       { loader: '@next/font/google', options: { subsets: ['latin'] } },
     ],

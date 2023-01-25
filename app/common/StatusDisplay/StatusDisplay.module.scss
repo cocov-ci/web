@@ -2,48 +2,51 @@
 
 .statusDisplay {
   .base {
-    display: flex;
-    flex-direction: row;
     padding: 0;
-    font-size: 15px;
 
-    .cell {
-      flex: 1;
+    .content {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: row;
+      font-size: 15px;
 
-      .text {
-        padding: 18px 25px;
+      .cell {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-        .dot {
-          height: 12px;
-          width: 12px;
-        }
+        .text {
+          padding: 18px 25px;
 
-        .label {
-          margin-left: 6px;
-        }
+          .dot {
+            height: 12px;
+            width: 12px;
+          }
 
-        .message {
-          margin-left: 4px;
+          .label {
+            margin-left: 6px;
+          }
 
-          &.bold {
-            font-variation-settings: "wght" 600;
+          .message {
+            margin-left: 4px;
+
+            &.bold {
+              font-variation-settings: "wght" 600;
+            }
           }
         }
-      }
 
-      .details {
-        margin: 4px 8px;
+        .details {
+          margin: 4px 8px;
 
-        &.help {
-          margin-right: 12px;
+          &.help {
+            margin-right: 12px;
+          }
         }
-      }
 
-      &:first-of-type {
-        border-right: 1px solid $colorGray;
+        &:first-of-type {
+          border-right: 1px solid $colorGray;
+        }
       }
     }
   }

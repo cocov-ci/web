@@ -17,6 +17,13 @@ export interface HeadProps {
   issues_count: number
   condensed_status: string
   minimum_coverage: number | null
+  message: string
+  created_at: string
+  org_name: string
+  user?: {
+    name: string
+    avatar: string
+  }
 }
 
 export interface BranchResponseProps {
@@ -26,4 +33,15 @@ export interface BranchResponseProps {
   issues: number
   condensed_status: string
   head: HeadProps
+}
+
+export interface CommitHeaderProps {
+  className?: string
+  username?: string
+  avatarURL?: string
+  headSHA: string
+  headURL: string
+  timestamp: Date
+  commitMessage: string
+  readonly?: boolean
 }

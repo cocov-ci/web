@@ -84,8 +84,10 @@ const StatusDisplay = ({
   return (
     <div className={styles.statusDisplay}>
       <Box className={styles.base} gutterBottom={gutterBottom}>
-        <StatusCell label="Coverage:" {...coverage} />
-        <StatusCell label="Checks:" {...checks} />
+        <div className={styles.content}>
+          <StatusCell label="Coverage:" {...coverage} />
+          <StatusCell label="Checks:" {...checks} />
+        </div>
       </Box>
     </div>
   )

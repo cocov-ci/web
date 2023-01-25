@@ -1,28 +1,49 @@
 import Box from 'app/common/Box'
 import Histogram from 'app/common/Histogram'
 import Text from 'app/common/Text'
+import fetcher from 'utils/fetchServer'
 
+import Empty from './Empty'
 import styles from './TopIssues.module.scss'
 
-const values = ['Seventy', 'Eighty', 'Ninety', 'A Hundred']
-  .map((i, idx) => ({
-    value: idx * 10,
-    label: i,
+interface TopIssuesProps {
+  repositoryName: string
+  branchName: string
+}
+
+type TopIssuesReponseProps = {
+  [any: string]: number
+}
+
+const TopIssues = async ({ repositoryName, branchName }: TopIssuesProps) => {
+  const data: TopIssuesReponseProps = await fetcher(
+    `/v1/repositories/${repositoryName}/branches/${branchName}/top_issues`,
+  )
+
+  const values = Object.keys(data).map(item => ({
+    value: data[item],
+    label: item,
     href: '/',
   }))
-  .reverse()
 
-const TopIssues = () => (
-  <Box
-    backgroundTextLarge="Top Issues by"
-    className={styles.lastCommit}
-    gutterBottom
-  >
-    <Text className={styles.title} variant="title">
-      Top Issues by Kind
-    </Text>
-    <Histogram className={styles.histogram} values={values} />
-  </Box>
-)
+  return (
+    <div>
+      <Box
+        backgroundTextLarge="Top Issues by"
+        className={styles.lastCommit}
+        gutterBottom
+      >
+        <Text className={styles.title} variant="title">
+          Top Issues by Kind
+        </Text>
+        {values.length > 0 ? (
+          <Histogram className={styles.histogram} values={values} />
+        ) : (
+          <Empty />
+        )}
+      </Box>
+    </div>
+  )
+}
 
 export default TopIssues

@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation'
+
 import Button from 'app/common/Button'
 import PillNav from 'app/common/PillNav'
 import SummarySelector from 'app/common/SummarySelector'
@@ -7,6 +9,7 @@ import { RepositoryResponseProps } from 'types/Repositories'
 import fetcher from 'utils/fetchServer'
 
 import Charts from './Charts'
+import Empty from './Empty'
 import LastCommit from './LastCommit'
 import StatusDisplay from './StatusDisplay'
 import TopIssues from './TopIssues'
@@ -25,7 +28,7 @@ const Branch = async ({
     `/v1/repositories/${repositoryName}/branches/${branchName}`,
   )
 
-  if (!dataRepository) return null
+  if (!dataRepository) redirect('/')
 
   return (
     <div>
@@ -36,11 +39,28 @@ const Branch = async ({
           <Button style="inactive">Settings</Button>
         </PillNav>
       </TopBar>
-      <SummarySelector branchName={dataBranch.name} gutterBottom />
-      <StatusDisplay data={dataBranch.head} repositoryName={repositoryName} />
-      <LastCommit />
-      <Charts branchName={dataBranch.name} repositoryName={repositoryName} />
-      <TopIssues />
+      {!dataRepository.default_branch ? (
+        <Empty />
+      ) : (
+        <>
+          <SummarySelector branchName={dataBranch.name} gutterBottom />
+          <StatusDisplay
+            data={dataBranch.head}
+            repositoryName={repositoryName}
+          />
+          <LastCommit head={dataBranch.head} repositoryName={repositoryName} />
+          {/* @ts-expect-error Server Component */}
+          <Charts
+            branchName={dataBranch.name}
+            repositoryName={repositoryName}
+          />
+          {/* @ts-expect-error Server Component */}
+          <TopIssues
+            branchName={dataBranch.name}
+            repositoryName={repositoryName}
+          />
+        </>
+      )}
     </div>
   )
 }

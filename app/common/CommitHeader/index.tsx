@@ -3,20 +3,10 @@ import React from 'react'
 
 import Avatar from 'app/common/Avatar'
 import RelativeTime from 'app/common/RelativeTime'
+import { CommitHeaderProps } from 'types/Branches'
 import { inconsolata } from 'utils/fonts'
 
 import styles from './CommitHeader.module.scss'
-
-export type CommitHeaderProps = {
-  className?: string
-  username: string
-  avatarURL: string
-  headSHA: string
-  headURL: string
-  timestamp: Date
-  commitMessage: string
-  readonly?: boolean
-}
 
 const CommitHeader = ({
   className,
@@ -30,9 +20,11 @@ const CommitHeader = ({
 }: CommitHeaderProps) => {
   return (
     <div className={classNames(styles.base, className)}>
-      <div className={styles.avatarWrapper}>
-        <Avatar avatarURL={avatarURL} size="25px" />
-      </div>
+      {avatarURL && (
+        <div className={styles.avatarWrapper}>
+          <Avatar avatarURL={avatarURL} size="25px" />
+        </div>
+      )}
       <div className={styles.infoWrapper}>
         <div className={styles.commitMeta}>
           {readonly ? (

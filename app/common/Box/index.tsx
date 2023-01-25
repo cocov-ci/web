@@ -35,7 +35,7 @@ const Box = ({
           {backgroundText}
         </span>
       )}
-      {children}
+      <div className={styles.content}>{children}</div>
     </div>
   )
 }

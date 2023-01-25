@@ -1,5 +1,7 @@
 export type ChartProps = number[]
 
+export type ChartTypeObjectProps = { [any: string]: number | null }
+
 export type ChartTypeProps = 'issues' | 'coverage' | 'empty'
 export interface ChartComponentProps {
   data?: ChartProps
@@ -19,8 +21,8 @@ export interface ChartOptionsProps {
 }
 
 export interface ChartResponseProps {
-  coverage: { [any: string]: number | null }
-  issues: { [any: string]: number | null }
+  coverage: ChartTypeObjectProps
+  issues: ChartTypeObjectProps
 }
 
 export interface ChartGradientProps {

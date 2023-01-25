@@ -1,8 +1,6 @@
 @import "styles/variables.module";
 
 .box {
-  display: flex;
-  flex-direction: column;
   background-color: $colorGrayLight;
   padding: 24px;
   border-radius: 8px;
@@ -13,6 +11,13 @@
 
   &.gutterBottom {
     margin-bottom: 32px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    position: relative;
   }
 
   .backgroundText {

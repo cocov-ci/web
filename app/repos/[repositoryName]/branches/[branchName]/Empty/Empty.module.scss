@@ -1,0 +1,11 @@
+@import "styles/variables.module";
+
+.empty {
+  position: relative;
+
+  .arrow {
+    position: absolute;
+    right: 80px;
+    top: -10px;
+  }
+}
