@@ -5,9 +5,10 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
-import CommitHeader, { CommitHeaderProps } from 'app/common/CommitHeader'
+import CommitHeader from 'app/common/CommitHeader'
 import Loading from 'app/common/CommitHeader/Loading'
 import Pagination from 'app/common/Pagination'
+import { CommitHeaderProps } from 'types/Branches'
 import Url from 'types/Url'
 
 import styles from './CommitList.module.scss'
