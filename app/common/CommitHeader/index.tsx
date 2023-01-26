@@ -16,7 +16,7 @@ const CommitHeader = ({
   headURL,
   timestamp,
   commitMessage,
-  readonly,
+  isRegisteredUser,
 }: CommitHeaderProps) => {
   return (
     <div className={classNames(styles.base, className)}>
@@ -27,7 +27,7 @@ const CommitHeader = ({
       )}
       <div className={styles.infoWrapper}>
         <div className={styles.commitMeta}>
-          {readonly ? (
+          {!isRegisteredUser ? (
             <span className={styles.username}>{username}</span>
           ) : (
             <a
@@ -40,32 +40,22 @@ const CommitHeader = ({
             </a>
           )}
           <span>committed</span>
-          {readonly ? (
-            <span
-              className={classNames(styles.headLink, inconsolata.className)}
-            >
-              {headSHA.substring(0, 6)}
-            </span>
-          ) : (
-            <a
-              className={classNames(styles.headLink, inconsolata.className)}
-              href={headURL}
-              rel="noreferrer"
-              target="_blank"
-            >
-              {headSHA.substring(0, 6)}
-            </a>
-          )}
+
+          <a
+            className={classNames(styles.headLink, inconsolata.className)}
+            href={headURL}
+            rel="noreferrer"
+            target="_blank"
+          >
+            {headSHA.substring(0, 6)}
+          </a>
+
           <RelativeTime timestamp={timestamp} />
         </div>
         <div className={styles.commitTitle}>
-          {readonly ? (
-            <span>{commitMessage}</span>
-          ) : (
-            <a href={headURL} rel="noreferrer" target="_blank">
-              {commitMessage}
-            </a>
-          )}
+          <a href={headURL} rel="noreferrer" target="_blank">
+            {commitMessage}
+          </a>
         </div>
       </div>
     </div>

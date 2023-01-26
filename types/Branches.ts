@@ -43,5 +43,5 @@ export interface CommitHeaderProps {
   headURL: string
   timestamp: Date
   commitMessage: string
-  readonly?: boolean
+  isRegisteredUser?: boolean
 }

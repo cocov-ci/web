@@ -18,8 +18,8 @@ const LastCommit = ({
     headSHA: head.sha,
     commitMessage: head.message,
     username: head.user?.name || head.author_name,
+    isRegisteredUser: Boolean(head.user?.name),
     timestamp: new Date(Date.parse(head.created_at)),
-    // readonly: Boolean(!head.user?.name),
   }
 
   return (
