@@ -1,47 +1,59 @@
 'use client'
 
 import classNames from 'classnames'
-import { LucideSearch, LucideX } from 'lucide-react'
-import Link from 'next/link'
-import React, { ChangeEvent, useState } from 'react'
+import { Search, X } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useMemo, useState } from 'react'
 
-import randomBetween from '../../../utils/randomBetween'
-import Input from '../Input'
-import Kbd from '../Kbd'
-import Loading from '../Loading'
+import Input from 'app/common/Input'
+import Kbd from 'app/common/Kbd'
+import Loading from 'app/common/Loading'
+import { useSegments } from 'context/SegmentsContext'
+import useFetch from 'hooks/useFetch'
+import randomBetween from 'utils/randomBetween'
 
 import styles from './BranchSwitcher.module.scss'
 
 type BranchSwitcherProps = {
   className?: string
   onClose?: () => void
-  onSearchChange?: (event: ChangeEvent) => void
-  loading?: boolean
-  searchLoading?: boolean
-  options?: Array<string>
-  onSelectBranch?: (branchIndex: number) => void
 }
 
-const BranchSwitcher = ({
-  options,
-  className,
-  searchLoading,
-  onSearchChange,
-  onSelectBranch,
-  onClose,
-  loading,
-}: BranchSwitcherProps) => {
+interface BranchesFetchResponse {
+  data: string[]
+  loading: boolean
+}
+
+const BranchSwitcher = ({ className, onClose }: BranchSwitcherProps) => {
+  const router = useRouter()
+  const segments = useSegments()
   const [selectedItem, setSelectedItem] = useState<number>(0)
+  const [results, setResults] = useState<Array<string> | undefined>()
+  const repositoryName = useMemo(() => segments[1], [segments])
+
+  const { data: branches, loading } = useFetch({
+    url: `/api/repositories/${repositoryName}/branches`,
+    handler: [],
+  }) as BranchesFetchResponse
+
+  const onSearchChange = (term: string) => {
+    setResults(branches.filter(item => item.includes(term)))
+  }
+
+  const onSelectBranch = (selectedItem: string) => {
+    router.push(`repos/${repositoryName}/branches/${selectedItem}`)
+    onClose && onClose()
+  }
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!options || options.length === 0) {
+    if (!results || results.length === 0) {
       return
     }
 
     switch (event.key) {
       case 'ArrowUp':
         if (selectedItem === 0) {
-          setSelectedItem(options.length - 1)
+          setSelectedItem(results.length - 1)
         } else {
           setSelectedItem(selectedItem - 1)
         }
@@ -49,7 +61,7 @@ const BranchSwitcher = ({
         break
 
       case 'ArrowDown':
-        if (selectedItem === options.length - 1) {
+        if (selectedItem === results.length - 1) {
           setSelectedItem(0)
         } else {
           setSelectedItem(selectedItem + 1)
@@ -62,12 +74,16 @@ const BranchSwitcher = ({
 
         break
 
-      case 'Return':
-        onSelectBranch && onSelectBranch(selectedItem)
+      case 'Enter':
+        onSelectBranch(results[selectedItem])
 
         break
     }
   }
+
+  useEffect(() => {
+    setResults(branches)
+  }, [branches])
 
   return (
     <div className={classNames(styles.base, className)}>
@@ -82,7 +98,7 @@ const BranchSwitcher = ({
               className={styles.closeButton}
               onClick={() => onClose && onClose()}
             >
-              <LucideX size={24} />
+              <X size={24} />
             </button>
           </div>
         </div>
@@ -90,9 +106,10 @@ const BranchSwitcher = ({
           <Input
             autoFocus={true}
             className={styles.searchInput}
-            icon={LucideSearch}
-            loading={searchLoading}
-            onChange={event => onSearchChange && onSearchChange(event)}
+            icon={Search}
+            onChange={event =>
+              branches.length > 0 && onSearchChange(event.target.value)
+            }
             onKeyUp={handleKeyUp}
             placeholder="Type to search..."
             type="text"
@@ -102,25 +119,31 @@ const BranchSwitcher = ({
         <div className={styles.itemsContainer}>
           {loading &&
             new Array(randomBetween(1, 5)).fill(0).map((_, idx) => (
-              // eslint-disable-next-line prettier/prettier,react/no-array-index-key
-                <Loading className={styles.loading} height="35px" key={idx} type="skeleton" variation="dark" width="100%" />
+              <Loading
+                className={styles.loading}
+                height="35px"
+                // eslint-disable-next-line react/no-array-index-key
+                key={idx}
+                type="skeleton"
+                variation="dark"
+                width="100%"
+              />
             ))}
+
           {!loading &&
-            options &&
-            options.map((name, idx) => (
-              <Link
-                href="javascript:void(0)"
+            results?.map((name, idx) => (
+              <button
+                className={classNames(styles.item, {
+                  [styles.active]: selectedItem == idx,
+                })}
                 key={name}
-                onClick={() => onSelectBranch && onSelectBranch(idx)}
+                onClick={e => {
+                  e.preventDefault()
+                  onSelectBranch(name)
+                }}
               >
-                <div
-                  className={classNames(styles.item, {
-                    [styles.active]: selectedItem == idx,
-                  })}
-                >
-                  {name}
-                </div>
-              </Link>
+                {name}
+              </button>
             ))}
         </div>
       </div>

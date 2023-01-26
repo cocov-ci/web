@@ -1,0 +1,13 @@
+.marginBottom {
+  margin-bottom: 32px;
+}
+
+.columns {
+  display: flex;
+  justify-content: space-between;
+
+  .column {
+    width: 475px;
+    height: 100%;
+  }
+}

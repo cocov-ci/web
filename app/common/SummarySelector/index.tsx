@@ -2,8 +2,9 @@
 
 import classNames from 'classnames'
 import { GitBranch } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 
+import BranchSwitcher from 'app/common/BranchSwitcher'
 import Button from 'app/common/Button'
 import { inconsolata } from 'utils/fonts'
 
@@ -13,15 +14,16 @@ type SummarySelectorProps = {
   className?: string
   gutterBottom?: boolean
   branchName: string
-  onRequestSwitch?: (event: React.MouseEvent) => void
+  branchesList: string[]
 }
 
 const SummarySelector = ({
   className,
   branchName,
-  onRequestSwitch,
   gutterBottom,
 }: SummarySelectorProps) => {
+  const [showBranchSwitcher, setShowBranchSwitcher] = useState<boolean>(false)
+
   return (
     <div
       className={classNames(styles.base, className, {
@@ -41,9 +43,20 @@ const SummarySelector = ({
         </span>
       </div>
       <div className={styles.buttonContainer}>
-        <Button onClick={onRequestSwitch} style="mini">
-          Switch Branch
-        </Button>
+        <div className={styles.buttonWrapper}>
+          <Button
+            onClick={() => setShowBranchSwitcher(!showBranchSwitcher)}
+            style="mini"
+          >
+            Switch Branch
+          </Button>
+          {showBranchSwitcher && (
+            <BranchSwitcher
+              className={styles.branchSwitcher}
+              onClose={() => setShowBranchSwitcher(false)}
+            />
+          )}
+        </div>
       </div>
     </div>
   )

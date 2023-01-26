@@ -43,7 +43,11 @@ const Branch = async ({
         <Empty />
       ) : (
         <>
-          <SummarySelector branchName={dataBranch.name} gutterBottom />
+          <SummarySelector
+            branchName={dataBranch.name}
+            branchesList={[]}
+            gutterBottom
+          />
           <StatusDisplay
             data={dataBranch.head}
             repositoryName={repositoryName}

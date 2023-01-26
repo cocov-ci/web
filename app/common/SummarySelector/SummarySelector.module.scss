@@ -28,5 +28,15 @@
     margin-right: 25px;
     display: flex;
     align-items: center;
+
+    .buttonWrapper {
+      position: relative;
+
+      .branchSwitcher {
+        top: 0;
+        right: 0;
+        z-index: 2;
+      }
+    }
   }
 }

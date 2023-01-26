@@ -1,3 +1,5 @@
+import { UserProps } from './User'
+
 export interface AuthExchangeRequestProps {
   exchange_token: string
   code: string
@@ -22,5 +24,5 @@ export interface AuthPropsContext {
   isAuthenticated: boolean
   login: () => void
   logout: () => void
-  user?: { name: string; isAdmin: boolean }
+  user?: UserProps
 }

@@ -1,15 +1,24 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 import { useAuth } from 'context/AuthContext'
+import { UserProps } from 'types/User'
 
 import styles from './Header.module.scss'
 
 const Menu = () => {
-  const { logout, isAuthenticated, user } = useAuth()
+  const [loggedUser, setLoggedUser] = useState<UserProps>()
+  const { logout, user } = useAuth()
 
-  if (!isAuthenticated) return null
+  useEffect(() => {
+    if (user) {
+      setLoggedUser(user)
+    }
+  }, [user])
+
+  if (!loggedUser) return null
 
   return (
     <nav>
@@ -17,7 +26,7 @@ const Menu = () => {
         <li>
           <Link href="/">Repositories</Link>
         </li>
-        {user?.isAdmin && (
+        {loggedUser?.isAdmin && (
           <li>
             <Link href="#">Adminland</Link>
           </li>

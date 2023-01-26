@@ -5,7 +5,10 @@ import {
   AuthExchangeRequestProps,
   AuthExchangeResponseProps,
 } from 'types/Auth'
+import { UserProps } from 'types/User'
 import fetcher from 'utils/fetchClient'
+
+const isClientSide = typeof window !== 'undefined'
 
 const Auth = {
   exchange: async (
@@ -21,20 +24,22 @@ const Auth = {
   setToken: (token: string) => setCookie('cocov_auth_token', token),
   getToken: () => getCookie('cocov_auth_token'),
   deleteToken: () => deleteCookie('cocov_auth_token'),
-  deleteAccount: () => localStorage.removeItem('cocov_user_account'),
-  setAccount: ({ isAdmin, name }: { isAdmin: boolean; name: string }) =>
+  deleteAccount: () =>
+    isClientSide && localStorage.removeItem('cocov_user_account'),
+  setAccount: ({ isAdmin, name }: UserProps) =>
+    isClientSide &&
     localStorage.setItem(
       'cocov_user_account',
       JSON.stringify({ name: name, isAdmin: isAdmin }),
     ),
-  getAccount: () => {
-    const account = localStorage.getItem('cocov_user_account')
+  getAccount: (): UserProps | undefined => {
+    const account = isClientSide && localStorage.getItem('cocov_user_account')
 
     if (typeof account === 'string') {
       return JSON.parse(account)
     }
 
-    return null
+    return undefined
   },
 }
 

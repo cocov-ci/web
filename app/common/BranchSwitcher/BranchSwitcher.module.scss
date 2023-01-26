@@ -64,11 +64,11 @@
 
     .itemsContainer {
       display: flex;
-      flex: 1;
       overflow: scroll;
       flex-direction: column;
       padding: 0 12px;
       margin-top: 12px;
+      height: 210px;
 
       .loading {
         height: 35px;
@@ -85,6 +85,8 @@
         color: $colorGray;
         margin-bottom: 3px;
         border: 1px solid transparent;
+        background: transparent;
+        text-align: left;
 
         &.active {
           background: map.get($colorBranchSwitcher, "active-item-background");
@@ -96,6 +98,10 @@
           background: color.adjust(map.get($colorBranchSwitcher, "active-item-background"), $alpha: -0.5);
           border: 1px solid color.adjust(map.get($colorBranchSwitcher, "active-item-border"), $alpha: -0.5);
           border-radius: 8px;
+        }
+
+        &:focus-visible {
+          outline: none;
         }
       }
     }

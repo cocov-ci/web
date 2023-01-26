@@ -5,7 +5,7 @@ import React, { createContext, useContext, useMemo, useState } from 'react'
 import Auth from 'services/auth'
 import { AuthBeginReponseProps, AuthPropsContext } from 'types/Auth'
 
-const StateContext = createContext<AuthPropsContext>({
+const AuthContext = createContext<AuthPropsContext>({
   login: () => null,
   logout: () => null,
   loading: false,
@@ -44,18 +44,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       login,
       logout,
       isAuthenticated: Boolean(user),
-      user: { ...user },
+      user: user && { ...user },
     }),
     [loading, user],
   )
 
   return (
-    <StateContext.Provider value={memoizedValue}>
+    <AuthContext.Provider value={memoizedValue}>
       {children}
-    </StateContext.Provider>
+    </AuthContext.Provider>
   )
 }
 
-export const useAuth = () => useContext(StateContext)
+export const useAuth = () => useContext(AuthContext)
 
 export default AuthProvider

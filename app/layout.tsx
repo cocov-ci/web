@@ -6,6 +6,7 @@ import 'styles/globals.scss'
 
 import Header from 'app/common/Header'
 import AuthProvider from 'context/AuthContext'
+import SegmentsProvider from 'context/SegmentsContext'
 import { satoshi } from 'utils/fonts'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -13,8 +14,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="en">
       <body className={satoshi.className}>
         <AuthProvider>
-          <Header />
-          <main>{children}</main>
+          <SegmentsProvider>
+            <Header />
+            <main>{children}</main>
+          </SegmentsProvider>
         </AuthProvider>
       </body>
     </html>
