@@ -80,7 +80,7 @@ const CommitList = ({
         key={c.commitInfo.headSHA}
       >
         <div className={styles.headerWrapper}>
-          <CommitHeader {...c.commitInfo} readonly={true} />
+          <CommitHeader {...c.commitInfo} />
         </div>
         <div className={styles.counters}>
           <div className={styles.issuesCounter}>{c.issues}</div>
