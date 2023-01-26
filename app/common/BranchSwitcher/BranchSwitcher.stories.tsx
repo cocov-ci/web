@@ -41,7 +41,5 @@ export default meta
 type Story = StoryObj<typeof BranchSwitcher>
 
 export const Default: Story = {
-  args: {
-    options: ['master', 'mastery', 'mastodon'],
-  },
+  args: {},
 }
