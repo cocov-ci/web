@@ -23,15 +23,3 @@ export const Default: Story = {
     timestamp: new Date(Date.parse('2022-11-22T21:25:31Z')),
   },
 }
-
-export const Readonly: Story = {
-  args: {
-    headURL: 'https://github.com/cocov-ci/web',
-    avatarURL: 'https://avatars.githubusercontent.com/u/118852412?s=200&v=4',
-    headSHA: '62bad0cbadbeefc0c0f',
-    commitMessage:
-      'fix(rollout-restart): Ensure to keep watching rollout status',
-    username: 'cocov-ci',
-    timestamp: new Date(Date.parse('2022-11-22T21:25:31Z')),
-  },
-}
