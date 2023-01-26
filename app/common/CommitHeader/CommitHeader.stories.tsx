@@ -33,6 +33,5 @@ export const Readonly: Story = {
       'fix(rollout-restart): Ensure to keep watching rollout status',
     username: 'cocov-ci',
     timestamp: new Date(Date.parse('2022-11-22T21:25:31Z')),
-    readonly: true,
   },
 }
