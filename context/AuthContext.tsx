@@ -1,5 +1,5 @@
 'use client'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import React, { createContext, useContext, useMemo, useState } from 'react'
 
 import Auth from 'services/auth'
@@ -15,9 +15,8 @@ const StateContext = createContext<AuthPropsContext>({
 const SigninPage = '/auth/signin'
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const pathname = usePathname()
   const [loading, setLoading] = useState<boolean>(false)
-  const isAuthenticated = useMemo(() => pathname !== SigninPage, [pathname])
+  const user = Auth.getAccount()
   const router = useRouter()
 
   const login = async () => {
@@ -35,6 +34,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = () => {
     Auth.deleteToken()
+    Auth.deleteAccount()
     router.push(SigninPage)
   }
 
@@ -43,9 +43,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       loading,
       login,
       logout,
-      isAuthenticated,
+      isAuthenticated: Boolean(user),
+      user: { ...user },
     }),
-    [loading, isAuthenticated],
+    [loading, user],
   )
 
   return (

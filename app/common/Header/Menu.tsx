@@ -7,7 +7,7 @@ import { useAuth } from 'context/AuthContext'
 import styles from './Header.module.scss'
 
 const Menu = () => {
-  const { logout, isAuthenticated } = useAuth()
+  const { logout, isAuthenticated, user } = useAuth()
 
   if (!isAuthenticated) return null
 
@@ -17,9 +17,11 @@ const Menu = () => {
         <li>
           <Link href="/">Repositories</Link>
         </li>
-        <li>
-          <Link href="#">Adminland</Link>
-        </li>
+        {user?.isAdmin && (
+          <li>
+            <Link href="#">Adminland</Link>
+          </li>
+        )}
         <li>
           <p onClick={() => logout()}>Sign Out</p>
         </li>

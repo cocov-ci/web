@@ -67,6 +67,8 @@ const SignIn = () => {
   }, [isExchangeFlow])
 
   useEffect(() => {
+    Auth.deleteAccount()
+
     if (isExchangeFlow) {
       const params = {
         ...(exchangeParams.reduce(
@@ -79,6 +81,10 @@ const SignIn = () => {
         .then((data: AuthExchangeResponseProps) => {
           if (data.token) {
             Auth.setToken(data.token)
+            Auth.setAccount({
+              name: data.name,
+              isAdmin: data.admin,
+            })
             router.push(searchParams.get('next') || '/')
           } else {
             router.replace('/auth/signin')

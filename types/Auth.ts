@@ -9,6 +9,8 @@ export interface AuthExchangeResponseProps {
   token: string
   redirect: string
   code: string
+  name: string
+  admin: boolean
 }
 
 export interface AuthBeginReponseProps {
@@ -20,4 +22,5 @@ export interface AuthPropsContext {
   isAuthenticated: boolean
   login: () => void
   logout: () => void
+  user?: { name: string; isAdmin: boolean }
 }
