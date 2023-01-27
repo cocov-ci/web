@@ -3,20 +3,21 @@
 import classNames from 'classnames'
 import { Search, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import Input from 'app/common/Input'
 import Kbd from 'app/common/Kbd'
 import Loading from 'app/common/Loading'
 import { useSegments } from 'context/SegmentsContext'
 import useFetch from 'hooks/useFetch'
+import useOnClickOutside from 'hooks/useOnClickOutside'
 import randomBetween from 'utils/randomBetween'
 
 import styles from './BranchSwitcher.module.scss'
 
 type BranchSwitcherProps = {
   className?: string
-  onClose?: () => void
+  onClose: () => void
 }
 
 interface BranchesFetchResponse {
@@ -25,11 +26,14 @@ interface BranchesFetchResponse {
 }
 
 const BranchSwitcher = ({ className, onClose }: BranchSwitcherProps) => {
+  const ref = useRef(null)
   const router = useRouter()
   const segments = useSegments()
   const [selectedItem, setSelectedItem] = useState<number>(0)
   const [results, setResults] = useState<Array<string> | undefined>()
   const repositoryName = useMemo(() => segments[1], [segments])
+
+  useOnClickOutside(ref, onClose)
 
   const { data: branches, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/branches`,
@@ -86,7 +90,7 @@ const BranchSwitcher = ({ className, onClose }: BranchSwitcherProps) => {
   }, [branches])
 
   return (
-    <div className={classNames(styles.base, className)}>
+    <div className={classNames(styles.base, className)} ref={ref}>
       <div className={styles.background} />
 
       <div className={styles.content}>
