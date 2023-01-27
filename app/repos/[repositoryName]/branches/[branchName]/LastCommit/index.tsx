@@ -13,7 +13,7 @@ const LastCommit = ({
   repositoryName: string
 }) => {
   const commitHeader = {
-    headURL: `https://github.com/${head.org_name}/${repositoryName}`,
+    headURL: `https://github.com/${head.org_name}/${repositoryName}/commit/${head.sha}`,
     avatarURL: head.user?.avatar,
     headSHA: head.sha,
     commitMessage: head.message,
