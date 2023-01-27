@@ -91,6 +91,7 @@ export const getChecks = ({ data, repositoryName }: DataProps) => {
         checkObject.message = `${issues_count} issues`
         checkObject.detailsHref = `/repos/${repositoryName}/commits/:sha/issues`
         checkObject.statusColor = 'red'
+        checkObject.messageBold = true
       }
 
       break
