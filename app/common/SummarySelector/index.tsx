@@ -50,12 +50,11 @@ const SummarySelector = ({
           >
             Switch Branch
           </Button>
-          {showBranchSwitcher && (
-            <BranchSwitcher
-              className={styles.branchSwitcher}
-              onClose={() => setShowBranchSwitcher(false)}
-            />
-          )}
+          <BranchSwitcher
+            className={styles.branchSwitcher}
+            onClose={() => setShowBranchSwitcher(false)}
+            visible={showBranchSwitcher}
+          />
         </div>
       </div>
     </div>
