@@ -12,6 +12,8 @@ const StatusDisplayComponent = ({
   data,
   repositoryName,
 }: StatusDisplayProps) => {
+  if (!data) return null
+
   return (
     <StatusDisplay
       checks={{ ...getChecks({ data, repositoryName }) }}

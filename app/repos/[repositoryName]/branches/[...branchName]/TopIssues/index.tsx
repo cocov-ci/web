@@ -17,7 +17,7 @@ type TopIssuesReponseProps = {
 
 const TopIssues = async ({ repositoryName, branchName }: TopIssuesProps) => {
   const data: TopIssuesReponseProps = await fetcher(
-    `/v1/repositories/${repositoryName}/branches/${branchName}/top_issues`,
+    `/v1/repositories/${repositoryName}/branches/top_issues/${branchName}`,
   )
 
   const values = Object.keys(data).map(item => ({

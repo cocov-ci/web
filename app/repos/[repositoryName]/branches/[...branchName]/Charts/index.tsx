@@ -71,7 +71,7 @@ const Charts = async ({
   branchName: string
 }) => {
   const data: ChartResponseProps = await fetcher(
-    `/v1/repositories/${repositoryName}/branches/${branchName}/graphs`,
+    `/v1/repositories/${repositoryName}/branches/graphs/${branchName}`,
   )
 
   return (

@@ -15,17 +15,19 @@ import StatusDisplay from './StatusDisplay'
 import TopIssues from './TopIssues'
 
 interface BranchParams {
-  params: { repositoryName: string; branchName: string }
+  params: { repositoryName: string; branchName: string | string[] }
 }
 
 const Branch = async ({
   params: { repositoryName, branchName },
 }: BranchParams) => {
+  const branch = Array.isArray(branchName) ? branchName.join('/') : branchName
+
   const dataRepository: RepositoryResponseProps = await fetcher(
     `/v1/repositories/${repositoryName}`,
   )
   const dataBranch: BranchResponseProps = await fetcher(
-    `/v1/repositories/${repositoryName}/branches/${branchName}`,
+    `/v1/repositories/${repositoryName}/branches/${branch}`,
   )
 
   if (!dataRepository) redirect('/')
