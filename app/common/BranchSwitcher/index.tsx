@@ -26,14 +26,15 @@ interface BranchesFetchResponse {
 }
 
 const BranchSwitcher = ({ className, onClose }: BranchSwitcherProps) => {
-  const ref = useRef(null)
+  const branchSwitcherRef = useRef<HTMLDivElement>(null)
+  const branchesRefs = useRef<Record<number, HTMLButtonElement | null>>({})
   const router = useRouter()
   const segments = useSegments()
   const [selectedItem, setSelectedItem] = useState<number>(0)
   const [results, setResults] = useState<Array<string> | undefined>()
   const repositoryName = useMemo(() => segments[1], [segments])
 
-  useOnClickOutside(ref, onClose)
+  useOnClickOutside(branchSwitcherRef, onClose)
 
   const { data: branches, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/branches`,
@@ -89,8 +90,13 @@ const BranchSwitcher = ({ className, onClose }: BranchSwitcherProps) => {
     setResults(branches)
   }, [branches])
 
+  useEffect(() => {
+    const item = branchesRefs.current[selectedItem]
+    item && item.scrollIntoView({ block: 'end' })
+  }, [selectedItem])
+
   return (
-    <div className={classNames(styles.base, className)} ref={ref}>
+    <div className={classNames(styles.base, className)} ref={branchSwitcherRef}>
       <div className={styles.background} />
 
       <div className={styles.content}>
@@ -145,6 +151,10 @@ const BranchSwitcher = ({ className, onClose }: BranchSwitcherProps) => {
                   e.preventDefault()
                   onSelectBranch(name)
                 }}
+                ref={ref => {
+                  branchesRefs.current = { ...branchesRefs.current, [idx]: ref }
+                }}
+                tabIndex={idx}
               >
                 {name}
               </button>
