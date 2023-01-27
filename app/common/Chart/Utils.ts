@@ -37,6 +37,8 @@ Tooltip.positioners.top = function (items) {
   }
 }
 
+export const roundValue = (val: number) => Math.round(val * 100) / 100
+
 export const generateGradient = ({
   ctx,
   type,
@@ -105,15 +107,17 @@ export const getOptions = ({
 
   return {
     pointStyle: false,
-    interaction: {
-      intersect: false,
-    },
     borderWidth: 1,
     font: {
       family: inconsolata.style.fontFamily,
     },
     plugins: {
       tooltip: {
+        interaction: {
+          intersect: false,
+          axis: 'x',
+          mode: 'index',
+        },
         enabled: fullChart && !empty,
         position: 'top' as const,
         displayColors: false,
@@ -167,8 +171,15 @@ export const getOptions = ({
         ticks: {
           stepSize: coverage ? 50 : Math.round(max / 2),
           color: !empty ? variables.color_gray_medium : variables.color_gray,
-          callback: (val: string | number) =>
-            empty ? '' : coverage ? `${val}%` : kFormatter(val as number),
+          callback: (val: string | number) => {
+            if (empty) return ''
+
+            if (coverage) {
+              return `${val}%`
+            } else {
+              return kFormatter(val as number)
+            }
+          },
           font: {
             size: 15,
           },

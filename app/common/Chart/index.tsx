@@ -24,6 +24,7 @@ import {
   getOptions,
   getPlugins,
   makeFakePoints,
+  roundValue,
 } from './Utils'
 
 ChartJS.register(
@@ -56,7 +57,8 @@ const Chart = ({
   )
 
   const dataPoints = useMemo(
-    () => (data.length === 0 ? makeFakePoints() : data),
+    () =>
+      data.length === 0 ? makeFakePoints() : data.map(item => roundValue(item)),
     [data],
   )
 
