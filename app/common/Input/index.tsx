@@ -24,6 +24,7 @@ interface InputProps {
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   autoFocus?: boolean
+  innerRef?: React.MutableRefObject<HTMLInputElement | null>
 }
 
 const Input = ({
@@ -42,6 +43,7 @@ const Input = ({
   onKeyDown,
   autoFocus,
   icon: Icon,
+  innerRef,
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [focused, setFocused] = useState(false)
@@ -97,7 +99,13 @@ const Input = ({
           onKeyDown={e => onKeyDown && onKeyDown(e)}
           onKeyUp={e => onKeyUp && onKeyUp(e)}
           placeholder={placeholder}
-          ref={inputRef}
+          ref={node => {
+            inputRef.current = node
+
+            if (innerRef) {
+              innerRef.current = node
+            }
+          }}
           type={type}
           value={value}
         />
