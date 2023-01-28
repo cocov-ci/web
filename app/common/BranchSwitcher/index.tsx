@@ -18,6 +18,7 @@ import styles from './BranchSwitcher.module.scss'
 type BranchSwitcherProps = {
   className?: string
   onClose: () => void
+  visible: boolean
 }
 
 interface BranchesFetchResponse {
@@ -25,7 +26,11 @@ interface BranchesFetchResponse {
   loading: boolean
 }
 
-const BranchSwitcher = ({ className, onClose }: BranchSwitcherProps) => {
+const BranchSwitcher = ({
+  className,
+  onClose,
+  visible,
+}: BranchSwitcherProps) => {
   const branchSwitcherRef = useRef<HTMLDivElement>(null)
   const branchesRefs = useRef<Record<number, HTMLButtonElement | null>>({})
   const router = useRouter()
@@ -96,7 +101,12 @@ const BranchSwitcher = ({ className, onClose }: BranchSwitcherProps) => {
   }, [selectedItem])
 
   return (
-    <div className={classNames(styles.base, className)} ref={branchSwitcherRef}>
+    <div
+      className={classNames(styles.base, className, {
+        [styles.visible]: visible,
+      })}
+      ref={branchSwitcherRef}
+    >
       <div className={styles.background} />
 
       <div className={styles.content}>
