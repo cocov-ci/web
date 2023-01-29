@@ -1,5 +1,7 @@
+import { BoxSelect } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
+import Alert from 'app/common/Alert'
 import Button from 'app/common/Button'
 import PillNav from 'app/common/PillNav'
 import SummarySelector from 'app/common/SummarySelector'
@@ -9,7 +11,6 @@ import { RepositoryResponseProps } from 'types/Repositories'
 import fetcher from 'utils/fetchServer'
 
 import Charts from './Charts'
-import Empty from './Empty'
 import LastCommit from './LastCommit'
 import StatusDisplay from './StatusDisplay'
 import TopIssues from './TopIssues'
@@ -42,7 +43,11 @@ const Branch = async ({
         </PillNav>
       </TopBar>
       {!dataRepository.default_branch ? (
-        <Empty />
+        <Alert
+          description="This repository doesn't have a branch yet, or, if it has been recently added, its default branch is being processed. Try refreshing this page in a few seconds."
+          icon={BoxSelect}
+          title="Hmm. It's empty here…"
+        />
       ) : (
         <>
           <SummarySelector
