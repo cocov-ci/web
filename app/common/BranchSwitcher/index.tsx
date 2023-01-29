@@ -33,6 +33,7 @@ const BranchSwitcher = ({
 }: BranchSwitcherProps) => {
   const branchSwitcherRef = useRef<HTMLDivElement>(null)
   const branchesRefs = useRef<Record<number, HTMLButtonElement | null>>({})
+  const inputRef = useRef<HTMLInputElement | null>(null)
   const router = useRouter()
   const segments = useSegments()
   const [selectedItem, setSelectedItem] = useState<number>(0)
@@ -56,6 +57,12 @@ const BranchSwitcher = ({
   }
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Escape') {
+      onClose && onClose()
+
+      return
+    }
+
     if (!results || results.length === 0) {
       return
     }
@@ -79,11 +86,6 @@ const BranchSwitcher = ({
 
         break
 
-      case 'Escape':
-        onClose && onClose()
-
-        break
-
       case 'Enter':
         onSelectBranch(results[selectedItem])
 
@@ -99,6 +101,12 @@ const BranchSwitcher = ({
     const item = branchesRefs.current[selectedItem]
     item && item.scrollIntoView({ block: 'end' })
   }, [selectedItem])
+
+  useEffect(() => {
+    if (visible && inputRef.current != null) {
+      inputRef.current.focus()
+    }
+  }, [visible])
 
   return (
     <div
@@ -127,6 +135,7 @@ const BranchSwitcher = ({
             autoFocus={true}
             className={styles.searchInput}
             icon={Search}
+            innerRef={inputRef}
             onChange={event =>
               branches.length > 0 && onSearchChange(event.target.value)
             }
