@@ -13,9 +13,7 @@ const Menu = () => {
   const { logout, user } = useAuth()
 
   useEffect(() => {
-    if (user) {
-      setLoggedUser(user)
-    }
+    setLoggedUser(user)
   }, [user])
 
   if (!loggedUser) return null

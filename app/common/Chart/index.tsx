@@ -65,7 +65,7 @@ const Chart = ({
   useEffect(() => {
     const chart = chartRef.current
 
-    if (!chart) {
+    if (!chart || (!fullChart && dataType === 'empty')) {
       return
     }
 
@@ -87,7 +87,7 @@ const Chart = ({
         },
       ],
     })
-  }, [dataPoints])
+  }, [dataPoints, fullChart, dataType])
 
   return (
     <div
