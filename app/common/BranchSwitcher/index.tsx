@@ -9,7 +9,7 @@ import Input from 'app/common/Input'
 import Kbd from 'app/common/Kbd'
 import Loading from 'app/common/Loading'
 import { useSegments } from 'context/SegmentsContext'
-import useFetch from 'hooks/useFetch'
+import useLazyFetch from 'hooks/useLazyFetch'
 import useOnClickOutside from 'hooks/useOnClickOutside'
 import randomBetween from 'utils/randomBetween'
 
@@ -22,6 +22,7 @@ type BranchSwitcherProps = {
 }
 
 interface BranchesFetchResponse {
+  (): void
   data: string[]
   loading: boolean
 }
@@ -42,10 +43,9 @@ const BranchSwitcher = ({
 
   useOnClickOutside(branchSwitcherRef, onClose)
 
-  const { data: branches, loading } = useFetch({
+  const [getBranches, { data: branches, loading }] = useLazyFetch({
     url: `/api/repositories/${repositoryName}/branches`,
-    handler: [],
-  }) as BranchesFetchResponse
+  }) as BranchesFetchResponse[]
 
   const onSearchChange = (term: string) => {
     setResults(branches.filter(item => item.includes(term)))
@@ -103,10 +103,16 @@ const BranchSwitcher = ({
   }, [selectedItem])
 
   useEffect(() => {
-    if (visible && inputRef.current != null) {
-      inputRef.current.focus()
+    if (visible) {
+      if (!branches) {
+        getBranches()
+      }
+
+      if (inputRef.current != null) {
+        inputRef.current.focus()
+      }
     }
-  }, [visible])
+  }, [visible, branches])
 
   return (
     <div
@@ -146,7 +152,8 @@ const BranchSwitcher = ({
           />
         </div>
         <div className={styles.itemsContainer}>
-          {loading &&
+          {visible &&
+            loading &&
             new Array(randomBetween(1, 5)).fill(0).map((_, idx) => (
               <Loading
                 className={styles.loading}
@@ -159,7 +166,8 @@ const BranchSwitcher = ({
               />
             ))}
 
-          {!loading &&
+          {visible &&
+            !loading &&
             results?.map((name, idx) => (
               <button
                 className={classNames(styles.item, {
