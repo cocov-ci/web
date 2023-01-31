@@ -2,10 +2,7 @@ import { BoxSelect } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
 import Alert from 'app/common/Alert'
-import Button from 'app/common/Button'
-import PillNav from 'app/common/PillNav'
 import SummarySelector from 'app/common/SummarySelector'
-import TopBar from 'app/common/TopBar'
 import { BranchResponseProps } from 'types/Branches'
 import { RepositoryResponseProps } from 'types/Repositories'
 import fetcher from 'utils/fetchServer'
@@ -35,43 +32,17 @@ const Branch = async ({
 
   return (
     <div>
-      <TopBar description={dataRepository?.description} title={repositoryName}>
-        <PillNav>
-          <Button style="secondary">Summary</Button>
-          <Button style="inactive">Badges</Button>
-          <Button style="inactive">Settings</Button>
-        </PillNav>
-      </TopBar>
-      {!dataRepository.default_branch ? (
-        <Alert
-          description="This repository doesn't have a branch yet, or, if it has been recently added, its default branch is being processed. Try refreshing this page in a few seconds."
-          icon={BoxSelect}
-          title="Hmm. It's empty here…"
-        />
-      ) : (
-        <>
-          <SummarySelector
-            branchName={dataBranch.name}
-            branchesList={[]}
-            gutterBottom
-          />
-          <StatusDisplay
-            data={dataBranch.head}
-            repositoryName={repositoryName}
-          />
-          <LastCommit head={dataBranch.head} repositoryName={repositoryName} />
-          {/* @ts-expect-error Server Component */}
-          <Charts
-            branchName={dataBranch.name}
-            repositoryName={repositoryName}
-          />
-          {/* @ts-expect-error Server Component */}
-          <TopIssues
-            branchName={dataBranch.name}
-            repositoryName={repositoryName}
-          />
-        </>
-      )}
+      <SummarySelector
+        branchName={dataBranch.name}
+        branchesList={[]}
+        gutterBottom
+      />
+      <StatusDisplay data={dataBranch.head} repositoryName={repositoryName} />
+      <LastCommit head={dataBranch.head} repositoryName={repositoryName} />
+      {/* @ts-expect-error Server Component */}
+      <Charts branchName={dataBranch.name} repositoryName={repositoryName} />
+      {/* @ts-expect-error Server Component */}
+      <TopIssues branchName={dataBranch.name} repositoryName={repositoryName} />
     </div>
   )
 }

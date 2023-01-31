@@ -12,6 +12,13 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   font-size: 15px;
+  justify-content: center;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: $colorBlack;
   background: linear-gradient(180deg, #edeef0 0%, #e6e7e8 100%);
 }

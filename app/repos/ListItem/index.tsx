@@ -27,7 +27,11 @@ const RepositoryListItem = ({
     <div>
       <ListItem
         description={description}
-        href={`/repos/${name}/branches/${default_branch}`}
+        href={
+          default_branch
+            ? `/repos/${name}/branches/${default_branch}`
+            : `/repos/${name}`
+        }
         stats={{
           issues: { value: issues, data: data?.issues },
           coverage: { value: coverage, data: data?.coverage },

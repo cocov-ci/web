@@ -20,8 +20,7 @@ interface RepositoriesFetchResponse {
 
 const hasRepositoriesList = (
   data: RepositoriesResponseProps | undefined,
-): data is RepositoriesResponseProps =>
-  (data as RepositoriesResponseProps)?.repositories !== undefined
+): boolean => (data as RepositoriesResponseProps)?.repositories !== undefined
 
 const Repositories = () => {
   const [search, setSearch] = useState<string>('')

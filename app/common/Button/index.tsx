@@ -38,7 +38,7 @@ const Button = ({
   if (href && !disabled) {
     return (
       <Link href={href} target={hrefTarget}>
-        <div {...baseProps}>{children}</div>
+        <span {...baseProps}>{children}</span>
       </Link>
     )
   }

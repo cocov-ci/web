@@ -5,7 +5,6 @@ import React from 'react'
 import 'styles/globals.scss'
 
 import Header from 'app/common/Header'
-import PageLayout from 'app/common/PageLayout'
 import AuthProvider from 'context/AuthContext'
 import SegmentsProvider from 'context/SegmentsContext'
 import { satoshi } from 'utils/fonts'
@@ -17,7 +16,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <AuthProvider>
           <SegmentsProvider>
             <Header />
-            <PageLayout>{children}</PageLayout>
+            <main>{children}</main>
           </SegmentsProvider>
         </AuthProvider>
       </body>
