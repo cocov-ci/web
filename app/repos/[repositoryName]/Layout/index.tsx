@@ -4,6 +4,8 @@ import TopBar from 'app/repos/[repositoryName]/TopBar'
 import { RepositoryResponseProps } from 'types/Repositories'
 import fetcher from 'utils/fetchServer'
 
+import styles from './Layout.module.scss'
+
 interface LayoutProps {
   params: { repositoryName: string; branchName: string }
   children: React.ReactNode
@@ -20,9 +22,9 @@ const Layout = async ({
   if (!dataRepository) redirect('/')
 
   return (
-    <div>
+    <div className={styles.layout}>
       <TopBar {...dataRepository} />
-      {children}
+      <div className={styles.content}>{children}</div>
     </div>
   )
 }

@@ -1,20 +1,36 @@
+import { HeartCrack } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
-import { RepositoryResponseProps } from 'types/Repositories'
+import Alert from 'app/common/Alert'
+import { BadgesResponseProps } from 'types/Badges'
 import fetcher from 'utils/fetchServer'
+
+import Box from './Box'
 
 interface BadgeProps {
   params: { repositoryName: string }
 }
 
 const Badges = async ({ params: { repositoryName } }: BadgeProps) => {
-  const dataRepository: RepositoryResponseProps = await fetcher(
+  const dataBadges: BadgesResponseProps = await fetcher(
     `/v1/repositories/${repositoryName}`,
   )
 
-  if (!dataRepository) redirect('/')
+  if (!dataBadges) redirect(`/v1/repositories/${repositoryName}`)
 
-  return <div />
+  return (
+    <>
+      {/* {dataBadges.code === 204 && ( */}
+      <Box>
+        <Alert
+          description="This instance does not have a badge server configured. It must be configured to enable this feature."
+          icon={HeartCrack}
+          title="Badges are disabled"
+        />
+      </Box>
+      {/* )} */}
+    </>
+  )
 }
 
 export default Badges

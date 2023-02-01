@@ -1,0 +1,11 @@
+@import "styles/variables.module";
+
+.main {
+  flex: 1;
+  display: flex;
+  padding-bottom: 30px;
+
+  .box {
+    flex: 1;
+  }
+}

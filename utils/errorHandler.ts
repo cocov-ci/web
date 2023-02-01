@@ -16,6 +16,8 @@ export const ApiErrorHandler = ({
 }
 
 export const ErrorHandler = (code: string): string | null => {
+  if (!code) return null
+
   switch (code) {
     case 'auth.invalid_token':
       return '/auth/signin?invalid_token=true'

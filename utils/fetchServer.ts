@@ -15,8 +15,10 @@ const fetcher = async (url: string, args?: RequestInit) => {
   })
     .then(resp => resp.json())
     .then(resp => {
-      if (resp.code) {
-        redirect(ErrorHandler(resp.code) as string)
+      const routeRedirection = ErrorHandler(resp?.code)
+
+      if (typeof routeRedirection === 'string') {
+        redirect(routeRedirection)
       }
 
       return resp

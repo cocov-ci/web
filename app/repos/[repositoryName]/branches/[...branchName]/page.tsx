@@ -24,11 +24,14 @@ const Branch = async ({
   const dataRepository: RepositoryResponseProps = await fetcher(
     `/v1/repositories/${repositoryName}`,
   )
+
   const dataBranch: BranchResponseProps = await fetcher(
     `/v1/repositories/${repositoryName}/branches/${branch}`,
   )
 
   if (!dataRepository) redirect('/')
+
+  if (!dataBranch) redirect(`/v1/repositories/${repositoryName}`)
 
   return (
     <div>
