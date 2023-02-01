@@ -6,7 +6,11 @@ import Chart from './index'
 
 const meta: Meta<typeof Chart> = {
   title: 'Common/Chart',
-  component: args => <Chart {...args} />,
+  component: args => (
+    <div style={{ marginTop: '30px' }}>
+      <Chart {...args} />
+    </div>
+  ),
   tags: ['autodocs'],
 }
 
@@ -17,16 +21,34 @@ type Story = StoryObj<typeof Chart>
 export const Default: Story = {
   args: {
     data: makeFakePoints(),
-    width: 182,
-    height: 80,
+    width: 400,
+    height: 150,
   },
 }
 
-export const TypeCoverage: Story = {
+export const type: Story = {
   args: {
-    type: 'coverage',
     data: makeFakePoints(),
+    type: 'coverage',
     width: 400,
-    height: 200,
+    height: 150,
+  },
+}
+
+export const FullChart: Story = {
+  args: {
+    data: makeFakePoints(),
+    fullChart: true,
+    width: 400,
+    height: 150,
+  },
+}
+
+export const Empty: Story = {
+  args: {
+    data: [],
+    fullChart: true,
+    width: 400,
+    height: 150,
   },
 }
