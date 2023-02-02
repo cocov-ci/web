@@ -8,6 +8,7 @@ import Box from '../Box'
 import NavMenu from '../NavMenu'
 
 import BadgeType from './BadgeType'
+import styles from './Content.module.scss'
 
 const Content = (badges: BadgesProps) => {
   const { templates } = badges
@@ -15,7 +16,7 @@ const Content = (badges: BadgesProps) => {
   const [activeItem, setActiveItem] = useState<TemplateProps>('html')
 
   return (
-    <>
+    <div className={styles.base}>
       <NavMenu active={activeItem} onChange={item => setActiveItem(item)} />
       <Box hasContent={true}>
         <BadgeType
@@ -29,7 +30,7 @@ const Content = (badges: BadgesProps) => {
           title="Problems Badge"
         />
       </Box>
-    </>
+    </div>
   )
 }
 
