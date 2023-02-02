@@ -20,7 +20,7 @@ const NavMenu = ({
   active: TemplateProps
 }) => {
   return (
-    <PillNav className={styles.navMenu} lightMode={false}>
+    <PillNav className={styles.navMenu}>
       {menuItems.map(item => (
         <Button
           key={item.value}

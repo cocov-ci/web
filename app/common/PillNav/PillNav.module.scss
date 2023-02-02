@@ -1,16 +1,10 @@
-@use "sass:map";
 @import "styles/variables.module";
 
 .base {
   display: inline-block;
   padding: 6px;
-  background-color: map.get($pillNavBackground, "light");
+  background-color: $pillNavBackground;
   border-radius: 23px;
-
-  &.medium {
-    background-color: map.get($pillNavBackground, "medium");
-    border: 1px solid $colorGray;
-  }
 
   button,
   a {
