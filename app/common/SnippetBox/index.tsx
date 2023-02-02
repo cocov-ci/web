@@ -26,6 +26,7 @@ const SnippetBox = ({ className, source, multiline }: SnippetBoxProps) => {
 
   const [showingCheck, setShowingCheck] = useState<boolean>(false)
   const [checkTimer, setCheckTimer] = useState<null | NodeJS.Timeout>(null)
+
   useEffect(() => {
     if (!checkTimer && showingCheck) {
       const timer = setTimeout(() => setShowingCheck(false), 2000)

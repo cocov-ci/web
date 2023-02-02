@@ -13,7 +13,13 @@ const fetcher = async (url: string, args?: RequestInit) => {
     },
     ...args,
   })
-    .then(resp => resp.json())
+    .then(resp => {
+      if (resp.status !== 200) {
+        return { code: resp.status }
+      }
+
+      return resp.json()
+    })
     .then(resp => {
       const routeRedirection = ErrorHandler(resp?.code)
 

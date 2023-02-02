@@ -23,7 +23,10 @@ $colorProgressBar: (
 // Why can't this be $colorGrayLighter? Great question! The Cie76 algorithm value for the
 // difference between $colorGrayLighter and $pillNavBackground is 2.6892, so the difference
 // is perceivable.
-$pillNavBackground: #e4e4e4;
+$pillNavBackground: (
+  light: #e4e4e4,
+  medium: #d6d6d6
+);
 $colorInputLight: (
   background: #f8f8f8,
   border: #c4c4c4,

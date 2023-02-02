@@ -1,0 +1,20 @@
+.base {
+  margin-bottom: 30px;
+
+  .title {
+    font-variation-settings: "wght" 600;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+
+    .snippetBox {
+      flex: 3;
+    }
+
+    .description {
+      flex: 1;
+    }
+  }
+}

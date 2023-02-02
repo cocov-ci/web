@@ -1,11 +1,25 @@
+import classNames from 'classnames'
+
 import Box from 'app/common/Box'
 
 import styles from './Box.module.scss'
 
-const BoxComponent = ({ children }: { children: React.ReactNode }) => {
+const BoxComponent = ({
+  children,
+  hasContent,
+}: {
+  children: React.ReactNode
+  hasContent: boolean
+}) => {
   return (
     <div className={styles.main}>
-      <Box className={styles.box}>{children}</Box>
+      <Box
+        className={classNames(styles.box, {
+          [styles.extraPadding]: hasContent,
+        })}
+      >
+        {children}
+      </Box>
     </div>
   )
 }

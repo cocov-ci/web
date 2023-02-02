@@ -7,5 +7,9 @@
 
   .box {
     flex: 1;
+
+    &.extraPadding {
+      padding-top: 70px;
+    }
   }
 }

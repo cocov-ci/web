@@ -47,15 +47,15 @@ const AccessoryButton = ({
 }
 
 export const CopyIcon = () => (
-  <Image alt="" height={13} src="public/icons/copy.svg" width={13} />
+  <Image alt="" height={13} src="/icons/copy.svg" width={13} />
 )
 
 export const CheckIcon = () => (
-  <Image alt="" height={11} src="public/icons/check.svg" width={16} />
+  <Image alt="" height={11} src="/icons/check.svg" width={16} />
 )
 
 export const HelpIcon = () => (
-  <Image alt="" height={10.5} src="public/icons/help.svg" width={5.83} />
+  <Image alt="" height={10.5} src="/icons/help.svg" width={5.83} />
 )
 
 export default AccessoryButton
