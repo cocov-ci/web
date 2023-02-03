@@ -1,5 +1,6 @@
 import { satoshi } from 'utils/fonts'
 import 'styles/globals.scss'
+import 'app/common/CodeBlock/CodeBlock_global.scss'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

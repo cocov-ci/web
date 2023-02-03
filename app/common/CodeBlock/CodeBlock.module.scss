@@ -1,0 +1,74 @@
+@use "sass:map";
+@use "sass:color";
+@import "styles/variables.module";
+
+.base {
+  background: map.get($colorBox, "background");
+  border: 1px solid map.get($colorBox, "border");
+  border-radius: 8px;
+  overflow: scroll;
+
+  .table {
+    border-collapse: collapse;
+
+    tbody {
+      tr:first-child td {
+        padding-top: 10px;
+      }
+
+      tr:last-child td {
+        padding-bottom: 10px;
+      }
+    }
+
+    .line {
+      pre {
+        font-size: 16px;
+        letter-spacing: 0;
+        text-align: left;
+      }
+    }
+
+    .warningLine {
+      padding-top: 3px;
+      pre { display: inline-block; }
+
+      .warning {
+        background-image: linear-gradient(180deg, #f7c008 0%, #e3b107 100%);
+        border: 1px solid #a88305;
+        border-radius: 4px;
+        text-align: left;
+        padding: 3px 12px 3px 6px;
+        display: inline-flex;
+        box-shadow: 0 2px 7px 0 color.adjust($colorBlack, $alpha: -0.78);
+        min-width: 360px;
+        max-width: 520px;
+        margin-bottom: 10px;
+        text-shadow: 0 0 1px #c2c814;
+
+        .icon {
+          flex-shrink: 0;
+          margin-right: 6px;
+        }
+
+        .content {
+          line-height: 19px;
+          font-size: 14px;
+          text-shadow: 0 0 1px #b2b559;
+        }
+      }
+    }
+
+    .gutter {
+      user-select: none;
+      border-right: 1px solid #979797;
+      text-align: right;
+
+      div {
+        padding: 0 10px;
+        font-size: 16px;
+        color: #838383;
+      }
+    }
+  }
+}

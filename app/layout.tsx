@@ -3,6 +3,7 @@
 import React from 'react'
 
 import 'styles/globals.scss'
+import 'app/common/CodeBlock/CodeBlock_global.scss'
 
 import Header from 'app/common/Header'
 import AuthProvider from 'context/AuthContext'
