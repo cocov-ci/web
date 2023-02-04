@@ -6,21 +6,31 @@ import { inconsolata } from 'utils/fonts'
 
 import styles from './CodeBlock.module.scss'
 
-type LineProps = {
+type BasicIssueData = {
+  kind: 'line' | 'warn'
+}
+
+interface LineData extends BasicIssueData {
   line: number
   source: string
+  text: never
+  padding: never
 }
-type WarningProps = {
+
+interface WarningData extends BasicIssueData {
+  line: never
+  source: never
   text: string
   padding: string
 }
 
-type CodeBlockProps = {
-  className?: string
-  objects?: [any]
+type LineProps = {
+  line: number
+  source: string
+  children?: React.ReactNode
 }
 
-const Line = ({ line, source }: LineProps) => {
+const Line = ({ line, source, children }: LineProps) => {
   return (
     <tr>
       <td className={classNames(styles.gutter, inconsolata.className)}>
@@ -32,10 +42,17 @@ const Line = ({ line, source }: LineProps) => {
           styles.line,
           inconsolata.className,
         )}
-        dangerouslySetInnerHTML={{ __html: source }}
-      />
+      >
+        {children}
+        <div dangerouslySetInnerHTML={{ __html: source }} />
+      </td>
     </tr>
   )
+}
+
+type WarningProps = {
+  text: string
+  padding: string
 }
 
 const Warning = ({ text, padding }: WarningProps) => {
@@ -53,26 +70,100 @@ const Warning = ({ text, padding }: WarningProps) => {
   )
 }
 
-const CodeBlock = ({ className, objects }: CodeBlockProps) => {
+type LineOrWarning = LineData | WarningData
+
+type IssueData = {
+  objects: LineOrWarning[]
+}
+
+const Issue = ({ objects }: IssueData) => {
+  return (
+    <>
+      {objects.map(obj =>
+        obj.source ? (
+          <Line key={`line=${obj.line}`} line={obj.line} source={obj.source} />
+        ) : (
+          <Warning key="warning" padding={obj.padding} text={obj.text} />
+        ),
+      )}
+    </>
+  )
+}
+
+type CoverageBlockProps = {
+  kind: string
+  span: number
+}
+
+const CoverageBlock = ({ kind, span }: CoverageBlockProps) => {
+  return (
+    <div
+      className={classNames(styles.block, styles[kind])}
+      style={{ height: `${span * 19 + 2}px` }}
+    />
+  )
+}
+
+type CoverageData = {
+  source: Array<{
+    kind: string
+    line: number
+    source: string
+  }>
+  blocks: Array<{
+    kind: 'covered' | 'neutral' | 'missed'
+    start: number
+    end: number
+  }>
+}
+
+const Coverage = ({ source, blocks }: CoverageData) => {
+  return (
+    <>
+      {source.map(obj => {
+        const blockStart = blocks.find(b => b.start == obj.line)
+
+        return (
+          <Line key={`line=${obj.line}`} line={obj.line} source={obj.source}>
+            {blockStart && (
+              <CoverageBlock
+                kind={blockStart.kind}
+                span={blockStart.end - blockStart.start + 1}
+              />
+            )}
+          </Line>
+        )
+      })}
+    </>
+  )
+}
+
+type BaseCodeBlockProps = {
+  className?: string
+}
+
+interface IssueCodeBlock extends BaseCodeBlockProps {
+  issue: IssueData
+  coverage: never
+}
+
+interface CoverageCodeBlock extends BaseCodeBlockProps {
+  issue: never
+  coverage: CoverageData
+}
+
+type CodeBlockProps = CoverageCodeBlock | IssueCodeBlock
+
+const CodeBlock = ({ className, issue, coverage }: CodeBlockProps) => {
   return (
     <div className={classNames(styles.base, className)}>
       <table className={classNames(styles.table)}>
         <tbody>
-          {objects?.map(obj => {
-            if (obj?.source) {
-              return (
-                <Line
-                  key={`line=${obj.line}`}
-                  line={obj.line}
-                  source={obj.source}
-                />
-              )
-            } else {
-              return (
-                <Warning key="warning" padding={obj.padding} text={obj.text} />
-              )
-            }
-          })}
+          {issue ? (
+            <Issue objects={issue.objects} />
+          ) : (
+            <Coverage blocks={coverage.blocks} source={coverage.source} />
+          )}
         </tbody>
       </table>
     </div>
