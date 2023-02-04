@@ -11,15 +11,13 @@ type BasicIssueData = {
 }
 
 interface LineData extends BasicIssueData {
+  kind: 'line'
   line: number
   source: string
-  text: never
-  padding: never
 }
 
 interface WarningData extends BasicIssueData {
-  line: never
-  source: never
+  kind: 'warn'
   text: string
   padding: string
 }
@@ -80,7 +78,7 @@ const Issue = ({ objects }: IssueData) => {
   return (
     <>
       {objects.map(obj =>
-        obj.source ? (
+        'source' in obj ? (
           <Line key={`line=${obj.line}`} line={obj.line} source={obj.source} />
         ) : (
           <Warning key="warning" padding={obj.padding} text={obj.text} />
