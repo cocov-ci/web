@@ -8,16 +8,18 @@ interface GraphsFetchResponse {
   data: StatsResponseProps
 }
 
+type ListItemProps = Pick<
+  RepositoryResponseProps,
+  'description' | 'issues' | 'coverage' | 'name'
+> & { default_branch?: string }
+
 const RepositoryListItem = ({
   description,
   issues,
   coverage,
   name,
   default_branch,
-}: Pick<
-  RepositoryResponseProps,
-  'description' | 'issues' | 'coverage' | 'name' | 'default_branch'
->) => {
+}: ListItemProps) => {
   const { data } = useFetch({
     url: `/api/repositories/${name}/graphs`,
     handler: [name],
