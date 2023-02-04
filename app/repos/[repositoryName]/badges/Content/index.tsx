@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import { BadgesProps, TemplateProps } from 'types/Badges'
+import { BadgesProps, NavMenuProps } from 'types/Badges'
 
 import Box from '../Box'
 import NavMenu from '../NavMenu'
@@ -13,7 +13,7 @@ import styles from './Content.module.scss'
 const Content = (badges: BadgesProps) => {
   const { templates } = badges
 
-  const [activeItem, setActiveItem] = useState<TemplateProps>('html')
+  const [activeItem, setActiveItem] = useState<NavMenuProps>('html')
 
   return (
     <div className={styles.base}>
