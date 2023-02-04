@@ -1,3 +1,5 @@
+'use client'
+
 import classNames from 'classnames'
 import { AlertTriangle } from 'lucide-react'
 import React from 'react'
@@ -136,30 +138,19 @@ const Coverage = ({ source, blocks }: CoverageData) => {
   )
 }
 
-type BaseCodeBlockProps = {
+interface CodeBlockProps {
+  coverage?: CoverageData
+  issue?: IssueData
   className?: string
 }
-
-interface IssueCodeBlock extends BaseCodeBlockProps {
-  issue: IssueData
-  coverage: never
-}
-
-interface CoverageCodeBlock extends BaseCodeBlockProps {
-  issue: never
-  coverage: CoverageData
-}
-
-type CodeBlockProps = CoverageCodeBlock | IssueCodeBlock
 
 const CodeBlock = ({ className, issue, coverage }: CodeBlockProps) => {
   return (
     <div className={classNames(styles.base, className)}>
       <table className={classNames(styles.table)}>
         <tbody>
-          {issue ? (
-            <Issue objects={issue.objects} />
-          ) : (
+          {issue && <Issue objects={issue.objects} />}
+          {coverage && (
             <Coverage blocks={coverage.blocks} source={coverage.source} />
           )}
         </tbody>

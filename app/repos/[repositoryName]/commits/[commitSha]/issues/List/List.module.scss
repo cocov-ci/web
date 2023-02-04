@@ -3,4 +3,16 @@
 .list {
   border-top: 1px solid $colorGray;
   flex: auto;
+  padding-top: 40px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.listItem {
+  padding: 0 30px 32px 21px;
+  border-bottom: 1px solid $colorGray;
+
+  .message {
+    font-size: 17px;
+  }
 }

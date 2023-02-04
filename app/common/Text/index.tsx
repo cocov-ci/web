@@ -12,7 +12,10 @@ type TextProps = {
 
 const Text = ({ children, className, variant = 'title', title }: TextProps) => {
   return (
-    <p className={classNames(styles[variant], className)} title={title}>
+    <p
+      className={classNames(styles.text, styles[variant], className)}
+      title={title}
+    >
       {children}
     </p>
   )

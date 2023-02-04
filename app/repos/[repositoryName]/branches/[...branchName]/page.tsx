@@ -29,7 +29,7 @@ const Branch = async ({
 
   if (!dataRepository) redirect('/')
 
-  if (!dataBranch) redirect(`/v1/repositories/${repositoryName}`)
+  if (!dataBranch) redirect(`/repositories/${repositoryName}`)
 
   return (
     <div>

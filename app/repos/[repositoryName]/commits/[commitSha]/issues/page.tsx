@@ -1,6 +1,6 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import Box from 'app/common/Box'
 import useFetch from 'hooks/useFetch'
@@ -26,6 +26,7 @@ const CommitsIssues = ({
   params: { repositoryName, commitSha },
 }: CommitsIssues) => {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const category = searchParams.get('category') as string
   const source = searchParams.get('category') as string
 
@@ -34,7 +35,7 @@ const CommitsIssues = ({
     handler: [category, source],
   }) as CommitdFetchResponse
 
-  // if (!dataBadges) redirect(`/v1/repositories/${repositoryName}`)
+  if (!data && !loading) router.push(`/repositories/${repositoryName}`)
 
   return (
     <div className={styles.main}>
@@ -61,7 +62,7 @@ const CommitsIssues = ({
               repositoryName={repositoryName}
             />
           </div>
-          <List />
+          <List issues={data?.issues} />
         </div>
       </Box>
     </div>
