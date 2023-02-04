@@ -2,14 +2,14 @@
 
 import ListItem from 'app/common/ListItem'
 import useFetch from 'hooks/useFetch'
-import { RepositoryResponseProps } from 'types/Repositories'
+import { RepositoryProps } from 'types/Repositories'
 import { StatsResponseProps } from 'types/Stats'
 interface GraphsFetchResponse {
   data: StatsResponseProps
 }
 
 type ListItemProps = Pick<
-  RepositoryResponseProps,
+  RepositoryProps,
   'description' | 'issues' | 'coverage' | 'name'
 > & { default_branch?: string }
 

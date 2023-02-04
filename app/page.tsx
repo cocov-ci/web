@@ -9,7 +9,8 @@ import ListItem from 'app/repos/ListItem'
 import NoResults from 'app/repos/NoResults'
 import TopBarActions from 'app/repos/TopBarActions'
 import useFetch from 'hooks/useFetch'
-import { PagingProps, RepositoriesResponseProps } from 'types/Repositories'
+import { PagingProps } from 'types/Paging'
+import { RepositoriesResponseProps } from 'types/Repositories'
 
 import Loading from './loading'
 

@@ -1,18 +1,20 @@
-import Box from 'app/common/Box'
+'use client'
+
 import CommitHeader from 'app/common/CommitHeader'
-import Text from 'app/common/Text'
 import { HeadProps } from 'types/Commits'
 
-import styles from './LastCommit.module.scss'
+import styles from './CommitHeader.module.scss'
 
-const LastCommit = ({
+const CommitHeaderComponent = ({
   head,
   repositoryName,
+  loading,
 }: {
-  head: HeadProps
+  head?: HeadProps
   repositoryName: string
+  loading: boolean
 }) => {
-  const commitHeader = {
+  const commitHeader = head && {
     headURL: `https://github.com/${head.org_name}/${repositoryName}/commit/${head.sha}`,
     avatarURL: head.user?.avatar,
     headSHA: head.sha,
@@ -23,17 +25,12 @@ const LastCommit = ({
   }
 
   return (
-    <Box
-      backgroundTextLarge="Last Commit"
-      className={styles.lastCommit}
-      gutterBottom
-    >
-      <Text className={styles.title} variant="title">
-        Last commit
-      </Text>
-      <CommitHeader className={styles.commitHeader} {...commitHeader} />
-    </Box>
+    <CommitHeader
+      className={styles.commitHeader}
+      loading={loading}
+      {...commitHeader}
+    />
   )
 }
 
-export default LastCommit
+export default CommitHeaderComponent

@@ -1,5 +1,5 @@
 import { StatusDotColor } from 'app/common/StatusDot'
-import { HeadProps } from 'types/Branches'
+import { HeadProps } from 'types/Commits'
 
 interface StatusDisplayProps {
   message?: string

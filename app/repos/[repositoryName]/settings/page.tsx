@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { RepositoryResponseProps } from 'types/Repositories'
+import { RepositoryProps } from 'types/Repositories'
 import fetcher from 'utils/fetchServer'
 
 interface SettingsProps {
@@ -8,7 +8,7 @@ interface SettingsProps {
 }
 
 const Settings = async ({ params: { repositoryName } }: SettingsProps) => {
-  const dataRepository: RepositoryResponseProps = await fetcher(
+  const dataRepository: RepositoryProps = await fetcher(
     `/v1/repositories/${repositoryName}`,
   )
 

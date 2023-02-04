@@ -1,10 +1,8 @@
-import { BoxSelect } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
-import Alert from 'app/common/Alert'
 import SummarySelector from 'app/common/SummarySelector'
 import { BranchResponseProps } from 'types/Branches'
-import { RepositoryResponseProps } from 'types/Repositories'
+import { RepositoryProps } from 'types/Repositories'
 import fetcher from 'utils/fetchServer'
 
 import Charts from './Charts'
@@ -21,7 +19,7 @@ const Branch = async ({
 }: BranchParams) => {
   const branch = Array.isArray(branchName) ? branchName.join('/') : branchName
 
-  const dataRepository: RepositoryResponseProps = await fetcher(
+  const dataRepository: RepositoryProps = await fetcher(
     `/v1/repositories/${repositoryName}`,
   )
 

@@ -31,7 +31,7 @@ export interface BadgesResponseProps extends BadgesProps {
   code?: number
 }
 
-export type TemplateProps =
+export type NavMenuProps =
   | 'html'
   | 'markdown'
   | 'textile'

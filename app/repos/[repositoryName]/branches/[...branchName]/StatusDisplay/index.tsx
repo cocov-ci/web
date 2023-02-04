@@ -1,5 +1,5 @@
 import StatusDisplay from 'app/common/StatusDisplay'
-import { HeadProps } from 'types/Branches'
+import { HeadProps } from 'types/Commits'
 
 import { getChecks, getCoverage } from './Utils'
 

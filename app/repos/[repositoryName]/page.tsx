@@ -2,7 +2,7 @@ import { BoxSelect } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
 import Alert from 'app/common/Alert'
-import { RepositoryResponseProps } from 'types/Repositories'
+import { RepositoryProps } from 'types/Repositories'
 import fetcher from 'utils/fetchServer'
 
 interface PageProps {
@@ -10,7 +10,7 @@ interface PageProps {
 }
 
 const Page = async ({ params: { repositoryName } }: PageProps) => {
-  const data: RepositoryResponseProps = await fetcher(
+  const data: RepositoryProps = await fetcher(
     `/v1/repositories/${repositoryName}`,
   )
 

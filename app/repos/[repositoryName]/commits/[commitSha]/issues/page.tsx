@@ -1,17 +1,25 @@
 'use client'
 
-import { redirect, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 import Box from 'app/common/Box'
-import CommitHeader from 'app/common/CommitHeader'
 import useFetch from 'hooks/useFetch'
+import { CommitsResponseProps } from 'types/Commits'
 
 import CategoriesList from './CategoriesList'
+import CommitHeader from './CommitHeader'
+import List from './List'
+import NavMenu from './NavMenu'
 import styles from './Page.module.scss'
 import SourcesList from './SourcesList'
 
 interface CommitsIssues {
   params: { repositoryName: string; commitSha: string }
+}
+
+interface CommitdFetchResponse {
+  data: CommitsResponseProps
+  loading: boolean
 }
 
 const CommitsIssues = ({
@@ -24,22 +32,37 @@ const CommitsIssues = ({
   const { data, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues`,
     handler: [category, source],
-  })
+  }) as CommitdFetchResponse
 
   // if (!dataBadges) redirect(`/v1/repositories/${repositoryName}`)
 
   return (
     <div className={styles.main}>
       <Box className={styles.box}>
-        {/* <CommitHeader  /> */}
-        <div className={styles.sidebar}>
-          <SourcesList commitSha={commitSha} repositoryName={repositoryName} />
-          <CategoriesList
-            commitSha={commitSha}
-            repositoryName={repositoryName}
-          />
+        <CommitHeader
+          head={data?.commit}
+          loading={loading}
+          repositoryName={repositoryName}
+        />
+        <NavMenu
+          active="issues"
+          counter={data?.repository?.issues}
+          loading={loading}
+          onChange={() => null}
+        />
+        <div className={styles.content}>
+          <div className={styles.sidebar}>
+            <SourcesList
+              commitSha={commitSha}
+              repositoryName={repositoryName}
+            />
+            <CategoriesList
+              commitSha={commitSha}
+              repositoryName={repositoryName}
+            />
+          </div>
+          <List />
         </div>
-        <div>lista</div>
       </Box>
     </div>
   )

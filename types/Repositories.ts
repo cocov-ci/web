@@ -1,4 +1,6 @@
-export interface RepositoryResponseProps {
+import { PagingProps } from './Paging'
+
+export interface RepositoryProps {
   id: number
   name: string
   description: string
@@ -9,12 +11,7 @@ export interface RepositoryResponseProps {
   head: { checks_status: string; coverage_status: string }
 }
 
-export interface PagingProps {
-  page: number
-  total_pages: number
-}
-
 export interface RepositoriesResponseProps {
-  repositories: RepositoryResponseProps[]
+  repositories: RepositoryProps[]
   paging: PagingProps[]
 }

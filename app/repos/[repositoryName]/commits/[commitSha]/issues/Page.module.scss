@@ -11,7 +11,12 @@
 
     > div {
       min-height: 100%;
-      flex-direction: row;
+      flex-direction: column;
+    }
+
+    .content {
+      display: flex;
+      flex: 1;
     }
   }
 

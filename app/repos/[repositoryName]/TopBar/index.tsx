@@ -4,7 +4,7 @@ import Button from 'app/common/Button'
 import PillNav from 'app/common/PillNav'
 import TopBar from 'app/common/TopBar'
 import { useSegments } from 'context/SegmentsContext'
-import { RepositoryResponseProps } from 'types/Repositories'
+import { RepositoryProps } from 'types/Repositories'
 
 type index = 'summary' | 'badges' | 'settings' | undefined
 
@@ -32,7 +32,7 @@ const TopBarComponent = ({
   name,
   default_branch,
   description,
-}: RepositoryResponseProps) => {
+}: RepositoryProps) => {
   const segments = useSegments()
 
   let activeItem: index

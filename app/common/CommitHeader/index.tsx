@@ -3,10 +3,11 @@ import React from 'react'
 
 import Avatar from 'app/common/Avatar'
 import RelativeTime from 'app/common/RelativeTime'
-import { CommitHeaderProps } from 'types/Branches'
+import { CommitHeaderProps } from 'types/Commits'
 import { inconsolata } from 'utils/fonts'
 
 import styles from './CommitHeader.module.scss'
+import Loading from './Loading'
 
 const CommitHeader = ({
   className,
@@ -17,7 +18,10 @@ const CommitHeader = ({
   timestamp,
   commitMessage,
   isRegisteredUser,
+  loading,
 }: CommitHeaderProps) => {
+  if (loading) return <Loading className={className} />
+
   return (
     <div className={classNames(styles.base, className)}>
       {avatarURL && (
@@ -47,10 +51,10 @@ const CommitHeader = ({
             rel="noreferrer"
             target="_blank"
           >
-            {headSHA.substring(0, 6)}
+            {headSHA?.substring(0, 6)}
           </a>
 
-          <RelativeTime timestamp={timestamp} />
+          {timestamp && <RelativeTime timestamp={timestamp} />}
         </div>
         <div className={styles.commitTitle}>
           <a href={headURL} rel="noreferrer" target="_blank">

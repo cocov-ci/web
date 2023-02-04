@@ -17,12 +17,12 @@ const CategoriesList = ({
   commitSha: string
   repositoryName: string
 }) => {
-  const { data } = useFetch({
+  const { data, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues/categories`,
     handler: [],
   }) as CommitsCategoriesFetchResponse
 
-  return <Sidebar allItemsText="All categories" data={data} />
+  return <Sidebar allItemsText="All categories" data={data} loading={loading} />
 }
 
 export default CategoriesList

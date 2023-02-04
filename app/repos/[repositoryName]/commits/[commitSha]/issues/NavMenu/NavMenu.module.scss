@@ -1,0 +1,13 @@
+@import "styles/variables.module";
+
+.navMenu {
+  border: 1px solid $colorGray;
+}
+
+.loading,
+.navMenu {
+  position: absolute;
+  z-index: 1;
+  align-self: center;
+  top: 86px;
+}

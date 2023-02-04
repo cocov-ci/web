@@ -1,7 +1,12 @@
 @import "styles/variables.module";
 
-.sidebar {
+.sidebar,
+.loading {
   border-right: 1px solid $colorGray;
   border-top: 1px solid $colorGray;
   flex: 1;
+}
+
+.loading {
+  padding: 10px;
 }

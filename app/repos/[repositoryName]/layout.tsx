@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 
 import TopBar from 'app/repos/[repositoryName]/TopBar'
-import { RepositoryResponseProps } from 'types/Repositories'
+import { RepositoryProps } from 'types/Repositories'
 import fetcher from 'utils/fetchServer'
 
 import styles from './Layout.module.scss'
@@ -15,7 +15,7 @@ const Layout = async ({
   params: { repositoryName },
   children,
 }: LayoutProps) => {
-  const dataRepository: RepositoryResponseProps = await fetcher(
+  const dataRepository: RepositoryProps = await fetcher(
     `/v1/repositories/${repositoryName}`,
   )
 

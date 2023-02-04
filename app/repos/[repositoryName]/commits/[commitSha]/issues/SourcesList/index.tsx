@@ -17,12 +17,12 @@ const SourcesList = ({
   commitSha: string
   repositoryName: string
 }) => {
-  const { data } = useFetch({
+  const { data, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues/sources`,
     handler: [],
   }) as CommitsSourcesFetchResponse
 
-  return <Sidebar allItemsText="All sources" data={data} />
+  return <Sidebar allItemsText="All sources" data={data} loading={loading} />
 }
 
 export default SourcesList
