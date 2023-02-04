@@ -1,0 +1,22 @@
+@import "styles/variables.module";
+
+.main {
+  flex: 1;
+  display: flex;
+  padding-bottom: 30px;
+
+  .box {
+    padding: 0;
+    flex: 1;
+
+    > div {
+      min-height: 100%;
+      flex-direction: row;
+    }
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+  }
+}

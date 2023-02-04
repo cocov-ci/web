@@ -6,7 +6,7 @@ import TopBar from 'app/common/TopBar'
 import { useSegments } from 'context/SegmentsContext'
 import { RepositoryResponseProps } from 'types/Repositories'
 
-type index = 'summary' | 'badges' | 'settings'
+type index = 'summary' | 'badges' | 'settings' | undefined
 
 interface NavButtonProps {
   index: index
@@ -35,9 +35,11 @@ const TopBarComponent = ({
 }: RepositoryResponseProps) => {
   const segments = useSegments()
 
-  let activeItem: index = 'summary'
+  let activeItem: index
 
-  if (segments.length === 3 && segments[2] === 'badges') {
+  if (segments.length >= 3 && segments[2] === 'branches') {
+    activeItem = 'summary'
+  } else if (segments.length === 3 && segments[2] === 'badges') {
     activeItem = 'badges'
   } else if (segments.length >= 3 && segments[2] === 'settings') {
     activeItem = 'settings'

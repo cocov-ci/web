@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import React, { createContext, useContext, useMemo, useState } from 'react'
 
 import Auth from 'services/auth'
@@ -18,6 +18,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const user = Auth.getAccount()
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const login = async () => {
     setLoading(true)
@@ -25,7 +26,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const data: AuthBeginReponseProps = await Auth.begin()
 
-      window.location.href = data.redirect_to
+      window.location.href = searchParams.get('next')
+        ? `${data.redirect_to}?next=${searchParams.get('next')}`
+        : data.redirect_to
     } catch {
       setLoading(false)
       // TODO: HANDLE WITH THIS RESPONSE

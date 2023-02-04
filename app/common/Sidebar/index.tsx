@@ -1,3 +1,5 @@
+'use client'
+
 import classNames from 'classnames'
 import React from 'react'
 
@@ -34,7 +36,7 @@ const Sidebar = ({
         <SidebarItem
           item={item}
           key={item.id}
-          onClick={onSelectItem}
+          onClick={() => onSelectItem && onSelectItem(item)}
           selected={selectedId === item.id}
         />
       ))}

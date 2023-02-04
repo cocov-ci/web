@@ -8,6 +8,7 @@
   transition: background-color 0.1s ease-in-out;
   font-variation-settings: "wght" 550;
   border-radius: 23px;
+  display: inline-flex;
 
   &.uppercase {
     text-transform: uppercase;

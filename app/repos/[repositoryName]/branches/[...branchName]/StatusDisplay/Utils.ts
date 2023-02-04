@@ -63,7 +63,7 @@ export const getCoverage = ({ data, repositoryName }: DataProps) => {
 }
 
 export const getChecks = ({ data, repositoryName }: DataProps) => {
-  const { coverage_status, issues_count } = data
+  const { coverage_status, issues_count, sha } = data
 
   const checkObject: StatusDisplayProps = {
     messageBold: false,
@@ -80,7 +80,7 @@ export const getChecks = ({ data, repositoryName }: DataProps) => {
     case 'errored':
       checkObject.message = 'Failed running'
       checkObject.messageBold = true
-      checkObject.detailsHref = `/repos/${repositoryName}/commits/:sha/checks`
+      checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
       checkObject.statusColor = 'red'
       break
     case 'processed':
@@ -89,7 +89,7 @@ export const getChecks = ({ data, repositoryName }: DataProps) => {
         checkObject.statusColor = 'green'
       } else {
         checkObject.message = `${issues_count} issues`
-        checkObject.detailsHref = `/repos/${repositoryName}/commits/:sha/issues`
+        checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/issues`
         checkObject.statusColor = 'red'
         checkObject.messageBold = true
       }
