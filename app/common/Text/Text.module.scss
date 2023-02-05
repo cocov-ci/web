@@ -5,12 +5,12 @@
     font-variation-settings: "wght" 600;
   }
 
-  .title {
+  &.title {
     font-size: $fontTitle;
     font-variation-settings: "wght" 400;
   }
 
-  .description {
+  &.description {
     font-size: $fontDescription;
     margin-bottom: 20px;
     white-space: pre-line;
