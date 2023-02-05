@@ -25,8 +25,20 @@
     }
   }
 
-  .sidebar {
+  .sidebar,
+  .list {
     display: flex;
     flex-direction: column;
+  }
+
+  .list {
+    flex: 1;
+  }
+
+  .pagination {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid $colorGray;
   }
 }

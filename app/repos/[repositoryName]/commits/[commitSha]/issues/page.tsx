@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import Box from 'app/common/Box'
+import Pagination from 'app/common/Pagination'
 import useFetch from 'hooks/useFetch'
 import { CommitsResponseProps } from 'types/Commits'
 
@@ -64,15 +65,16 @@ const CommitsIssues = ({
               repositoryName={repositoryName}
             />
           </div>
-          <List issues={data?.issues} />
-          <div className={styles.paging}>
-            {/* {paginationData && ( */}
-            {/* <Pagination
-          // {...paginationData}
-          className={styles.paginationComponent}
-          onPageClick={() => null}
-        /> */}
-            {/* )} */}
+          <div className={styles.list}>
+            <List issues={data?.issues} />
+            <div className={styles.paging}>
+              <Pagination
+                className={styles.pagination}
+                currentPage={1}
+                onPageClick={() => null}
+                total={2}
+              />
+            </div>
           </div>
         </div>
       </Box>
