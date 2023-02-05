@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useMemo, useRef } from 'react'
+import { useRef } from 'react'
 
 import Box from 'app/common/Box'
 import useFetch from 'hooks/useFetch'

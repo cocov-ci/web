@@ -30,7 +30,13 @@ const ListItem = (issue: IssueProps) => {
   )
 }
 
-const List = ({ issues, height }: { issues: IssueProps[]; height: number }) => {
+const List = ({
+  issues,
+  height,
+}: {
+  issues: IssueProps[]
+  height: number | undefined
+}) => {
   return (
     <div
       className={styles.list}
