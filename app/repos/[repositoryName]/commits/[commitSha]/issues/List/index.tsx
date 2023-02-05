@@ -21,10 +21,15 @@ const ListItem = (issue: IssueProps) => {
         <strong>{issue.message}</strong>
       </Text>
       <div className={styles.fileRow}>
-        <Text className={classNames(styles.file, inconsolata.className)}>
+        <Text
+          className={classNames(styles.file, inconsolata.className)}
+          variant="description"
+        >
           {issue.file}
         </Text>
-        <Text className={styles.line}>line {issue.line_start}</Text>
+        <Text className={styles.line} variant="description">
+          line {issue.line_start}
+        </Text>
       </div>
     </div>
   )

@@ -12,6 +12,10 @@
   padding: 24px 30px 32px 21px;
   border-bottom: 1px solid $colorGray;
 
+  p {
+    margin-bottom: 0;
+  }
+
   .message {
     font-size: 17px;
     padding: 2px 0;
