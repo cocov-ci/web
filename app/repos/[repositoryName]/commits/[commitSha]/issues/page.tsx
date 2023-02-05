@@ -1,7 +1,6 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
 
 import Box from 'app/common/Box'
 import useFetch from 'hooks/useFetch'
@@ -28,37 +27,8 @@ const CommitsIssues = ({
 }: CommitsIssues) => {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const [boxHeight, setBoxHeight] = useState<number>()
   const category = searchParams.get('category') as string
   const source = searchParams.get('category') as string
-
-  window.addEventListener('resize', () => setBoxHeight(getPageHeight()))
-
-  const getPageHeight = () => {
-    const elements = [
-      document.querySelector('header') as Element,
-      document.querySelector('#topBar') as Element,
-    ]
-
-    const elementsSize: number = elements
-      .map(
-        item =>
-          item.clientHeight + parseInt(getComputedStyle(item)?.marginBottom),
-      )
-      .reduce((prev, next) => prev + next)
-
-    const contentSize = window.innerHeight - elementsSize
-
-    return contentSize < 515 ? 515 : contentSize
-  }
-
-  useEffect(() => {
-    setBoxHeight(getPageHeight())
-
-    return () => {
-      window.removeEventListener('resize', () => setBoxHeight(getPageHeight()))
-    }
-  }, [])
 
   const { data, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues`,
@@ -70,7 +40,7 @@ const CommitsIssues = ({
   if (!data && !loading) router.push(`/repositories/${repositoryName}`)
 
   return (
-    <div className={styles.main} style={{ maxHeight: `${boxHeight}px` }}>
+    <div className={styles.main}>
       <Box className={styles.box}>
         <CommitHeader
           head={data?.commit}
@@ -95,6 +65,15 @@ const CommitsIssues = ({
             />
           </div>
           <List issues={data?.issues} />
+          <div className={styles.paging}>
+            {/* {paginationData && ( */}
+            {/* <Pagination
+          // {...paginationData}
+          className={styles.paginationComponent}
+          onPageClick={() => null}
+        /> */}
+            {/* )} */}
+          </div>
         </div>
       </Box>
     </div>

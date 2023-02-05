@@ -1,10 +1,13 @@
+@use "sass:map";
 @import "styles/variables.module";
 
 .topBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
+  height: map.get($topbarSize, "height");
+  margin-bottom: map.get($topbarSize, "marginBottom");
+
 
   .title {
     font-size: 38px;

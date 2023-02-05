@@ -37,7 +37,7 @@ const NavMenu = ({
           style={isActive(item.value) ? 'secondary' : 'inactive'}
         >
           {counter && isActive(item.value)
-            ? `${item.title} ${counter}`
+            ? `${item.title} (${counter})`
             : item.title}
         </Button>
       ))}

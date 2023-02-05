@@ -1,3 +1,4 @@
+@use "sass:map";
 @import "styles/variables.module";
 
 .main {
@@ -10,8 +11,11 @@
     flex: 1;
 
     > div {
-      height: 100%;
+      min-height: 515px;
       flex-direction: column;
+      /* stylelint-disable */
+      height: calc(100vh - map.get($headerSize, "marginBottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginBottom") - 30px)
+      /* stylelint-enable */
     }
 
     .content {

@@ -39,18 +39,7 @@ const ListItem = (issue: IssueProps) => {
 const List = ({ issues }: { issues: IssueProps[] }) => {
   return (
     <div className={styles.list}>
-      <div>
-        {issues && issues.map(issue => <ListItem {...issue} key={issue.id} />)}
-      </div>
-      <div className={styles.paging}>
-        {/* {paginationData && ( */}
-        {/* <Pagination
-          // {...paginationData}
-          className={styles.paginationComponent}
-          onPageClick={() => null}
-        /> */}
-        {/* )} */}
-      </div>
+      {issues && issues.map(issue => <ListItem {...issue} key={issue.id} />)}
     </div>
   )
 }
