@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import Box from 'app/common/Box'
 import useFetch from 'hooks/useFetch'
@@ -28,10 +28,29 @@ const CommitsIssues = ({
 }: CommitsIssues) => {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const sidebarRef = useRef<HTMLDivElement>(null)
+  const [boxHeight, setBoxHeight] = useState<number>()
   const category = searchParams.get('category') as string
   const source = searchParams.get('category') as string
-  const sidebarHeight = sidebarRef.current?.clientHeight
+
+  const getPageHeight = () => {
+    const elements = [
+      document.querySelector('header') as Element,
+      document.querySelector('#topBar') as Element,
+    ]
+
+    const elementsSize: number = elements
+      .map(
+        item =>
+          item.clientHeight + parseInt(getComputedStyle(item)?.marginBottom),
+      )
+      .reduce((prev, next) => prev + next)
+
+    return window.innerHeight - elementsSize
+  }
+
+  useEffect(() => {
+    setBoxHeight(getPageHeight())
+  }, [])
 
   const { data, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues`,
@@ -43,7 +62,7 @@ const CommitsIssues = ({
   if (!data && !loading) router.push(`/repositories/${repositoryName}`)
 
   return (
-    <div className={styles.main}>
+    <div className={styles.main} style={{ maxHeight: `${boxHeight}px` }}>
       <Box className={styles.box}>
         <CommitHeader
           head={data?.commit}
@@ -57,7 +76,7 @@ const CommitsIssues = ({
           onChange={() => null}
         />
         <div className={styles.content}>
-          <div className={styles.sidebar} ref={sidebarRef}>
+          <div className={styles.sidebar}>
             <SourcesList
               commitSha={commitSha}
               repositoryName={repositoryName}
@@ -67,7 +86,7 @@ const CommitsIssues = ({
               repositoryName={repositoryName}
             />
           </div>
-          <List height={sidebarHeight} issues={data?.issues} />
+          <List issues={data?.issues} />
         </div>
       </Box>
     </div>

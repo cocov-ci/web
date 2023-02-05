@@ -46,7 +46,7 @@ const TopBarComponent = ({
   }
 
   return (
-    <TopBar description={description} title={name}>
+    <TopBar description={description} id="topBar" title={name}>
       <PillNav>
         <NavButton
           activeItem={activeItem}

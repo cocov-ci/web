@@ -30,18 +30,9 @@ const ListItem = (issue: IssueProps) => {
   )
 }
 
-const List = ({
-  issues,
-  height,
-}: {
-  issues: IssueProps[]
-  height: number | undefined
-}) => {
+const List = ({ issues }: { issues: IssueProps[] }) => {
   return (
-    <div
-      className={styles.list}
-      style={{ height: height ? `${height}px` : 'auto' }}
-    >
+    <div className={styles.list}>
       <div>
         {issues && issues.map(issue => <ListItem {...issue} key={issue.id} />)}
       </div>

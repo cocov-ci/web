@@ -8,11 +8,18 @@ interface TopBarProps {
   className?: string
   title?: string
   description?: string
+  id?: string
 }
 
-const TopBar = ({ title, description, children, className }: TopBarProps) => {
+const TopBar = ({
+  id,
+  title,
+  description,
+  children,
+  className,
+}: TopBarProps) => {
   return (
-    <div className={classNames(styles.topBar, className)}>
+    <div className={classNames(styles.topBar, className)} id={id}>
       <div>
         <h1 className={styles.title}>{title}</h1>
         <p className={styles.description}>{description}</p>
