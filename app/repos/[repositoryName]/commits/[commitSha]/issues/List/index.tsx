@@ -4,6 +4,7 @@
 // import Loading from 'app/common/Loading'
 import classNames from 'classnames'
 
+import Pagination from 'app/common/Pagination'
 import Text from 'app/common/Text'
 import { IssueProps } from 'types/Commits'
 import { inconsolata } from 'utils/fonts'
@@ -40,6 +41,15 @@ const List = ({ issues }: { issues: IssueProps[] }) => {
     <div className={styles.list}>
       <div>
         {issues && issues.map(issue => <ListItem {...issue} key={issue.id} />)}
+      </div>
+      <div className={styles.paging}>
+        {/* {paginationData && ( */}
+        {/* <Pagination
+          // {...paginationData}
+          className={styles.paginationComponent}
+          onPageClick={() => null}
+        /> */}
+        {/* )} */}
       </div>
     </div>
   )

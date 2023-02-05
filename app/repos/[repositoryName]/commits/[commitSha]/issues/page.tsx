@@ -32,6 +32,8 @@ const CommitsIssues = ({
   const category = searchParams.get('category') as string
   const source = searchParams.get('category') as string
 
+  window.addEventListener('resize', () => setBoxHeight(getPageHeight()))
+
   const getPageHeight = () => {
     const elements = [
       document.querySelector('header') as Element,
@@ -45,11 +47,17 @@ const CommitsIssues = ({
       )
       .reduce((prev, next) => prev + next)
 
-    return window.innerHeight - elementsSize
+    const contentSize = window.innerHeight - elementsSize
+
+    return contentSize < 515 ? 515 : contentSize
   }
 
   useEffect(() => {
     setBoxHeight(getPageHeight())
+
+    return () => {
+      window.removeEventListener('resize', () => setBoxHeight(getPageHeight()))
+    }
   }, [])
 
   const { data, loading } = useFetch({
