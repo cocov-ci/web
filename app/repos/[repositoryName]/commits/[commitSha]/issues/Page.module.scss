@@ -14,7 +14,7 @@
       min-height: 515px;
       flex-direction: column;
       /* stylelint-disable */
-      height: calc(100vh - map.get($headerSize, "marginBottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginBottom") - 30px)
+      height: calc(100vh - map.get($headerSize, "marginbottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginbottom") - 30px)
       /* stylelint-enable */
     }
 
