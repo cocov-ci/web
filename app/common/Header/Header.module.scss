@@ -6,7 +6,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: map.get($headerSize, "marginBottom");
+  margin-bottom: map.get($headerSize, "marginbottom");
 
   .content {
     width: $contentWidth;

@@ -6,8 +6,7 @@
   justify-content: space-between;
   align-items: center;
   height: map.get($topbarSize, "height");
-  margin-bottom: map.get($topbarSize, "marginBottom");
-
+  margin-bottom: map.get($topbarSize, "marginbottom");
 
   .title {
     font-size: 38px;
