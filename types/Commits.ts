@@ -36,7 +36,7 @@ export interface CommitsResponseProps {
   repository: Omit<RepositoryProps, 'head'>
 }
 
-export type NavMenuProps = 'summary' | 'issues' | 'coverage'
+export type NavMenuProps = 'issues' | 'coverage'
 
 export type StatusKind =
   | 'waiting'

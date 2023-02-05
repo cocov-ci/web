@@ -2,8 +2,11 @@
 
 // import CodeBlock from 'app/common/CodeBlock'
 // import Loading from 'app/common/Loading'
+import classNames from 'classnames'
+
 import Text from 'app/common/Text'
 import { IssueProps } from 'types/Commits'
+import { inconsolata } from 'utils/fonts'
 
 import styles from './List.module.scss'
 
@@ -17,14 +20,25 @@ const ListItem = (issue: IssueProps) => {
       <Text className={styles.message}>
         <strong>{issue.message}</strong>
       </Text>
+      <div className={styles.fileRow}>
+        <Text className={classNames(styles.file, inconsolata.className)}>
+          {issue.file}
+        </Text>
+        <Text className={styles.line}>line {issue.line_start}</Text>
+      </div>
     </div>
   )
 }
 
-const List = ({ issues }: { issues: IssueProps[] }) => {
+const List = ({ issues, height }: { issues: IssueProps[]; height: number }) => {
   return (
-    <div className={styles.list}>
-      {issues && issues.map(issue => <ListItem {...issue} key={issue.id} />)}
+    <div
+      className={styles.list}
+      style={{ height: height ? `${height}px` : 'auto' }}
+    >
+      <div>
+        {issues && issues.map(issue => <ListItem {...issue} key={issue.id} />)}
+      </div>
     </div>
   )
 }

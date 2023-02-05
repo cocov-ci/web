@@ -3,16 +3,27 @@
 .list {
   border-top: 1px solid $colorGray;
   flex: auto;
-  padding-top: 40px;
-  max-height: 400px;
+  padding-top: 26px;
+  height: 100%;
   overflow: auto;
 }
 
 .listItem {
-  padding: 0 30px 32px 21px;
+  padding: 24px 30px 32px 21px;
   border-bottom: 1px solid $colorGray;
 
   .message {
     font-size: 17px;
+    padding: 2px 0;
+  }
+
+  .fileRow {
+    display: inline-flex;
+    align-items: baseline;
+
+    .file {
+      font-variation-settings: "wght" 300;
+      margin-right: 5px;
+    }
   }
 }

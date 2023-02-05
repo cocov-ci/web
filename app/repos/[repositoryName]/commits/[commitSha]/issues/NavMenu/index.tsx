@@ -6,7 +6,6 @@ import { NavMenuProps } from 'types/Commits'
 import styles from './NavMenu.module.scss'
 
 const menuItems = [
-  { title: 'Summary', value: 'summary' as NavMenuProps },
   { title: 'Issues', value: 'issues' as NavMenuProps },
   { title: 'Coverage', value: 'coverage' as NavMenuProps },
 ]
