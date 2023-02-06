@@ -1,16 +1,16 @@
 'use client'
 
-// import CodeBlock from 'app/common/CodeBlock'
-// import Loading from 'app/common/Loading'
 import classNames from 'classnames'
 
+import CodeBlock from 'app/common/CodeBlock'
 import Text from 'app/common/Text'
 import { IssueProps } from 'types/Commits'
 import { inconsolata } from 'utils/fonts'
 
 import styles from './List.module.scss'
+import Loading from './Loading'
 
-const ListItem = (issue: IssueProps) => {
+export const ListItem = (issue: IssueProps) => {
   return (
     <div className={styles.listItem}>
       <Text variant="description">
@@ -31,14 +31,23 @@ const ListItem = (issue: IssueProps) => {
           line {issue.line_start}
         </Text>
       </div>
+      <CodeBlock issue={issue.affected_file.content} />
     </div>
   )
 }
 
-const List = ({ issues }: { issues: IssueProps[] }) => {
+const List = ({
+  issues,
+  loading,
+}: {
+  issues: IssueProps[]
+  loading: boolean
+}) => {
   return (
     <div className={styles.list}>
-      {issues && issues.map(issue => <ListItem {...issue} key={issue.id} />)}
+      {loading &&
+        Array.from(Array(4).keys()).map(item => <Loading key={item} />)}
+      {!loading && issues.map(issue => <ListItem {...issue} key={issue.id} />)}
     </div>
   )
 }

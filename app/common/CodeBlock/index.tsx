@@ -4,25 +4,10 @@ import classNames from 'classnames'
 import { AlertTriangle } from 'lucide-react'
 import React from 'react'
 
+import { IssueFileContentProps } from 'types/Commits'
 import { inconsolata } from 'utils/fonts'
 
 import styles from './CodeBlock.module.scss'
-
-type BasicIssueData = {
-  kind: 'line' | 'warn'
-}
-
-interface LineData extends BasicIssueData {
-  kind: 'line'
-  line: number
-  source: string
-}
-
-interface WarningData extends BasicIssueData {
-  kind: 'warn'
-  text: string
-  padding: string
-}
 
 type LineProps = {
   line: number
@@ -70,16 +55,10 @@ const Warning = ({ text, padding }: WarningProps) => {
   )
 }
 
-type LineOrWarning = LineData | WarningData
-
-type IssueData = {
-  objects: LineOrWarning[]
-}
-
-const Issue = ({ objects }: IssueData) => {
+const Issue = ({ data }: { data: IssueFileContentProps[] }) => {
   return (
     <>
-      {objects.map(obj =>
+      {data.map(obj =>
         'source' in obj ? (
           <Line key={`line=${obj.line}`} line={obj.line} source={obj.source} />
         ) : (
@@ -140,7 +119,7 @@ const Coverage = ({ source, blocks }: CoverageData) => {
 
 interface CodeBlockProps {
   coverage?: CoverageData
-  issue?: IssueData
+  issue?: IssueFileContentProps[]
   className?: string
 }
 
@@ -149,7 +128,7 @@ const CodeBlock = ({ className, issue, coverage }: CodeBlockProps) => {
     <div className={classNames(styles.base, className)}>
       <table className={classNames(styles.table)}>
         <tbody>
-          {issue && <Issue objects={issue.objects} />}
+          {issue && <Issue data={issue} />}
           {coverage && (
             <Coverage blocks={coverage.blocks} source={coverage.source} />
           )}

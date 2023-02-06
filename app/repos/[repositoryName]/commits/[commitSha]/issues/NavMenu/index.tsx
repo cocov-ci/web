@@ -21,12 +21,19 @@ const NavMenu = ({
   onChange,
   active,
   counter,
-  loading,
+  loading = false,
 }: NavMenuComponentProps) => {
   const isActive = (item: NavMenuProps) => active === item
 
   if (loading)
-    return <Loading className={styles.loading} height="60px" type="skeleton" />
+    return (
+      <Loading
+        className={styles.loading}
+        height="50px"
+        type="skeleton"
+        width="216px"
+      />
+    )
 
   return (
     <PillNav className={styles.navMenu}>

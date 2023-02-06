@@ -27,7 +27,7 @@ const LoadingComponent = ({ className }: CommitHeaderProps) => {
         <div className={styles.commitMeta}>
           <Loading
             alignment="left"
-            height="21px"
+            height="18px"
             type="skeleton"
             width={`${randomBetween(206, 400)}px`}
           />
@@ -35,7 +35,7 @@ const LoadingComponent = ({ className }: CommitHeaderProps) => {
         <div className={styles.commitTitle}>
           <Loading
             alignment="left"
-            height="22px"
+            height="18px"
             type="skeleton"
             width={`${randomBetween(32, 400)}px`}
           />

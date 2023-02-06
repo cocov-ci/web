@@ -1,11 +1,14 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
 
 import Box from 'app/common/Box'
+import Loading from 'app/common/Loading'
 import Pagination from 'app/common/Pagination'
 import useFetch from 'hooks/useFetch'
 import { CommitsResponseProps } from 'types/Commits'
+import { PagingProps } from 'types/Paging'
 
 import CategoriesList from './CategoriesList'
 import CommitHeader from './CommitHeader'
@@ -13,12 +16,13 @@ import List from './List'
 import NavMenu from './NavMenu'
 import styles from './Page.module.scss'
 import SourcesList from './SourcesList'
+import { getUpdatedUrl } from './Utils'
 
 interface CommitsIssues {
   params: { repositoryName: string; commitSha: string }
 }
 
-interface CommitdFetchResponse {
+interface CommitsFetchResponse {
   data: CommitsResponseProps
   loading: boolean
 }
@@ -27,53 +31,97 @@ const CommitsIssues = ({
   params: { repositoryName, commitSha },
 }: CommitsIssues) => {
   const searchParams = useSearchParams()
+  const pathname = usePathname() as string
   const router = useRouter()
   const category = searchParams.get('category') as string
-  const source = searchParams.get('category') as string
+  const source = searchParams.get('source') as string
+  const page = searchParams.get('page') as string
+  const [pageLoading, setPageLoading] = useState<boolean>(true)
+  const [currentPage, setCurrentPage] = useState<number>(parseInt(page) || 1)
 
   const { data, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues`,
-    handler: [category, source],
-  }) as CommitdFetchResponse
-
-  // console.log(data)
+    params: {
+      source: source,
+      category: category,
+      page: currentPage.toString(),
+    },
+    handler: [category, source, currentPage],
+  }) as CommitsFetchResponse
 
   if (!data && !loading) router.push(`/repositories/${repositoryName}`)
+
+  useEffect(() => {
+    if (data) setPageLoading(false)
+  }, [data])
+
+  const hasPagination = useMemo(
+    () => data?.paging[0] && Boolean(data.paging[0]?.total_pages),
+    [data],
+  )
+
+  const paging: PagingProps = useMemo(
+    () => data?.paging[0] as PagingProps,
+    [data],
+  )
+
+  const onChangeRoute = (param: { [arg: string]: string | null }) => {
+    router.replace(
+      getUpdatedUrl({
+        pathname,
+        searchParams,
+        param,
+      }),
+    )
+  }
 
   return (
     <div className={styles.main}>
       <Box className={styles.box}>
         <CommitHeader
           head={data?.commit}
-          loading={loading}
+          loading={pageLoading}
           repositoryName={repositoryName}
         />
         <NavMenu
           active="issues"
           counter={data?.repository?.issues}
-          loading={loading}
+          loading={pageLoading}
           onChange={() => null}
         />
         <div className={styles.content}>
           <div className={styles.sidebar}>
             <SourcesList
               commitSha={commitSha}
+              onItemChanged={item => {
+                setCurrentPage(1)
+                onChangeRoute({ source: item.id === 0 ? null : item.name })
+              }}
               repositoryName={repositoryName}
             />
             <CategoriesList
               commitSha={commitSha}
+              onItemChanged={item => {
+                setCurrentPage(1)
+                onChangeRoute({ category: item.id === 0 ? null : item.name })
+              }}
               repositoryName={repositoryName}
             />
           </div>
           <div className={styles.list}>
-            <List issues={data?.issues} />
+            <List issues={data?.issues} loading={loading} />
             <div className={styles.paging}>
-              <Pagination
-                className={styles.pagination}
-                currentPage={1}
-                onPageClick={() => null}
-                total={2}
-              />
+              {hasPagination && (
+                <Pagination
+                  className={styles.pagination}
+                  currentPage={paging.page}
+                  onPageClick={page => {
+                    setCurrentPage(page)
+                    onChangeRoute({ page: page === 1 ? null : page.toString() })
+                  }}
+                  total={paging.total_pages}
+                />
+              )}
             </div>
           </div>
         </div>

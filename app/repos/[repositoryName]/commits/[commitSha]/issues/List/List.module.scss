@@ -6,6 +6,7 @@
   padding-top: 26px;
   height: 100%;
   overflow: auto;
+  width: 734px;
 }
 
 .listItem {
@@ -19,11 +20,15 @@
   .message {
     font-size: 17px;
     padding: 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .fileRow {
     display: inline-flex;
     align-items: baseline;
+    margin-bottom: 20px;
 
     .file {
       font-variation-settings: "wght" 300;

@@ -1,7 +1,7 @@
 'use client'
 
 import classNames from 'classnames'
-import React from 'react'
+import React, { useState } from 'react'
 
 import styles from './Sidebar.module.scss'
 import { SidebarItem } from './SidebarItem'
@@ -12,9 +12,11 @@ export interface Item {
   counter?: number
 }
 
+type SelectedId = string | number | undefined
+
 interface SidebarProps {
   items: Array<Item>
-  selectedId: string | number | undefined
+  defaultSelectedId: SelectedId
   onSelectItem?: (item: Item) => void
   className?: string
   width?: string
@@ -22,11 +24,13 @@ interface SidebarProps {
 
 const Sidebar = ({
   items,
-  selectedId,
+  defaultSelectedId,
   onSelectItem,
   className,
   width,
 }: SidebarProps) => {
+  const [selectedId, setSelectedId] = useState<SelectedId>(defaultSelectedId)
+
   return (
     <div
       className={classNames(styles.base, className)}
@@ -36,7 +40,12 @@ const Sidebar = ({
         <SidebarItem
           item={item}
           key={item.id}
-          onClick={() => onSelectItem && onSelectItem(item)}
+          onClick={() => {
+            if (onSelectItem) {
+              onSelectItem(item)
+              setSelectedId(item.id)
+            }
+          }}
           selected={selectedId === item.id}
         />
       ))}

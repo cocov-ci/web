@@ -1,7 +1,7 @@
 'use client'
 
 import Loading from 'app/common/Loading'
-import Sidebar from 'app/common/Sidebar'
+import Sidebar, { Item } from 'app/common/Sidebar'
 import { CommitsSourcesResponseProps } from 'types/Commits'
 
 import styles from './Sidebar.module.scss'
@@ -16,9 +16,17 @@ interface SidebarProps {
   allItemsText: string
   data: CommitsSourcesResponseProps
   loading: boolean
+  defaultSelectedItem: string | null
+  onSelectItem: (arg: Item) => void
 }
 
-const SidebarComponent = ({ allItemsText, data, loading }: SidebarProps) => {
+const SidebarComponent = ({
+  allItemsText,
+  data,
+  loading,
+  onSelectItem,
+  defaultSelectedItem,
+}: SidebarProps) => {
   if (loading)
     return (
       <Loading
@@ -49,8 +57,11 @@ const SidebarComponent = ({ allItemsText, data, loading }: SidebarProps) => {
   return (
     <Sidebar
       className={styles.sidebar}
+      defaultSelectedId={
+        items?.filter(item => item.name === defaultSelectedItem)[0]?.id || 0
+      }
       items={[allItems, ...items]}
-      selectedId={0}
+      onSelectItem={item => onSelectItem(item)}
       width="250px"
     />
   )

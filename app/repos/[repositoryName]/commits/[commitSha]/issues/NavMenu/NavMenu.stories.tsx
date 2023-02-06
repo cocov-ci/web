@@ -4,7 +4,11 @@ import NavMenu from './index'
 
 const meta: Meta<typeof NavMenu> = {
   title: 'Commits/NavMenu',
-  component: NavMenu,
+  component: args => (
+    <div style={{ height: '300px' }}>
+      <NavMenu {...args} />
+    </div>
+  ),
   tags: ['autodocs'],
 }
 
