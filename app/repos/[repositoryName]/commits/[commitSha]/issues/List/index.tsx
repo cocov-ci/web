@@ -1,7 +1,9 @@
 'use client'
 
 import classNames from 'classnames'
+import { BoxSelect } from 'lucide-react'
 
+import Alert from 'app/common/Alert'
 import CodeBlock from 'app/common/CodeBlock'
 import Text from 'app/common/Text'
 import { IssueProps } from 'types/Commits'
@@ -47,7 +49,16 @@ const List = ({
     <div className={styles.list}>
       {loading &&
         Array.from(Array(4).keys()).map(item => <Loading key={item} />)}
-      {!loading && issues.map(issue => <ListItem {...issue} key={issue.id} />)}
+      {!loading && issues?.map(issue => <ListItem {...issue} key={issue.id} />)}
+
+      {!loading && issues?.length === 0 && (
+        <Alert
+          className={styles.noResults}
+          description="We haven't found issues matching your criteria. Please update filters on the left sidebar to see issues on this panel."
+          icon={BoxSelect}
+          title="No Results"
+        />
+      )}
     </div>
   )
 }
