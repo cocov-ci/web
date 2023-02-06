@@ -25,7 +25,7 @@ export const Default: Story = {
       { id: 7, name: 'Style', counter: 98 },
       { id: 8, name: 'No counter' },
     ],
-    selectedId: 0,
+    defaultSelectedId: 0,
     width: '225px',
   },
 }
