@@ -52,21 +52,21 @@ const TopBarComponent = ({
           activeItem={activeItem}
           href={
             default_branch
-              ? `repos/${name}/branches/${default_branch}`
-              : `repos/${name}`
+              ? `/repos/${name}/branches/${default_branch}`
+              : `/repos/${name}`
           }
           index="summary"
           text="Summary"
         />
         <NavButton
           activeItem={activeItem}
-          href={`repos/${name}/badges`}
+          href={`/repos/${name}/badges`}
           index="badges"
           text="Badges"
         />
         <NavButton
           activeItem={activeItem}
-          href={`repos/${name}/settings`}
+          href={`/repos/${name}/settings`}
           index="settings"
           text="Settings"
         />

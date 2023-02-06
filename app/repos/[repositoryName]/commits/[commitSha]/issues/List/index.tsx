@@ -46,20 +46,33 @@ const List = ({
   loading: boolean
 }) => {
   return (
-    <div className={styles.list}>
-      {loading &&
-        Array.from(Array(4).keys()).map(item => <Loading key={item} />)}
-      {!loading && issues?.map(issue => <ListItem {...issue} key={issue.id} />)}
-
-      {!loading && issues?.length === 0 && (
-        <Alert
-          className={styles.noResults}
-          description="We haven't found issues matching your criteria. Please update filters on the left sidebar to see issues on this panel."
-          icon={BoxSelect}
-          title="No Results"
-        />
+    <>
+      {loading && (
+        <div className={styles.list}>
+          {Array.from(Array(4).keys()).map(item => (
+            <Loading key={item} />
+          ))}
+        </div>
       )}
-    </div>
+
+      {!loading && (
+        <div className={styles.list}>
+          {issues?.length > 0 &&
+            issues?.map(issue => {
+              return <ListItem {...issue} key={issue.id} />
+            })}
+
+          {issues?.length === 0 && (
+            <Alert
+              className={styles.noResults}
+              description="We haven't found issues matching your criteria. Please update filters on the left sidebar to see issues on this panel."
+              icon={BoxSelect}
+              title="No Results"
+            />
+          )}
+        </div>
+      )}
+    </>
   )
 }
 
