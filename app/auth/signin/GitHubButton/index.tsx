@@ -15,7 +15,11 @@ const GitHubButton = () => {
 
   return (
     <div className={styles.gitHubButton}>
-      <Button className={styles.button} onClick={(): void => login()}>
+      <Button
+        className={styles.button}
+        onClick={(): void => login()}
+        style="secondary"
+      >
         <Image
           alt="GitHub logo"
           className={styles.logo}
