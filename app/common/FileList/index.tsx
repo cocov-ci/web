@@ -1,26 +1,30 @@
+'use client'
+
 import classNames from 'classnames'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 import React from 'react'
+
+import { CoverageFileProps } from 'types/Commits'
 
 import ProgressBar from '../ProgressBar'
 
 import styles from './FileList.module.scss'
+import Loading from './Loading'
 
-type FileListItem = {
-  id: number
-  file: string
-  percentCovered: number
-}
 type FileListProps = {
   className?: string
-  files: Array<FileListItem>
+  commitSha: string
+  repositoryName: string
+  files: CoverageFileProps[]
 }
 
-const FileList = ({ className, files }: FileListProps) => {
-  const searchParams = useSearchParams()
-  const repositoryName = searchParams.get('repositoryName')
-  const commitSha = searchParams.get('commitSha')
+const FileList = ({
+  className,
+  files,
+  commitSha,
+  repositoryName,
+}: FileListProps) => {
+  if (!files) return <Loading className={className} />
 
   return (
     <div className={classNames(styles.base, className)}>
@@ -29,24 +33,21 @@ const FileList = ({ className, files }: FileListProps) => {
         <div className={styles.coverage}>Coverage</div>
       </div>
       <div className={styles.fileList}>
-        {files &&
-          files.map(f => (
-            <Link
-              className={styles.fileItem}
-              href={`/repos/${repositoryName}/commits/${commitSha}/coverage/${f.id}`}
-              key={f.id}
-            >
-              <div className={styles.file}>{f.file}</div>
-              <div className={styles.percentage}>
-                <div className={styles.percentageValue}>
-                  {f.percentCovered}%
-                </div>
-                <div className={styles.percentageProgressBar}>
-                  <ProgressBar value={f.percentCovered} width="100%" />
-                </div>
+        {files?.map(f => (
+          <Link
+            className={styles.fileItem}
+            href={`/repos/${repositoryName}/commits/${commitSha}/coverage/${f.id}`}
+            key={f.id}
+          >
+            <div className={styles.file}>{f.file}</div>
+            <div className={styles.percentage}>
+              <div className={styles.percentageValue}>{f.percent_covered}%</div>
+              <div className={styles.percentageProgressBar}>
+                <ProgressBar value={f.percent_covered} width="100%" />
               </div>
-            </Link>
-          ))}
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   )

@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 
   .header {
     display: flex;
@@ -33,7 +34,6 @@
     .fileItem {
       display: flex;
       border: 1px solid transparent;
-      border-radius: 8px;
 
       &:nth-child(odd) {
         background-color: map.get($colorFileList, "oddItemBackground");
@@ -42,6 +42,7 @@
       &:hover {
         background: map.get($colorFileList, "hoverItemBackground");
         border: 1px solid map.get($colorFileList, "hoverItemBorder");
+        border-radius: 8px;
       }
 
       > .file,

@@ -1,3 +1,7 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+
 import Button from 'app/common/Button'
 import Loading from 'app/common/Loading'
 import PillNav from 'app/common/PillNav'
@@ -11,19 +15,26 @@ const menuItems = [
 ]
 
 interface NavMenuComponentProps {
-  onChange: (arg: NavMenuProps) => void
   active: NavMenuProps
   counter?: number
   loading: boolean
+  commitSha: string
+  repositoryName: string
 }
 
 const NavMenu = ({
-  onChange,
   active,
+  commitSha,
+  repositoryName,
   counter,
   loading = false,
 }: NavMenuComponentProps) => {
   const isActive = (item: NavMenuProps) => active === item
+  const router = useRouter()
+
+  const onClick = (page: NavMenuProps) => {
+    router.push(`/repos/${repositoryName}/commits/${commitSha}/${page}`)
+  }
 
   if (loading)
     return (
@@ -40,7 +51,7 @@ const NavMenu = ({
       {menuItems.map(item => (
         <Button
           key={item.value}
-          onClick={() => !isActive(item.value) && onChange(item.value)}
+          onClick={() => !isActive(item.value) && onClick(item.value)}
           style={isActive(item.value) ? 'secondary' : 'inactive'}
         >
           {counter && isActive(item.value)

@@ -4,16 +4,15 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
 import Box from 'app/common/Box'
-import Loading from 'app/common/Loading'
 import Pagination from 'app/common/Pagination'
+import CommitHeader from 'app/repos/[repositoryName]/commits/[commitSha]/CommitHeader'
+import NavMenu from 'app/repos/[repositoryName]/commits/[commitSha]/NavMenu'
 import useFetch from 'hooks/useFetch'
-import { CommitsResponseProps } from 'types/Commits'
+import { CommitIssuesResponseProps } from 'types/Commits'
 import { PagingProps } from 'types/Paging'
 
 import CategoriesList from './CategoriesList'
-import CommitHeader from './CommitHeader'
 import List from './List'
-import NavMenu from './NavMenu'
 import styles from './Page.module.scss'
 import SourcesList from './SourcesList'
 import { getUpdatedUrl } from './Utils'
@@ -23,7 +22,7 @@ interface CommitsIssues {
 }
 
 interface CommitsFetchResponse {
-  data: CommitsResponseProps
+  data: CommitIssuesResponseProps
   loading: boolean
 }
 
@@ -85,9 +84,10 @@ const CommitsIssues = ({
         />
         <NavMenu
           active="issues"
+          commitSha={commitSha}
           counter={data?.repository?.issues}
           loading={pageLoading}
-          onChange={() => null}
+          repositoryName={repositoryName}
         />
         <div className={styles.content}>
           <div className={styles.sidebar}>

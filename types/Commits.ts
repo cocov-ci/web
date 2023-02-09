@@ -33,6 +33,12 @@ interface WarningData extends BasicIssueData {
 
 export type IssueFileContentProps = LineData | WarningData
 
+export interface CoverageFileProps {
+  file: string
+  id: number
+  percent_covered: number
+}
+
 export interface IssueProps {
   affected_file: {
     content: IssueFileContentProps[]
@@ -49,11 +55,16 @@ export interface IssueProps {
   status_reason: string | null
   uid: string
 }
-export interface CommitsResponseProps {
+export interface CommitIssuesResponseProps {
   commit: HeadProps
   issues: IssueProps[]
   paging: PagingProps[]
   repository: Omit<RepositoryProps, 'head'>
+}
+export interface CommitCoverageResponseProps {
+  files: CoverageFileProps[]
+  status: StatusKind
+  commit: HeadProps
 }
 
 export type NavMenuProps = 'issues' | 'coverage'

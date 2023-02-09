@@ -1,0 +1,33 @@
+@use "sass:map";
+@import "styles/variables.module";
+
+.main {
+  flex: 1;
+  display: flex;
+  padding-bottom: 30px;
+
+  .box {
+    padding: 0;
+    flex: 1;
+
+    > div {
+      min-height: 515px;
+      flex-direction: column;
+      overflow: hidden;
+      /* stylelint-disable */
+      height: calc(100vh - map.get($headerSize, "marginbottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginbottom") - 30px)
+      /* stylelint-enable */
+    }
+
+    .content {
+      border-top: 1px solid $colorGray;
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .fileList {
+      padding-top: 25px;
+    }
+  }
+}
