@@ -14,7 +14,7 @@ interface DataProps {
 }
 
 export const getCoverage = ({ data, repositoryName }: DataProps) => {
-  const { coverage_status, minimum_coverage, coverage_percent } = data
+  const { coverage_status, minimum_coverage, coverage_percent, sha } = data
 
   const coverageObject: StatusDisplayProps = {
     messageBold: false,
@@ -44,14 +44,14 @@ export const getCoverage = ({ data, repositoryName }: DataProps) => {
       ) {
         coverageObject.message = `${coverage_percent}% (at least ${minimum_coverage} is required)`
         coverageObject.messageBold = true
-        coverageObject.detailsHref = `/repos/${repositoryName}/commits/:sha/coverage`
+        coverageObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/coverage`
         coverageObject.statusColor = 'red'
       } else if (
         !minimum_coverage ||
         (coverage_percent && coverage_percent >= minimum_coverage)
       ) {
         coverageObject.message = `${coverage_percent}%`
-        coverageObject.detailsHref = `/repos/${repositoryName}/commits/:sha/coverage`
+        coverageObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/coverage`
         coverageObject.statusColor = 'green'
       }
 
@@ -98,7 +98,6 @@ export const getChecks = ({ data, repositoryName }: DataProps) => {
     case 'not_configured':
       checkObject.message = 'Not configured.'
       checkObject.messageBold = true
-      // checkObject.detailsHref = `/repos/${repositoryName}/commits/:sha/checks`
       checkObject.statusColor = 'grey'
       break
     default:
