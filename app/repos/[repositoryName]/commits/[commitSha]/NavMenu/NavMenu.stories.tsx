@@ -18,7 +18,6 @@ type Story = StoryObj<typeof NavMenu>
 
 export const Default: Story = {
   args: {
-    onChange: () => null,
     active: 'issues',
     counter: 100,
     loading: false,
