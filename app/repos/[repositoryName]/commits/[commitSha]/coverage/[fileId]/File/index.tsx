@@ -26,7 +26,11 @@ const File = ({ repositoryName, commitSha, data }: FileIdParams) => {
 
   const onClose = () => {
     setClose(true)
-    router.push(`/repos/${repositoryName}/commits/${commitSha}/coverage`)
+    setTimeout(
+      () =>
+        router.push(`/repos/${repositoryName}/commits/${commitSha}/coverage`),
+      100,
+    )
   }
 
   const onEscKeyUpEvent = (event: KeyboardEvent) => {
