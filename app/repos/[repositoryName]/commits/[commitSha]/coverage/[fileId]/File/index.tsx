@@ -29,8 +29,22 @@ const File = ({ repositoryName, commitSha, data }: FileIdParams) => {
     router.push(`/repos/${repositoryName}/commits/${commitSha}/coverage`)
   }
 
+  const onEscKeyUpEvent = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      onClose()
+
+      return
+    }
+  }
+
   useEffect(() => {
     setTimeout(() => setClose(false), 50)
+
+    document.addEventListener('keyup', onEscKeyUpEvent)
+
+    return () => {
+      document.removeEventListener('keyup', onEscKeyUpEvent)
+    }
   }, [])
 
   useOnClickOutside(fileRef, onClose)
