@@ -7,44 +7,65 @@ import Alert from 'app/common/Alert'
 import Box from 'app/common/Box'
 import FileList from 'app/common/FileList'
 import CommitHeader from 'app/repos/[repositoryName]/commits/[commitSha]/CommitHeader'
+import File from 'app/repos/[repositoryName]/commits/[commitSha]/coverage/File'
 import NavMenu from 'app/repos/[repositoryName]/commits/[commitSha]/NavMenu'
 import useFetch from 'hooks/useFetch'
-import { CommitCoverageResponseProps } from 'types/Commits'
+import { CoverageResponseProps, FileIdReponseProps } from 'types/Coverage'
 
 import styles from './Page.module.scss'
 
-interface CommitsCoverage {
-  params: { repositoryName: string; commitSha: string }
+interface CoverageParams {
+  params: { repositoryName: string; commitSha: string; fileId: string }
 }
 
-interface CommitsFetchResponse {
-  data: CommitCoverageResponseProps
+interface CoverageFetchResponse {
+  data: CoverageResponseProps
   loading: boolean
+  error: string
 }
 
-const CommitsCoverage = ({
-  params: { repositoryName, commitSha },
-}: CommitsCoverage) => {
-  const router = useRouter()
-  const { data, loading } = useFetch({
-    url: `/api/repositories/${repositoryName}/commits/${commitSha}/coverage`,
-    handler: [],
-  }) as CommitsFetchResponse
+interface FileIdFetchResponse {
+  data: FileIdReponseProps
+  loading: boolean
+  error: string
+}
 
-  if (!data && !loading) router.push(`/repositories/${repositoryName}`)
+const Coverage = ({
+  params: { repositoryName, commitSha, fileId },
+}: CoverageParams) => {
+  const router = useRouter()
+
+  const { data, loading, error } = useFetch({
+    url: !fileId
+      ? `/api/repositories/${repositoryName}/commits/${commitSha}/coverage`
+      : null,
+    handler: [],
+  }) as CoverageFetchResponse
+
+  const { data: dataFileId, error: errorFileId } = useFetch({
+    url:
+      fileId &&
+      `/api/repositories/${repositoryName}/commits/${commitSha}/coverage/${fileId[0]}`,
+    handler: [fileId],
+  }) as FileIdFetchResponse
+
+  if (error) router.push(`/repos/${repositoryName}`)
+
+  if (errorFileId)
+    router.push(`/repos/${repositoryName}/commits/${commitSha}/coverage`)
 
   return (
     <div className={styles.main}>
       <Box className={styles.box}>
         <CommitHeader
           head={data?.commit}
-          loading={loading}
+          loading={loading || Boolean(fileId)}
           repositoryName={repositoryName}
         />
         <NavMenu
           active="coverage"
           commitSha={commitSha}
-          loading={loading}
+          loading={loading || Boolean(fileId)}
           repositoryName={repositoryName}
         />
         <div className={styles.content}>
@@ -72,18 +93,24 @@ const CommitsCoverage = ({
               title="Internal Error"
             />
           )}
-          {data?.status === 'processed' && (
-            <FileList
-              className={styles.fileList}
-              commitSha={commitSha}
-              files={data?.files}
-              repositoryName={repositoryName}
-            />
-          )}
+          <FileList
+            className={styles.fileList}
+            commitSha={commitSha}
+            files={data?.status === 'processed' ? data?.files : []}
+            loading={loading || Boolean(fileId)}
+            repositoryName={repositoryName}
+          />
         </div>
       </Box>
+      {fileId && (
+        <File
+          commitSha={commitSha}
+          data={dataFileId}
+          repositoryName={repositoryName}
+        />
+      )}
     </div>
   )
 }
 
-export default CommitsCoverage
+export default Coverage

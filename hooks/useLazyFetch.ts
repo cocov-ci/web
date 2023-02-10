@@ -9,21 +9,30 @@ interface UseFetchProps {
 const useLazyFetch = ({ url }: UseFetchProps) => {
   const [data, setData] = useState<object | undefined>()
   const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<undefined | string>()
 
   const func = useCallback(() => {
     setLoading(true)
 
     const fetchData = async () => {
-      const data = await fetcher(url)
+      try {
+        const data = await fetcher(url)
 
-      setData(data)
-      setLoading(false)
+        setData(data)
+        setLoading(false)
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message)
+        } else {
+          setError('Generic error message')
+        }
+      }
     }
 
-    fetchData()
+    if (url) fetchData()
   }, [])
 
-  return [func, { data, loading }]
+  return [func, { data, loading, error }]
 }
 
 export default useLazyFetch

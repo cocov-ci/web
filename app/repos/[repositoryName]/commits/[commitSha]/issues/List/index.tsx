@@ -6,7 +6,7 @@ import { BoxSelect } from 'lucide-react'
 import Alert from 'app/common/Alert'
 import CodeBlock from 'app/common/CodeBlock'
 import Text from 'app/common/Text'
-import { IssueProps } from 'types/Commits'
+import { IssueProps } from 'types/Issues'
 import { inconsolata } from 'utils/fonts'
 
 import styles from './List.module.scss'

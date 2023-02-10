@@ -1,0 +1,64 @@
+@import "styles/variables.module";
+
+.header {
+  display: flex;
+  padding: 20px 15px 20px 30px;
+  justify-content: space-between;
+
+  .data {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  .stats {
+    margin-left: 30px;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    .progressBar {
+      align-items: center;
+      display: inline-flex;
+
+      p {
+        margin-right: 10px;
+      }
+    }
+
+    .covered {
+      color: $colorGreen;
+    }
+
+    .missed {
+      color: $colorRed;
+    }
+  }
+
+  .file {
+    max-width: 50%;
+
+    p:first-of-type {
+      margin-bottom: 0;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+      font-variation-settings: "wght" 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .close {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    svg {
+      cursor: pointer;
+    }
+  }
+}

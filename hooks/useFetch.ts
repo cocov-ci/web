@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react'
 import fetcher from '../utils/fetchClient'
 
 interface UseFetchProps {
-  url: string
+  url: string | null
   handler: (string | number)[]
   params?: { [arg: string]: string }
 }
 
 const useFetch = ({ url, handler, params }: UseFetchProps) => {
   const [data, setData] = useState<object | undefined>()
-  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<undefined | string>()
+  const [loading, setLoading] = useState<boolean>(Boolean(url))
 
   const validParams = omitBy(params, isNil)
 
@@ -20,19 +21,27 @@ const useFetch = ({ url, handler, params }: UseFetchProps) => {
     : url
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(Boolean(url))
 
     const fetchData = async () => {
-      const data = await fetcher(request)
+      try {
+        const data = await fetcher(request as string)
 
-      setData(data)
-      setLoading(false)
+        setData(data)
+        setLoading(false)
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message)
+        } else {
+          setError('Generic error message')
+        }
+      }
     }
 
-    fetchData()
+    if (url) fetchData()
   }, handler)
 
-  return { data, loading }
+  return { data, loading, error }
 }
 
 export default useFetch

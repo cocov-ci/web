@@ -1,6 +1,3 @@
-import { PagingProps } from './Paging'
-import { RepositoryProps } from './Repositories'
-
 export type CommitsCategoriesResponseProps = { [arg: string]: number }
 export type CommitsSourcesResponseProps = { [arg: string]: number }
 export interface CommitHeaderProps {
@@ -13,58 +10,6 @@ export interface CommitHeaderProps {
   commitMessage?: string
   isRegisteredUser?: boolean
   loading?: boolean
-}
-
-type BasicIssueData = {
-  type: 'line' | 'warn'
-}
-
-interface LineData extends BasicIssueData {
-  type: 'line'
-  line: number
-  source: string
-}
-
-interface WarningData extends BasicIssueData {
-  type: 'warn'
-  text: string
-  padding: string
-}
-
-export type IssueFileContentProps = LineData | WarningData
-
-export interface CoverageFileProps {
-  file: string
-  id: number
-  percent_covered: number
-}
-
-export interface IssueProps {
-  affected_file: {
-    content: IssueFileContentProps[]
-    status: 'ok' | 'errored' | 'new'
-  }
-  check_source: string
-  file: string
-  id: number
-  kind: string
-  line_end: number
-  line_start: number
-  message: string
-  status: StatusKind
-  status_reason: string | null
-  uid: string
-}
-export interface CommitIssuesResponseProps {
-  commit: HeadProps
-  issues: IssueProps[]
-  paging: PagingProps[]
-  repository: Omit<RepositoryProps, 'head'>
-}
-export interface CommitCoverageResponseProps {
-  files: CoverageFileProps[]
-  status: StatusKind
-  commit: HeadProps
 }
 
 export type NavMenuProps = 'issues' | 'coverage'

@@ -1,0 +1,30 @@
+@import "styles/variables.module";
+
+$pageHeight: 83vh;
+
+.file {
+  position: absolute;
+  bottom: -$pageHeight;
+  width: 102%;
+  left: -1%;
+  z-index: 1;
+  transition: bottom 0.35s ease, transform 0.2s ease 0.3s;
+  transform: scale(1.03);
+
+  &.open {
+    bottom: 0;
+    transform: scale(1);
+  }
+
+  .box {
+    height: $pageHeight;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -3px 8px rgb(0 0 0 / 24%), 0 -11px 40px rgb(0 0 0 / 24%);
+    padding: 0;
+    background: $colorGrayLight;
+
+    > div {
+      height: $pageHeight;
+    }
+  }
+}

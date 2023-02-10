@@ -8,7 +8,7 @@ import Pagination from 'app/common/Pagination'
 import CommitHeader from 'app/repos/[repositoryName]/commits/[commitSha]/CommitHeader'
 import NavMenu from 'app/repos/[repositoryName]/commits/[commitSha]/NavMenu'
 import useFetch from 'hooks/useFetch'
-import { CommitIssuesResponseProps } from 'types/Commits'
+import { IssuesResponseProps } from 'types/Issues'
 import { PagingProps } from 'types/Paging'
 
 import CategoriesList from './CategoriesList'
@@ -17,18 +17,16 @@ import styles from './Page.module.scss'
 import SourcesList from './SourcesList'
 import { getUpdatedUrl } from './Utils'
 
-interface CommitsIssues {
+interface IssuesParams {
   params: { repositoryName: string; commitSha: string }
 }
 
-interface CommitsFetchResponse {
-  data: CommitIssuesResponseProps
+interface IssuesFetchResponse {
+  data: IssuesResponseProps
   loading: boolean
 }
 
-const CommitsIssues = ({
-  params: { repositoryName, commitSha },
-}: CommitsIssues) => {
+const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
   const searchParams = useSearchParams()
   const pathname = usePathname() as string
   const router = useRouter()
@@ -46,9 +44,9 @@ const CommitsIssues = ({
       page: currentPage.toString(),
     },
     handler: [category, source, currentPage],
-  }) as CommitsFetchResponse
+  }) as IssuesFetchResponse
 
-  if (!data && !loading) router.push(`/repositories/${repositoryName}`)
+  if (!data && !loading) router.push(`/repos/${repositoryName}`)
 
   useEffect(() => {
     if (data) setPageLoading(false)
@@ -130,4 +128,4 @@ const CommitsIssues = ({
   )
 }
 
-export default CommitsIssues
+export default Issues

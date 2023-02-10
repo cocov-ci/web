@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { IssueProps } from 'types/Commits'
+import { IssueProps } from 'types/Issues'
 
 import List from './index'
 

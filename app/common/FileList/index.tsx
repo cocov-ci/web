@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import React from 'react'
 
-import { CoverageFileProps } from 'types/Commits'
+import { CoverageFileProps } from 'types/Coverage'
 
 import ProgressBar from '../ProgressBar'
 
@@ -13,6 +13,7 @@ import Loading from './Loading'
 
 type FileListProps = {
   className?: string
+  loading?: boolean
   commitSha: string
   repositoryName: string
   files: CoverageFileProps[]
@@ -22,9 +23,10 @@ const FileList = ({
   className,
   files,
   commitSha,
+  loading,
   repositoryName,
 }: FileListProps) => {
-  if (!files) return <Loading className={className} />
+  if (loading) return <Loading className={className} />
 
   return (
     <div className={classNames(styles.base, className)}>

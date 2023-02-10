@@ -4,7 +4,8 @@ import classNames from 'classnames'
 import { AlertTriangle } from 'lucide-react'
 import React from 'react'
 
-import { IssueFileContentProps } from 'types/Commits'
+import { Block, BlockKind, Source } from 'types/Coverage'
+import { IssueFileContentProps } from 'types/Issues'
 import { inconsolata } from 'utils/fonts'
 
 import styles from './CodeBlock.module.scss'
@@ -70,7 +71,7 @@ const Issue = ({ data }: { data: IssueFileContentProps[] }) => {
 }
 
 type CoverageBlockProps = {
-  kind: string
+  kind: BlockKind
   span: number
 }
 
@@ -84,16 +85,8 @@ const CoverageBlock = ({ kind, span }: CoverageBlockProps) => {
 }
 
 type CoverageData = {
-  source: Array<{
-    kind: string
-    line: number
-    source: string
-  }>
-  blocks: Array<{
-    kind: 'covered' | 'neutral' | 'missed'
-    start: number
-    end: number
-  }>
+  source: Source[]
+  blocks: Block[]
 }
 
 const Coverage = ({ source, blocks }: CoverageData) => {
