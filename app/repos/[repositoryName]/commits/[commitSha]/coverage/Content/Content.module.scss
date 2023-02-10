@@ -1,4 +1,3 @@
-@use "sass:map";
 @import "styles/variables.module";
 
 .main {
@@ -18,9 +17,7 @@
       min-height: 515px;
       flex-direction: column;
       overflow: hidden;
-      /* stylelint-disable */
-      height: calc(100vh - map.get($headerSize, "marginbottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginbottom") - 30px)
-      /* stylelint-enable */
+      height: $heightFixedPage;
     }
 
     .content {

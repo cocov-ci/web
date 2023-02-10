@@ -45,9 +45,18 @@ const File = ({ repositoryName, commitSha, data }: FileIdParams) => {
     setTimeout(() => setClose(false), 50)
 
     document.addEventListener('keyup', onEscKeyUpEvent)
+    const body = document.querySelector('body') as HTMLBodyElement
+
+    if (body) {
+      body.style.overflowY = 'hidden'
+    }
 
     return () => {
       document.removeEventListener('keyup', onEscKeyUpEvent)
+
+      if (body) {
+        body.style.overflowY = 'auto'
+      }
     }
   }, [])
 
@@ -57,6 +66,7 @@ const File = ({ repositoryName, commitSha, data }: FileIdParams) => {
     <div
       className={classNames(styles.file, {
         [styles.open]: !close,
+        [styles.close]: close,
       })}
       ref={fileRef}
     >

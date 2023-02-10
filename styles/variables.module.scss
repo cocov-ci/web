@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // GRID
 $contentWidth: 1024px;
 $headerSize: (
@@ -88,6 +90,10 @@ $colorHistogram: (
   value-background-2: #dde8f1,
   value-color: #6d6d6d,
 );
+
+/* stylelint-disable */
+$heightFixedPage: calc(100vh - map.get($headerSize, "marginbottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginbottom") - 30px);
+/* stylelint-enable */
 
 :export {
   color_gray: $colorGray;
