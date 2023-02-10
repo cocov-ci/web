@@ -3,10 +3,10 @@
 import { useRouter } from 'next/navigation'
 
 import Button from 'app/common/Button'
-import Loading from 'app/common/Loading'
 import PillNav from 'app/common/PillNav'
 import { NavMenuProps } from 'types/Commits'
 
+import Loading from './Loading'
 import styles from './NavMenu.module.scss'
 
 const menuItems = [
@@ -17,7 +17,7 @@ const menuItems = [
 interface NavMenuComponentProps {
   active: NavMenuProps
   counter?: number
-  loading: boolean
+  loading?: boolean
   commitSha: string
   repositoryName: string
 }
@@ -36,15 +36,7 @@ const NavMenu = ({
     router.push(`/repos/${repositoryName}/commits/${commitSha}/${page}`)
   }
 
-  if (loading)
-    return (
-      <Loading
-        className={styles.loading}
-        height="50px"
-        type="skeleton"
-        width="216px"
-      />
-    )
+  if (loading) return <Loading />
 
   return (
     <PillNav className={styles.navMenu}>

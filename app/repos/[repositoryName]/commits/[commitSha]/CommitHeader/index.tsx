@@ -11,18 +11,19 @@ const CommitHeaderComponent = ({
   loading,
 }: {
   head?: HeadProps
-  repositoryName: string
-  loading: boolean
+  repositoryName?: string
+  loading?: boolean
 }) => {
-  const commitHeader = head && {
-    headURL: `https://github.com/${head.org_name}/${repositoryName}/commit/${head.sha}`,
-    avatarURL: head.user?.avatar,
-    headSHA: head.sha,
-    commitMessage: head.message,
-    username: head.user?.name || head.author_name,
-    isRegisteredUser: Boolean(head.user?.name),
-    timestamp: new Date(Date.parse(head.created_at)),
-  }
+  const commitHeader = head &&
+    repositoryName && {
+      headURL: `https://github.com/${head.org_name}/${repositoryName}/commit/${head.sha}`,
+      avatarURL: head.user?.avatar,
+      headSHA: head.sha,
+      commitMessage: head.message,
+      username: head.user?.name || head.author_name,
+      isRegisteredUser: Boolean(head.user?.name),
+      timestamp: new Date(Date.parse(head.created_at)),
+    }
 
   return (
     <CommitHeader

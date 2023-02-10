@@ -4,8 +4,8 @@ $pageHeight: 83vh;
 
 .file {
   position: absolute;
-  bottom: -$pageHeight;
-  width: 102%;
+  bottom: -100vh;
+  width: 103%;
   left: -1%;
   z-index: 1;
   transition: bottom 0.35s ease, transform 0.2s ease 0.3s;

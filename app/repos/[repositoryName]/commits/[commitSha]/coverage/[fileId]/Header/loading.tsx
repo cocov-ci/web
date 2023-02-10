@@ -1,7 +1,6 @@
 import Loading from 'app/common/Loading'
-import randomBetween from 'utils/randomBetween'
 
-import styles from '../Header.module.scss'
+import styles from './Header.module.scss'
 
 const LoadingHeader = () => {
   return (

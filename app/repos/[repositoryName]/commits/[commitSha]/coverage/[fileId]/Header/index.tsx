@@ -8,7 +8,6 @@ import Text from 'app/common/Text'
 import { FileIdReponseProps } from 'types/Coverage'
 
 import styles from './Header.module.scss'
-import Loading from './Loading'
 
 const Header = ({
   data,
@@ -17,19 +16,19 @@ const Header = ({
   data: FileIdReponseProps
   onClose: () => void
 }) => {
-  if (!data) return <Loading />
+  if (!data) return null
 
   return (
     <div className={styles.header}>
       <div className={styles.data}>
         <div className={styles.file}>
-          <Text variant="description">{data.file.base_path}</Text>
+          <Text variant="description">{data.file?.base_path}</Text>
           <Text variant="title">{data.file.name}</Text>
         </div>
         <div className={styles.stats}>
           <div className={styles.progressBar}>
             <Text variant="description">
-              {data.coverage.percent_covered}% covered
+              {data.coverage?.percent_covered}% covered
             </Text>
             <ProgressBar value={data.coverage.percent_covered} width="200px" />
           </div>
@@ -47,7 +46,7 @@ const Header = ({
         </div>
       </div>
       <div className={styles.close}>
-        <X onClick={() => onClose()} size={30} />
+        <X onClick={() => onClose && onClose()} size={30} />
         <Kbd size="mini" text="esc" />
       </div>
     </div>

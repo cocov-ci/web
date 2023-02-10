@@ -1,5 +1,3 @@
-'use client'
-
 import CodeBlock from 'app/common/CodeBlock'
 import { FileIdReponseProps } from 'types/Coverage'
 

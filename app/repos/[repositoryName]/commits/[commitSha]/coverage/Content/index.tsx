@@ -1,71 +1,32 @@
-'use client'
-
 import { AlertTriangle, Cog, Send } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 
 import Alert from 'app/common/Alert'
 import Box from 'app/common/Box'
 import FileList from 'app/common/FileList'
 import CommitHeader from 'app/repos/[repositoryName]/commits/[commitSha]/CommitHeader'
-import File from 'app/repos/[repositoryName]/commits/[commitSha]/coverage/File'
 import NavMenu from 'app/repos/[repositoryName]/commits/[commitSha]/NavMenu'
-import useFetch from 'hooks/useFetch'
-import { CoverageResponseProps, FileIdReponseProps } from 'types/Coverage'
+import { CoverageResponseProps } from 'types/Coverage'
 
-import styles from './Page.module.scss'
+import styles from './Content.module.scss'
 
-interface CoverageParams {
-  params: { repositoryName: string; commitSha: string; fileId: string }
-}
-
-interface CoverageFetchResponse {
+interface PageContentParams {
+  repositoryName: string
+  commitSha: string
   data: CoverageResponseProps
-  loading: boolean
-  error: string
 }
 
-interface FileIdFetchResponse {
-  data: FileIdReponseProps
-  loading: boolean
-  error: string
-}
-
-const Coverage = ({
-  params: { repositoryName, commitSha, fileId },
-}: CoverageParams) => {
-  const router = useRouter()
-
-  const { data, loading, error } = useFetch({
-    url: !fileId
-      ? `/api/repositories/${repositoryName}/commits/${commitSha}/coverage`
-      : null,
-    handler: [],
-  }) as CoverageFetchResponse
-
-  const { data: dataFileId, error: errorFileId } = useFetch({
-    url:
-      fileId &&
-      `/api/repositories/${repositoryName}/commits/${commitSha}/coverage/${fileId[0]}`,
-    handler: [fileId],
-  }) as FileIdFetchResponse
-
-  if (error) router.push(`/repos/${repositoryName}`)
-
-  if (errorFileId)
-    router.push(`/repos/${repositoryName}/commits/${commitSha}/coverage`)
-
+const PageContent = ({
+  data,
+  commitSha,
+  repositoryName,
+}: PageContentParams) => {
   return (
     <div className={styles.main}>
       <Box className={styles.box}>
-        <CommitHeader
-          head={data?.commit}
-          loading={loading || Boolean(fileId)}
-          repositoryName={repositoryName}
-        />
+        <CommitHeader head={data?.commit} repositoryName={repositoryName} />
         <NavMenu
           active="coverage"
           commitSha={commitSha}
-          loading={loading || Boolean(fileId)}
           repositoryName={repositoryName}
         />
         <div className={styles.content}>
@@ -97,20 +58,13 @@ const Coverage = ({
             className={styles.fileList}
             commitSha={commitSha}
             files={data?.status === 'processed' ? data?.files : []}
-            loading={loading || Boolean(fileId)}
+            // loading={loading || Boolean(fileId)}
             repositoryName={repositoryName}
           />
         </div>
       </Box>
-      {fileId && (
-        <File
-          commitSha={commitSha}
-          data={dataFileId}
-          repositoryName={repositoryName}
-        />
-      )}
     </div>
   )
 }
 
-export default Coverage
+export default PageContent

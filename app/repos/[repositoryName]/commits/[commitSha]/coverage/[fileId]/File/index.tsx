@@ -8,9 +8,10 @@ import Box from 'app/common/Box'
 import useOnClickOutside from 'hooks/useOnClickOutside'
 import { FileIdReponseProps } from 'types/Coverage'
 
-import Content from './Content'
+import Content from '../Content'
+import Header from '../Header'
+
 import styles from './File.module.scss'
-import Header from './Header'
 
 interface FileIdParams {
   repositoryName: string
@@ -25,16 +26,12 @@ const File = ({ repositoryName, commitSha, data }: FileIdParams) => {
 
   const onClose = () => {
     setClose(true)
-    setTimeout(
-      () =>
-        router.push(`/repos/${repositoryName}/commits/${commitSha}/coverage`),
-      500,
-    )
+    router.push(`/repos/${repositoryName}/commits/${commitSha}/coverage`)
   }
 
   useEffect(() => {
-    setTimeout(() => setClose(false), 200)
-  }, [data])
+    setTimeout(() => setClose(false), 50)
+  }, [])
 
   useOnClickOutside(fileRef, onClose)
 
