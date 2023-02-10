@@ -7,9 +7,11 @@
   border: 1px solid map.get($colorBox, "border");
   border-radius: 8px;
   overflow: scroll;
+  display: flex;
 
   .table {
     border-collapse: collapse;
+    flex: 1;
 
     tbody {
       tr:first-child td {
@@ -65,10 +67,15 @@
 
     .block {
       position: absolute;
-      width: 100%;
+      width: calc(100% - 3px);
       z-index: 3;
       left: 3px;
       top: -1px;
+
+      & + div {
+        position: relative;
+        z-index: 4;
+      }
 
       &.covered {
         opacity: 0.5;
