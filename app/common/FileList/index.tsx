@@ -1,6 +1,8 @@
+'use client'
+
 import classNames from 'classnames'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { CoverageFileProps } from 'types/Coverage'
 
@@ -12,6 +14,7 @@ import Loading from './Loading'
 type FileListProps = {
   className?: string
   loading?: boolean
+  resetScrollAfterPageLoad?: boolean
   commitSha: string
   repositoryName: string
   files: CoverageFileProps[]
@@ -23,7 +26,31 @@ const FileList = ({
   commitSha,
   loading,
   repositoryName,
+  resetScrollAfterPageLoad,
 }: FileListProps) => {
+  const listRef = useRef<HTMLDivElement>(null)
+
+  const onClick = () => {
+    const list = listRef.current
+
+    if (list) {
+      localStorage.setItem('coverageList', list.scrollTop?.toString())
+    }
+  }
+
+  useEffect(() => {
+    const top = localStorage.getItem('coverageList')
+    const list = listRef.current
+
+    if (list && top !== null) {
+      list.scrollTop = parseInt(top, 10)
+    }
+
+    if (resetScrollAfterPageLoad) {
+      localStorage.removeItem('coverageList')
+    }
+  }, [])
+
   if (loading) return <Loading className={className} />
 
   return (
@@ -32,12 +59,13 @@ const FileList = ({
         <div className={styles.file}>File</div>
         <div className={styles.coverage}>Coverage</div>
       </div>
-      <div className={styles.fileList}>
+      <div className={styles.fileList} ref={listRef}>
         {files?.map(f => (
           <Link
             className={styles.fileItem}
             href={`/repos/${repositoryName}/commits/${commitSha}/coverage/${f.id}`}
             key={f.id}
+            onClick={() => onClick()}
           >
             <div className={styles.file}>{f.file}</div>
             <div className={styles.percentage}>

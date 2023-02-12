@@ -12,6 +12,7 @@ import styles from './Content.module.scss'
 interface PageContentParams {
   repositoryName: string
   commitSha: string
+  isFilePage?: boolean
   data: CoverageResponseProps
 }
 
@@ -19,6 +20,7 @@ const PageContent = ({
   data,
   commitSha,
   repositoryName,
+  isFilePage,
 }: PageContentParams) => {
   return (
     <div className={styles.main}>
@@ -29,6 +31,7 @@ const PageContent = ({
           commitSha={commitSha}
           repositoryName={repositoryName}
         />
+
         <div className={styles.content}>
           {data?.status === 'waiting' && (
             <Alert
@@ -58,8 +61,8 @@ const PageContent = ({
             className={styles.fileList}
             commitSha={commitSha}
             files={data?.status === 'processed' ? data?.files : []}
-            // loading={loading || Boolean(fileId)}
             repositoryName={repositoryName}
+            resetScrollAfterPageLoad={!isFilePage}
           />
         </div>
       </Box>

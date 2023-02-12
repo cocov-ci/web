@@ -16,11 +16,14 @@ const Coverage = async ({
   const data = await fetcher(
     `/v1/repositories/${repositoryName}/commits/${commitSha}/coverage`,
   )
+
   const dataFileId = await fetcher(
     `/v1/repositories/${repositoryName}/commits/${commitSha}/coverage/file/${fileId}`,
   )
 
-  if (!data || !dataFileId || dataFileId.code === '404')
+  if (!data) redirect(`/repos/${repositoryName}`)
+
+  if (!dataFileId || dataFileId.code === '404')
     redirect(`/repos/${repositoryName}/commits/${commitSha}/coverage`)
 
   return (
@@ -28,13 +31,16 @@ const Coverage = async ({
       <PageContent
         commitSha={commitSha}
         data={data}
+        isFilePage
         repositoryName={repositoryName}
       />
-      <File
-        commitSha={commitSha}
-        data={dataFileId}
-        repositoryName={repositoryName}
-      />
+      {fileId && (
+        <File
+          commitSha={commitSha}
+          data={dataFileId}
+          repositoryName={repositoryName}
+        />
+      )}
     </div>
   )
 }
