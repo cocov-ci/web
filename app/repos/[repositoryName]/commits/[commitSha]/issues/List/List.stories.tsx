@@ -5,7 +5,7 @@ import { IssueProps } from 'types/Issues'
 import List from './index'
 
 const meta: Meta<typeof List> = {
-  title: 'Commits/List',
+  title: 'Commits/[CommitSha]/Issues/List',
   component: args => (
     <div style={{ height: '300px' }}>
       <List {...args} />

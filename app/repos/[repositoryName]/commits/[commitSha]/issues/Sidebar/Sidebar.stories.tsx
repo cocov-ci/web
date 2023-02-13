@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import Sidebar from './index'
 
 const meta: Meta<typeof Sidebar> = {
-  title: 'Commits/Sidebar',
+  title: 'Commits/[CommitSha]/Issues/Sidebar',
   component: Sidebar,
   tags: ['autodocs'],
 }
