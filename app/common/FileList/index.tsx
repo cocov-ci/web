@@ -2,6 +2,7 @@
 
 import classNames from 'classnames'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef } from 'react'
 
 import { CoverageFileProps } from 'types/Coverage'
@@ -34,12 +35,15 @@ const FileList = ({
     const list = listRef.current
 
     if (list) {
-      localStorage.setItem('coverageList', list.scrollTop?.toString())
+      localStorage.setItem(
+        `coverage-list-${commitSha}`,
+        list.scrollTop?.toString(),
+      )
     }
   }
 
   useEffect(() => {
-    const top = localStorage.getItem('coverageList')
+    const top = localStorage.getItem(`coverage-list-${commitSha}`)
     const list = listRef.current
 
     if (list && top !== null) {
@@ -47,7 +51,7 @@ const FileList = ({
     }
 
     if (resetScrollAfterPageLoad) {
-      localStorage.removeItem('coverageList')
+      localStorage.removeItem(`coverage-list-${commitSha}`)
     }
   }, [])
 
