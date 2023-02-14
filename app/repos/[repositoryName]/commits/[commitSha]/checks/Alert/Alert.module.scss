@@ -1,0 +1,29 @@
+@import "styles/variables.module";
+
+.alert {
+  padding: 15px;
+  display: flex;
+  margin-bottom: 10px;
+  border: 1px solid rgba($colorBlue, 0.3);
+  border-radius: 8px;
+  align-items: center;
+  height: 54px;
+  background-color: rgba($colorBlue, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .link {
+    text-decoration: underline;
+  }
+
+  .icon {
+    color: rgba($colorBlue, 0.3);
+    right: 0;
+    position: absolute;
+    top: 2px;
+  }
+}

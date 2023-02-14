@@ -1,0 +1,9 @@
+@import "styles/variables.module";
+
+.content {
+  display: flex;
+  overflow: hidden;
+  border-top: 1px solid $colorGray;
+  padding: 20px 15px;
+  flex-direction: column;
+}

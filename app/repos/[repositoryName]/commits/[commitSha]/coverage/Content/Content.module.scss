@@ -1,32 +1,10 @@
 @import "styles/variables.module";
 
-.main {
-  flex: 1;
-  display: flex;
-  padding-bottom: 30px;
+.content {
+  border-top: 1px solid $colorGray;
+  overflow: hidden;
+}
 
-  .box {
-    padding: 0;
-    flex: 1;
-
-    .alert {
-      margin-top: 50px;
-    }
-
-    > div {
-      min-height: 515px;
-      flex-direction: column;
-      overflow: hidden;
-      height: $heightFixedPage;
-    }
-
-    .content {
-      border-top: 1px solid $colorGray;
-      overflow: hidden;
-    }
-
-    .fileList {
-      padding-top: 25px;
-    }
-  }
+.fileList {
+  padding-top: 25px;
 }

@@ -1,4 +1,4 @@
-'use client'
+import classNames from 'classnames'
 
 import CommitHeader from 'app/common/CommitHeader'
 import { HeadProps } from 'types/Commits'
@@ -9,10 +9,12 @@ const CommitHeaderComponent = ({
   head,
   repositoryName,
   loading,
+  className,
 }: {
   head?: HeadProps
   repositoryName?: string
   loading?: boolean
+  className?: string
 }) => {
   const commitHeader = head &&
     repositoryName && {
@@ -27,7 +29,7 @@ const CommitHeaderComponent = ({
 
   return (
     <CommitHeader
-      className={styles.commitHeader}
+      className={classNames(styles.commitHeader, className)}
       loading={loading}
       {...commitHeader}
     />

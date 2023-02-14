@@ -1,44 +1,24 @@
-@use "sass:map";
 @import "styles/variables.module";
 
-.main {
-  flex: 1;
+.content {
   display: flex;
-  padding-bottom: 30px;
+  flex: 1;
+  overflow: hidden;
+}
 
-  .box {
-    padding: 0;
-    flex: 1;
+.sidebar,
+.list {
+  display: flex;
+  flex-direction: column;
+}
 
-    > div {
-      min-height: 515px;
-      flex-direction: column;
-      /* stylelint-disable */
-      height: calc(100vh - map.get($headerSize, "marginbottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginbottom") - 30px)
-      /* stylelint-enable */
-    }
+.list {
+  flex: 1;
+}
 
-    .content {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-  }
-
-  .sidebar,
-  .list {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .list {
-    flex: 1;
-  }
-
-  .pagination {
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid $colorGray;
-  }
+.pagination {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid $colorGray;
 }

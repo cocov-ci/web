@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
-import Box from 'app/common/Box'
+import FixedContent from 'app/common/FixedContent'
 import Pagination from 'app/common/Pagination'
 import CommitHeader from 'app/repos/[repositoryName]/commits/[commitSha]/CommitHeader'
 import NavMenu from 'app/repos/[repositoryName]/commits/[commitSha]/NavMenu'
@@ -73,58 +73,56 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
   }
 
   return (
-    <div className={styles.main}>
-      <Box className={styles.box}>
-        <CommitHeader
-          head={data?.commit}
-          loading={pageLoading}
-          repositoryName={repositoryName}
-        />
-        <NavMenu
-          active="issues"
-          commitSha={commitSha}
-          counter={data?.repository?.issues}
-          loading={pageLoading}
-          repositoryName={repositoryName}
-        />
-        <div className={styles.content}>
-          <div className={styles.sidebar}>
-            <SourcesList
-              commitSha={commitSha}
-              onItemChanged={item => {
-                setCurrentPage(1)
-                onChangeRoute({ source: item.id === 0 ? null : item.name })
-              }}
-              repositoryName={repositoryName}
-            />
-            <CategoriesList
-              commitSha={commitSha}
-              onItemChanged={item => {
-                setCurrentPage(1)
-                onChangeRoute({ category: item.id === 0 ? null : item.name })
-              }}
-              repositoryName={repositoryName}
-            />
-          </div>
-          <div className={styles.list}>
-            <List issues={data?.issues} loading={loading} />
-            <div className={styles.paging}>
-              {hasPagination && (
-                <Pagination
-                  className={styles.pagination}
-                  currentPage={paging.page}
-                  onPageClick={page => {
-                    setCurrentPage(page)
-                    onChangeRoute({ page: page === 1 ? null : page.toString() })
-                  }}
-                  total={paging.total_pages}
-                />
-              )}
-            </div>
+    <FixedContent>
+      <CommitHeader
+        head={data?.commit}
+        loading={pageLoading}
+        repositoryName={repositoryName}
+      />
+      <NavMenu
+        active="issues"
+        commitSha={commitSha}
+        counter={data?.repository?.issues}
+        loading={pageLoading}
+        repositoryName={repositoryName}
+      />
+      <div className={styles.content}>
+        <div className={styles.sidebar}>
+          <SourcesList
+            commitSha={commitSha}
+            onItemChanged={item => {
+              setCurrentPage(1)
+              onChangeRoute({ source: item.id === 0 ? null : item.name })
+            }}
+            repositoryName={repositoryName}
+          />
+          <CategoriesList
+            commitSha={commitSha}
+            onItemChanged={item => {
+              setCurrentPage(1)
+              onChangeRoute({ category: item.id === 0 ? null : item.name })
+            }}
+            repositoryName={repositoryName}
+          />
+        </div>
+        <div className={styles.list}>
+          <List issues={data?.issues} loading={loading} />
+          <div className={styles.paging}>
+            {hasPagination && (
+              <Pagination
+                className={styles.pagination}
+                currentPage={paging.page}
+                onPageClick={page => {
+                  setCurrentPage(page)
+                  onChangeRoute({ page: page === 1 ? null : page.toString() })
+                }}
+                total={paging.total_pages}
+              />
+            )}
           </div>
         </div>
-      </Box>
-    </div>
+      </div>
+    </FixedContent>
   )
 }
 

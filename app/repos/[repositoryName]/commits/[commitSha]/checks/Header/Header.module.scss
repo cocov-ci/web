@@ -1,0 +1,11 @@
+@import "styles/variables.module";
+
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px 20px 30px;
+
+  .commitHeader {
+    margin: 0;
+  }
+}
