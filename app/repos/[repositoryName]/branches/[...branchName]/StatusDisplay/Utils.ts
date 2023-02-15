@@ -63,13 +63,13 @@ export const getCoverage = ({ data, repositoryName }: DataProps) => {
 }
 
 export const getChecks = ({ data, repositoryName }: DataProps) => {
-  const { coverage_status, issues_count, sha } = data
+  const { checks_status, issues_count, sha } = data
 
   const checkObject: StatusDisplayProps = {
     messageBold: false,
   } as StatusDisplayProps
 
-  switch (coverage_status) {
+  switch (checks_status) {
     case 'waiting':
     case 'queued':
     case 'processing':

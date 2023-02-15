@@ -92,7 +92,7 @@ $colorHistogram: (
 );
 
 /* stylelint-disable */
-$heightFixedPage: calc(100vh - map.get($headerSize, "marginbottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginbottom") - 30px);
+$heightFixedPage: calc(100vh - map.get($headerSize, "marginbottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginbottom") - 28px);
 /* stylelint-enable */
 
 :export {
