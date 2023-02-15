@@ -1,9 +1,10 @@
 'use client'
 
 import { CheckCircle, XOctagon } from 'lucide-react'
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import Button from 'app/common/Button'
+import Duration from 'app/common/Duration'
 import Loading from 'app/common/Loading'
 import Text from 'app/common/Text'
 import { CheckProps } from 'types/Checks'
@@ -19,21 +20,7 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
   const { status, plugin_name, started_at, finished_at } = check
   const [openDetails, setOpenDetails] = useState(false)
 
-  const getRelativeTime = () => {
-    switch (status) {
-      case 'succeeded':
-        return 'Completed after'
-
-      case 'errored':
-        return 'Failed after'
-
-      case 'waiting':
-      case 'running':
-        return 'In progress for'
-    }
-  }
-
-  const getIssuesReportedMessage = () => {
+  const getIssuesReportedMessage = useMemo(() => {
     if (status !== 'succeeded') return null
 
     let message
@@ -45,11 +32,35 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
     }
 
     return message
-  }
+  }, [status, issuesCounter])
+
+  const CheckDuration = useCallback(() => {
+    let durationStatus
+
+    switch (status) {
+      case 'succeeded':
+        durationStatus = 'Completed after '
+        break
+      case 'errored':
+        durationStatus = 'Failed after '
+        break
+      case 'waiting':
+      case 'running':
+        durationStatus = 'In progress for '
+        break
+    }
+
+    return (
+      <>
+        {durationStatus} <Duration fromDate={started_at} toDate={finished_at} />
+        . {getIssuesReportedMessage}
+      </>
+    )
+  }, [status, started_at, finished_at])
 
   return (
     <div className={styles.check}>
-      <div className={styles.content}>
+      <div className={styles.container}>
         {status === 'succeeded' && (
           <CheckCircle className={styles.succeeded} size="24" />
         )}
@@ -61,19 +72,17 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
         <div className={styles.content}>
           <Text className={styles.pluginName}>{plugin_name}</Text>
           <Text className={styles.statusMessage} variant="description">
-            {getRelativeTime()}
-            {/* <RelativeTime timestamp={new Date(Date.parse(dateToCompare))} /> */}
-            {getIssuesReportedMessage()}
+            <CheckDuration />
           </Text>
         </div>
-        {/* {status === 'errored' && ( */}
-        <Button
-          onClick={() => setOpenDetails(openDetails => !openDetails)}
-          style="mini"
-        >
-          {openDetails ? 'Less Details' : 'Details'}
-        </Button>
-        {/* )} */}
+        {status === 'errored' && (
+          <Button
+            onClick={() => setOpenDetails(openDetails => !openDetails)}
+            style="mini"
+          >
+            {openDetails ? 'Less Details' : 'Details'}
+          </Button>
+        )}
       </div>
       {openDetails && <div className={styles.details}>hey...</div>}
     </div>
