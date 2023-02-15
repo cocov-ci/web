@@ -20,14 +20,12 @@ const Header = ({ commit, repositoryName, loading }: HeaderProps) => {
         The list below shows which checks are being executed against the
         following commit:
       </Text>
-      {commit && (
-        <CommitHeader
-          className={styles.commitHeader}
-          head={commit}
-          loading={loading}
-          repositoryName={repositoryName}
-        />
-      )}
+      <CommitHeader
+        className={styles.commitHeader}
+        head={commit}
+        loading={loading}
+        repositoryName={repositoryName}
+      />
     </div>
   )
 }

@@ -8,6 +8,7 @@ import { ChecksResponseProps } from 'types/Checks'
 
 import Alert from './Alert'
 import Check from './Check'
+import Loading from './Check/Loading'
 import Header from './Header'
 import styles from './Page.module.scss'
 
@@ -37,21 +38,20 @@ const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
     data && setLoadingPage(false)
   }, [data])
 
-  if (!data) return null
-
   const allSucceeded =
-    data.checks?.filter(item => item.status !== 'succeeded').length === 0
+    data?.checks?.filter(item => item.status !== 'succeeded').length === 0
 
   return (
     <FixedContent>
       <Header
-        commit={data.commit}
+        commit={data?.commit}
         loading={loadingPage}
         repositoryName={repositoryName}
       />
       <div className={styles.content}>
         {allSucceeded && <Alert />}
-        {data.checks?.map(item => (
+        {loadingPage && <Loading />}
+        {data?.checks?.map(item => (
           <Check
             check={item}
             issuesCounter={data.issues[item.plugin_name]}
