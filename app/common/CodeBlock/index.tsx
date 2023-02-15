@@ -61,11 +61,40 @@ const Issue = ({ data }: { data: IssueFileContentProps[] }) => {
     <>
       {data.map(obj =>
         'source' in obj ? (
-          <Line key={`line=${obj.line}`} line={obj.line} source={obj.source} />
+          <Line key={`line-${obj.line}`} line={obj.line} source={obj.source} />
         ) : (
           <Warning key="warning" padding={obj.padding} text={obj.text} />
         ),
       )}
+    </>
+  )
+}
+
+type PlainTextBlockProps = {
+  source: string
+}
+
+const cleanHTML = (source: string) =>
+  source
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+
+const PlainText = ({ source }: PlainTextBlockProps) => {
+  return (
+    <>
+      {source
+        .split('\n')
+        .map((i, idx) => ({ source: `<pre>${cleanHTML(i)}</pre>`, idx: idx }))
+        .map(obj => (
+          <Line
+            key={`plaintext-${obj.idx}`}
+            line={obj.idx + 1}
+            source={obj.source}
+          />
+        ))}
     </>
   )
 }
@@ -96,7 +125,7 @@ const Coverage = ({ source, blocks }: CoverageData) => {
         const blockStart = blocks.find(b => b.start == obj.line)
 
         return (
-          <Line key={`line=${obj.line}`} line={obj.line} source={obj.source}>
+          <Line key={`line-${obj.line}`} line={obj.line} source={obj.source}>
             {blockStart && (
               <CoverageBlock
                 kind={blockStart.kind}
@@ -113,10 +142,16 @@ const Coverage = ({ source, blocks }: CoverageData) => {
 interface CodeBlockProps {
   coverage?: CoverageData
   issue?: IssueFileContentProps[]
+  plainText?: string
   className?: string
 }
 
-const CodeBlock = ({ className, issue, coverage }: CodeBlockProps) => {
+const CodeBlock = ({
+  className,
+  issue,
+  coverage,
+  plainText,
+}: CodeBlockProps) => {
   return (
     <div className={classNames(styles.base, className)}>
       <table className={classNames(styles.table)}>
@@ -125,6 +160,7 @@ const CodeBlock = ({ className, issue, coverage }: CodeBlockProps) => {
           {coverage && (
             <Coverage blocks={coverage.blocks} source={coverage.source} />
           )}
+          {plainText && <PlainText source={plainText} />}
         </tbody>
       </table>
     </div>

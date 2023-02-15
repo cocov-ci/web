@@ -412,3 +412,10 @@ export const Coverage: Story = {
     },
   },
 }
+
+export const PlainText: Story = {
+  args: {
+    plainText:
+      "Execution failed. Plugin exited with status 1:\nFailed processing: uninitialized constant PluginKit\n\n  rescue PluginKit::Exec::ExecutionError =\u003e e\n         ^^^^^^^^^\n/plugin.rb:4:in `rescue in block in \u003ctop (required)\u003e'\n/plugin.rb:2:in `block in \u003ctop (required)\u003e'\n/home/cocov/.gem/gems/cocov_plugin_kit-0.1.6/lib/cocov/plugin_kit.rb:41:in `instance_exec'\n/home/cocov/.gem/gems/cocov_plugin_kit-0.1.6/lib/cocov/plugin_kit.rb:41:in `block in run'\n/home/cocov/.gem/gems/cocov_plugin_kit-0.1.6/lib/cocov/plugin_kit.rb:38:in `chdir'\n/home/cocov/.gem/gems/cocov_plugin_kit-0.1.6/lib/cocov/plugin_kit.rb:38:in `run'\n/plugin.rb:1:in `\u003ctop (required)\u003e'\n\u003cinternal:/usr/local/lib/ruby/3.1.0/rubygems/core_ext/kernel_require.rb\u003e:85:in `require'\n\u003cinternal:/usr/local/lib/ruby/3.1.0/rubygems/core_ext/kernel_require.rb\u003e:85:in `require'\n/home/cocov/.gem/gems/cocov_plugin_kit-0.1.6/exe/cocov:11:in `\u003ctop (required)\u003e'\n/home/cocov/.gem/bin/cocov:25:in `load'\n/home/cocov/.gem/bin/cocov:25:in `\u003cmain\u003e'\n",
+  },
+}
