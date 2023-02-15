@@ -1,8 +1,10 @@
-import { redirect } from 'next/navigation'
+'use client'
+
+import { useEffect } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
+import useLazyFetch from 'hooks/useLazyFetch'
 import { ChecksResponseProps } from 'types/Checks'
-import fetcher from 'utils/fetchServer'
 
 import Alert from './Alert'
 import Check from './Check'
@@ -10,17 +12,25 @@ import Header from './Header'
 import styles from './Page.module.scss'
 
 interface ChecksParams {
-  params: { repositoryName: string; commitSha: string; fileId: string }
+  params: { repositoryName: string; commitSha: string }
 }
 
-const Coverage = async ({
-  params: { repositoryName, commitSha },
-}: ChecksParams) => {
-  const data: ChecksResponseProps = await fetcher(
-    `/v1/repositories/${repositoryName}/commits/${commitSha}/checks`,
-  )
+interface ChecksFetchResponse {
+  data: ChecksResponseProps
+  loading: boolean
+  (): void
+}
 
-  if (!data) redirect(`/repos/${repositoryName}`)
+const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
+  const [getChecks, { data }] = useLazyFetch({
+    url: `/api/repositories/${repositoryName}/commits/${commitSha}/checks`,
+  }) as ChecksFetchResponse[]
+
+  useEffect(() => {
+    setInterval(() => getChecks(), 5000)
+  }, [])
+
+  if (!data) return null
 
   const allSucceeded =
     data.checks?.filter(item => item.status !== 'succeeded').length === 0
@@ -42,4 +52,4 @@ const Coverage = async ({
   )
 }
 
-export default Coverage
+export default Checks

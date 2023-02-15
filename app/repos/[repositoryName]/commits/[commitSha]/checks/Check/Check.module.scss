@@ -2,34 +2,48 @@
 
 .check {
   padding: 15px;
-  display: flex;
-  flex: 1;
   margin-bottom: 10px;
   border: 1px solid $colorGray;
   border-radius: 8px;
-  align-items: center;
-
-  .succeeded {
-    color: $colorGreen;
-    opacity: 0.45;
-  }
-
-  .errored {
-    color: $colorRed;
-    opacity: 0.45;
-  }
 
   .content {
-    margin-left: 14px;
+    display: flex;
     flex: 1;
+    align-items: center;
+
+    .succeeded {
+      color: $colorGreen;
+      opacity: 0.45;
+    }
+
+    .errored {
+      color: $colorRed;
+      opacity: 0.45;
+    }
+
+    .waiting {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .content {
+      margin-left: 14px;
+      flex: 1;
+    }
+
+    .statusMessage {
+      margin-bottom: 0;
+    }
+
+    .pluginName {
+      font-size: 16px;
+      font-variation-settings: "wght" 600;
+    }
   }
 
-  .statusMessage {
-    margin-bottom: 0;
-  }
-
-  .pluginName {
-    font-size: 16px;
-    font-variation-settings: "wght" 600;
+  .details {
+    margin-top: 20px;
   }
 }
