@@ -8,6 +8,7 @@ export interface CheckProps {
   status: CheckStatus
   started_at: string
   finished_at: string
+  error_output?: string
 }
 
 export interface ChecksResponseProps {

@@ -7,9 +7,10 @@ import styles from './Header.module.scss'
 export interface HeaderProps {
   repositoryName: string
   commit: HeadProps
+  loading: boolean
 }
 
-const Header = ({ commit, repositoryName }: HeaderProps) => {
+const Header = ({ commit, repositoryName, loading }: HeaderProps) => {
   return (
     <div className={styles.header}>
       <Text variant="title">
@@ -23,6 +24,7 @@ const Header = ({ commit, repositoryName }: HeaderProps) => {
         <CommitHeader
           className={styles.commitHeader}
           head={commit}
+          loading={loading}
           repositoryName={repositoryName}
         />
       )}

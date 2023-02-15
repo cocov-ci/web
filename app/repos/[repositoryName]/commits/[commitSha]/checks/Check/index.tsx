@@ -1,12 +1,15 @@
 'use client'
 
 import { CheckCircle, XOctagon } from 'lucide-react'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import Button from 'app/common/Button'
+import CodeBlock from 'app/common/CodeBlock'
 import Duration from 'app/common/Duration'
 import Loading from 'app/common/Loading'
 import Text from 'app/common/Text'
+import { useSegments } from 'context/SegmentsContext'
+import useLazyFetch from 'hooks/useLazyFetch'
 import { CheckProps } from 'types/Checks'
 
 import styles from './Check.module.scss'
@@ -16,9 +19,25 @@ export interface CheckComponentProps {
   issuesCounter?: number
 }
 
+interface CheckFetchResponse {
+  data: CheckProps
+  (): void
+}
+
 const Check = ({ check, issuesCounter }: CheckComponentProps) => {
-  const { status, plugin_name, started_at, finished_at } = check
+  const { status, plugin_name, started_at, finished_at, id } = check
   const [openDetails, setOpenDetails] = useState(false)
+  const segments = useSegments()
+  const repositoryName = useMemo(() => segments[1], [segments])
+  const commitSha = useMemo(() => segments[3], [segments])
+
+  const [getCheck, { data: dataCheck }] = useLazyFetch({
+    url: `/api/repositories/${repositoryName}/commits/${commitSha}/checks/${id}`,
+  }) as CheckFetchResponse[]
+
+  useEffect(() => {
+    if (status === 'errored') getCheck()
+  }, [status])
 
   const getIssuesReportedMessage = useMemo(() => {
     if (status !== 'succeeded') return null
@@ -84,7 +103,11 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
           </Button>
         )}
       </div>
-      {openDetails && <div className={styles.details}>hey...</div>}
+      {openDetails && (
+        <div className={styles.details}>
+          <CodeBlock plainText={dataCheck.error_output} />
+        </div>
+      )}
     </div>
   )
 }
