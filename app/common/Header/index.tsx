@@ -13,7 +13,7 @@ const Header = () => {
             alt="Cocov logo"
             height="54"
             src="/icons/logo.png"
-            width="46"
+            width="54"
           />
         </Link>
         <p className={styles.title}>
