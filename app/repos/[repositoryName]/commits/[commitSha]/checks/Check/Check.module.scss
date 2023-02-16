@@ -22,6 +22,10 @@
     }
 
     .waiting {
+      opacity: 0.45;
+    }
+
+    .running {
       width: 24px;
       height: 24px;
       display: flex;

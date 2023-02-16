@@ -26,3 +26,19 @@ const data = {
 export const Default: Story = {
   args: data,
 }
+
+export const InProgress: Story = {
+  args: { ...data, check: { ...data.check, status: 'running' } },
+}
+
+export const Errored: Story = {
+  args: { ...data, check: { ...data.check, status: 'errored' } },
+}
+
+export const Waiting: Story = {
+  args: { ...data, check: { ...data.check, status: 'waiting' } },
+}
+
+export const Succeeded: Story = {
+  args: { ...data, check: { ...data.check, status: 'succeeded' } },
+}
