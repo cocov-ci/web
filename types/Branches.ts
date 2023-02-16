@@ -7,4 +7,5 @@ export interface BranchResponseProps {
   issues: number
   condensed_status: string
   head: HeadProps
+  code?: number
 }

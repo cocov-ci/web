@@ -9,6 +9,7 @@ export interface RepositoryProps {
   issues: number
   default_branch: string
   head: { checks_status: string; coverage_status: string }
+  code?: number
 }
 
 export interface RepositoriesResponseProps {

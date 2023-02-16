@@ -57,6 +57,8 @@ const FileList = ({
 
   if (loading) return <Loading className={className} />
 
+  if (files.length === 0) return null
+
   return (
     <div className={classNames(styles.base, className)}>
       <div className={styles.header}>

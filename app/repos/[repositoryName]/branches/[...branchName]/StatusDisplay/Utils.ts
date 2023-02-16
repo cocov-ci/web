@@ -75,13 +75,14 @@ export const getChecks = ({ data, repositoryName }: DataProps) => {
     case 'processing':
       checkObject.message = 'Processing...'
       checkObject.messageBold = true
+      checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
       checkObject.statusColor = 'yellow'
       break
     case 'errored':
       checkObject.message = 'Failed running'
       checkObject.messageBold = true
-      checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
       checkObject.statusColor = 'red'
+      checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
       break
     case 'processed':
       if (issues_count === 0) {

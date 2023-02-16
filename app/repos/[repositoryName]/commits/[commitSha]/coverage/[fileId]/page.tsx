@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 
+import { CoverageResponseProps, FileIdReponseProps } from 'types/Coverage'
 import fetcher from 'utils/fetchServer'
 
 import PageContent from '../Content'
@@ -13,17 +14,17 @@ interface CoverageParams {
 const Coverage = async ({
   params: { repositoryName, commitSha, fileId },
 }: CoverageParams) => {
-  const data = await fetcher(
+  const data: CoverageResponseProps = await fetcher(
     `/v1/repositories/${repositoryName}/commits/${commitSha}/coverage`,
   )
 
-  const dataFileId = await fetcher(
+  const dataFileId: FileIdReponseProps = await fetcher(
     `/v1/repositories/${repositoryName}/commits/${commitSha}/coverage/file/${fileId}`,
   )
 
-  if (!data) redirect(`/repos/${repositoryName}`)
+  if (!data || data?.code === 404) redirect(`/repos/${repositoryName}`)
 
-  if (!dataFileId || dataFileId.code === '404')
+  if (!dataFileId || dataFileId?.code === 404)
     redirect(`/repos/${repositoryName}/commits/${commitSha}/coverage`)
 
   return (

@@ -74,6 +74,8 @@ const Charts = async ({
     `/v1/repositories/${repositoryName}/branches/graphs/${branchName}`,
   )
 
+  if (!data || data?.code === 404) return null
+
   return (
     <div className={styles.charts}>
       <Box className={styles.box} gutterBottom>

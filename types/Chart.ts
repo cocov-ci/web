@@ -23,6 +23,7 @@ export interface ChartOptionsProps {
 export interface ChartResponseProps {
   coverage: ChartTypeObjectProps
   issues: ChartTypeObjectProps
+  code?: number
 }
 
 export interface ChartGradientProps {

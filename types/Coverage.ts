@@ -9,6 +9,7 @@ export interface CoverageResponseProps {
   files: CoverageFileProps[]
   status: StatusKind
   commit: HeadProps
+  code?: number
 }
 
 export type BlockKind = 'neutral' | 'covered' | 'missed'
@@ -26,6 +27,7 @@ export interface Source {
 }
 
 export interface FileIdReponseProps {
+  code?: number
   coverage: {
     blocks: Block[]
     lines_covered: number

@@ -15,7 +15,8 @@ const Badges = async ({ params: { repositoryName } }: BadgeProps) => {
     `/v1/repositories/${repositoryName}/badges`,
   )
 
-  if (!dataBadges) redirect(`/repos/${repositoryName}`)
+  if (!dataBadges || dataBadges?.code === 404)
+    redirect(`/repos/${repositoryName}`)
 
   return dataBadges.code === 204 ? <Disabled /> : <Content {...dataBadges} />
 }

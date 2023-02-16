@@ -39,7 +39,9 @@ const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
   }, [data])
 
   const allSucceeded =
-    data?.checks?.filter(item => item.status !== 'succeeded').length === 0
+    data?.checks?.filter(
+      item => item.status !== 'waiting' && item.status !== 'running',
+    ).length === 0
 
   return (
     <FixedContent>

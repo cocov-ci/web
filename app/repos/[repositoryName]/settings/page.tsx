@@ -12,7 +12,7 @@ const Settings = async ({ params: { repositoryName } }: SettingsProps) => {
     `/v1/repositories/${repositoryName}`,
   )
 
-  if (!dataRepository) redirect('/')
+  if (!dataRepository || dataRepository?.code === 404) redirect('/')
 
   return <div />
 }

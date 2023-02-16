@@ -14,6 +14,10 @@ const Page = async ({ params: { repositoryName } }: PageProps) => {
     `/v1/repositories/${repositoryName}`,
   )
 
+  if (!data || data?.code === 404) {
+    redirect(`/`)
+  }
+
   if (data && data.default_branch) {
     redirect(`/repos/${repositoryName}/branches/${data.default_branch}`)
   }

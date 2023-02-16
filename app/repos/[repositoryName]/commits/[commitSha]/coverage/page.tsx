@@ -16,7 +16,7 @@ const Coverage = async ({
     `/v1/repositories/${repositoryName}/commits/${commitSha}/coverage`,
   )
 
-  if (!data) redirect(`/repos/${repositoryName}`)
+  if (!data || data?.code === 404) redirect(`/repos/${repositoryName}`)
 
   return (
     <PageContent

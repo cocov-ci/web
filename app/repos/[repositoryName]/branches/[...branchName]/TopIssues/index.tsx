@@ -20,6 +20,8 @@ const TopIssues = async ({ repositoryName, branchName }: TopIssuesProps) => {
     `/v1/repositories/${repositoryName}/branches/top_issues/${branchName}`,
   )
 
+  if (!data || data?.code === 404) return null
+
   const values = Object.keys(data).map(item => ({
     value: data[item],
     label: item,

@@ -19,7 +19,7 @@ const Layout = async ({
     `/v1/repositories/${repositoryName}`,
   )
 
-  if (!dataRepository) redirect('/')
+  if (!dataRepository || dataRepository?.code == 404) redirect('/')
 
   return (
     <div className={styles.layout}>
