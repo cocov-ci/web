@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React, { HTMLAttributeAnchorTarget } from 'react'
 
 import Url from 'types/Url'
+import { satoshi } from 'utils/fonts'
 
 import styles from './Button.module.scss'
 
@@ -30,9 +31,15 @@ const Button = ({
   style = 'primary',
 }: ButtonProps) => {
   const baseProps = {
-    className: classNames(styles.button, className, styles[style], {
-      [styles.uppercase]: uppercase,
-    }),
+    className: classNames(
+      satoshi.className,
+      styles.button,
+      className,
+      styles[style],
+      {
+        [styles.uppercase]: uppercase,
+      },
+    ),
   }
 
   if (href && !disabled) {
