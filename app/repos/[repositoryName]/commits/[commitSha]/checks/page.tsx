@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
 import useLazyFetch from 'hooks/useLazyFetch'
@@ -24,24 +24,40 @@ interface ChecksFetchResponse {
 
 const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
   const [loadingPage, setLoadingPage] = useState(true)
+  let polling: ReturnType<typeof setInterval>
   const [getChecks, { data }] = useLazyFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/checks`,
   }) as ChecksFetchResponse[]
 
+  const allSucceeded = useMemo(
+    () =>
+      data?.checks?.filter(
+        item =>
+          item.status === 'succeeded' ||
+          (item.status === 'errored' && item.error_output),
+      ).length === data?.checks?.length,
+    [data],
+  )
+
   useEffect(() => {
     getChecks()
-
-    setInterval(() => getChecks(), 5000)
   }, [])
+
+  useEffect(() => {
+    if (allSucceeded) {
+      clearInterval(polling)
+    } else {
+      polling = setInterval(() => getChecks(), 5000)
+    }
+
+    return () => {
+      clearInterval(polling)
+    }
+  }, [allSucceeded])
 
   useEffect(() => {
     data && setLoadingPage(false)
   }, [data])
-
-  const allSucceeded =
-    data?.checks?.filter(
-      item => item.status !== 'waiting' && item.status !== 'running',
-    ).length === 0
 
   return (
     <FixedContent>
@@ -51,7 +67,7 @@ const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
         repositoryName={repositoryName}
       />
       <div className={styles.content}>
-        {allSucceeded && <Alert />}
+        {!loadingPage && allSucceeded && <Alert />}
         {loadingPage && <Loading />}
         {data?.checks?.map(item => (
           <Check
