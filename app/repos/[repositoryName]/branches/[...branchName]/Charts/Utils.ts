@@ -11,7 +11,7 @@ export const getLabels = (data: { [any: string]: number | null }) => {
 }
 
 export const getData = (data: { [any: string]: number | null }) => {
-  const values = Object.values(data).filter(item => item && item > 0)
+  const values = Object.values(data).filter(item => typeof item === 'number')
 
   if (values.length > 0) {
     return Object.values(data).map(item => Number(item))
