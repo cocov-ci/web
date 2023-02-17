@@ -60,3 +60,13 @@ export const Zero: Story = {
     toDate: '01 Jan 1970 00:00:00 GMT',
   },
 }
+
+export const Incomplete: Story = {
+  args: {
+    fromDate: (() => {
+      const d = Date.now() - 3 * 60 * 1000
+
+      return new Date(d).toISOString()
+    })(),
+  },
+}

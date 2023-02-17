@@ -3,7 +3,7 @@ import React from 'react'
 
 interface DurationProps {
   fromDate: string
-  toDate: string
+  toDate?: string
   className?: string
 }
 
@@ -11,9 +11,16 @@ const pluralize = (quantity: number, singular: string) =>
   `${quantity} ${singular}${quantity > 1 ? 's' : ''}`
 
 const Duration = ({ className, fromDate, toDate }: DurationProps) => {
-  const duration = Math.abs(
-    (Date.parse(toDate) - Date.parse(fromDate)) / 1000.0,
-  )
+  const parsedFrom = Date.parse(fromDate)
+  let parsedTo: number
+
+  if (toDate) {
+    parsedTo = Date.parse(toDate)
+  } else {
+    parsedTo = Date.now()
+  }
+
+  const duration = Math.abs(parsedTo - parsedFrom) / 1000.0
   const hours = ~~(duration / 3600)
   const minutes = ~~((duration % 3600) / 60)
   const seconds = ~~duration % 60
@@ -24,7 +31,7 @@ const Duration = ({ className, fromDate, toDate }: DurationProps) => {
   }
 
   if (minutes > 0) {
-    components.push(pluralize(seconds, 'minute'))
+    components.push(pluralize(minutes, 'minute'))
   }
 
   if (seconds > 0) {
