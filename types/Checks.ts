@@ -7,11 +7,6 @@ export type CheckStatus =
   | 'errored'
   | 'canceled'
 
-const finishedStatuses: CheckStatus[] = ['succeeded', 'errored', 'canceled']
-
-export const isCheckFinished = (status: CheckStatus | undefined) =>
-  status && status in finishedStatuses
-
 export interface CheckProps {
   id: number
   plugin_name: string
