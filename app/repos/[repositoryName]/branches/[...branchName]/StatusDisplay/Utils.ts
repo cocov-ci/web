@@ -101,6 +101,13 @@ export const getChecks = ({ data, repositoryName }: DataProps) => {
       checkObject.messageBold = true
       checkObject.statusColor = 'grey'
       break
+
+    case 'canceled':
+      checkObject.message = 'Canceled'
+      checkObject.statusColor = 'grey'
+      checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
+      break
+
     default:
   }
 

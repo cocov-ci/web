@@ -44,11 +44,7 @@ const StatusCell = ({
   return (
     <div className={styles.cell}>
       <span className={styles.text}>
-        <StatusDot
-          className={styles.dot}
-          color={statusColor}
-          href={detailsHref}
-        />
+        <StatusDot className={styles.dot} color={statusColor} />
         <span className={styles.label}>{label}</span>
         <span
           className={classNames(styles.message, {
