@@ -14,10 +14,6 @@
   .stats {
     margin-left: 30px;
 
-    p {
-      margin-bottom: 0;
-    }
-
     .progressBar {
       align-items: center;
       display: inline-flex;
@@ -39,12 +35,7 @@
   .file {
     max-width: 50%;
 
-    p:first-of-type {
-      margin-bottom: 0;
-    }
-
     p:last-of-type {
-      margin-bottom: 0;
       font-variation-settings: "wght" 600;
       white-space: nowrap;
       overflow: hidden;

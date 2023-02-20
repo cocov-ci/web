@@ -16,7 +16,7 @@ const Header = ({ commit, repositoryName, loading }: HeaderProps) => {
       <Text variant="title">
         <strong>Running Checks</strong>
       </Text>
-      <Text variant="description">
+      <Text gutterBottom variant="description">
         The list below shows which checks are being executed against the
         following commit:
       </Text>

@@ -19,7 +19,7 @@ const Empty = () => {
   return (
     <div className={styles.empty}>
       <Text className={styles.emptyTitle}>No Data</Text>
-      <Text variant="description">
+      <Text gutterBottom variant="description">
         We still haven't received data from your CI in order to display the
         evolution graph. Need{' '}
         <Link className={styles.settingUpLink} href="#">

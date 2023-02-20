@@ -1,0 +1,13 @@
+@import "styles/variables.module";
+
+.sidebar,
+.loading {
+  border-right: 1px solid $colorGray;
+  padding-bottom: 15px;
+  overflow: auto;
+  flex: 1;
+}
+
+.loading {
+  padding: 10px;
+}

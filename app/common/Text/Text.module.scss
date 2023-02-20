@@ -13,6 +13,9 @@
 
 .description {
   font-size: $fontDescription;
-  margin-bottom: 20px;
   white-space: pre-line;
+
+  &.gutterBottom {
+    margin-bottom: 20px;
+  }
 }

@@ -1,0 +1,18 @@
+@import "styles/variables.module";
+
+.content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar,
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  flex: 1;
+  overflow: auto;
+}

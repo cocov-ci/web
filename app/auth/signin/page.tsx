@@ -20,7 +20,7 @@ const WelcomeContent = () => {
   return (
     <Box className={styles.box}>
       <Text variant="title">Welcome back!</Text>
-      <Text variant="description">
+      <Text gutterBottom variant="description">
         To continue, please authenticate using your GitHub account.
       </Text>
       <GitHubButton />
@@ -32,7 +32,7 @@ const AccessDeniedContent = () => {
   return (
     <Box className={styles.box}>
       <Text variant="title">Access Denied</Text>
-      <Text variant="description">
+      <Text gutterBottom variant="description">
         {`You are not allowed to access this resource.
         Textlease contact your administrator.`}
       </Text>

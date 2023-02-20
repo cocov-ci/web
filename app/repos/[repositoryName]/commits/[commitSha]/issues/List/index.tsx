@@ -29,7 +29,7 @@ export const ListItem = (issue: IssueProps) => {
         >
           {issue.file}
         </Text>
-        <Text className={styles.line} variant="description">
+        <Text className={styles.line} gutterBottom variant="description">
           line {issue.line_start}
         </Text>
       </div>

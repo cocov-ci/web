@@ -17,7 +17,7 @@ export default function Error({ error }: { error: Error; reset: () => void }) {
     <div className={styles.error}>
       <Box className={styles.box}>
         <Text variant="title">Uh-oh. This is an error.</Text>
-        <Text variant="description">
+        <Text gutterBottom variant="description">
           An internal error prevented this operation from completing. Please
           check the instance's logs for further information.
         </Text>

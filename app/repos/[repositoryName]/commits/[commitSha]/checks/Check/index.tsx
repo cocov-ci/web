@@ -99,7 +99,7 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
 
         <div className={styles.content}>
           <Text className={styles.pluginName}>{plugin_name}</Text>
-          <Text className={styles.statusMessage} variant="description">
+          <Text variant="description">
             <CheckDuration />
           </Text>
         </div>

@@ -8,12 +8,21 @@ type TextProps = {
   className?: string
   title?: string
   variant?: 'title' | 'description'
+  gutterBottom?: boolean
 }
 
-const Text = ({ children, className, variant = 'title', title }: TextProps) => {
+const Text = ({
+  children,
+  className,
+  variant = 'title',
+  title,
+  gutterBottom,
+}: TextProps) => {
   return (
     <p
-      className={classNames(styles.text, styles[variant], className)}
+      className={classNames(styles.text, styles[variant], className, {
+        [styles.gutterBottom]: gutterBottom,
+      })}
       title={title}
     >
       {children}
