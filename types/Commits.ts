@@ -22,6 +22,7 @@ export type StatusKind =
   | 'errored'
   | 'not_configured'
   | 'new'
+  | 'canceled'
 
 export interface HeadProps {
   id: number

@@ -42,3 +42,7 @@ export const Waiting: Story = {
 export const Succeeded: Story = {
   args: { ...data, check: { ...data.check, status: 'succeeded' } },
 }
+
+export const Canceled: Story = {
+  args: { ...data, check: { ...data.check, status: 'canceled' } },
+}

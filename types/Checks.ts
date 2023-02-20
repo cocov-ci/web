@@ -1,6 +1,11 @@
 import { HeadProps } from './Commits'
 
-export type CheckStatus = 'succeeded' | 'waiting' | 'running' | 'errored'
+export type CheckStatus =
+  | 'waiting'
+  | 'running'
+  | 'succeeded'
+  | 'errored'
+  | 'canceled'
 
 export interface CheckProps {
   id: number
@@ -15,4 +20,5 @@ export interface ChecksResponseProps {
   checks: CheckProps[]
   commit: HeadProps
   issues: { [arg: string]: number }
+  status: CheckStatus
 }

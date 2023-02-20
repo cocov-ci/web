@@ -133,3 +133,20 @@ export const CoveragePassingChecksNotConfigured: Story = {
     },
   },
 }
+
+export const CoveragePassingChecksCanceled: Story = {
+  args: {
+    coverage: {
+      statusColor: 'green',
+      message: '95%',
+      detailsHref: '/',
+    },
+    checks: {
+      statusColor: 'grey',
+      message: 'Canceled',
+      messageBold: false,
+      detailsKind: 'details',
+      detailsHref: '/',
+    },
+  },
+}

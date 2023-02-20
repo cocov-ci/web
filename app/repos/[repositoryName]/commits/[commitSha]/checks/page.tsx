@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
 import useLazyFetch from 'hooks/useLazyFetch'
-import { ChecksResponseProps } from 'types/Checks'
+import { ChecksResponseProps, CheckStatus } from 'types/Checks'
 
 import Alert from './Alert'
 import Check from './Check'
@@ -22,22 +22,19 @@ interface ChecksFetchResponse {
   (): void
 }
 
+const finishedStatuses: CheckStatus[] = ['succeeded', 'errored', 'canceled']
+
+const isCheckFinished = (status: CheckStatus | undefined) =>
+  status && status in finishedStatuses
+
 const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
-  const [loadingPage, setLoadingPage] = useState(true)
   let polling: ReturnType<typeof setInterval>
+  const [loadingPage, setLoadingPage] = useState(true)
   const [getChecks, { data }] = useLazyFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/checks`,
   }) as ChecksFetchResponse[]
 
-  const allSucceeded = useMemo(
-    () =>
-      data?.checks?.filter(
-        item =>
-          item.status === 'succeeded' ||
-          (item.status === 'errored' && item.error_output),
-      ).length === data?.checks?.length,
-    [data],
-  )
+  const allSucceeded = useMemo(() => isCheckFinished(data?.status), [data])
 
   useEffect(() => {
     getChecks()
