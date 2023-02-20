@@ -1,6 +1,11 @@
 import { HeadProps } from './Commits'
 
-export type CheckStatus = 'succeeded' | 'waiting' | 'running' | 'errored'
+export type CheckStatus =
+  | 'succeeded'
+  | 'waiting'
+  | 'running'
+  | 'errored'
+  | 'canceled'
 
 export interface CheckProps {
   id: number

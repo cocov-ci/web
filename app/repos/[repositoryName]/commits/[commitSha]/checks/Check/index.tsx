@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircle, Clock, XOctagon } from 'lucide-react'
+import { CheckCircle, Clock, MinusCircle, XOctagon } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import Button from 'app/common/Button'
@@ -69,6 +69,9 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
       case 'running':
         durationStatus = 'In progress for '
         break
+      case 'canceled':
+        durationStatus = 'Canceled after'
+        break
     }
 
     return (
@@ -90,6 +93,9 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
           <Loading className={styles.running} height="24px" width="24px" />
         )}
         {status === 'waiting' && <Clock className={styles.waiting} size="24" />}
+        {status === 'canceled' && (
+          <MinusCircle className={styles.waiting} size="24" />
+        )}
 
         <div className={styles.content}>
           <Text className={styles.pluginName}>{plugin_name}</Text>
