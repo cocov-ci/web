@@ -90,6 +90,14 @@ $colorHistogram: (
   value-background-2: #dde8f1,
   value-color: #6d6d6d,
 );
+$colorMenu: (
+  textColor: #d3d3d3,
+  backgroundHover: #26455f,
+  borderHover: #386080,
+  dangerTextNormal: #ea4d43,
+  dangerBackgroundHover: #602a2a,
+  dangerBorderHover: #9c4444,
+);
 
 /* stylelint-disable */
 $heightFixedPage: calc(100vh - map.get($headerSize, "marginbottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginbottom") - 28px);

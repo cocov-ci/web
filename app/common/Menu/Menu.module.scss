@@ -1,0 +1,85 @@
+@use "sass:map";
+@use "sass:color";
+@import "styles/variables.module";
+
+.base {
+  border-radius: 6px;
+  box-shadow: 7px 2px 40px 0 color.adjust($colorBlack, $alpha: -0.5);
+  position: absolute;
+  visibility: hidden;
+  transform: scale(0.95);
+  transition: visibility 0s linear 0.1s, transform 0.1s ease-in-out;
+  backdrop-filter: blur(10px) saturate(100%);
+  overflow: hidden;
+
+  &.visible {
+    visibility: revert;
+    transform: scale(1);
+    transition-delay: 0s;
+  }
+
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: color.adjust($colorBlack, $alpha: -0.24);
+    border-radius: 8px;
+  }
+
+  .content {
+    position: relative;
+    padding: 6px;
+  }
+}
+
+.item {
+  height: 27px;
+  min-width: 190px;
+  padding: 3px 8px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  line-height: 19px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1px;
+  gap: 40px;
+
+  svg {
+    color: map.get($colorMenu, "textColor");
+    margin-top: 1px;
+  }
+
+  &:hover {
+    background: map.get($colorMenu, "backgroundHover");
+    border: 1px solid map.get($colorMenu, "borderHover");
+  }
+
+  .label {
+    font-size: 15px;
+    color: $colorGray;
+    letter-spacing: 0;
+    text-align: left;
+  }
+
+  &.danger {
+    .label,
+    svg {
+      color: map.get($colorMenu, "dangerTextNormal");
+    }
+
+    &:hover {
+      background: map.get($colorMenu, "dangerBackgroundHover");
+      border: 1px solid map.get($colorMenu, "dangerBorderHover");
+
+      .label {
+        color: $colorGray;
+      }
+
+      svg {
+        color: map.get($colorMenu, "textColor");
+      }
+    }
+  }
+}
