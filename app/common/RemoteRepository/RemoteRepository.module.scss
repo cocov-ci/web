@@ -1,0 +1,39 @@
+@import "styles/variables.module";
+
+.base {
+  padding: 14px 30px;
+  display: flex;
+  border-bottom: 1px solid $colorWhiteDark;
+
+  .info {
+    margin-left: 16px;
+  }
+
+  .icon {
+    margin-top: 8px;
+  }
+
+  .name {
+    font-variation-settings: "wght" 650;
+    font-size: 24px;
+    color: $colorBlack;
+    letter-spacing: 0;
+    text-align: left;
+  }
+
+  .description.empty {
+    opacity: 0.45;
+  }
+
+  .dates {
+    opacity: 0.45;
+  }
+
+  .button {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
