@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { MoreVertical } from 'lucide-react'
 
 import AccessoryButton, { CopyIcon, HelpIcon } from './index'
 
@@ -11,6 +12,13 @@ const meta: Meta<typeof AccessoryButton> = {
 export default meta
 
 type Story = StoryObj<typeof AccessoryButton>
+
+export const EllipsisButtonMuted: Story = {
+  args: {
+    kind: 'squared-muted',
+    children: <MoreVertical />,
+  },
+}
 
 export const CopyButton: Story = {
   args: {

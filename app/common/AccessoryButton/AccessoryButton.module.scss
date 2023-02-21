@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: $colorWhite;
 }
 
 .round {
@@ -21,4 +21,15 @@
   height: 33px;
   width: 33px;
   border: 0;
+}
+
+.muted {
+  background: $colorGray;
+  color: $colorGrayDark;
+  transition: color ease-out 0.2s, background-color ease-out 0.2s;
+
+  &:hover {
+    color: $colorWhite;
+    background: $colorGrayDark;
+  }
 }
