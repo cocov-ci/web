@@ -1,16 +1,28 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
 import { useModal } from 'context/ModalContext'
+import useLazyFetch from 'hooks/useLazyFetch'
 
 import styles from './DeleteRepository.module.scss'
 
-const DeleteRepository = ({ repositoryId }: { repositoryId: number }) => {
+interface DeleteRepositoryFetchResponse {
+  loading: boolean
+  (): void
+}
+
+const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
   const [checked, setChecked] = useState(false)
   const { closeModal } = useModal()
+  const router = useRouter()
+
+  const [deleteRepository, { loading }] = useLazyFetch({
+    url: `/api/repositories/${repositoryName}/settings/delete`,
+  }) as DeleteRepositoryFetchResponse[]
 
   return (
     <div className={styles.content}>
@@ -47,10 +59,24 @@ const DeleteRepository = ({ repositoryId }: { repositoryId: number }) => {
         I understand that I won’t be able to undo this operation.
       </label>
       <div className={styles.buttons}>
-        <Button disabled={!checked} style="danger">
+        <Button
+          disabled={!checked || loading}
+          onClick={() => {
+            deleteRepository()
+            router.push('/')
+            closeModal()
+          }}
+          style="danger"
+        >
           Yes, delete it
         </Button>
-        <Button onClick={() => closeModal()} style="secondary">
+        <Button
+          disabled={loading}
+          onClick={() => {
+            closeModal()
+          }}
+          style="secondary"
+        >
           No, keep it
         </Button>
       </div>

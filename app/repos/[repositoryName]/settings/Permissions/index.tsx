@@ -27,11 +27,14 @@ interface RegenerateTokenFetchResponse {
 const PermissionsComponent = ({ data, loading }: SidebarProps) => {
   const { openModal } = useModal()
   const [token, setToken] = useState<string>()
+  const [resyncGithub, setResyncGithub] = useState<boolean>()
 
   const [
     regenerateToken,
     { data: dataRegenerateToken, loading: loadingRegenerateToken },
   ] = useLazyFetch({}) as RegenerateTokenFetchResponse[]
+
+  const [forceResync] = useLazyFetch({}) as RegenerateTokenFetchResponse[]
 
   useEffect(() => {
     setToken(data?.repository?.token)
@@ -46,16 +49,15 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
   const { permissions, repository } = data
 
   const onDeleteRepositoryClick = () => {
-    openModal(<DeleteRepository repositoryId={repository.id} />)
+    openModal(<DeleteRepository repositoryName={repository.name} />)
   }
 
   const onRegenerateTokenClick = () =>
-    regenerateToken(
-      `/api/repositories/${data?.repository.name}/settings/regen-token`,
-    )
+    regenerateToken(`/api/repositories/${repository.name}/settings/regen-token`)
 
   const onForceResyncClick = () => {
-    openModal(<DeleteRepository repositoryId={repository.id} />)
+    forceResync(`/api/repositories/${repository.name}/settings/sync-github`)
+    setResyncGithub(true)
   }
 
   return (
@@ -103,8 +105,12 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
         </Text>
 
         {permissions.can_sync_github && (
-          <Button onClick={() => onForceResyncClick()} style="secondary">
-            Force Resync
+          <Button
+            disabled={resyncGithub}
+            onClick={() => onForceResyncClick()}
+            style="secondary"
+          >
+            {resyncGithub ? 'Queued' : 'Force Resync'}
           </Button>
         )}
       </div>
