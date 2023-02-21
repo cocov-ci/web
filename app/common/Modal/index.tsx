@@ -11,11 +11,11 @@ import styles from './Modal.module.scss'
 
 const Modal = ({ children }: ModalParams) => {
   const modalRef = useRef<HTMLDivElement>(null)
-  const { close } = useModal()
+  const { closeModal } = useModal()
 
   const onEscKeyUpEvent = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
-      close()
+      closeModal()
 
       return
     }
@@ -38,7 +38,7 @@ const Modal = ({ children }: ModalParams) => {
     }
   }, [])
 
-  useOnClickOutside(modalRef, close)
+  useOnClickOutside(modalRef, closeModal)
 
   return (
     <>

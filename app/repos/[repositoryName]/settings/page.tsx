@@ -25,10 +25,10 @@ const Settings = ({ params: { repositoryName } }: SettingsParams) => {
     handler: [],
   }) as SettingsFetchResponse
 
-  const { open } = useModal()
+  const { openModal } = useModal()
 
   useEffect(() => {
-    open(<p>teste...</p>)
+    openModal(<p>teste...</p>)
   }, [])
 
   return (
