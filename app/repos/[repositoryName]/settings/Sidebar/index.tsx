@@ -1,7 +1,7 @@
 'use client'
 
 import Loading from 'app/common/Loading'
-import Sidebar, { Item } from 'app/common/Sidebar'
+import Sidebar from 'app/common/Sidebar'
 
 import styles from './Sidebar.module.scss'
 

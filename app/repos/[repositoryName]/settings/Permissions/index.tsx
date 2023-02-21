@@ -8,15 +8,15 @@ import { SettingsResponseProps } from 'types/Settings'
 import LoadingPermissions from './Loading'
 import styles from './Permissions.module.scss'
 
-type DataProps = SettingsResponseProps & { token: string }
-
 interface SidebarProps {
   loading: boolean
-  data: DataProps
+  data: SettingsResponseProps
 }
 
 const SidebarComponent = ({ data, loading }: SidebarProps) => {
   if (loading) return <LoadingPermissions />
+
+  const { permissions, repository } = data
 
   return (
     <>
@@ -37,8 +37,8 @@ const SidebarComponent = ({ data, loading }: SidebarProps) => {
           If you wish, the token can be regenerated. However, make sure to
           update its value in CI pipelines after doing so.
         </Text>
-        <SnippetBox className={styles.snippetBox} source={data?.token} />
-        {data?.permissions.can_regen_token && (
+        <SnippetBox className={styles.snippetBox} source={repository?.token} />
+        {permissions.can_regen_token && (
           <Button style="secondary">Regenerate Token</Button>
         )}
       </div>
@@ -56,7 +56,7 @@ const SidebarComponent = ({ data, loading }: SidebarProps) => {
           update by clicking the button below.
         </Text>
 
-        {data?.permissions.can_sync_github && (
+        {permissions.can_sync_github && (
           <Button style="secondary">Force Resync</Button>
         )}
       </div>
@@ -85,7 +85,7 @@ const SidebarComponent = ({ data, loading }: SidebarProps) => {
           <li>- Cached commits from this repository</li>
           <li>- Repository Secrets</li>
         </ul>
-        {data?.permissions.can_delete && (
+        {permissions.can_delete && (
           <Button style="danger">Delete Repository</Button>
         )}
       </div>

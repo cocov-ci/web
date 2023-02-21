@@ -1,10 +1,10 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useEffect } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
+import { useModal } from 'context/ModalContext'
 import useFetch from 'hooks/useFetch'
-import { RepositoryProps } from 'types/Repositories'
 import { SettingsResponseProps } from 'types/Settings'
 
 import styles from './Page.module.scss'
@@ -18,29 +18,18 @@ interface SettingsFetchResponse {
   data: SettingsResponseProps
   loading: boolean
 }
-interface RepositoriesFetchResponse {
-  data: RepositoryProps
-  loading: boolean
-}
 
 const Settings = ({ params: { repositoryName } }: SettingsParams) => {
-  const { data: dataRepository, loading: loadingRepository } = useFetch({
-    url: `/api/repositories/${repositoryName}`,
-    handler: [],
-  }) as RepositoriesFetchResponse
-
-  const { data: dataSettings, loading: loadingSettings } = useFetch({
+  const { data, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/settings`,
     handler: [],
   }) as SettingsFetchResponse
 
-  const permissionsData = useMemo(
-    () => ({
-      ...dataSettings,
-      token: dataRepository?.token,
-    }),
-    [dataRepository, dataSettings],
-  )
+  const { open } = useModal()
+
+  useEffect(() => {
+    open(<p>teste...</p>)
+  }, [])
 
   return (
     <FixedContent>
@@ -55,18 +44,15 @@ const Settings = ({ params: { repositoryName } }: SettingsParams) => {
               {
                 id: 1,
                 name: 'Secrets',
-                counter: 3,
+                counter: data?.secrets_count,
               },
             ]}
             defaultSelectedItem="General"
-            loading={loadingRepository || loadingSettings}
+            loading={loading}
           />
         </div>
         <div className={styles.info}>
-          <Permissions
-            data={permissionsData}
-            loading={loadingRepository || loadingSettings}
-          />
+          <Permissions data={data} loading={loading} />
         </div>
       </div>
     </FixedContent>
