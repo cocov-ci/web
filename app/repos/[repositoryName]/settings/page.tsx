@@ -1,9 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
-
 import FixedContent from 'app/common/FixedContent'
-import { useModal } from 'context/ModalContext'
 import useFetch from 'hooks/useFetch'
 import { SettingsResponseProps } from 'types/Settings'
 
@@ -24,12 +21,6 @@ const Settings = ({ params: { repositoryName } }: SettingsParams) => {
     url: `/api/repositories/${repositoryName}/settings`,
     handler: [],
   }) as SettingsFetchResponse
-
-  const { openModal } = useModal()
-
-  useEffect(() => {
-    openModal(<p>teste...</p>)
-  }, [])
 
   return (
     <FixedContent>

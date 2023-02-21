@@ -1,0 +1,31 @@
+@import "styles/variables.module";
+
+.content {
+  .title {
+    font-variation-settings: "wght" 600;
+    margin-bottom: 8px;
+  }
+
+  .list {
+    margin-bottom: 20px;
+    list-style-type: none;
+  }
+
+  .buttons {
+    text-align: right;
+
+    button:last-of-type {
+      margin-left: 12px;
+    }
+  }
+
+  .label {
+    margin-bottom: 20px;
+    display: inline-flex;
+
+    input {
+      margin-left: 10px;
+      margin-right: 5px;
+    }
+  }
+}

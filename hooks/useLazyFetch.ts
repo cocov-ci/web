@@ -2,21 +2,19 @@ import { useCallback, useState } from 'react'
 
 import fetcher from '../utils/fetchClient'
 
-interface UseFetchProps {
-  url: string
-}
+type UseFetchProps = string
 
-const useLazyFetch = ({ url }: UseFetchProps) => {
+const useLazyFetch = ({ url }: { url?: UseFetchProps }) => {
   const [data, setData] = useState<object | undefined>()
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<undefined | string>()
 
-  const func = useCallback(() => {
+  const func = useCallback((funcUrl?: UseFetchProps) => {
     setLoading(true)
 
     const fetchData = async () => {
       try {
-        const data = await fetcher(url)
+        const data = await fetcher((url || funcUrl) as string)
 
         setData(data)
         setLoading(false)
@@ -29,7 +27,7 @@ const useLazyFetch = ({ url }: UseFetchProps) => {
       }
     }
 
-    if (url) fetchData()
+    if (url || funcUrl) fetchData()
   }, [])
 
   return [func, { data, loading, error }]

@@ -1,9 +1,15 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import Button from 'app/common/Button'
 import SnippetBox from 'app/common/SnippetBox'
 import Text from 'app/common/Text'
-import { SettingsResponseProps } from 'types/Settings'
+import { useModal } from 'context/ModalContext'
+import useLazyFetch from 'hooks/useLazyFetch'
+import { RegenTokenResponseProps, SettingsResponseProps } from 'types/Settings'
+
+import DeleteRepository from '../Modals/DeleteRepository'
 
 import LoadingPermissions from './Loading'
 import styles from './Permissions.module.scss'
@@ -12,11 +18,45 @@ interface SidebarProps {
   loading: boolean
   data: SettingsResponseProps
 }
+interface RegenerateTokenFetchResponse {
+  data: RegenTokenResponseProps
+  loading: boolean
+  (arg: string): void
+}
 
-const SidebarComponent = ({ data, loading }: SidebarProps) => {
+const PermissionsComponent = ({ data, loading }: SidebarProps) => {
+  const { openModal } = useModal()
+  const [token, setToken] = useState<string>()
+
+  const [
+    regenerateToken,
+    { data: dataRegenerateToken, loading: loadingRegenerateToken },
+  ] = useLazyFetch({}) as RegenerateTokenFetchResponse[]
+
+  useEffect(() => {
+    setToken(data?.repository?.token)
+  }, [data])
+
+  useEffect(() => {
+    setToken(dataRegenerateToken?.new_token)
+  }, [dataRegenerateToken])
+
   if (loading) return <LoadingPermissions />
 
   const { permissions, repository } = data
+
+  const onDeleteRepositoryClick = () => {
+    openModal(<DeleteRepository repositoryId={repository.id} />)
+  }
+
+  const onRegenerateTokenClick = () =>
+    regenerateToken(
+      `/api/repositories/${data?.repository.name}/settings/regen-token`,
+    )
+
+  const onForceResyncClick = () => {
+    openModal(<DeleteRepository repositoryId={repository.id} />)
+  }
 
   return (
     <>
@@ -37,9 +77,15 @@ const SidebarComponent = ({ data, loading }: SidebarProps) => {
           If you wish, the token can be regenerated. However, make sure to
           update its value in CI pipelines after doing so.
         </Text>
-        <SnippetBox className={styles.snippetBox} source={repository?.token} />
+        {token && <SnippetBox className={styles.snippetBox} source={token} />}
         {permissions.can_regen_token && (
-          <Button style="secondary">Regenerate Token</Button>
+          <Button
+            disabled={loadingRegenerateToken}
+            onClick={() => onRegenerateTokenClick()}
+            style="secondary"
+          >
+            {loadingRegenerateToken ? 'Regenerating' : 'Regenerate Token'}
+          </Button>
         )}
       </div>
       <div className={styles.item}>
@@ -57,7 +103,9 @@ const SidebarComponent = ({ data, loading }: SidebarProps) => {
         </Text>
 
         {permissions.can_sync_github && (
-          <Button style="secondary">Force Resync</Button>
+          <Button onClick={() => onForceResyncClick()} style="secondary">
+            Force Resync
+          </Button>
         )}
       </div>
       <div className={styles.item}>
@@ -86,11 +134,13 @@ const SidebarComponent = ({ data, loading }: SidebarProps) => {
           <li>- Repository Secrets</li>
         </ul>
         {permissions.can_delete && (
-          <Button style="danger">Delete Repository</Button>
+          <Button onClick={() => onDeleteRepositoryClick()} style="danger">
+            Delete Repository
+          </Button>
         )}
       </div>
     </>
   )
 }
 
-export default SidebarComponent
+export default PermissionsComponent
