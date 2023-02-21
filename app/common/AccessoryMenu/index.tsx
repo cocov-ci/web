@@ -14,6 +14,7 @@ interface AccessoryMenuProps {
   icon?: LucideIcon
   children: React.ReactNode
   open?: boolean
+  muted?: boolean
 }
 
 const AccessoryMenu = ({
@@ -21,6 +22,7 @@ const AccessoryMenu = ({
   icon,
   open,
   children,
+  muted,
 }: AccessoryMenuProps) => {
   const Icon = icon || LucideMoreVertical
   const menuContainerRef = useRef<HTMLDivElement>(null)
@@ -31,10 +33,10 @@ const AccessoryMenu = ({
     <div className={classNames(styles.base, className)}>
       <AccessoryButton
         className={styles.button}
-        kind="squared"
+        kind={muted ? 'squared-muted' : 'squared'}
         onClick={() => setVisible(!visible)}
       >
-        <Icon size={13} />
+        <Icon size={20} />
       </AccessoryButton>
       <MenuContainer
         className={styles.container}

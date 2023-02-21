@@ -10,7 +10,7 @@ import styles from './AccessoryButton.module.scss'
 type AccessoryButtonProps = {
   children?: React.ReactNode
   className?: string
-  kind: 'squared' | 'round'
+  kind: 'squared' | 'round' | 'squared-muted'
   onClick?: (ev: React.MouseEvent) => void
   title?: string
   href?: Url
@@ -27,7 +27,11 @@ const AccessoryButton = ({
   hrefTarget,
 }: AccessoryButtonProps) => {
   const baseProps = {
-    className: classNames(styles.base, className, styles[kind]),
+    className: classNames(
+      styles.base,
+      className,
+      ...kind.split('-').map(i => styles[i]),
+    ),
     title: title,
   }
 
