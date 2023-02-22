@@ -1,11 +1,11 @@
 'use client'
 
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, { createContext, useMemo, useState } from 'react'
 
 import Modal from 'app/common/Modal'
 import { ModalPropsContext } from 'types/Modal'
 
-const ModalContext = createContext<ModalPropsContext>({
+export const ModalContext = createContext<ModalPropsContext>({
   openModal: () => null,
   closeModal: () => null,
 })
@@ -39,7 +39,5 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
     </ModalContext.Provider>
   )
 }
-
-export const useModal = () => useContext(ModalContext)
 
 export default ModalProvider

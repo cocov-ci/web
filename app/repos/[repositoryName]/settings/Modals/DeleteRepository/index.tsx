@@ -5,8 +5,8 @@ import { useState } from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
-import { useModal } from 'context/ModalContext'
 import useLazyFetch from 'hooks/useLazyFetch'
+import useModal from 'hooks/useModal'
 
 import styles from './DeleteRepository.module.scss'
 

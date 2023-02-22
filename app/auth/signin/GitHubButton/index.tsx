@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import Button from 'app/common/Button'
 import Loading from 'app/common/Loading'
-import { useAuth } from 'context/AuthContext'
+import useAuth from 'hooks/useAuth'
 
 import styles from './GitHubButton.module.scss'
 

@@ -1,11 +1,12 @@
 'use client'
+
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, { createContext, useMemo, useState } from 'react'
 
 import Auth from 'services/auth'
 import { AuthBeginReponseProps, AuthPropsContext } from 'types/Auth'
 
-const AuthContext = createContext<AuthPropsContext>({
+export const AuthContext = createContext<AuthPropsContext>({
   login: () => null,
   logout: () => null,
   loading: false,
@@ -58,7 +59,5 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     </AuthContext.Provider>
   )
 }
-
-export const useAuth = () => useContext(AuthContext)
 
 export default AuthProvider

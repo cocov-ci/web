@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-import { useAuth } from 'context/AuthContext'
+import useAuth from 'hooks/useAuth'
 import { UserProps } from 'types/User'
 
 import styles from './Header.module.scss'

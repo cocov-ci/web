@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import Button from 'app/common/Button'
 import SnippetBox from 'app/common/SnippetBox'
 import Text from 'app/common/Text'
-import { useModal } from 'context/ModalContext'
 import useLazyFetch from 'hooks/useLazyFetch'
+import useModal from 'hooks/useModal'
 import { RegenTokenResponseProps, SettingsResponseProps } from 'types/Settings'
 
 import DeleteRepository from '../Modals/DeleteRepository'
@@ -139,11 +139,11 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
           <li>- Cached commits from this repository</li>
           <li>- Repository Secrets</li>
         </ul>
-        {permissions.can_delete && (
-          <Button onClick={() => onDeleteRepositoryClick()} style="danger">
-            Delete Repository
-          </Button>
-        )}
+        {/* {permissions.can_delete && ( */}
+        <Button onClick={() => onDeleteRepositoryClick()} style="danger">
+          Delete Repository
+        </Button>
+        {/* )} */}
       </div>
     </>
   )

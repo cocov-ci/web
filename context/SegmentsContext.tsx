@@ -1,9 +1,9 @@
 'use client'
 
 import { useSelectedLayoutSegments } from 'next/navigation'
-import React, { createContext, useContext, useMemo } from 'react'
+import React, { createContext, useMemo } from 'react'
 
-const SegmentsContext = createContext<string[]>([])
+export const SegmentsContext = createContext<string[]>([])
 
 const SegmentsProvider = ({ children }: { children: React.ReactNode }) => {
   const segments = useSelectedLayoutSegments()
@@ -20,7 +20,5 @@ const SegmentsProvider = ({ children }: { children: React.ReactNode }) => {
     </SegmentsContext.Provider>
   )
 }
-
-export const useSegments = () => useContext(SegmentsContext)
 
 export default SegmentsProvider

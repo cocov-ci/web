@@ -9,8 +9,15 @@
   left: 50%;
   top: 50%;
   z-index: 1;
-  transition: bottom 0.35s ease, transform 0.2s ease 0.3s;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.95);
+  visibility: hidden;
+  transition: visibility 0s linear 0.1s, transform 0.1s ease-in-out;
+
+  &.visible {
+    visibility: revert;
+    transform: translate(-50%, -50%) scale(1);
+    transition-delay: 0s;
+  }
 
   .box {
     box-shadow: 0 4px 8px rgb(0 0 0 / 24%), 0 11px 40px rgb(0 0 0 / 24%);
@@ -25,6 +32,11 @@
   top: 0;
   left: 0;
   position: absolute;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(0);
   z-index: 1;
+  transition: backdrop-filter 0.05s ease-in-out;
+
+  &.visible {
+    backdrop-filter: blur(6px);
+  }
 }
