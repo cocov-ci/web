@@ -35,6 +35,7 @@
   }
 
   &.selected {
+    cursor: default;
     background: map.get($colorListItemActive, "background");
     border: 1px solid map.get($colorListItemActive, "border");
   }

@@ -1,27 +1,45 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { useMemo } from 'react'
+
 import Loading from 'app/common/Loading'
 import Sidebar from 'app/common/Sidebar'
 
 import styles from './Sidebar.module.scss'
 
-interface SidebarItemsProps {
-  id: number
-  name: string
-  counter?: number
-}
-
 interface SidebarProps {
-  data: SidebarItemsProps[]
   loading: boolean
   defaultSelectedItem: string | null
+  repositoryName: string
+  secretsCount: number
 }
 
 const SidebarComponent = ({
-  data,
   loading,
   defaultSelectedItem,
+  repositoryName,
+  secretsCount,
 }: SidebarProps) => {
+  const router = useRouter()
+
+  const data = useMemo(
+    () => [
+      {
+        id: 0,
+        name: 'General',
+        href: '/',
+      },
+      {
+        id: 1,
+        name: 'Secrets',
+        counter: secretsCount,
+        href: '/secrets',
+      },
+    ],
+    [secretsCount],
+  )
+
   if (loading)
     return (
       <Loading
@@ -33,6 +51,10 @@ const SidebarComponent = ({
       />
     )
 
+  const onClick = (id: number) => {
+    router.push(`repos/${repositoryName}/settings${data[id].href}`)
+  }
+
   if (!data) return null
 
   return (
@@ -42,7 +64,7 @@ const SidebarComponent = ({
         data?.filter(item => item.name === defaultSelectedItem)[0]?.id || 0
       }
       items={data}
-      onSelectItem={item => null}
+      onSelectItem={item => onClick(parseInt(item.id as string))}
       width="250px"
     />
   )

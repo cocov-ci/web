@@ -4,9 +4,9 @@ import FixedContent from 'app/common/FixedContent'
 import useFetch from 'hooks/useFetch'
 import { SettingsResponseProps } from 'types/Settings'
 
+import Sidebar from '../Sidebar'
+
 import styles from './Page.module.scss'
-import Permissions from './Permissions'
-import Sidebar from './Sidebar'
 interface SettingsParams {
   params: { repositoryName: string; commitSha: string }
 }
@@ -16,7 +16,7 @@ interface SettingsFetchResponse {
   loading: boolean
 }
 
-const Settings = ({ params: { repositoryName } }: SettingsParams) => {
+const Secrets = ({ params: { repositoryName } }: SettingsParams) => {
   const { data, loading } = useFetch({
     url: `/api/repositories/${repositoryName}/settings`,
     handler: [],
@@ -27,18 +27,16 @@ const Settings = ({ params: { repositoryName } }: SettingsParams) => {
       <div className={styles.content}>
         <div className={styles.sidebar}>
           <Sidebar
-            defaultSelectedItem="General"
+            defaultSelectedItem="Secrets"
             loading={loading}
             repositoryName={repositoryName}
             secretsCount={data?.secrets_count}
           />
         </div>
-        <div className={styles.info}>
-          <Permissions data={data} loading={loading} />
-        </div>
+        <div className={styles.info} />
       </div>
     </FixedContent>
   )
 }
 
-export default Settings
+export default Secrets

@@ -14,17 +14,7 @@ type Story = StoryObj<typeof Sidebar>
 
 export const Default: Story = {
   args: {
-    data: [
-      {
-        id: 0,
-        name: 'General',
-      },
-      {
-        id: 1,
-        name: 'Secrets',
-        counter: 3,
-      },
-    ],
+    secretsCount: 4,
     loading: false,
     defaultSelectedItem: 'General',
   },

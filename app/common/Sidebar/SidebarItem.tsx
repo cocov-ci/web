@@ -20,7 +20,7 @@ export const SidebarItem = ({ item, selected, onClick }: SidebarItemProps) => {
         [styles.selected]: selected,
       })}
       href="javascript:void(0)"
-      onClick={() => onClick && onClick(item)}
+      onClick={() => onClick && !selected && onClick(item)}
     >
       <span className={styles.label}>{item.name}</span>
       {item.counter !== undefined && (
