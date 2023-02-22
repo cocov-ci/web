@@ -1,0 +1,82 @@
+@use "sass:color";
+@use "sass:map";
+@import "styles/variables.module";
+
+@mixin banner-background($color) {
+  /* stylelint-disable scss/operator-no-unspaced */
+  background-image: radial-gradient(circle at 1.1e+02% 4%, $color 0%, $colorGrayDark 88%);
+  /* stylelint-enable scss/operator-no-unspaced */
+}
+
+@mixin banner-variation($name) {
+  &.#{$name} {
+    @include banner-background(map.get($colorBanner, "#{$name}Background"));
+
+    .icon {
+      color: map.get($colorBanner, "#{$name}Foreground");
+    }
+  }
+}
+
+.base {
+  font-size: 15px;
+  display: flex;
+  padding: 14px 20px;
+  align-items: center;
+  color: map.get($colorBanner, "textColor");
+  background-color: $colorGrayDark;
+  transition: box-shadow 0.2s ease-out 0.1s;
+
+  .icon {
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .close {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    align-content: center;
+
+    button {
+      border: none;
+      background: none;
+      color: map.get($colorBanner, "buttonColor");
+      line-height: 0;
+      cursor: pointer;
+      transition: color 0.2s ease-out;
+
+      &:hover {
+        color: color.adjust(map.get($colorBanner, "buttonColor"), $lightness: +50%);
+      }
+    }
+  }
+
+  @include banner-variation("success");
+  @include banner-variation("info");
+  @include banner-variation("warning");
+}
+
+.wrapper {
+  &,
+  .faces {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease-out;
+  }
+
+  .faces {
+    .base {
+      transform: translate(0, -100%) rotateX(90deg);
+      transform-origin: bottom;
+    }
+
+    &.open {
+      transform: translate(0, 50%) rotateX(-90deg);
+
+      .base {
+        box-shadow: 7px 2px 40px 0 color.adjust($colorBlack, $alpha: 0.5);
+      }
+    }
+  }
+}
