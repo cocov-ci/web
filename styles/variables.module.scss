@@ -53,11 +53,6 @@ $colorInputDark: (
   placeholder: #919191,
   textColor: #fff,
 );
-
-// FONT-SIZES
-$fontTitle: 24px;
-$fontDescription: 15px;
-$fontInput: 15px;
 $colorKbd: (
   background-light: #eee,
   border-light: #b4b4b4,
@@ -98,6 +93,11 @@ $colorMenu: (
   dangerBackgroundHover: #602a2a,
   dangerBorderHover: #9c4444,
 );
+
+// FONT-SIZES
+$fontTitle: 24px;
+$fontDescription: 15px;
+$fontInput: 15px;
 
 /* stylelint-disable */
 $heightFixedPage: calc(100vh - map.get($headerSize, "marginbottom") - map.get($headerSize, "height") - map.get($topbarSize, "height") - map.get($topbarSize, "marginbottom") - 28px);

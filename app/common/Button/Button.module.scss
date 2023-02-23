@@ -31,9 +31,7 @@
   }
 
   &.primary {
-    @include button-style($colorBlue, $padding: 12px 16px, $fontSize: 17px);
-
-    line-height: 21px;
+    @include button-style($colorBlue);
   }
 
   &.secondary {

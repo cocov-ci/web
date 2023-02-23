@@ -6,36 +6,31 @@ import React, { ChangeEventHandler, useRef, useState } from 'react'
 
 import Loading from '../Loading'
 
-import styles from './Input.module.scss'
+import styles from './Textarea.module.scss'
 
-interface InputProps {
+interface TextareaProps {
   icon?: LucideIcon
   className?: string
-  value?: string
   disabled?: boolean
-  placeholder?: string
-  onChange?: ChangeEventHandler<HTMLInputElement>
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>
   errored?: boolean
-  type: React.HTMLInputTypeAttribute
   label?: string
   width?: string
   labelWidth?: string
   loading?: boolean
+  resize?: boolean
   variation?: 'light' | 'dark'
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
-  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   autoFocus?: boolean
-  innerRef?: React.MutableRefObject<HTMLInputElement | null>
+  innerRef?: React.MutableRefObject<HTMLTextAreaElement | null>
 }
 
-const Input = ({
+const Textarea = ({
   className,
   value,
   disabled,
   placeholder,
   onChange,
   errored,
-  type,
   label,
   loading,
   width = '100%',
@@ -46,17 +41,19 @@ const Input = ({
   icon: Icon,
   innerRef,
   labelWidth,
-}: InputProps) => {
-  const inputRef = useRef<HTMLInputElement | null>(null)
+  height,
+  resize,
+}: TextareaProps & React.HTMLProps<HTMLTextAreaElement>) => {
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const [focused, setFocused] = useState(false)
 
   const updateFocusState = () => {
-    if (inputRef.current && document.activeElement !== null) {
-      setFocused(document.activeElement === inputRef.current)
+    if (textareaRef.current && document.activeElement !== null) {
+      setFocused(document.activeElement === textareaRef.current)
     }
   }
 
-  const captureFocus = () => inputRef.current && inputRef.current.focus()
+  const captureFocus = () => textareaRef.current && textareaRef.current.focus()
 
   return (
     <div
@@ -64,7 +61,7 @@ const Input = ({
         [styles.light]: variation == 'light',
         [styles.dark]: variation == 'dark',
       })}
-      style={{ width }}
+      style={{ width, height }}
     >
       {label && (
         <label
@@ -78,7 +75,7 @@ const Input = ({
         </label>
       )}
       <div
-        className={classNames(styles.inputWrapper, className, {
+        className={classNames(styles.textareaWrapper, className, {
           [styles.focused]: focused,
           [styles.errored]: errored,
           [styles.disabled]: disabled === true,
@@ -89,11 +86,12 @@ const Input = ({
             <Icon onClick={captureFocus} size={18} />
           </div>
         )}
-        <input
+        <textarea
           autoFocus={autoFocus}
-          className={classNames(styles.input, {
+          className={classNames(styles.textarea, {
             [styles.withIcon]: !!Icon,
             [styles.withSpinner]: !!loading,
+            [styles.resize]: resize,
           })}
           disabled={disabled === true}
           onBlur={updateFocusState}
@@ -103,13 +101,12 @@ const Input = ({
           onKeyUp={e => onKeyUp && onKeyUp(e)}
           placeholder={placeholder}
           ref={node => {
-            inputRef.current = node
+            textareaRef.current = node
 
             if (innerRef) {
               innerRef.current = node
             }
           }}
-          type={type}
           value={value}
         />
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
@@ -126,4 +123,4 @@ const Input = ({
   )
 }
 
-export default Input
+export default Textarea
