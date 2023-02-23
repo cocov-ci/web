@@ -1,6 +1,7 @@
 import React from 'react'
 
 export interface ModalParams {
+  visible?: boolean
   children: React.ReactNode
 }
 

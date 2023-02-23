@@ -10,10 +10,10 @@ import { ModalParams } from 'types/Modal'
 
 import styles from './Modal.module.scss'
 
-const Modal = ({ children }: ModalParams) => {
+const Modal = ({ children, visible = true }: ModalParams) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const { closeModal } = useModal()
-  const [visible, setVisible] = useState<boolean>(false)
+  const [isVisible, setVisible] = useState<boolean>(visible)
 
   const onEscKeyUpEvent = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
@@ -52,12 +52,12 @@ const Modal = ({ children }: ModalParams) => {
     <>
       <div
         className={classNames(styles.overlay, {
-          [styles.visible]: visible,
+          [styles.visible]: isVisible,
         })}
       />
       <div
         className={classNames(styles.modal, {
-          [styles.visible]: visible,
+          [styles.visible]: isVisible,
         })}
         ref={modalRef}
       >

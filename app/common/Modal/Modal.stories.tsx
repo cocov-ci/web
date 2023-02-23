@@ -35,6 +35,7 @@ type Story = StoryObj<typeof Modal>
 
 export const Default: Story = {
   args: {
+    visible: true,
     children: <p>hey...</p>,
   },
 }
