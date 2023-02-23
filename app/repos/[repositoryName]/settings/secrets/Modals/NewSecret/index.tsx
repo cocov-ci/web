@@ -34,7 +34,12 @@ const DeleteSecret = () => {
         />
       </div>
       <div className={styles.textField}>
-        <Textarea height="188px" label="Value:" labelWidth="45px" />
+        <Textarea
+          height="188px"
+          label="Value:"
+          labelWidth="45px"
+          placeholder="THE_SECRET_NAME"
+        />
       </div>
 
       <div className={styles.buttons}>
