@@ -139,11 +139,11 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
           <li>- Cached commits from this repository</li>
           <li>- Repository Secrets</li>
         </ul>
-        {/* {permissions.can_delete && ( */}
-        <Button onClick={() => onDeleteRepositoryClick()} style="danger">
-          Delete Repository
-        </Button>
-        {/* )} */}
+        {permissions.can_delete && (
+          <Button onClick={() => onDeleteRepositoryClick()} style="danger">
+            Delete Repository
+          </Button>
+        )}
       </div>
     </>
   )
