@@ -10,23 +10,19 @@ import { ModalParams } from 'types/Modal'
 
 import styles from './Modal.module.scss'
 
-const Modal = ({ children, visible = true }: ModalParams) => {
+const Modal = ({ children, visible = false }: ModalParams) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const { closeModal } = useModal()
-  const [isVisible, setVisible] = useState<boolean>(visible)
 
   const onEscKeyUpEvent = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       closeModal()
-      setVisible(false)
 
       return
     }
   }
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 100)
-
     document.addEventListener('keyup', onEscKeyUpEvent)
     const body = document.querySelector('body') as HTMLBodyElement
 
@@ -45,19 +41,18 @@ const Modal = ({ children, visible = true }: ModalParams) => {
 
   useOnClickOutside(modalRef, () => {
     closeModal()
-    setVisible(false)
   })
 
   return (
     <>
       <div
         className={classNames(styles.overlay, {
-          [styles.visible]: isVisible,
+          [styles.visible]: visible,
         })}
       />
       <div
         className={classNames(styles.modal, {
-          [styles.visible]: isVisible,
+          [styles.visible]: visible,
         })}
         ref={modalRef}
       >

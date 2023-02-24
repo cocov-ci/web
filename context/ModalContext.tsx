@@ -11,17 +11,25 @@ export const ModalContext = createContext<ModalPropsContext>({
 })
 
 const ModalProvider = ({ children }: { children: React.ReactNode }) => {
-  const [show, setShow] = useState(false)
+  const [initModal, setInitModal] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
   const [content, setContent] = useState<React.ReactNode>()
 
   const openModal = (content: React.ReactNode) => {
-    setShow(true)
+    setInitModal(true)
     setContent(content)
+
+    setTimeout(() => {
+      setIsVisible(true)
+    }, 100)
   }
 
   const closeModal = () => {
-    setShow(false)
-    setContent(null)
+    setIsVisible(false)
+    setTimeout(() => {
+      setInitModal(false)
+      setContent(null)
+    }, 150)
   }
 
   const memoizedValue = useMemo(
@@ -35,7 +43,7 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <ModalContext.Provider value={memoizedValue}>
       {children}
-      {show && <Modal>{content}</Modal>}
+      {initModal && <Modal visible={isVisible}>{content}</Modal>}
     </ModalContext.Provider>
   )
 }
