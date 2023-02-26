@@ -18,7 +18,9 @@ export const secretNameMap = ({
   response,
   secretName,
 }: secretNameMapProps): secretNameMapResponse | undefined => {
-  if (response.code === 'secrets.invalid_name') {
+  if (!response) return undefined
+
+  if (response?.code === 'secrets.invalid_name') {
     return {
       status: 'error',
       message: response.message as string,

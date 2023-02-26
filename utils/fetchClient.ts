@@ -4,7 +4,12 @@ import wrapPromise from '../pages/api/wrapPromise'
 
 import { ErrorHandler } from './errorHandler'
 
-const fetcher = async (url: string, args?: AxiosRequestConfig) => {
+export interface FetchProps {
+  url: string
+  args?: AxiosRequestConfig
+}
+
+const fetcher = async ({ url, args }: FetchProps) => {
   const response = await axios(url, {
     headers: {
       ...args?.headers,
@@ -26,6 +31,6 @@ const fetcher = async (url: string, args?: AxiosRequestConfig) => {
   return response
 }
 
-export const fetchSuspense = (url: string) => wrapPromise(fetcher(url))
+export const fetchSuspense = (url: string) => wrapPromise(fetcher({ url }))
 
 export default fetcher

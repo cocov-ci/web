@@ -1,7 +1,7 @@
 'use client'
 
 import classNames from 'classnames'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 import Box from 'app/common/Box'
 import useModal from 'hooks/useModal'

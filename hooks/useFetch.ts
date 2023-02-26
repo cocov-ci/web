@@ -25,7 +25,7 @@ const useFetch = ({ url, handler, params }: UseFetchProps) => {
 
     const fetchData = async () => {
       try {
-        const data = await fetcher(request as string)
+        const data = await fetcher({ url: request as string })
 
         setData(data)
         setLoading(false)

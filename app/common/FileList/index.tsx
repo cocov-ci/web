@@ -2,7 +2,6 @@
 
 import classNames from 'classnames'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef } from 'react'
 
 import { CoverageFileProps } from 'types/Coverage'

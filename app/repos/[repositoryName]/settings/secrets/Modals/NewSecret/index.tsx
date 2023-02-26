@@ -1,15 +1,16 @@
 'use client'
 
 import classNames from 'classnames'
+import { debounce } from 'lodash'
 import { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 
 import Button from 'app/common/Button'
 import Input from 'app/common/Input'
 import Text from 'app/common/Text'
 import Textarea from 'app/common/Textarea'
-import useLazyFetch, { ErrorResponse, UseFetchProps } from 'hooks/useLazyFetch'
 import useModal from 'hooks/useModal'
 import useSegments from 'hooks/useSegments'
+import Secrets from 'services/secrets'
 
 import styles from './NewSecret.module.scss'
 import { secretNameMap } from './Utils'
@@ -25,92 +26,72 @@ interface SecretsNameStatusParams {
   icon: ReactElement
 }
 
-interface SecretsCheckNameFetchResponse {
-  data: SecretsCheckNameParams
-  loading: boolean
-  (args: UseFetchProps): void
-  error: ErrorResponse
-}
-
 const DeleteSecret = () => {
   const { closeModal } = useModal()
   const segments = useSegments()
   const [secretName, setSecretName] = useState<string>()
   const [secretValue, setSecretValue] = useState<string>()
-  const [secretNameResponse, setSecretNameResponse] =
-    useState<SecretsCheckNameParams | null>()
+  const [loading, setLoading] = useState<boolean>()
   const [secretNameStatus, setSecretNameStatus] =
     useState<SecretsNameStatusParams | null>()
   const repositoryName = useMemo(() => segments[1], [segments])
 
-  const previousController = useRef<AbortController>()
+  const onSearch = async (value: string) => {
+    setLoading(true)
 
-  let timer: ReturnType<typeof setTimeout>
-
-  const [getSecret, { data, loading, error }] = useLazyFetch(
-    {},
-  ) as SecretsCheckNameFetchResponse[]
-
-  const onSearch = (value: string) => {
-    if (previousController.current) {
-      previousController.current.abort()
-    }
-
-    const controller = new AbortController()
-
-    previousController.current = controller
-
-    getSecret({
-      url: `/api/secrets/check_name`,
-      params: {
-        repo_name: repositoryName,
+    try {
+      const secretNameValidation = await Secrets.checkName({
+        query: {
+          repositoryName: repositoryName,
+        },
         name: value,
-      },
-      args: {
-        signal: controller.signal,
-      },
-    })
+      })
+
+      return secretNameMap({
+        response: secretNameValidation,
+        secretName: value,
+      })
+    } catch (err) {
+      // TODO
+    } finally {
+      setLoading(false)
+    }
   }
 
   const SearchDebounce = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
 
-    if (timer) {
-      clearTimeout(timer)
-    }
-
     setSecretName(value)
+    setSecretNameStatus(null)
 
-    timer = setTimeout(() => {
-      onSearch(value)
-    }, 2000)
+    debouncedSearch(value)
   }
 
-  useEffect(() => {
-    if (secretNameResponse && secretName) {
-      const secretNameObject = secretNameMap({
-        response: secretNameResponse,
-        secretName,
+  const onAddNewSecret = async () => {
+    try {
+      const newSecret = await Secrets.addNew({
+        query: {
+          repositoryName: repositoryName,
+        },
+        data: secretValue as string,
+        name: secretName as string,
       })
-
-      setSecretNameStatus(secretNameObject)
-    } else {
-      setSecretNameStatus(null)
+    } catch (err) {
+      // TODO
+    } finally {
+      closeModal()
     }
-  }, [secretNameResponse, secretName])
+  }
+
+  const debouncedSearch = useRef(
+    debounce(async value => setSecretNameStatus(await onSearch(value)), 1000),
+  ).current
 
   useEffect(() => {
-    if (error && error.code) {
-      setSecretNameResponse(error)
-    } else if (data) {
-      setSecretNameResponse(data)
+    return () => {
+      debouncedSearch.cancel()
     }
-  }, [data, error])
-
-  const searchLoading = useMemo(
-    () => loading || error === ('canceled' as string),
-    [loading, error],
-  )
+  }, [debouncedSearch])
 
   return (
     <div className={styles.content}>
@@ -126,7 +107,7 @@ const DeleteSecret = () => {
           errored={secretNameStatus?.status === 'error'}
           label="Name:"
           labelWidth="45px"
-          loading={searchLoading}
+          loading={loading}
           onChange={SearchDebounce}
           placeholder="THE_SECRET_NAME"
           type="text"
@@ -159,12 +140,10 @@ const DeleteSecret = () => {
       <div className={styles.buttons}>
         <Button
           disabled={
-            !secretNameStatus ||
-            secretNameStatus?.status === 'error' ||
-            searchLoading
+            !secretNameStatus || secretNameStatus?.status === 'error' || loading
           }
           onClick={() => {
-            closeModal()
+            onAddNewSecret()
           }}
           style="primary"
         >

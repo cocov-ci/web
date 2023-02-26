@@ -1,11 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import {
-  AlertTriangle,
-  CheckCircle,
-  CheckCircle2,
-  Cherry,
-  Info,
-} from 'lucide-react'
+import { AlertTriangle, CheckCircle, Cherry, Info } from 'lucide-react'
 
 import Banner, { BannerProps } from './index'
 

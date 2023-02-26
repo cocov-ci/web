@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Album, Bookmark } from 'lucide-react'
+import { Album } from 'lucide-react'
 import React from 'react'
 
 import Button from '../Button'

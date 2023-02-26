@@ -14,13 +14,16 @@ const Auth = {
   exchange: async (
     data: AuthExchangeRequestProps,
   ): Promise<AuthExchangeResponseProps> => {
-    return await fetcher('/api/auth/exchange', {
-      method: 'POST',
-      data: data,
+    return await fetcher({
+      url: '/api/auth/exchange',
+      args: {
+        method: 'POST',
+        data: data,
+      },
     })
   },
   begin: async (): Promise<AuthBeginReponseProps> =>
-    await fetcher('/api/auth/begin', { method: 'POST' }),
+    await fetcher({ url: '/api/auth/begin', args: { method: 'POST' } }),
   setToken: (token: string) => setCookie('cocov_auth_token', token),
   getToken: () => getCookie('cocov_auth_token'),
   deleteToken: () => deleteCookie('cocov_auth_token'),
