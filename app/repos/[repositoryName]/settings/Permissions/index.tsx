@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import Button from 'app/common/Button'
 import SnippetBox from 'app/common/SnippetBox'
 import Text from 'app/common/Text'
-import useLazyFetch from 'hooks/useLazyFetch'
+import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
 import useModal from 'hooks/useModal'
 import { RegenTokenResponseProps, SettingsResponseProps } from 'types/Settings'
 
@@ -21,7 +21,7 @@ interface SidebarProps {
 interface RegenerateTokenFetchResponse {
   data: RegenTokenResponseProps
   loading: boolean
-  (arg: string): void
+  (arg: UseFetchProps): void
 }
 
 const PermissionsComponent = ({ data, loading }: SidebarProps) => {
@@ -53,10 +53,14 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
   }
 
   const onRegenerateTokenClick = () =>
-    regenerateToken(`/api/repositories/${repository.name}/settings/regen-token`)
+    regenerateToken({
+      url: `/api/repositories/${repository.name}/settings/regen-token`,
+    })
 
   const onForceResyncClick = () => {
-    forceResync(`/api/repositories/${repository.name}/settings/sync-github`)
+    forceResync({
+      url: `/api/repositories/${repository.name}/settings/sync-github`,
+    })
     setResyncGithub(true)
   }
 
