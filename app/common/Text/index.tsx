@@ -14,13 +14,14 @@ type TextProps = {
 const Text = ({
   children,
   className,
-  variant = 'title',
+  variant,
   title,
   gutterBottom,
 }: TextProps) => {
   return (
     <p
-      className={classNames(styles.text, styles[variant], className, {
+      className={classNames(styles.text, className, {
+        [styles[variant as string]]: typeof variant === 'string',
         [styles.gutterBottom]: gutterBottom,
       })}
       title={title}
