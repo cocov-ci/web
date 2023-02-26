@@ -8,17 +8,17 @@ export interface ErrorResponse {
   code?: string
   message?: string
 }
-export interface useFetchProps extends Partial<FetchProps> {
+export interface UseFetchProps extends Partial<FetchProps> {
   params?: { [arg: string]: string }
   url?: string
 }
 
-const useLazyFetch = ({ url, params, args }: useFetchProps) => {
+const useLazyFetch = ({ url, params, args }: UseFetchProps) => {
   const [data, setData] = useState<object | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<ErrorResponse | undefined | string>()
 
-  const request = ({ url, params }: useFetchProps): string => {
+  const request = ({ url, params }: UseFetchProps): string => {
     const validParams = omitBy(params, isNil)
 
     return !isEmpty(validParams)
@@ -27,7 +27,7 @@ const useLazyFetch = ({ url, params, args }: useFetchProps) => {
   }
 
   const func = useCallback(
-    ({ url: funcUrl, params: funcParams, args: funcArgs }: useFetchProps) => {
+    ({ url: funcUrl, params: funcParams, args: funcArgs }: UseFetchProps) => {
       setLoading(true)
 
       const fetchUrl = url || funcUrl
