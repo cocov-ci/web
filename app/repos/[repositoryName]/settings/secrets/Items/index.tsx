@@ -1,31 +1,61 @@
 'use client'
 
-import { Trash } from 'lucide-react'
+import { BoxSelect, Trash } from 'lucide-react'
+import { useMemo } from 'react'
 
 import AccessoryButton from 'app/common/AccessoryButton'
+import Alert from 'app/common/Alert'
 import Button from 'app/common/Button'
 import Secret from 'app/common/Secret'
 import Text from 'app/common/Text'
 import useModal from 'hooks/useModal'
+import { SecretParams } from 'types/Secrets'
 
 import DeleteSecret from '../Modals/DeleteSecret'
 import NewSecret from '../Modals/NewSecret'
 
 import styles from './Items.module.scss'
+import Loading from './Loading'
 
-const threeMonthsAgo = new Date(new Date().setMonth(new Date().getMonth() - 3))
-const twoHoursAgo = new Date(new Date().setHours(new Date().getHours() - 2))
+interface ItemParans {
+  secrets: SecretParams[]
+  refetch: () => void
+  loading: boolean
+}
 
-const Items = () => {
+const Items = ({ secrets, refetch, loading }: ItemParans) => {
   const { openModal } = useModal()
 
-  const onDeleteSecretClick = (id: number) => {
-    openModal(<DeleteSecret secretId={id} />)
+  const repositorySecrets = useMemo(
+    () => secrets?.filter(item => item.scope === 'repository'),
+    [secrets],
+  )
+  const organizationSecrets = useMemo(
+    () => secrets?.filter(item => item.scope === 'organization'),
+    [secrets],
+  )
+
+  const onDeleteSecretClick = (secret: SecretParams) => {
+    openModal(<DeleteSecret onSuccess={() => refetch()} secret={secret} />)
   }
 
   const onNewSecretClick = () => {
-    openModal(<NewSecret />)
+    openModal(<NewSecret onSuccess={() => refetch()} />)
   }
+
+  const NoRepositoryAlert = ({ description }: { description: string }) => {
+    return (
+      <Alert
+        className={styles.noRepositoryAlert}
+        description={description}
+        icon={BoxSelect}
+        noBorder
+        title="No Secrets"
+      />
+    )
+  }
+
+  if (loading) return <Loading />
 
   return (
     <>
@@ -35,80 +65,42 @@ const Items = () => {
           <Button onClick={() => onNewSecretClick()}>New Secret</Button>
         </div>
         <div className={styles.list}>
-          <Secret
-            metadata={{
-              createdAt: threeMonthsAgo,
-              createdBy: 'Cocov',
-              lastUsed: twoHoursAgo,
-            }}
-            name="GIT_CONFIG"
-            showDivider={true}
-          >
-            <AccessoryButton
-              kind="squared"
-              onClick={() => onDeleteSecretClick(1)}
+          {repositorySecrets.length === 0 && (
+            <NoRepositoryAlert description="Secrets available exclusivelly for this repository will appear here. Use the button above to create a new." />
+          )}
+          {repositorySecrets.map(item => (
+            <Secret
+              key={item.id}
+              metadata={{
+                createdAt: new Date(item.created_at),
+                createdBy: item.owner.login,
+                ...(item.last_used_at && {
+                  lastUsed: new Date(item.last_used_at),
+                }),
+              }}
+              name={item.name}
+              showDivider={true}
             >
-              <Trash width="18px" />
-            </AccessoryButton>
-          </Secret>
-          <Secret
-            metadata={{
-              createdAt: threeMonthsAgo,
-              createdBy: 'Cocov',
-              lastUsed: twoHoursAgo,
-            }}
-            name="GIT_CONFIG"
-            showDivider={true}
-          >
-            <AccessoryButton
-              kind="squared"
-              onClick={() => onDeleteSecretClick(1)}
-            >
-              <Trash width="18px" />
-            </AccessoryButton>
-          </Secret>
-          <Secret
-            metadata={{
-              createdAt: threeMonthsAgo,
-              createdBy: 'Cocov',
-              lastUsed: twoHoursAgo,
-            }}
-            name="GIT_CONFIG"
-            showDivider={true}
-          >
-            <AccessoryButton
-              kind="squared"
-              onClick={() => onDeleteSecretClick(1)}
-            >
-              <Trash width="18px" />
-            </AccessoryButton>
-          </Secret>
-          <Secret
-            metadata={{
-              createdAt: threeMonthsAgo,
-              createdBy: 'Cocov',
-              lastUsed: twoHoursAgo,
-            }}
-            name="GIT_CONFIG"
-            showDivider={true}
-          >
-            <AccessoryButton
-              kind="squared"
-              onClick={() => onDeleteSecretClick(1)}
-            >
-              <Trash width="18px" />
-            </AccessoryButton>
-          </Secret>
+              <AccessoryButton
+                kind="squared"
+                onClick={() => onDeleteSecretClick(item)}
+              >
+                <Trash width="18px" />
+              </AccessoryButton>
+            </Secret>
+          ))}
         </div>
       </div>
       <div className={styles.item}>
         <Text className={styles.title}>Organization Secrets</Text>
 
         <div className={styles.list}>
-          <Secret name="GIT_CONFIG" showDivider={true} />
-          <Secret name="GIT_CONFIG" showDivider={true} />
-          <Secret name="GIT_CONFIG" showDivider={true} />
-          <Secret name="GIT_CONFIG" showDivider={true} />
+          {organizationSecrets.length === 0 && (
+            <NoRepositoryAlert description="Generally available secrets are listed here. They are available for all repositories and are setup by administrators." />
+          )}
+          {organizationSecrets.map(item => (
+            <Secret key={item.id} name={item.name} showDivider={true} />
+          ))}
         </div>
       </div>
     </>

@@ -1,25 +1,28 @@
 'use client'
 
+import { useEffect } from 'react'
+
 import FixedContent from 'app/common/FixedContent'
 import Text from 'app/common/Text'
 import useFetch from 'hooks/useFetch'
-import { SecretsResponseProps } from 'types/Settings'
+import { SecretsFetchParams } from 'types/Secrets'
 
 import Sidebar from '../Sidebar'
 
 import Items from './Items'
 import styles from './Page.module.scss'
-interface SettingsParams {
+interface SecretsParams {
   params: { repositoryName: string; commitSha: string }
 }
 
 interface SecretsFetchResponse {
-  data: SecretsResponseProps
+  data: SecretsFetchParams
   loading: boolean
+  refetch: () => void
 }
 
-const Secrets = ({ params: { repositoryName } }: SettingsParams) => {
-  const { data, loading } = useFetch({
+const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
+  const { data, loading, refetch } = useFetch({
     url: `/api/repositories/${repositoryName}/secrets`,
     handler: [],
   }) as SecretsFetchResponse
@@ -32,7 +35,7 @@ const Secrets = ({ params: { repositoryName } }: SettingsParams) => {
             defaultSelectedItem="Secrets"
             loading={loading}
             repositoryName={repositoryName}
-            secretsCount={data?.secrets_count}
+            secretsCount={data?.secrets?.length}
           />
         </div>
         <div className={styles.info}>
@@ -49,8 +52,7 @@ const Secrets = ({ params: { repositoryName } }: SettingsParams) => {
               Organization Secret, the repository’s one will be preferred.
             </Text>
           </div>
-
-          <Items />
+          <Items loading={loading} refetch={refetch} secrets={data?.secrets} />
         </div>
       </div>
     </FixedContent>

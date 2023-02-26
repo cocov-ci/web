@@ -1,29 +1,16 @@
-import { SecretsCheckNameParams } from 'types/Secrets'
+import {
+  AddSecretParams,
+  CheckNameParams,
+  DeleteSecretParams,
+  SecretParams,
+  SecretsCheckNameParams,
+} from 'types/Secrets'
 import fetcher from 'utils/fetchClient'
-
-interface CheckNameParams {
-  query: {
-    repositoryName: string
-  }
-  name: string
-}
-
-interface AddSecretParams {
-  data: string
-  name: string
-  query: {
-    repositoryName: string
-  }
-}
 
 const Secrets = {
   checkName: async (data: CheckNameParams): Promise<SecretsCheckNameParams> => {
-    const {
-      query: { repositoryName },
-    } = data
-
     return await fetcher({
-      url: `/api/repositories/${repositoryName}/secrets/check_name`,
+      url: `/api/repositories/${data.repositoryName}/secrets/check_name`,
       args: { params: { name: data.name } },
     })
       .then(res => res)
@@ -35,14 +22,15 @@ const Secrets = {
         }
       })
   },
-  addNew: async (data: AddSecretParams): Promise<SecretsCheckNameParams> => {
-    const {
-      query: { repositoryName },
-    } = data
-
+  add: async (data: AddSecretParams): Promise<SecretParams> => {
     return await fetcher({
-      url: `/api/repositories/${repositoryName}/secrets`,
+      url: `/api/repositories/${data.repositoryName}/secrets/new`,
       args: { params: { name: data.name, data: data.data } },
+    })
+  },
+  delete: async (data: DeleteSecretParams): Promise<SecretsCheckNameParams> => {
+    return await fetcher({
+      url: `/api/repositories/${data.repositoryName}/secrets/delete/${data.id}`,
     })
   },
 }

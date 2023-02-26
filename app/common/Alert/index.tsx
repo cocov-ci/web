@@ -9,15 +9,20 @@ type BoxProps = {
   className?: string
   title?: string
   description?: string
+  noBorder?: boolean
   icon?: LucideIcon
 }
 
-const Alert = ({ className, icon, title, description }: BoxProps) => {
+const Alert = ({ className, icon, title, description, noBorder }: BoxProps) => {
   const Icon = icon as LucideIcon
 
   return (
     <div className={classNames(styles.alert, className)}>
-      <div className={styles.box}>
+      <div
+        className={classNames(styles.box, {
+          [styles.noBorder]: noBorder,
+        })}
+      >
         {icon && <Icon className={styles.icon} size={40} />}
         <div className={styles.content}>
           {title && <h2>{title}</h2>}

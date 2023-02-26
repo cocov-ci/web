@@ -45,10 +45,8 @@ const useLazyFetch = ({ url, params, args }: UseFetchProps) => {
 
           setData(data)
           setError(undefined)
-          setLoading(false)
         } catch (err) {
           setData(undefined)
-          setLoading(false)
 
           if (err instanceof Error) {
             if (err instanceof AxiosError) {
@@ -61,6 +59,8 @@ const useLazyFetch = ({ url, params, args }: UseFetchProps) => {
           } else {
             setError('Generic error message')
           }
+        } finally {
+          setLoading(false)
         }
       }
 

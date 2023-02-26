@@ -38,3 +38,9 @@ export const WithIcon: Story = {
     icon: Ghost,
   },
 }
+
+export const NoBorder: Story = {
+  args: {
+    noBorder: true,
+  },
+}

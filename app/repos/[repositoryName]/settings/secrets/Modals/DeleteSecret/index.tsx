@@ -1,30 +1,45 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useMemo, useState } from 'react'
 
 import Button from 'app/common/Button'
 import Secret from 'app/common/Secret'
 import Text from 'app/common/Text'
-import useLazyFetch from 'hooks/useLazyFetch'
 import useModal from 'hooks/useModal'
+import useSegments from 'hooks/useSegments'
+import Secrets from 'services/secrets'
+import { SecretParams } from 'types/Secrets'
 
 import styles from './DeleteSecret.module.scss'
 
-interface DeleteSecretFetchResponse {
-  loading: boolean
-  (): void
+interface DeleteSecretParams {
+  secret: SecretParams
+  onSuccess: () => void
 }
 
-const threeMonthsAgo = new Date(new Date().setMonth(new Date().getMonth() - 3))
-const twoHoursAgo = new Date(new Date().setHours(new Date().getHours() - 2))
-
-const DeleteSecret = ({ secretId }: { secretId: number }) => {
+const DeleteSecret = ({ secret, onSuccess }: DeleteSecretParams) => {
   const { closeModal } = useModal()
-  const router = useRouter()
+  const segments = useSegments()
+  const repositoryName = useMemo(() => segments[1], [segments])
+  const [loading, setLoading] = useState<boolean>()
 
-  const [deleteSecret, { loading }] = useLazyFetch({
-    url: `/api/repositories/${secretId}/settings/delete`,
-  }) as DeleteSecretFetchResponse[]
+  const onDeleteSecret = async () => {
+    setLoading(true)
+
+    try {
+      await Secrets.delete({
+        repositoryName: repositoryName,
+        id: secret.id,
+      })
+
+      onSuccess()
+    } catch (err) {
+      // TODO
+    } finally {
+      closeModal()
+      setLoading(false)
+    }
+  }
 
   return (
     <div className={styles.content}>
@@ -41,11 +56,13 @@ const DeleteSecret = ({ secretId }: { secretId: number }) => {
       </Text>
       <Secret
         metadata={{
-          createdAt: threeMonthsAgo,
-          createdBy: 'Cocov',
-          lastUsed: twoHoursAgo,
+          createdAt: new Date(secret.created_at),
+          createdBy: secret.owner.login,
+          ...(secret.last_used_at && {
+            lastUsed: new Date(secret.last_used_at),
+          }),
         }}
-        name="GIT_CONFIG"
+        name={secret.name}
       />
 
       <Text gutterBottom variant="description">
@@ -59,9 +76,7 @@ const DeleteSecret = ({ secretId }: { secretId: number }) => {
         <Button
           disabled={loading}
           onClick={() => {
-            deleteSecret()
-            router.push('/')
-            closeModal()
+            onDeleteSecret()
           }}
           style="danger"
         >

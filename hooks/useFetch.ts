@@ -20,7 +20,7 @@ const useFetch = ({ url, handler, params }: UseFetchProps) => {
     ? `${url}?${new URLSearchParams(validParams)}`
     : url
 
-  useEffect(() => {
+  const fetch = () => {
     setLoading(Boolean(url))
 
     const fetchData = async () => {
@@ -28,20 +28,28 @@ const useFetch = ({ url, handler, params }: UseFetchProps) => {
         const data = await fetcher({ url: request as string })
 
         setData(data)
-        setLoading(false)
+        setError(undefined)
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message)
         } else {
           setError('Generic error message')
         }
+
+        setData(undefined)
+      } finally {
+        setLoading(false)
       }
     }
 
     if (url) fetchData()
+  }
+
+  useEffect(() => {
+    fetch()
   }, handler)
 
-  return { data, loading, error }
+  return { data, loading, error, refetch: () => fetch() }
 }
 
 export default useFetch

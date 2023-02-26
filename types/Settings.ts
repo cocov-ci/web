@@ -15,8 +15,3 @@ export interface SettingsPermissionsProps {
 export interface RegenTokenResponseProps {
   new_token: string
 }
-
-export interface SecretsResponseProps {
-  list: []
-  secrets_count: number
-}

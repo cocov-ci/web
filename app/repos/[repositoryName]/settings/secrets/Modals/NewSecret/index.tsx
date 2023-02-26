@@ -26,7 +26,11 @@ interface SecretsNameStatusParams {
   icon: ReactElement
 }
 
-const DeleteSecret = () => {
+interface NewSecretParams {
+  onSuccess: () => void
+}
+
+const NewSecret = ({ onSuccess }: NewSecretParams) => {
   const { closeModal } = useModal()
   const segments = useSegments()
   const [secretName, setSecretName] = useState<string>()
@@ -41,9 +45,8 @@ const DeleteSecret = () => {
 
     try {
       const secretNameValidation = await Secrets.checkName({
-        query: {
-          repositoryName: repositoryName,
-        },
+        repositoryName: repositoryName,
+
         name: value,
       })
 
@@ -69,13 +72,13 @@ const DeleteSecret = () => {
 
   const onAddNewSecret = async () => {
     try {
-      const newSecret = await Secrets.addNew({
-        query: {
-          repositoryName: repositoryName,
-        },
+      await Secrets.add({
+        repositoryName: repositoryName,
         data: secretValue as string,
         name: secretName as string,
       })
+
+      onSuccess()
     } catch (err) {
       // TODO
     } finally {
@@ -162,4 +165,4 @@ const DeleteSecret = () => {
   )
 }
 
-export default DeleteSecret
+export default NewSecret
