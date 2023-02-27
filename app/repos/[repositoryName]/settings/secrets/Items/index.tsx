@@ -17,23 +17,15 @@ import NewSecret from '../Modals/NewSecret'
 import styles from './Items.module.scss'
 import Loading from './Loading'
 
-interface ItemParans {
-  secrets: SecretParams[]
+interface ItemParams {
+  repoSecrets: SecretParams[]
+  orgSecrets: SecretParams[]
   refetch: () => void
   loading: boolean
 }
 
-const Items = ({ secrets, refetch, loading }: ItemParans) => {
+const Items = ({ repoSecrets, orgSecrets, refetch, loading }: ItemParams) => {
   const { openModal } = useModal()
-
-  const repositorySecrets = useMemo(
-    () => secrets?.filter(item => item.scope === 'repository'),
-    [secrets],
-  )
-  const organizationSecrets = useMemo(
-    () => secrets?.filter(item => item.scope === 'organization'),
-    [secrets],
-  )
 
   const onDeleteSecretClick = (secret: SecretParams) => {
     openModal(<DeleteSecret onSuccess={() => refetch()} secret={secret} />)
@@ -65,10 +57,10 @@ const Items = ({ secrets, refetch, loading }: ItemParans) => {
           <Button onClick={() => onNewSecretClick()}>New Secret</Button>
         </div>
         <div className={styles.list}>
-          {repositorySecrets.length === 0 && (
+          {repoSecrets?.length === 0 && (
             <NoRepositoryAlert description="Secrets available exclusivelly for this repository will appear here. Use the button above to create a new." />
           )}
-          {repositorySecrets.map(item => (
+          {repoSecrets?.map(item => (
             <Secret
               key={item.id}
               metadata={{
@@ -95,10 +87,10 @@ const Items = ({ secrets, refetch, loading }: ItemParans) => {
         <Text className={styles.title}>Organization Secrets</Text>
 
         <div className={styles.list}>
-          {organizationSecrets.length === 0 && (
+          {orgSecrets?.length === 0 && (
             <NoRepositoryAlert description="Generally available secrets are listed here. They are available for all repositories and are setup by administrators." />
           )}
-          {organizationSecrets.map(item => (
+          {orgSecrets?.map(item => (
             <Secret key={item.id} name={item.name} showDivider={true} />
           ))}
         </div>

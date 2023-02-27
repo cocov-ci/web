@@ -22,8 +22,17 @@ interface SecretsFetchResponse {
 }
 
 const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
-  const { data, loading, refetch } = useFetch({
+  const {
+    data: dataRepoSecrets,
+    loading: loadingRepoSecrets,
+    refetch,
+  } = useFetch({
     url: `/api/repositories/${repositoryName}/secrets`,
+    handler: [],
+  }) as SecretsFetchResponse
+
+  const { data: dataOrgSecrets, loading: loadingOrgSecrets } = useFetch({
+    url: `/api/secrets`,
     handler: [],
   }) as SecretsFetchResponse
 
@@ -33,9 +42,9 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
         <div className={styles.sidebar}>
           <Sidebar
             defaultSelectedItem="Secrets"
-            loading={loading}
+            loading={loadingRepoSecrets || loadingOrgSecrets}
             repositoryName={repositoryName}
-            secretsCount={data?.secrets?.length}
+            secretsCount={dataRepoSecrets?.secrets?.length}
           />
         </div>
         <div className={styles.info}>
@@ -52,7 +61,12 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
               Organization Secret, the repository’s one will be preferred.
             </Text>
           </div>
-          <Items loading={loading} refetch={refetch} secrets={data?.secrets} />
+          <Items
+            loading={loadingRepoSecrets || loadingOrgSecrets}
+            orgSecrets={dataOrgSecrets?.secrets}
+            refetch={refetch}
+            repoSecrets={dataRepoSecrets?.secrets}
+          />
         </div>
       </div>
     </FixedContent>

@@ -16,7 +16,7 @@ export const Default: Story = {
   args: {
     loading: false,
     refetch: () => null,
-    secrets: [
+    repoSecrets: [
       {
         created_at: '2023-02-26T22:57:52Z',
         id: 4,
@@ -37,7 +37,7 @@ export const Default: Story = {
           login: 'robsoncoelho',
           avatar_url: 'https://avatars.githubusercontent.com/u/1746652?v=4',
         },
-        scope: 'organization',
+        scope: 'repository',
       },
     ],
   },
@@ -47,7 +47,7 @@ export const Loading: Story = {
   args: {
     loading: true,
     refetch: () => null,
-    secrets: [
+    repoSecrets: [
       {
         created_at: '2023-02-26T22:57:52Z',
         id: 4,
