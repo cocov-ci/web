@@ -2,7 +2,13 @@
 
 import classNames from 'classnames'
 import { debounce } from 'lodash'
-import { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 import Button from 'app/common/Button'
 import Input from 'app/common/Input'
@@ -39,6 +45,7 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
   const [loading, setLoading] = useState<boolean>()
   const [secretNameStatus, setSecretNameStatus] =
     useState<SecretsNameStatusParams | null>()
+  const [submitting, setSubmitting] = useState<boolean>()
   const repositoryName = useMemo(() => segments[1], [segments])
 
   const onSearch = async (value: string) => {
@@ -83,6 +90,7 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
     } catch (err) {
       // TODO
     } finally {
+      setSubmitting(false)
       closeModal()
     }
   }
@@ -146,9 +154,13 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
       <div className={styles.buttons}>
         <Button
           disabled={
-            !secretNameStatus || secretNameStatus?.status === 'error' || loading
+            !secretNameStatus ||
+            secretNameStatus?.status === 'error' ||
+            loading ||
+            submitting
           }
           onClick={() => {
+            setSubmitting(true)
             onAddNewSecret()
           }}
           style="primary"
