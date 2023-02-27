@@ -2,7 +2,13 @@
 
 import classNames from 'classnames'
 import { debounce } from 'lodash'
-import { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 import Button from 'app/common/Button'
 import Input from 'app/common/Input'
@@ -11,6 +17,7 @@ import Textarea from 'app/common/Textarea'
 import useModal from 'hooks/useModal'
 import useSegments from 'hooks/useSegments'
 import Secrets from 'services/secrets'
+import { inconsolata } from 'utils/fonts'
 
 import styles from './NewSecret.module.scss'
 import { secretNameMap } from './Utils'
@@ -38,6 +45,7 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
   const [loading, setLoading] = useState<boolean>()
   const [secretNameStatus, setSecretNameStatus] =
     useState<SecretsNameStatusParams | null>()
+  const [submitting, setSubmitting] = useState<boolean>()
   const repositoryName = useMemo(() => segments[1], [segments])
 
   const onSearch = async (value: string) => {
@@ -82,6 +90,7 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
     } catch (err) {
       // TODO
     } finally {
+      setSubmitting(false)
       closeModal()
     }
   }
@@ -108,6 +117,7 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
       <div className={styles.textField}>
         <Input
           errored={secretNameStatus?.status === 'error'}
+          inputClassName={classNames(styles.nameInput, inconsolata.className)}
           label="Name:"
           labelWidth="45px"
           loading={loading}
@@ -132,6 +142,7 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
       <div className={styles.textField}>
         <Textarea
           height="188px"
+          inputClassName={inconsolata.className}
           label="Value:"
           labelWidth="45px"
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -143,9 +154,13 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
       <div className={styles.buttons}>
         <Button
           disabled={
-            !secretNameStatus || secretNameStatus?.status === 'error' || loading
+            !secretNameStatus ||
+            secretNameStatus?.status === 'error' ||
+            loading ||
+            submitting
           }
           onClick={() => {
+            setSubmitting(true)
             onAddNewSecret()
           }}
           style="primary"

@@ -26,6 +26,7 @@ interface InputProps {
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   autoFocus?: boolean
   innerRef?: React.MutableRefObject<HTMLInputElement | null>
+  inputClassName?: string
 }
 
 const Input = ({
@@ -46,6 +47,7 @@ const Input = ({
   icon: Icon,
   innerRef,
   labelWidth,
+  inputClassName,
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [focused, setFocused] = useState(false)
@@ -91,7 +93,7 @@ const Input = ({
         )}
         <input
           autoFocus={autoFocus}
-          className={classNames(styles.input, {
+          className={classNames(styles.input, inputClassName, {
             [styles.withIcon]: !!Icon,
             [styles.withSpinner]: !!loading,
           })}

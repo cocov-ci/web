@@ -22,6 +22,7 @@ interface TextareaProps {
   variation?: 'light' | 'dark'
   autoFocus?: boolean
   innerRef?: React.MutableRefObject<HTMLTextAreaElement | null>
+  inputClassName?: string
 }
 
 const Textarea = ({
@@ -43,6 +44,7 @@ const Textarea = ({
   labelWidth,
   height,
   resize,
+  inputClassName,
 }: TextareaProps & React.HTMLProps<HTMLTextAreaElement>) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const [focused, setFocused] = useState(false)
@@ -88,7 +90,7 @@ const Textarea = ({
         )}
         <textarea
           autoFocus={autoFocus}
-          className={classNames(styles.textarea, {
+          className={classNames(styles.textarea, inputClassName, {
             [styles.withIcon]: !!Icon,
             [styles.withSpinner]: !!loading,
             [styles.resize]: resize,
