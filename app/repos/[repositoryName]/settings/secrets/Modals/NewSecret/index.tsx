@@ -11,6 +11,7 @@ import Textarea from 'app/common/Textarea'
 import useModal from 'hooks/useModal'
 import useSegments from 'hooks/useSegments'
 import Secrets from 'services/secrets'
+import { inconsolata } from 'utils/fonts'
 
 import styles from './NewSecret.module.scss'
 import { secretNameMap } from './Utils'
@@ -108,6 +109,7 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
       <div className={styles.textField}>
         <Input
           errored={secretNameStatus?.status === 'error'}
+          inputClassName={classNames(styles.nameInput, inconsolata.className)}
           label="Name:"
           labelWidth="45px"
           loading={loading}
@@ -132,6 +134,7 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
       <div className={styles.textField}>
         <Textarea
           height="188px"
+          inputClassName={inconsolata.className}
           label="Value:"
           labelWidth="45px"
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
