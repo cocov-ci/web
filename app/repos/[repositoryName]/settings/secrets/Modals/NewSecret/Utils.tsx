@@ -23,7 +23,7 @@ export const secretNameMap = ({
   if (response?.code === 'secrets.invalid_name') {
     return {
       status: 'error',
-      message: response.message as string,
+      message: `Secret names must contain only alphanumeric characters (A-Z, a-z, 0-9) and underscores (_). Spaces are not allowed. They must begin with a letter (A-Z, a-z) or an underscore (_).`,
       icon: <XSquare />,
     }
   }
