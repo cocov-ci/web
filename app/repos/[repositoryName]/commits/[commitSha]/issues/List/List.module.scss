@@ -1,3 +1,5 @@
+@use "sass:map";
+@use "sass:color";
 @import "styles/variables.module";
 
 .list {
@@ -33,6 +35,88 @@
     .file {
       font-variation-settings: "wght" 300;
       margin-right: 5px;
+    }
+  }
+
+  &.ignored {
+    opacity: 0.5;
+  }
+}
+
+.issueWrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.ignoreWrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+
+  .ignoreBlock {
+    background: color.adjust($colorBlack, $alpha: -0.14);
+    box-shadow: 0 2px 20px 0 color.adjust($colorBlack, $alpha: -0.5);
+    border-radius: 4px;
+    color: $colorGray;
+    margin: 0 20px;
+    padding: 8px 12px;
+    transition: transform 0.2s ease-out;
+    height: 240px;
+    bottom: -203px;
+    position: relative;
+    backdrop-filter: blur(12px) saturate(100%);
+    display: flex;
+    flex-direction: column;
+
+    > .content {
+      margin-top: 5px;
+      color: $colorWhite;
+      flex: 1;
+      overflow-y: scroll;
+
+      &.empty {
+        color: $colorGray;
+        font-style: italic;
+        opacity: 0.7;
+      }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+
+      .avatar {
+        margin-left: 2px;
+      }
+
+      .content {
+        margin-left: 8px;
+        display: flex;
+        align-items: center;
+        column-gap: 4px;
+      }
+
+      .chevron {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+
+        > svg {
+          transition: transform 0.2s ease-out;
+        }
+      }
+    }
+
+    &.close {
+      cursor: pointer;
+    }
+
+    &.open {
+      transform: translateY(-200px);
+
+      .chevron > svg {
+        transform: rotate(180deg);
+      }
     }
   }
 }

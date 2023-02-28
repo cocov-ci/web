@@ -20,11 +20,22 @@ interface WarningData extends BasicIssueData {
 
 export type IssueFileContentProps = LineData | WarningData
 
+export type IssueIgnoreMetadata = {
+  ignore_source: 'rule' | 'user'
+  ignored_at: string
+  reason?: string
+  ignored_by: {
+    name: string
+    avatar?: string
+  }
+}
+
 export interface IssueProps {
   affected_file: {
     content: IssueFileContentProps[]
     status: 'ok' | 'errored' | 'new'
   }
+  ignored?: IssueIgnoreMetadata
   check_source: string
   file: string
   id: number
