@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
@@ -12,6 +12,7 @@ import styles from './DeleteRepository.module.scss'
 
 interface DeleteRepositoryFetchResponse {
   loading: boolean
+  data: []
   (): void
 }
 
@@ -20,9 +21,17 @@ const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
   const { closeModal } = useModal()
   const router = useRouter()
 
-  const [deleteRepository, { loading }] = useLazyFetch({
+  const [deleteRepository, { data, loading }] = useLazyFetch({
     url: `/api/repositories/${repositoryName}/settings/delete`,
   }) as DeleteRepositoryFetchResponse[]
+
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem('repositoryDeleted', repositoryName)
+      router.push('/')
+      closeModal()
+    }
+  }, [data])
 
   return (
     <div className={styles.content}>
@@ -61,11 +70,7 @@ const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
       <div className={styles.buttons}>
         <Button
           disabled={!checked || loading}
-          onClick={() => {
-            deleteRepository()
-            router.push('/')
-            closeModal()
-          }}
+          onClick={() => deleteRepository()}
           style="danger"
         >
           Yes, delete it
