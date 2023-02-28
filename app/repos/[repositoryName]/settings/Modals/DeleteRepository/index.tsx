@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
-import useLazyFetch from 'hooks/useLazyFetch'
+import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
 import useModal from 'hooks/useModal'
 
 import styles from './DeleteRepository.module.scss'
@@ -13,7 +13,7 @@ import styles from './DeleteRepository.module.scss'
 interface DeleteRepositoryFetchResponse {
   loading: boolean
   data: []
-  (): void
+  (arg: UseFetchProps): void
 }
 
 const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
@@ -70,7 +70,7 @@ const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
       <div className={styles.buttons}>
         <Button
           disabled={!checked || loading}
-          onClick={() => deleteRepository()}
+          onClick={() => deleteRepository({})}
           style="danger"
         >
           Yes, delete it

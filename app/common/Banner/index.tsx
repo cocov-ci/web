@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { LucideIcon, XIcon } from 'lucide-react'
+import { LucideIcon, X } from 'lucide-react'
 import React from 'react'
 
 import styles from './Banner.module.scss'
@@ -44,7 +44,7 @@ const Banner = ({
               <div className={styles.content}>{children}</div>
               <div className={styles.close}>
                 <button onClick={onClose}>
-                  <XIcon size={20} />
+                  <X size={20} />
                 </button>
               </div>
             </div>
