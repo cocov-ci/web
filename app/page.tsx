@@ -19,6 +19,7 @@ import Loading from './loading'
 interface RepositoriesFetchResponse {
   data: RepositoriesResponseProps
   loading: boolean
+  refetch: () => void
 }
 
 const hasRepositoriesList = (
@@ -32,7 +33,7 @@ const Repositories = () => {
 
   const isSearching = useMemo(() => search.length > 0, [search])
 
-  const { data, loading } = useFetch({
+  const { data, loading, refetch } = useFetch({
     url: `/api/repositories?search_term=${search}&page=${currentPage}`,
     handler: [currentPage, search],
   }) as RepositoriesFetchResponse
@@ -57,6 +58,8 @@ const Repositories = () => {
 
   useEffect(() => {
     if (localStorage.getItem('repositoryDeleted')) {
+      refetch()
+
       showBanner({
         icon: Trash,
         children: 'Repository successfully deleted.',
