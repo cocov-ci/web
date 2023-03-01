@@ -1,6 +1,6 @@
 import { HeadProps } from './Commits'
 
-export interface BranchResponseProps {
+export interface BranchProps {
   id: number
   name: string
   coverage: null

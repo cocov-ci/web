@@ -8,7 +8,7 @@ import CodeBlock from 'app/common/CodeBlock'
 import Duration from 'app/common/Duration'
 import Loading from 'app/common/Loading'
 import Text from 'app/common/Text'
-import useLazyFetch from 'hooks/useLazyFetch'
+import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
 import useSegments from 'hooks/useSegments'
 import { CheckProps } from 'types/Checks'
 
@@ -21,7 +21,7 @@ export interface CheckComponentProps {
 
 interface CheckFetchResponse {
   data: CheckProps
-  (): void
+  (arg: UseFetchProps): void
 }
 
 const Check = ({ check, issuesCounter }: CheckComponentProps) => {
@@ -36,7 +36,7 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
   }) as CheckFetchResponse[]
 
   useEffect(() => {
-    if (status === 'errored') getCheck()
+    if (status === 'errored') getCheck({})
   }, [status])
 
   const getIssuesReportedMessage = useMemo(() => {

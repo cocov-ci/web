@@ -1,6 +1,7 @@
 import Box from 'app/common/Box'
 import Histogram from 'app/common/Histogram'
 import Text from 'app/common/Text'
+import { BranchProps } from 'types/Branches'
 import fetcher from 'utils/fetchServer'
 
 import Empty from './Empty'
@@ -8,16 +9,16 @@ import styles from './TopIssues.module.scss'
 
 interface TopIssuesProps {
   repositoryName: string
-  branchName: string
+  branch: BranchProps
 }
 
 type TopIssuesReponseProps = {
   [any: string]: number
 }
 
-const TopIssues = async ({ repositoryName, branchName }: TopIssuesProps) => {
+const TopIssues = async ({ repositoryName, branch }: TopIssuesProps) => {
   const data: TopIssuesReponseProps = await fetcher(
-    `/v1/repositories/${repositoryName}/branches/top_issues/${branchName}`,
+    `/v1/repositories/${repositoryName}/branches/top_issues/${branch.name}`,
   )
 
   if (!data || data?.code === 404) return null
@@ -25,7 +26,7 @@ const TopIssues = async ({ repositoryName, branchName }: TopIssuesProps) => {
   const values = Object.keys(data).map(item => ({
     value: data[item],
     label: item,
-    href: '/',
+    href: `/repos/${repositoryName}/commits/${branch.head.sha}/issues?category=${item}`,
   }))
 
   return (

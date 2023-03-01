@@ -5,14 +5,14 @@ import { useState } from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
-import useLazyFetch from 'hooks/useLazyFetch'
+import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
 import useModal from 'hooks/useModal'
 
 import styles from './DeleteRepository.module.scss'
 
 interface DeleteRepositoryFetchResponse {
   loading: boolean
-  (): void
+  (arg: UseFetchProps): void
 }
 
 const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
@@ -62,7 +62,7 @@ const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
         <Button
           disabled={!checked || loading}
           onClick={() => {
-            deleteRepository()
+            deleteRepository({})
             router.push('/')
             closeModal()
           }}
