@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
-import useLazyFetch from 'hooks/useLazyFetch'
+import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
 import { ChecksResponseProps, CheckStatus } from 'types/Checks'
 
 import Alert from './Alert'
@@ -19,7 +19,7 @@ interface ChecksParams {
 interface ChecksFetchResponse {
   data: ChecksResponseProps
   loading: boolean
-  (): void
+  (arg: UseFetchProps): void
 }
 
 const finishedStatuses: CheckStatus[] = ['succeeded', 'errored', 'canceled']
@@ -37,14 +37,14 @@ const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
   const allSucceeded = useMemo(() => isCheckFinished(data?.status), [data])
 
   useEffect(() => {
-    getChecks()
+    getChecks({})
   }, [])
 
   useEffect(() => {
     if (allSucceeded) {
       clearInterval(polling)
     } else {
-      polling = setInterval(() => getChecks(), 5000)
+      polling = setInterval(() => getChecks({}), 5000)
     }
 
     return () => {

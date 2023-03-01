@@ -76,3 +76,41 @@ export const Default: Story = {
     issues: [issue, issue],
   },
 }
+
+export const Ignored: Story = {
+  args: {
+    issues: [
+      {
+        ignored: {
+          ignored_by: {
+            name: 'heyvito',
+            avatar: 'https://avatars.githubusercontent.com/u/77198?v=4',
+          },
+          ignored_at: '2023-02-28T16:08:37Z',
+          ignore_source: 'rule',
+        },
+        ...issue,
+      },
+    ],
+  },
+}
+
+export const IgnoredReason: Story = {
+  args: {
+    issues: [
+      {
+        ignored: {
+          ignored_by: {
+            name: 'heyvito',
+            avatar: 'https://avatars.githubusercontent.com/u/77198?v=4',
+          },
+          ignored_at: '2023-02-28T16:08:37Z',
+          ignore_source: 'rule',
+          reason:
+            'False-positive since this is used only internally for generating cache keys',
+        },
+        ...issue,
+      },
+    ],
+  },
+}

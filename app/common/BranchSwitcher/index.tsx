@@ -8,7 +8,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Input from 'app/common/Input'
 import Kbd from 'app/common/Kbd'
 import Loading from 'app/common/Loading'
-import useLazyFetch from 'hooks/useLazyFetch'
+import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
 import useOnClickOutside from 'hooks/useOnClickOutside'
 import useSegments from 'hooks/useSegments'
 import randomBetween from 'utils/randomBetween'
@@ -22,7 +22,7 @@ type BranchSwitcherProps = {
 }
 
 interface BranchesFetchResponse {
-  (): void
+  (arg: UseFetchProps): void
   data: string[]
   loading: boolean
 }
@@ -105,7 +105,7 @@ const BranchSwitcher = ({
   useEffect(() => {
     if (visible) {
       if (!branches) {
-        getBranches()
+        getBranches({})
       }
 
       if (inputRef.current != null) {

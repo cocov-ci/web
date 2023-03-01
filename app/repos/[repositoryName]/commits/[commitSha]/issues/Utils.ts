@@ -11,9 +11,10 @@ export const getUpdatedUrl = ({
 }): string => {
   const category = searchParams.get('category')
   const source = searchParams.get('source')
+  const status = searchParams.get('status')
 
   const validParams = omitBy(
-    { source: source, category: category, ...param },
+    { status: status, source: source, category: category, ...param },
     isNil,
   )
 

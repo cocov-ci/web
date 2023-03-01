@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 
 import SummarySelector from 'app/common/SummarySelector'
-import { BranchResponseProps } from 'types/Branches'
+import { BranchProps } from 'types/Branches'
 import { RepositoryProps } from 'types/Repositories'
 import fetcher from 'utils/fetchServer'
 
@@ -23,7 +23,7 @@ const Branch = async ({
     `/v1/repositories/${repositoryName}`,
   )
 
-  const dataBranch: BranchResponseProps = await fetcher(
+  const dataBranch: BranchProps = await fetcher(
     `/v1/repositories/${repositoryName}/branches/${branch}`,
   )
 
@@ -44,7 +44,7 @@ const Branch = async ({
       {/* @ts-expect-error Server Component */}
       <Charts branchName={dataBranch.name} repositoryName={repositoryName} />
       {/* @ts-expect-error Server Component */}
-      <TopIssues branchName={dataBranch.name} repositoryName={repositoryName} />
+      <TopIssues branch={dataBranch} repositoryName={repositoryName} />
     </div>
   )
 }

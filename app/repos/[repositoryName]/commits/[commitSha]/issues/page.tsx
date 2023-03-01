@@ -12,6 +12,7 @@ import { IssuesResponseProps } from 'types/Issues'
 import { PagingProps } from 'types/Paging'
 
 import CategoriesList from './CategoriesList'
+import IssuesList from './IssuesList'
 import List from './List'
 import styles from './Page.module.scss'
 import SourcesList from './SourcesList'
@@ -32,6 +33,7 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
   const router = useRouter()
   const category = searchParams.get('category') as string
   const source = searchParams.get('source') as string
+  const state = searchParams.get('state') as string
   const page = searchParams.get('page') as string
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [currentPage, setCurrentPage] = useState<number>(parseInt(page) || 1)
@@ -41,9 +43,10 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
     params: {
       source: source,
       category: category,
+      state: state,
       page: currentPage.toString(),
     },
-    handler: [category, source, currentPage],
+    handler: [category, source, state, currentPage],
   }) as IssuesFetchResponse
 
   if (!data && !loading) router.push(`/repos/${repositoryName}`)
@@ -88,6 +91,14 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
       />
       <div className={styles.content}>
         <div className={styles.sidebar}>
+          <IssuesList
+            issues={data?.issues}
+            loading={loading}
+            onItemChanged={item => {
+              setCurrentPage(1)
+              onChangeRoute({ state: item })
+            }}
+          />
           <SourcesList
             commitSha={commitSha}
             onItemChanged={item => {
@@ -96,6 +107,7 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
             }}
             repositoryName={repositoryName}
           />
+
           <CategoriesList
             commitSha={commitSha}
             onItemChanged={item => {
