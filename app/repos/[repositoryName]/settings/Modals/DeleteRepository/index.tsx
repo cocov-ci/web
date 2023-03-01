@@ -5,24 +5,34 @@ import { useState } from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
-import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
 import useModal from 'hooks/useModal'
+import Repositories from 'services/repositories'
 
 import styles from './DeleteRepository.module.scss'
 
-interface DeleteRepositoryFetchResponse {
-  loading: boolean
-  (arg: UseFetchProps): void
-}
-
 const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
   const [checked, setChecked] = useState(false)
+  const [submitting, setSubmitting] = useState<boolean>()
   const { closeModal } = useModal()
   const router = useRouter()
 
-  const [deleteRepository, { loading }] = useLazyFetch({
-    url: `/api/repositories/${repositoryName}/settings/delete`,
-  }) as DeleteRepositoryFetchResponse[]
+  const onDeleteRepository = async () => {
+    setSubmitting(true)
+
+    try {
+      await Repositories.delete({
+        repositoryName: repositoryName,
+      })
+
+      localStorage.setItem('repositoryDeleted', repositoryName)
+    } catch (err) {
+      // TODO
+    } finally {
+      setSubmitting(false)
+      router.push('/')
+      closeModal()
+    }
+  }
 
   return (
     <div className={styles.content}>
@@ -60,18 +70,14 @@ const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
       </label>
       <div className={styles.buttons}>
         <Button
-          disabled={!checked || loading}
-          onClick={() => {
-            deleteRepository({})
-            router.push('/')
-            closeModal()
-          }}
+          disabled={!checked || submitting}
+          onClick={() => onDeleteRepository()}
           style="danger"
         >
           Yes, delete it
         </Button>
         <Button
-          disabled={loading}
+          disabled={submitting}
           onClick={() => {
             closeModal()
           }}

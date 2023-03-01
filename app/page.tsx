@@ -1,5 +1,6 @@
 'use client'
 
+import { Trash } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
 import Pagination from 'app/common/Pagination'
@@ -8,6 +9,7 @@ import Empty from 'app/repos/Empty'
 import ListItem from 'app/repos/ListItem'
 import NoResults from 'app/repos/NoResults'
 import TopBarActions from 'app/repos/TopBarActions'
+import useBanner from 'hooks/useBanner'
 import useFetch from 'hooks/useFetch'
 import { PagingProps } from 'types/Paging'
 import { RepositoriesResponseProps } from 'types/Repositories'
@@ -17,6 +19,7 @@ import Loading from './loading'
 interface RepositoriesFetchResponse {
   data: RepositoriesResponseProps
   loading: boolean
+  refetch: () => void
 }
 
 const hasRepositoriesList = (
@@ -26,10 +29,11 @@ const hasRepositoriesList = (
 const Repositories = () => {
   const [search, setSearch] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const { showBanner } = useBanner()
 
   const isSearching = useMemo(() => search.length > 0, [search])
 
-  const { data, loading } = useFetch({
+  const { data, loading, refetch } = useFetch({
     url: `/api/repositories?search_term=${search}&page=${currentPage}`,
     handler: [currentPage, search],
   }) as RepositoriesFetchResponse
@@ -51,6 +55,19 @@ const Repositories = () => {
   useEffect(() => {
     setCurrentPage(1)
   }, [search])
+
+  useEffect(() => {
+    if (localStorage.getItem('repositoryDeleted')) {
+      refetch()
+
+      showBanner({
+        icon: Trash,
+        children: 'Repository successfully deleted.',
+        variation: 'success',
+      })
+      localStorage.removeItem('repositoryDeleted')
+    }
+  }, [])
 
   return (
     <div>

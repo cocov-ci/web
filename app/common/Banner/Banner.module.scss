@@ -20,12 +20,29 @@
 
 .base {
   font-size: 15px;
-  display: flex;
-  padding: 14px 20px;
-  align-items: center;
-  color: map.get($colorBanner, "textColor");
-  background-color: $colorGrayDark;
-  transition: box-shadow 0.2s ease-out 0.1s;
+  transition: box-shadow 0.2s ease-out 0.1s, margin 0.2s ease-out 0.1s;
+  margin-bottom: 0;
+
+  .innerBase {
+    transition: max-height 0.1s;
+    color: map.get($colorBanner, "textColor");
+    background-color: $colorGrayDark;
+    padding: 14px 20px;
+    max-height: 35px;
+    display: flex;
+    justify-content: center;
+
+    > div {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: $contentWidth - 20px;
+    }
+
+    @include banner-variation("success");
+    @include banner-variation("info");
+    @include banner-variation("warning");
+  }
 
   .icon {
     height: 20px;
@@ -36,7 +53,7 @@
     flex-grow: 1;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     align-content: center;
 
     button {
@@ -52,13 +69,13 @@
       }
     }
   }
-
-  @include banner-variation("success");
-  @include banner-variation("info");
-  @include banner-variation("warning");
 }
 
 .wrapper {
+  width: 100%;
+  margin-top: -35px;
+  position: relative;
+
   &,
   .faces {
     transform-style: preserve-3d;
@@ -75,7 +92,25 @@
       transform: translate(0, 50%) rotateX(-90deg);
 
       .base {
-        box-shadow: 7px 2px 40px 0 color.adjust($colorBlack, $alpha: 0.5);
+        margin-bottom: 20px;
+        position: relative;
+
+        .innerBase {
+          max-height: 48px;
+          position: relative;
+          z-index: 2;
+        }
+
+        .shadow {
+          position: absolute;
+          z-index: 1;
+          bottom: 0;
+          width: 105%;
+          height: 1px;
+          transform: translateX(-50%);
+          left: 50%;
+          box-shadow: -3px -8px 40px 10px color.adjust($colorBlack, $alpha: 0.5);
+        }
       }
     }
   }

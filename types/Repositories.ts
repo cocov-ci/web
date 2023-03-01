@@ -16,3 +16,7 @@ export interface RepositoriesResponseProps {
   repositories: RepositoryProps[]
   paging: PagingProps[]
 }
+
+export interface DeleteRepositoriesResponseParams {
+  code?: string
+}
