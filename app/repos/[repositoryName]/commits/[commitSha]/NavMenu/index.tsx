@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 
 import Button from 'app/common/Button'
 import PillNav from 'app/common/PillNav'
+import useIssues from 'hooks/useIssues'
 import { NavMenuProps } from 'types/Commits'
 
 import Loading from './Loading'
@@ -18,19 +19,16 @@ interface NavMenuComponentProps {
   active: NavMenuProps
   counter?: number
   loading?: boolean
-  commitSha: string
-  repositoryName: string
 }
 
 const NavMenu = ({
   active,
-  commitSha,
-  repositoryName,
   counter,
   loading = false,
 }: NavMenuComponentProps) => {
   const isActive = (item: NavMenuProps) => active === item
   const router = useRouter()
+  const { repositoryName, commitSha } = useIssues()
 
   const onClick = (page: NavMenuProps) => {
     router.push(`/repos/${repositoryName}/commits/${commitSha}/${page}`)

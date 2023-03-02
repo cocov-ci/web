@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { LucideIcon, LucideMoreVertical } from 'lucide-react'
+import { LucideIcon, MoreVertical } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 
 import useOnClickOutside from 'hooks/useOnClickOutside'
@@ -24,7 +24,7 @@ const AccessoryMenu = ({
   children,
   muted,
 }: AccessoryMenuProps) => {
-  const Icon = icon || LucideMoreVertical
+  const Icon = icon || MoreVertical
   const menuContainerRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(open)
   useOnClickOutside(menuContainerRef, () => setVisible(false))

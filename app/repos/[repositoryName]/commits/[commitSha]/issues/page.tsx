@@ -5,26 +5,50 @@ import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
 import Pagination from 'app/common/Pagination'
+import { Item } from 'app/common/Sidebar'
 import CommitHeader from 'app/repos/[repositoryName]/commits/[commitSha]/CommitHeader'
 import NavMenu from 'app/repos/[repositoryName]/commits/[commitSha]/NavMenu'
+import IssuesProvider from 'context/IssuesContext'
 import useFetch from 'hooks/useFetch'
+import {
+  CommitsCategoriesResponseProps,
+  CommitsSourcesResponseProps,
+  CommitsStatesResponseProps,
+} from 'types/Commits'
 import { IssuesResponseProps } from 'types/Issues'
 import { PagingProps } from 'types/Paging'
 
-import CategoriesList from './CategoriesList'
 import List from './List'
 import styles from './Page.module.scss'
-import SourcesList from './SourcesList'
-import StatesList from './StatesList'
+import Sidebar from './Sidebar'
 import { getUpdatedUrl } from './Utils'
 
 interface IssuesParams {
   params: { repositoryName: string; commitSha: string }
 }
 
+interface CommitsCategoriesFetchResponse {
+  data: CommitsCategoriesResponseProps
+  loading: boolean
+  refetch: () => void
+}
+
+interface CommitsSourcesFetchResponse {
+  data: CommitsSourcesResponseProps
+  loading: boolean
+  refetch: () => void
+}
+
 interface IssuesFetchResponse {
   data: IssuesResponseProps
   loading: boolean
+  refetch: () => void
+}
+
+interface CommitsStatesFetchResponse {
+  data: CommitsStatesResponseProps
+  loading: boolean
+  refetch: () => void
 }
 
 const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
@@ -38,7 +62,11 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [currentPage, setCurrentPage] = useState<number>(parseInt(page) || 1)
 
-  const { data, loading } = useFetch({
+  const {
+    data,
+    loading,
+    refetch: refetchIssues,
+  } = useFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues`,
     params: {
       source: source,
@@ -48,6 +76,33 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
     },
     handler: [category, source, state, currentPage],
   }) as IssuesFetchResponse
+
+  const {
+    data: dataStates,
+    loading: loadingStates,
+    refetch: refetchIssuesStates,
+  } = useFetch({
+    url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues/states`,
+    handler: [],
+  }) as CommitsStatesFetchResponse
+
+  const {
+    data: dataSources,
+    loading: loadingSources,
+    refetch: refetchIssuesSources,
+  } = useFetch({
+    url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues/sources`,
+    handler: [],
+  }) as CommitsSourcesFetchResponse
+
+  const {
+    data: dataCategories,
+    loading: loadingCategories,
+    refetch: refetchIssuesCategories,
+  } = useFetch({
+    url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues/categories`,
+    handler: [],
+  }) as CommitsCategoriesFetchResponse
 
   if (!data && !loading) router.push(`/repos/${repositoryName}`)
 
@@ -76,65 +131,82 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
   }
 
   return (
-    <FixedContent>
-      <CommitHeader
-        head={data?.commit}
-        loading={pageLoading}
-        repositoryName={repositoryName}
-      />
-      <NavMenu
-        active="issues"
-        commitSha={commitSha}
-        counter={data?.repository?.issues}
-        loading={pageLoading}
-        repositoryName={repositoryName}
-      />
-      <div className={styles.content}>
-        <div className={styles.sidebar}>
-          <StatesList
-            commitSha={commitSha}
-            onItemChanged={item => {
-              setCurrentPage(1)
-              onChangeRoute({ state: item.id === 0 ? 'all' : item.name })
-            }}
-            repositoryName={repositoryName}
-          />
-          <SourcesList
-            commitSha={commitSha}
-            onItemChanged={item => {
-              setCurrentPage(1)
-              onChangeRoute({ source: item.id === 0 ? null : item.name })
-            }}
-            repositoryName={repositoryName}
-          />
+    <IssuesProvider
+      commitSha={commitSha}
+      refetch={() => {
+        refetchIssues()
+        refetchIssuesStates()
+        refetchIssuesSources()
+        refetchIssuesCategories()
+      }}
+      repositoryName={repositoryName}
+    >
+      <FixedContent>
+        <CommitHeader
+          head={data?.commit}
+          loading={pageLoading}
+          repositoryName={repositoryName}
+        />
+        <NavMenu
+          active="issues"
+          counter={data?.repository?.issues}
+          loading={pageLoading}
+        />
+        <div className={styles.content}>
+          <div className={styles.sidebar}>
+            <Sidebar
+              allItemsText="All issues"
+              className={styles.states}
+              data={dataStates}
+              defaultSelectedItem={state || 'active'}
+              loading={loadingStates}
+              onSelectItem={item => {
+                setCurrentPage(1)
+                onChangeRoute({ state: item.id === 0 ? 'all' : item.name })
+              }}
+            />
 
-          <CategoriesList
-            commitSha={commitSha}
-            onItemChanged={item => {
-              setCurrentPage(1)
-              onChangeRoute({ category: item.id === 0 ? null : item.name })
-            }}
-            repositoryName={repositoryName}
-          />
-        </div>
-        <div className={styles.list}>
-          <List issues={data?.issues} loading={loading} />
-          <div className={styles.paging}>
-            {hasPagination && (
-              <Pagination
-                className={styles.pagination}
-                currentPage={paging.page}
-                onPageClick={page => {
-                  setCurrentPage(page)
-                  onChangeRoute({ page: page === 1 ? null : page.toString() })
-                }}
-                total={paging.total_pages}
-              />
-            )}
+            <Sidebar
+              allItemsText="All sources"
+              data={dataSources}
+              defaultSelectedItem={source}
+              loading={loadingSources}
+              onSelectItem={(item: Item) => {
+                setCurrentPage(1)
+                onChangeRoute({ source: item.id === 0 ? null : item.name })
+              }}
+            />
+
+            <Sidebar
+              allItemsText="All categories"
+              data={dataCategories}
+              defaultSelectedItem={category}
+              loading={loadingCategories}
+              onSelectItem={(item: Item) => {
+                setCurrentPage(1)
+                onChangeRoute({ category: item.id === 0 ? null : item.name })
+              }}
+            />
+          </div>
+          <div className={styles.list}>
+            <List issues={data?.issues} loading={loading} />
+            <div className={styles.paging}>
+              {hasPagination && (
+                <Pagination
+                  className={styles.pagination}
+                  currentPage={paging.page}
+                  onPageClick={page => {
+                    setCurrentPage(page)
+                    onChangeRoute({ page: page === 1 ? null : page.toString() })
+                  }}
+                  total={paging.total_pages}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </FixedContent>
+      </FixedContent>
+    </IssuesProvider>
   )
 }
 

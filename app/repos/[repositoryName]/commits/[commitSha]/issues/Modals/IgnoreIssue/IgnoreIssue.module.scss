@@ -1,0 +1,71 @@
+@import "styles/variables.module";
+
+.content {
+  max-width: 582px;
+
+  .title {
+    font-variation-settings: "wght" 600;
+    margin-bottom: 8px;
+  }
+
+  .list {
+    margin-bottom: 20px;
+    list-style-type: none;
+  }
+
+  .textField {
+    margin-bottom: 15px;
+  }
+
+  .status {
+    display: flex;
+    margin-top: 5px;
+    margin-left: 55px;
+
+    &.error {
+      color: $colorRed;
+    }
+
+    &.success {
+      color: $colorGreen;
+    }
+
+    &.warning {
+      color: $colorBrown;
+    }
+
+    svg {
+      flex: none;
+      height: 15px;
+      width: 15px;
+      margin-top: 2px;
+      margin-right: 5px;
+    }
+
+    .statusMesssage {
+      font-size: 14px;
+    }
+  }
+
+  .buttons {
+    text-align: right;
+
+    button:last-of-type {
+      margin-left: 12px;
+    }
+  }
+
+  .label {
+    margin-bottom: 20px;
+    display: inline-flex;
+
+    input {
+      margin-left: 10px;
+      margin-right: 5px;
+
+      &.name-input {
+        font-size: 15px;
+      }
+    }
+  }
+}

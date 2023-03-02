@@ -1,7 +1,7 @@
 'use client'
 
 import classNames from 'classnames'
-import { BoxSelect, ChevronsUp, SlashIcon, Undo2, VolumeX } from 'lucide-react'
+import { BoxSelect, ChevronsUp, Slash, Undo2, VolumeX } from 'lucide-react'
 import { useState } from 'react'
 
 import AccessoryMenu from 'app/common/AccessoryMenu'
@@ -11,8 +11,13 @@ import CodeBlock from 'app/common/CodeBlock'
 import { MenuItem } from 'app/common/Menu'
 import RelativeTime from 'app/common/RelativeTime'
 import Text from 'app/common/Text'
+import useIssues from 'hooks/useIssues'
+import useModal from 'hooks/useModal'
+import Issues from 'services/issues'
 import { IssueIgnoreMetadata, IssueProps } from 'types/Issues'
 import { inconsolata } from 'utils/fonts'
+
+import IgnoreIssue from '../Modals/IgnoreIssue'
 
 import styles from './List.module.scss'
 import Loading from './Loading'
@@ -35,7 +40,7 @@ export const IgnoreBlock = ({ meta }: IgnoreBlockProps) => {
         <a href="javascript:void(0)" onClick={() => setOpen(!open)}>
           <div className={styles.header}>
             {meta.ignore_source == 'rule' ? (
-              <SlashIcon size={18} />
+              <Slash size={18} />
             ) : (
               <VolumeX size={18} />
             )}
@@ -71,23 +76,60 @@ export const IgnoreBlock = ({ meta }: IgnoreBlockProps) => {
 }
 
 export const ListItem = (issue: IssueProps) => {
+  const { repositoryName, commitSha, refetch } = useIssues()
+  const { openModal } = useModal()
+
   const ignoreIssue = () => {
-    /* TODO */
+    openModal(
+      <IgnoreIssue
+        commitSha={commitSha}
+        id={issue.id}
+        mode="ephemeral"
+        onSuccess={() =>
+          setTimeout(() => {
+            refetch()
+          }, 500)
+        }
+        repositoryName={repositoryName}
+      />,
+    )
   }
 
   const foreverIgnoreIssue = () => {
-    /* TODO */
+    openModal(
+      <IgnoreIssue
+        commitSha={commitSha}
+        id={issue.id}
+        mode="permanent"
+        onSuccess={() =>
+          setTimeout(() => {
+            refetch()
+          }, 500)
+        }
+        repositoryName={repositoryName}
+      />,
+    )
   }
 
-  const undoIgnoreIssue = () => {
-    /* TODO */
+  const undoIgnoreIssue = async () => {
+    try {
+      await Issues.cancelIgnore({
+        repositoryName: repositoryName,
+        commitSha: commitSha,
+        id: issue.id,
+      })
+    } catch (err) {
+      // TODO
+    } finally {
+      refetch()
+    }
   }
 
   const ignoreMenuActions = (
     <AccessoryMenu muted={true}>
       <MenuItem icon={VolumeX} label="Ignore..." onClick={ignoreIssue} />
       <MenuItem
-        icon={SlashIcon}
+        icon={Slash}
         label="Ignore Forever..."
         onClick={foreverIgnoreIssue}
       />

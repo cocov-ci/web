@@ -54,3 +54,26 @@ export interface IssuesResponseProps {
   paging: PagingProps[]
   repository: Omit<RepositoryProps, 'head'>
 }
+
+export interface IssueIgnoreParams {
+  repositoryName: string
+  commitSha: string
+  id: number
+  mode: IssueIgnoreModes
+  reason?: string
+}
+
+export type IssueIgnoreModes = 'ephemeral' | 'permanent'
+
+export interface IssuesPropsContext {
+  repositoryName: string
+  commitSha: string
+  refetch: () => void
+}
+
+export interface IssuesPropsProvider {
+  repositoryName: string
+  commitSha: string
+  children: React.ReactNode
+  refetch: () => void
+}
