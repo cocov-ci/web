@@ -1,17 +1,18 @@
 'use client'
 
 import classNames from 'classnames'
-import { BoxSelect, ChevronsUp, SlashIcon, VolumeX } from 'lucide-react'
+import { BoxSelect, ChevronsUp, SlashIcon, Undo2, VolumeX } from 'lucide-react'
 import { useState } from 'react'
 
+import AccessoryMenu from 'app/common/AccessoryMenu'
 import Alert from 'app/common/Alert'
+import Avatar from 'app/common/Avatar'
 import CodeBlock from 'app/common/CodeBlock'
+import { MenuItem } from 'app/common/Menu'
+import RelativeTime from 'app/common/RelativeTime'
 import Text from 'app/common/Text'
 import { IssueIgnoreMetadata, IssueProps } from 'types/Issues'
 import { inconsolata } from 'utils/fonts'
-
-import Avatar from '../../../../../../common/Avatar'
-import RelativeTime from '../../../../../../common/RelativeTime'
 
 import styles from './List.module.scss'
 import Loading from './Loading'
@@ -70,6 +71,35 @@ export const IgnoreBlock = ({ meta }: IgnoreBlockProps) => {
 }
 
 export const ListItem = (issue: IssueProps) => {
+  const ignoreIssue = () => {
+    /* TODO */
+  }
+
+  const foreverIgnoreIssue = () => {
+    /* TODO */
+  }
+
+  const undoIgnoreIssue = () => {
+    /* TODO */
+  }
+
+  const ignoreMenuActions = (
+    <AccessoryMenu muted={true}>
+      <MenuItem icon={VolumeX} label="Ignore..." onClick={ignoreIssue} />
+      <MenuItem
+        icon={SlashIcon}
+        label="Ignore Forever..."
+        onClick={foreverIgnoreIssue}
+      />
+    </AccessoryMenu>
+  )
+
+  const cancelIgnoreMenuActions = (
+    <AccessoryMenu muted={true}>
+      <MenuItem icon={Undo2} label="Stop Ignoring" onClick={undoIgnoreIssue} />
+    </AccessoryMenu>
+  )
+
   return (
     <div className={styles.issueWrapper}>
       <div
@@ -77,13 +107,22 @@ export const ListItem = (issue: IssueProps) => {
           [styles.ignored]: issue.ignored,
         })}
       >
-        <Text variant="description">
-          <strong>{issue.check_source}</strong> reported under{' '}
-          <strong>{issue.kind}</strong>
-        </Text>
-        <Text className={styles.message}>
-          <strong>{issue.message}</strong>
-        </Text>
+        <div className={styles.header}>
+          <div className={styles.info}>
+            <Text variant="description">
+              <strong>{issue.check_source}</strong> reported under{' '}
+              <strong>{issue.kind}</strong>
+            </Text>
+            <Text className={styles.message}>
+              <strong>{issue.message}</strong>
+            </Text>
+          </div>
+          <div className={styles.actions}>
+            {issue.ignored === undefined
+              ? ignoreMenuActions
+              : cancelIgnoreMenuActions}
+          </div>
+        </div>
         <div className={styles.fileRow}>
           <Text
             className={classNames(styles.file, inconsolata.className)}
@@ -95,7 +134,10 @@ export const ListItem = (issue: IssueProps) => {
             line {issue.line_start}
           </Text>
         </div>
-        <CodeBlock issue={issue.affected_file.content} />
+        <CodeBlock
+          className={styles.codeBlock}
+          issue={issue.affected_file.content}
+        />
       </div>
       {issue.ignored && <IgnoreBlock meta={issue.ignored} />}
     </div>
