@@ -12,10 +12,10 @@ import { IssuesResponseProps } from 'types/Issues'
 import { PagingProps } from 'types/Paging'
 
 import CategoriesList from './CategoriesList'
-import IssuesList from './IssuesList'
 import List from './List'
 import styles from './Page.module.scss'
 import SourcesList from './SourcesList'
+import StatesList from './StatesList'
 import { getUpdatedUrl } from './Utils'
 
 interface IssuesParams {
@@ -43,7 +43,7 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
     params: {
       source: source,
       category: category,
-      state: state,
+      state: state || 'active',
       page: currentPage.toString(),
     },
     handler: [category, source, state, currentPage],
@@ -91,13 +91,13 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
       />
       <div className={styles.content}>
         <div className={styles.sidebar}>
-          <IssuesList
-            issues={data?.issues}
-            loading={loading}
+          <StatesList
+            commitSha={commitSha}
             onItemChanged={item => {
               setCurrentPage(1)
-              onChangeRoute({ state: item })
+              onChangeRoute({ state: item.id === 0 ? 'all' : item.name })
             }}
+            repositoryName={repositoryName}
           />
           <SourcesList
             commitSha={commitSha}

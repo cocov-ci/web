@@ -4,6 +4,7 @@ export default new APIProxy()
   .mapParams(req => ({
     source: req.query.source,
     category: req.query.category,
+    state: req.query.state,
     page: req.query.page,
   }))
   .mapURL(req => {

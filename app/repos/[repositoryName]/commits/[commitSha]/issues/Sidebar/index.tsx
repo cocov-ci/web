@@ -1,5 +1,7 @@
 'use client'
 
+import classNames from 'classnames'
+
 import Loading from 'app/common/Loading'
 import Sidebar, { Item } from 'app/common/Sidebar'
 import { CommitsSourcesResponseProps } from 'types/Commits'
@@ -13,6 +15,7 @@ interface SidebarItemsProps {
 }
 
 interface SidebarProps {
+  className?: string
   allItemsText: string
   data: CommitsSourcesResponseProps
   loading: boolean
@@ -26,11 +29,12 @@ const SidebarComponent = ({
   loading,
   onSelectItem,
   defaultSelectedItem,
+  className,
 }: SidebarProps) => {
   if (loading)
     return (
       <Loading
-        className={styles.loading}
+        className={classNames(styles.loading, className)}
         count={5}
         height="30px"
         type="skeleton"
@@ -56,7 +60,7 @@ const SidebarComponent = ({
 
   return (
     <Sidebar
-      className={styles.sidebar}
+      className={classNames(styles.sidebar, className)}
       defaultSelectedId={
         items?.filter(item => item.name === defaultSelectedItem)[0]?.id || 0
       }
