@@ -19,16 +19,19 @@ interface NavMenuComponentProps {
   active: NavMenuProps
   counter?: number
   loading?: boolean
+  commitSha: string
+  repositoryName: string
 }
 
 const NavMenu = ({
   active,
   counter,
   loading = false,
+  repositoryName,
+  commitSha,
 }: NavMenuComponentProps) => {
   const isActive = (item: NavMenuProps) => active === item
   const router = useRouter()
-  const { repositoryName, commitSha } = useIssues()
 
   const onClick = (page: NavMenuProps) => {
     router.push(`/repos/${repositoryName}/commits/${commitSha}/${page}`)
