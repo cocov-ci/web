@@ -34,7 +34,11 @@ const Repositories = () => {
   const isSearching = useMemo(() => search.length > 0, [search])
 
   const { data, loading, refetch } = useFetch({
-    url: `/api/repositories?search_term=${search}&page=${currentPage}`,
+    url: `/api/repositories`,
+    params: {
+      ...(search && { search_term: search }),
+      page: currentPage.toString(),
+    },
     handler: [currentPage, search],
   }) as RepositoriesFetchResponse
 
