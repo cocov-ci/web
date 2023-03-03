@@ -10,7 +10,14 @@ const Issues = {
     reason,
   }: IssueIgnoreParams): Promise<IssueProps> => {
     return await fetcher({
-      url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues/${id}/ignore?mode=${mode}&reason=${reason}`,
+      url: `/api/repositories/${repositoryName}/commits/${commitSha}/issues/${id}/ignore`,
+      args: {
+        method: 'POST',
+        params: {
+          reason: reason,
+          mode: mode,
+        },
+      },
     })
   },
   cancelIgnore: async ({

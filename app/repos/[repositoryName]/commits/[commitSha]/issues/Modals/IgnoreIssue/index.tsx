@@ -45,7 +45,7 @@ const IgnoreIssue = ({
         commitSha: commitSha,
         id: id,
         mode: mode,
-        ...(reason && { reason: reason }),
+        reason: reason,
       })
 
       onSuccess()
