@@ -27,5 +27,19 @@ type Story = StoryObj<typeof IgnoreIssue>
 export const Default: Story = {
   args: {
     onSuccess: () => null,
+    mode: 'ephemeral',
+    repositoryName: 'repo',
+    commitSha: '123',
+    id: 1,
+  },
+}
+
+export const Permanent: Story = {
+  args: {
+    onSuccess: () => null,
+    mode: 'permanent',
+    repositoryName: 'repo',
+    commitSha: '123',
+    id: 1,
   },
 }
