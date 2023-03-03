@@ -1,11 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import Modal from 'app/common/Modal'
+
 import DeleteSecret from './index'
 
 const meta: Meta<typeof DeleteSecret> = {
   title: 'Settings/Secrets/Modals/Delete',
   component: DeleteSecret,
   tags: ['autodocs'],
+  decorators: [
+    Story => (
+      <div style={{ height: '400px' }}>
+        <Modal visible={true}>
+          <Story />
+        </Modal>
+      </div>
+    ),
+  ],
 }
 
 export default meta

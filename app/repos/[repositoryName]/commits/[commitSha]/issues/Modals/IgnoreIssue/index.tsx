@@ -8,6 +8,7 @@ import Textarea from 'app/common/Textarea'
 import useModal from 'hooks/useModal'
 import Issues from 'services/issues'
 import { IssueIgnoreModes } from 'types/Issues'
+import { satoshi } from 'utils/fonts'
 
 import styles from './IgnoreIssue.module.scss'
 
@@ -81,6 +82,7 @@ const IgnoreIssue = ({
 
       <div className={styles.textField}>
         <Textarea
+          inputClassName={satoshi.className}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setReason(e.target.value)
           }

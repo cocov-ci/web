@@ -2,7 +2,7 @@
 
 import classNames from 'classnames'
 import { BoxSelect, ChevronsUp, Slash, Undo2, VolumeX } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import AccessoryMenu from 'app/common/AccessoryMenu'
 import Alert from 'app/common/Alert'
@@ -24,6 +24,11 @@ import Loading from './Loading'
 
 interface IgnoreBlockProps {
   meta: IssueIgnoreMetadata
+}
+
+interface ListItemParams {
+  issue: IssueProps
+  onUpdateListCallback: () => void
 }
 
 export const IgnoreBlock = ({ meta }: IgnoreBlockProps) => {
@@ -75,7 +80,7 @@ export const IgnoreBlock = ({ meta }: IgnoreBlockProps) => {
   )
 }
 
-export const ListItem = (issue: IssueProps) => {
+export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
   const { repositoryName, commitSha, refetch } = useIssues()
   const { openModal } = useModal()
 
@@ -85,11 +90,12 @@ export const ListItem = (issue: IssueProps) => {
         commitSha={commitSha}
         id={issue.id}
         mode="ephemeral"
-        onSuccess={() =>
+        onSuccess={() => {
+          onUpdateListCallback()
           setTimeout(() => {
             refetch()
           }, 500)
-        }
+        }}
         repositoryName={repositoryName}
       />,
     )
@@ -101,11 +107,12 @@ export const ListItem = (issue: IssueProps) => {
         commitSha={commitSha}
         id={issue.id}
         mode="permanent"
-        onSuccess={() =>
+        onSuccess={() => {
+          onUpdateListCallback()
           setTimeout(() => {
             refetch()
           }, 500)
-        }
+        }}
         repositoryName={repositoryName}
       />,
     )
@@ -121,6 +128,7 @@ export const ListItem = (issue: IssueProps) => {
     } catch (err) {
       // TODO
     } finally {
+      onUpdateListCallback()
       refetch()
     }
   }
@@ -193,6 +201,31 @@ const List = ({
   issues: IssueProps[]
   loading: boolean
 }) => {
+  const { commitSha } = useIssues()
+  const listRef = useRef<HTMLDivElement>(null)
+
+  const onPreserveScrollPosition = () => {
+    const list = listRef.current
+
+    if (list) {
+      localStorage.setItem(
+        `issues-list-${commitSha}`,
+        list.scrollTop?.toString(),
+      )
+    }
+  }
+
+  useEffect(() => {
+    const top = localStorage.getItem(`issues-list-${commitSha}`)
+    const list = listRef.current
+
+    if (list && top !== null) {
+      list.scrollTop = parseInt(top, 10)
+    }
+
+    localStorage.removeItem(`issues-list-${commitSha}`)
+  }, [issues])
+
   return (
     <>
       {loading && (
@@ -204,10 +237,16 @@ const List = ({
       )}
 
       {!loading && (
-        <div className={styles.list}>
+        <div className={styles.list} ref={listRef}>
           {issues?.length > 0 &&
             issues?.map(issue => {
-              return <ListItem {...issue} key={issue.id} />
+              return (
+                <ListItem
+                  issue={issue}
+                  key={issue.id}
+                  onUpdateListCallback={() => onPreserveScrollPosition()}
+                />
+              )
             })}
 
           {issues?.length === 0 && (

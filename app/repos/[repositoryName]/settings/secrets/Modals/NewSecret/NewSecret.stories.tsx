@@ -11,9 +11,11 @@ const meta: Meta<typeof NewSecret> = {
   tags: ['autodocs'],
   decorators: [
     Story => (
-      <Modal visible={true}>
-        <Story />
-      </Modal>
+      <div style={{ height: '400px' }}>
+        <Modal visible={true}>
+          <Story />
+        </Modal>
+      </div>
     ),
   ],
 }
