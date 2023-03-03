@@ -8,7 +8,6 @@ import Textarea from 'app/common/Textarea'
 import useModal from 'hooks/useModal'
 import Issues from 'services/issues'
 import { IssueIgnoreModes } from 'types/Issues'
-import { inconsolata } from 'utils/fonts'
 
 import styles from './IgnoreIssue.module.scss'
 
@@ -46,7 +45,7 @@ const IgnoreIssue = ({
         commitSha: commitSha,
         id: id,
         mode: mode,
-        reason: reason,
+        ...(reason && { reason: reason }),
       })
 
       onSuccess()
@@ -60,22 +59,32 @@ const IgnoreIssue = ({
 
   return (
     <div className={styles.content}>
-      <Text className={styles.title} variant="title">
-        {mode === 'permanent' ? 'Forever Ignore Issue' : 'Ignore Issue'}
-      </Text>
-      <Text gutterBottom variant="description">
-        Here you you can optionally explain why this issue is being ignored.
-        This message will be displayed along with the issue whenever someone
-        sees it by selecting the right filters.
-      </Text>
+      <div className={styles.header}>
+        <Text className={styles.title} variant="title">
+          {mode === 'permanent' ? 'Forever Ignore Issue' : 'Ignore Issue'}
+        </Text>
+        <Text variant="description">
+          You may optionally provide an explanation for why this issue is being
+          ignored. This message will appear alongside the issue when viewed by
+          someone who has selected the appropriate filters.
+        </Text>
+        {mode === 'permanent' && (
+          <Text className={styles.important} variant="description">
+            <strong>Important:</strong> When you choose to "forever ignore" an
+            issue, it will no longer appear in future commits, and the reason
+            you provide for ignoring it will be used as the default for any
+            similar issues that may arise in the future. To review "forever
+            ignored" issues, you can go to Cocov's repository settings page.
+          </Text>
+        )}
+      </div>
 
       <div className={styles.textField}>
         <Textarea
-          height="188px"
-          inputClassName={inconsolata.className}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setReason(e.target.value)
           }
+          placeholder="Optionally describe the reason for ignoring this issue..."
         />
       </div>
 
