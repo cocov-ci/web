@@ -12,6 +12,3 @@ export interface SettingsPermissionsProps {
     can_sync_github: boolean
   }
 }
-export interface RegenTokenResponseProps {
-  new_token: string
-}

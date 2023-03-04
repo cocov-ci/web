@@ -1,4 +1,7 @@
-import { DeleteRepositoriesResponseParams } from 'types/Repositories'
+import {
+  DeleteRepositoriesResponseParams,
+  RegenTokenResponseProps,
+} from 'types/Repositories'
 import fetcher from 'utils/fetchClient'
 
 const Repositories = {
@@ -15,6 +18,24 @@ const Repositories = {
   }): Promise<DeleteRepositoriesResponseParams> => {
     return await fetcher({
       url: `/api/repositories/${repositoryName}/settings/delete`,
+    })
+  },
+  regenerateToken: async ({
+    repositoryName,
+  }: {
+    repositoryName: string
+  }): Promise<RegenTokenResponseProps> => {
+    return await fetcher({
+      url: `/api/repositories/${repositoryName}/settings/regen-token`,
+    })
+  },
+  forceResync: async ({
+    repositoryName,
+  }: {
+    repositoryName: string
+  }): Promise<RegenTokenResponseProps> => {
+    return await fetcher({
+      url: `/api/repositories/${repositoryName}/settings/sync-github`,
     })
   },
 }

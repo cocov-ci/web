@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react'
 import Button from 'app/common/Button'
 import SnippetBox from 'app/common/SnippetBox'
 import Text from 'app/common/Text'
-import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
 import useModal from 'hooks/useModal'
-import { RegenTokenResponseProps, SettingsResponseProps } from 'types/Settings'
+import Repositories from 'services/repositories'
+import { SettingsResponseProps } from 'types/Settings'
 
 import DeleteRepository from '../Modals/DeleteRepository'
 
@@ -18,31 +18,17 @@ interface SidebarProps {
   loading: boolean
   data: SettingsResponseProps
 }
-interface RegenerateTokenFetchResponse {
-  data: RegenTokenResponseProps
-  loading: boolean
-  (arg: UseFetchProps): void
-}
 
 const PermissionsComponent = ({ data, loading }: SidebarProps) => {
   const { openModal } = useModal()
   const [token, setToken] = useState<string>()
   const [resyncGithub, setResyncGithub] = useState<boolean>()
-
-  const [
-    regenerateToken,
-    { data: dataRegenerateToken, loading: loadingRegenerateToken },
-  ] = useLazyFetch({}) as RegenerateTokenFetchResponse[]
-
-  const [forceResync] = useLazyFetch({}) as RegenerateTokenFetchResponse[]
+  const [loadingRegenerateToken, setLoadingRegenerateToken] =
+    useState<boolean>()
 
   useEffect(() => {
     setToken(data?.repository?.token)
   }, [data])
-
-  useEffect(() => {
-    setToken(dataRegenerateToken?.new_token)
-  }, [dataRegenerateToken])
 
   if (loading) return <LoadingPermissions />
 
@@ -52,16 +38,32 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
     openModal(<DeleteRepository repositoryName={repository.name} />)
   }
 
-  const onRegenerateTokenClick = () =>
-    regenerateToken({
-      url: `/api/repositories/${repository.name}/settings/regen-token`,
-    })
+  const onRegenerateTokenClick = async () => {
+    setLoadingRegenerateToken(true)
 
-  const onForceResyncClick = () => {
-    forceResync({
-      url: `/api/repositories/${repository.name}/settings/sync-github`,
-    })
-    setResyncGithub(true)
+    try {
+      const { new_token } = await Repositories.regenerateToken({
+        repositoryName: repository.name,
+      })
+
+      setToken(new_token)
+    } catch (err) {
+      // TODO
+    } finally {
+      setLoadingRegenerateToken(false)
+    }
+  }
+
+  const onForceResyncClick = async () => {
+    try {
+      await Repositories.forceResync({
+        repositoryName: repository.name,
+      })
+
+      setResyncGithub(true)
+    } catch (err) {
+      // TODO
+    }
   }
 
   return (

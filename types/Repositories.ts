@@ -20,3 +20,7 @@ export interface RepositoriesResponseProps {
 export interface DeleteRepositoriesResponseParams {
   code?: string
 }
+
+export interface RegenTokenResponseProps {
+  new_token: string
+}
