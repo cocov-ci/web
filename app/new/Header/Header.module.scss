@@ -1,0 +1,15 @@
+@import "styles/variables.module";
+
+.header {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 117px;
+  width: 100%;
+  border-bottom: 1px solid $colorGray;
+
+  .description {
+    max-width: 615px;
+  }
+}

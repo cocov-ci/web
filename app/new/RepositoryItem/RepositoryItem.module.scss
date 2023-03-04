@@ -1,0 +1,31 @@
+@import "styles/variables.module";
+
+.item {
+  padding: 15px 30px;
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  border-bottom: 1px solid $colorGray;
+
+  .icon {
+    margin-top: 4px;
+  }
+
+  .data {
+    flex: 1;
+    margin-left: 16px;
+  }
+
+  .name {
+    font-variation-settings: "wght" 600;
+  }
+
+  .alreadyAddedStatus {
+    font-variation-settings: "wght" 600;
+    color: $colorGrayMedium;
+  }
+
+  .timestamp {
+    color: $colorGrayMedium;
+  }
+}

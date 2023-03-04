@@ -2,6 +2,8 @@ import classNames from 'classnames'
 import { LucideIcon } from 'lucide-react'
 import React from 'react'
 
+import Loading from '../Loading'
+
 import styles from './Alert.module.scss'
 
 type BoxProps = {
@@ -10,10 +12,18 @@ type BoxProps = {
   title?: string
   description?: string
   noBorder?: boolean
+  loading?: boolean
   icon?: LucideIcon
 }
 
-const Alert = ({ className, icon, title, description, noBorder }: BoxProps) => {
+const Alert = ({
+  className,
+  icon,
+  loading,
+  title,
+  description,
+  noBorder,
+}: BoxProps) => {
   const Icon = icon as LucideIcon
 
   return (
@@ -24,6 +34,9 @@ const Alert = ({ className, icon, title, description, noBorder }: BoxProps) => {
         })}
       >
         {icon && <Icon className={styles.icon} size={40} />}
+        {loading && (
+          <Loading className={styles.loading} size={30} type="spinner" />
+        )}
         <div className={styles.content}>
           {title && <h2>{title}</h2>}
           {description && <h3>{description}</h3>}

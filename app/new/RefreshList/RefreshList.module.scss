@@ -1,0 +1,13 @@
+@import "styles/variables.module";
+
+.refreshList {
+  display: flex;
+  align-items: center;
+  padding: 14px 30px;
+  border-bottom: 1px solid $colorGray;
+
+  .description {
+    flex: 1;
+    margin-left: 10px;
+  }
+}

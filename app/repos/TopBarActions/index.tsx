@@ -22,7 +22,7 @@ const TopBarActions = ({
         loading={searchFieldLoading}
         onSearch={onSearchChange}
       />
-      <Button>Add Repository</Button>
+      <Button href="/new">Add Repository</Button>
     </div>
   )
 }

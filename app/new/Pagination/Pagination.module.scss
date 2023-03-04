@@ -1,0 +1,10 @@
+@import "styles/variables.module";
+
+.paging {
+  border-top: 1px solid $colorGray;
+
+  .paginationComponent {
+    padding: 10px 0;
+    margin: 0;
+  }
+}

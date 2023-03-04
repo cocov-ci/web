@@ -44,3 +44,9 @@ export const NoBorder: Story = {
     noBorder: true,
   },
 }
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+  },
+}
