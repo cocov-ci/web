@@ -2,7 +2,7 @@ import FixedContent from 'app/common/FixedContent'
 import TopBar from 'app/common/TopBar'
 
 import Header from './Header'
-import LoadingRepositories from './LoadingRepositories'
+// import LoadingRepositories from './LoadingRepositories'
 import styles from './Page.module.scss'
 import ReposPagination from './Pagination'
 import RefreshList from './RefreshList'
