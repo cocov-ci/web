@@ -1,11 +1,19 @@
-'use client'
-
 import SearchField from 'app/common/SearchField'
 import Text from 'app/common/Text'
 
 import styles from './Header.module.scss'
 
-const Header = () => {
+interface HeaderProps {
+  searchFieldDisabled?: boolean
+  searchFieldLoading?: boolean
+  onSearchChange: (arg: string) => void
+}
+
+const Header = ({
+  searchFieldDisabled,
+  searchFieldLoading,
+  onSearchChange,
+}: HeaderProps) => {
   return (
     <div className={styles.header}>
       <Text className={styles.description}>
@@ -16,9 +24,9 @@ const Header = () => {
       </Text>
       <SearchField
         className={styles.searchField}
-        disabled={false}
-        loading={false}
-        onSearch={() => null}
+        disabled={searchFieldDisabled}
+        loading={searchFieldLoading}
+        onSearch={onSearchChange}
       />
     </div>
   )

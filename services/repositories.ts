@@ -1,16 +1,18 @@
 import {
   DeleteRepositoriesResponseParams,
   RegenTokenResponseProps,
+  RepositoryProps,
+  UpdateOrgReposResponseProps,
 } from 'types/Repositories'
 import fetcher from 'utils/fetchClient'
 
 const Repositories = {
-  // add: async (data: AddSecretParams): Promise<SecretParams> => {
-  //   return await fetcher({
-  //     url: `/api/repositories/${data.repositoryName}/secrets/new`,
-  //     args: { params: { name: data.name, data: data.data } },
-  //   })
-  // },
+  add: async (name: string): Promise<RepositoryProps> => {
+    return await fetcher({
+      url: `/api/repositories/add`,
+      args: { method: 'POST', params: { name: name } },
+    })
+  },
   delete: async ({
     repositoryName,
   }: {
@@ -36,6 +38,11 @@ const Repositories = {
   }): Promise<RegenTokenResponseProps> => {
     return await fetcher({
       url: `/api/repositories/${repositoryName}/settings/sync-github`,
+    })
+  },
+  refreshList: async (): Promise<UpdateOrgReposResponseProps> => {
+    return await fetcher({
+      url: `/api/repositories/$org_repos/update`,
     })
   },
 }

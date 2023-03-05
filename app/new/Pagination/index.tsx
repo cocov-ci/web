@@ -4,14 +4,24 @@ import Pagination from 'app/common/Pagination'
 
 import styles from './Pagination.module.scss'
 
-const ReposPagination = () => {
+interface ReposPaginationParams {
+  total: number
+  currentPage: number
+  onPageClick: (arg: number) => void
+}
+
+const ReposPagination = ({
+  total,
+  currentPage,
+  onPageClick,
+}: ReposPaginationParams) => {
   return (
     <div className={styles.paging}>
       <Pagination
         className={styles.paginationComponent}
-        currentPage={1}
-        onPageClick={() => null}
-        total={10}
+        currentPage={currentPage}
+        onPageClick={onPageClick}
+        total={total}
       />
     </div>
   )

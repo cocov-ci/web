@@ -1,30 +1,65 @@
 'use client'
 
 import { Album } from 'lucide-react'
+import { useState } from 'react'
 
 import Button from 'app/common/Button'
+import RelativeTime from 'app/common/RelativeTime'
 import Text from 'app/common/Text'
+import Repositories from 'services/repositories'
+import { OrgRepositoryProps } from 'types/Repositories'
 
 import styles from './RepositoryItem.module.scss'
 
-const RepositoryItem = ({ status }: { status: string }) => {
+interface RepositoryItemParams {
+  item: OrgRepositoryProps
+  onAddSuccess: () => void
+}
+
+const RepositoryItem = ({ item, onAddSuccess }: RepositoryItemParams) => {
+  const [addingRepository, setAddingRepository] = useState<boolean>(false)
+
+  const onAddRepository = async () => {
+    setAddingRepository(true)
+
+    try {
+      await Repositories.add(item.name)
+    } catch (err) {
+      // TODO
+    } finally {
+      setAddingRepository(false)
+      onAddSuccess()
+    }
+  }
+
   return (
     <div className={styles.item}>
       <Album className={styles.icon} size={27} />
       <div className={styles.data}>
         <Text className={styles.name} variant="title">
-          jps
+          {item.name}
         </Text>
-        <Text>Josie Platform Server</Text>
+        <Text>{item.description}</Text>
         <Text className={styles.timestamp}>
-          Created 1 year ago • Last updated 3 minutes ago
+          Created <RelativeTime timestamp={new Date(item.created_at)} />
+          {item?.pushed_at && (
+            <>
+              {' '}
+              • Last updated{' '}
+              <RelativeTime timestamp={new Date(item.pushed_at)} />
+            </>
+          )}
         </Text>
       </div>
-      {status === 'new' && <Button style="secondary">Add to Cocov</Button>}
-      {status === 'alreadyExists' && (
+      {!addingRepository && item.status === 'absent' && (
+        <Button onClick={() => onAddRepository()} style="secondary">
+          Add to Cocov
+        </Button>
+      )}
+      {!addingRepository && item.status === 'present' && (
         <Text className={styles.alreadyAddedStatus}>Already added</Text>
       )}
-      {status === 'adding' && (
+      {addingRepository && (
         <Button disabled style="secondary">
           Adding
         </Button>

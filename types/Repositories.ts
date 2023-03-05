@@ -24,3 +24,25 @@ export interface DeleteRepositoriesResponseParams {
 export interface RegenTokenResponseProps {
   new_token: string
 }
+
+export interface UpdateOrgReposResponseProps {
+  [arg: string]: string
+}
+
+export type OrgRepositoryStatus = 'absent' | 'present' | 'adding'
+export interface OrgRepositoryProps {
+  name: string
+  description: string
+  created_at: string
+  pushed_at: string
+  status: OrgRepositoryStatus
+}
+
+export interface OrgRepositoriesResponseProps {
+  status: 'updating' | 'ok'
+  paging: PagingProps[]
+  total_pages: number
+  current_page: number
+  last_updated: string
+  items: OrgRepositoryProps[]
+}
