@@ -9,12 +9,12 @@ import Repositories from 'services/repositories'
 import { OrgRepositoriesResponseProps } from 'types/Repositories'
 
 import Header from './Header'
+import ListItems from './ListItems'
 import LoadingRepositories from './LoadingRepositories'
 import NoResults from './NoResults'
 import styles from './Page.module.scss'
 import ReposPagination from './Pagination'
 import RefreshList from './RefreshList'
-import RepositoryItem from './RepositoryItem'
 
 interface RepositoriesFetchResponse {
   data: OrgRepositoriesResponseProps
@@ -25,6 +25,7 @@ interface RepositoriesFetchResponse {
 const NewRepository = () => {
   const [search, setSearch] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [loadingPage, setLoadingPage] = useState<boolean>(true)
   const [updatingRepositories, setUpdatingRepositories] =
     useState<boolean>(false)
 
@@ -40,7 +41,10 @@ const NewRepository = () => {
   let polling: ReturnType<typeof setInterval>
 
   const isSearching = useMemo(() => search.length > 0, [search])
-  const isUpdating = useMemo(() => !data || data?.status === 'updating', [data])
+  const isUpdating = useMemo(
+    () => (!loadingPage && !data) || data?.status === 'updating',
+    [data, loadingPage],
+  )
   const hasPagination = useMemo(() => data?.total_pages > 1, [data])
   const isEmpty = useMemo(() => data && data.items?.length === 0, [data])
 
@@ -62,6 +66,10 @@ const NewRepository = () => {
   }, [search])
 
   useEffect(() => {
+    if (data) {
+      setLoadingPage(false)
+    }
+
     if (data && !isUpdating) {
       clearInterval(polling)
     } else {
@@ -79,11 +87,12 @@ const NewRepository = () => {
       <FixedContent>
         <div className={styles.content}>
           <Header
+            loading={loadingPage}
             onSearchChange={term => setSearch(term)}
             searchFieldDisabled={(loading && !isSearching) || isUpdating}
             searchFieldLoading={loading && isSearching}
           />
-          {!isUpdating && !isEmpty && (
+          {!loadingPage && !isUpdating && !isEmpty && (
             <RefreshList
               data={data?.last_updated}
               loading={updatingRepositories}
@@ -95,14 +104,13 @@ const NewRepository = () => {
           <div className={styles.info}>
             {isUpdating && <LoadingRepositories />}
             {isEmpty && isSearching && <NoResults />}
-            {!isUpdating &&
-              data?.items?.map(item => (
-                <RepositoryItem
-                  item={item}
-                  key={item.name}
-                  onAddSuccess={() => refetch()}
-                />
-              ))}
+            {!isUpdating && (
+              <ListItems
+                data={data?.items}
+                loading={loadingPage}
+                refetch={() => refetch()}
+              />
+            )}
           </div>
           {hasPagination && (
             <ReposPagination

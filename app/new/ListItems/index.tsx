@@ -9,14 +9,21 @@ import Text from 'app/common/Text'
 import Repositories from 'services/repositories'
 import { OrgRepositoryProps } from 'types/Repositories'
 
-import styles from './RepositoryItem.module.scss'
+import styles from './ListItems.module.scss'
+import Loading from './Loading'
 
-interface RepositoryItemParams {
+interface ItemParams {
   item: OrgRepositoryProps
   onAddSuccess: () => void
 }
 
-const RepositoryItem = ({ item, onAddSuccess }: RepositoryItemParams) => {
+interface ListItemsParams {
+  data: OrgRepositoryProps[]
+  loading: boolean
+  refetch: () => void
+}
+
+const Item = ({ item, onAddSuccess }: ItemParams) => {
   const [addingRepository, setAddingRepository] = useState<boolean>(false)
 
   const onAddRepository = async () => {
@@ -68,4 +75,16 @@ const RepositoryItem = ({ item, onAddSuccess }: RepositoryItemParams) => {
   )
 }
 
-export default RepositoryItem
+const ListItems = ({ data, refetch, loading }: ListItemsParams) => {
+  if (loading) return <Loading />
+
+  return (
+    <div>
+      {data?.map(item => (
+        <Item item={item} key={item.name} onAddSuccess={() => refetch()} />
+      ))}
+    </div>
+  )
+}
+
+export default ListItems

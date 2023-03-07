@@ -29,4 +29,11 @@
   .timestamp {
     color: $colorGrayMedium;
   }
+
+  &.loading {
+    .icon,
+    .button {
+      width: auto;
+    }
+  }
 }

@@ -2,10 +2,12 @@ import SearchField from 'app/common/SearchField'
 import Text from 'app/common/Text'
 
 import styles from './Header.module.scss'
+import LoadingComponent from './Loading'
 
 interface HeaderProps {
   searchFieldDisabled?: boolean
   searchFieldLoading?: boolean
+  loading: boolean
   onSearchChange: (arg: string) => void
 }
 
@@ -13,7 +15,12 @@ const Header = ({
   searchFieldDisabled,
   searchFieldLoading,
   onSearchChange,
+  loading,
 }: HeaderProps) => {
+  if (loading) {
+    return <LoadingComponent />
+  }
+
   return (
     <div className={styles.header}>
       <Text className={styles.description}>
