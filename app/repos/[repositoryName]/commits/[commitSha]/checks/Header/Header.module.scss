@@ -5,6 +5,14 @@
   flex-direction: column;
   padding: 20px 15px 20px 30px;
 
+  .top {
+    display: flex;
+
+    .text {
+      flex: 1;
+    }
+  }
+
   .commitHeader {
     margin: 0;
   }

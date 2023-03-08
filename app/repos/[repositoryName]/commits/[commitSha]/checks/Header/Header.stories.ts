@@ -30,6 +30,7 @@ const data = {
     user: { name: 'heyvito', avatar: 'https://github.com/heyvito.png' },
   },
   repositoryName: 'api',
+  accessoryButtonState: 'rerun',
 } as HeaderProps
 
 export const Default: Story = {
