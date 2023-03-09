@@ -9,7 +9,7 @@ import { ChecksResponseProps, CheckStatus } from 'types/Checks'
 import Alert from './Alert'
 import Check from './Check'
 import Loading from './Check/Loading'
-import Header from './Header'
+import Header, { AccessoryButtonState } from './Header'
 import styles from './Page.module.scss'
 
 interface ChecksParams {
@@ -33,12 +33,38 @@ const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
   const [getChecks, { data }] = useLazyFetch({
     url: `/api/repositories/${repositoryName}/commits/${commitSha}/checks`,
   }) as ChecksFetchResponse[]
+  const [accessoryButtonState, setAccessoryButtonState] =
+    useState<AccessoryButtonState>('none')
 
   const allSucceeded = useMemo(() => isCheckFinished(data?.status), [data])
+
+  const onReRunChecks = () => {
+    // TODO
+  }
+
+  const onCancelChecks = () => {
+    setAccessoryButtonState('cancelling')
+    // TODO
+  }
 
   useEffect(() => {
     getChecks({})
   }, [])
+
+  useEffect(() => {
+    if (data?.status) {
+      switch (data.status) {
+        case 'errored':
+        case 'succeeded':
+        case 'canceled':
+          setAccessoryButtonState('rerun')
+          break
+        case 'running':
+          setAccessoryButtonState('cancel')
+          break
+      }
+    }
+  }, [data])
 
   useEffect(() => {
     if (allSucceeded) {
@@ -59,8 +85,11 @@ const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
   return (
     <FixedContent>
       <Header
+        accessoryButtonState={accessoryButtonState}
         commit={data?.commit}
         loading={loadingPage}
+        onCancel={onCancelChecks}
+        onReRun={onReRunChecks}
         repositoryName={repositoryName}
       />
       <div className={styles.content}>
