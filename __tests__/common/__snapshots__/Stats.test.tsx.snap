@@ -6,12 +6,12 @@ exports[`common/Stats renders Stats snapshots 1`] = `
     class="stats"
   >
     <p
-      class="description description"
+      class="text description description"
     >
       Coverage
     </p>
     <p
-      class="title value"
+      class="text value"
     >
       —
     </p>

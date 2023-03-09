@@ -3,7 +3,7 @@
 exports[`common/Button renders Button snapshots 1`] = `
 <div>
   <button
-    class="button primary"
+    class="className button primary"
   >
     button
   </button>
