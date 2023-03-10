@@ -22,3 +22,8 @@ export interface ChecksResponseProps {
   issues: { [arg: string]: number }
   status: CheckStatus
 }
+
+export interface ChecksReRunAndCancel {
+  repositoryName: string
+  commitSha: string
+}

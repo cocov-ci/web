@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
 import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
+import Checks from 'services/checks'
 import { ChecksResponseProps, CheckStatus } from 'types/Checks'
 
 import Alert from './Alert'
@@ -27,7 +28,9 @@ const finishedStatuses: CheckStatus[] = ['completed', 'errored', 'canceled']
 const isCheckFinished = (status: CheckStatus | undefined) =>
   status && status in finishedStatuses
 
-const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
+const ChecksPage = ({
+  params: { repositoryName, commitSha },
+}: ChecksParams) => {
   let polling: ReturnType<typeof setInterval>
   const [loadingPage, setLoadingPage] = useState(true)
   const [getChecks, { data }] = useLazyFetch({
@@ -38,13 +41,14 @@ const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
 
   const allSucceeded = useMemo(() => isCheckFinished(data?.status), [data])
 
-  const onReRunChecks = () => {
+  const onReRunChecks = async () => {
     // TODO
+    await Checks.reRun({ repositoryName, commitSha })
   }
 
-  const onCancelChecks = () => {
+  const onCancelChecks = async () => {
     setAccessoryButtonState('cancelling')
-    // TODO
+    await Checks.cancel({ repositoryName, commitSha })
   }
 
   useEffect(() => {
@@ -107,4 +111,4 @@ const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
   )
 }
 
-export default Checks
+export default ChecksPage

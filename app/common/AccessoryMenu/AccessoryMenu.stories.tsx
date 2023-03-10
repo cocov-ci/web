@@ -59,3 +59,21 @@ export const Default: Story = {
     ),
   },
 }
+
+export const Muted: Story = {
+  args: {
+    muted: true,
+    children: (
+      <>
+        <MenuItem href="." icon={LucideUserX} label="Revoke Admin" />
+        <MenuItem
+          icon={LucideRefreshCw}
+          label="Sync Permissions"
+          onClick={() => alert('clicked')}
+        />
+        <MenuItem icon={LucideLogOut} label="Force Logout" />
+        <MenuItem danger icon={LucideTrash2} label="Delete..." />
+      </>
+    ),
+  },
+}

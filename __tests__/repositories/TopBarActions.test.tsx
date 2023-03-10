@@ -9,7 +9,7 @@ describe('Repositories/TopBarActions', () => {
 
   it('renders TopBarActions component', () => {
     expect(screen.getByPlaceholderText('Type to Search')).toBeVisible()
-    expect(screen.getByRole('button')).toHaveTextContent('Add Repository')
+    expect(container.querySelector('a')).toHaveTextContent('Add Repository')
     expect(container.querySelector('svg')).toBeVisible()
   })
 
@@ -19,7 +19,7 @@ describe('Repositories/TopBarActions', () => {
     )
 
     expect(screen.getByPlaceholderText('Type to Search')).toBeVisible()
-    expect(screen.getByRole('button')).toHaveTextContent('Add Repository')
+    expect(container.querySelector('a')).toHaveTextContent('Add Repository')
     expect(container.querySelector('svg')).toBeVisible()
     expect(container.querySelector('img')).toBeVisible()
   })
@@ -30,7 +30,7 @@ describe('Repositories/TopBarActions', () => {
     )
 
     expect(screen.getByPlaceholderText('Type to Search')).toBeVisible()
-    expect(screen.getByRole('button')).toHaveTextContent('Add Repository')
+    expect(container.querySelector('a')).toHaveTextContent('Add Repository')
     expect(container.querySelector('svg')).toBeVisible()
     expect(container.querySelector('input')).toHaveAttribute('disabled')
   })
