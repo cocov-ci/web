@@ -40,7 +40,7 @@ const PageContent = ({
             title="Waiting for Data..."
           />
         )}
-        {(data?.status === 'queued' || data?.status === 'processing') && (
+        {(data?.status === 'queued' || data?.status === 'in_progress') && (
           <Alert
             className={styles.alert}
             description="This instance is currently processing received coverage data. It should be available here in a few seconds."
@@ -59,7 +59,7 @@ const PageContent = ({
         <FileList
           className={styles.fileList}
           commitSha={commitSha}
-          files={data?.status === 'processed' ? data?.files : []}
+          files={data?.status === 'completed' ? data?.files : []}
           repositoryName={repositoryName}
           resetScrollAfterPageLoad={!isFilePage}
         />

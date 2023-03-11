@@ -40,7 +40,7 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
   }, [status])
 
   const getIssuesReportedMessage = useMemo(() => {
-    if (status !== 'succeeded') return null
+    if (status !== 'completed') return null
 
     let message
 
@@ -57,7 +57,7 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
     let durationStatus
 
     switch (status) {
-      case 'succeeded':
+      case 'completed':
         durationStatus = 'Completed after '
         break
       case 'errored':
@@ -66,7 +66,7 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
       case 'waiting':
         durationStatus = 'Waiting for '
         break
-      case 'running':
+      case 'in_progress':
         durationStatus = 'In progress for '
         break
       case 'canceled':
@@ -85,12 +85,12 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
   return (
     <div className={styles.check}>
       <div className={styles.container}>
-        {status === 'succeeded' && (
-          <CheckCircle className={styles.succeeded} size="24" />
+        {status === 'completed' && (
+          <CheckCircle className={styles.completed} size="24" />
         )}
         {status === 'errored' && <XOctagon className={styles.errored} />}
-        {status === 'running' && (
-          <Loading className={styles.running} height="24px" width="24px" />
+        {status === 'in_progress' && (
+          <Loading className={styles.in_progress} height="24px" width="24px" />
         )}
         {status === 'waiting' && <Clock className={styles.waiting} size="24" />}
         {status === 'canceled' && (
