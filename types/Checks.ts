@@ -2,8 +2,8 @@ import { HeadProps } from './Commits'
 
 export type CheckStatus =
   | 'waiting'
-  | 'running'
-  | 'succeeded'
+  | 'in_progress'
+  | 'completed'
   | 'errored'
   | 'canceled'
 

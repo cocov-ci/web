@@ -26,7 +26,7 @@ export const getCoverage = ({ data, repositoryName }: DataProps) => {
       coverageObject.statusColor = 'grey'
       break
     case 'queued':
-    case 'processing':
+    case 'in_progress':
       coverageObject.message = 'Processing...'
       coverageObject.messageBold = true
       coverageObject.statusColor = 'yellow'
@@ -36,7 +36,7 @@ export const getCoverage = ({ data, repositoryName }: DataProps) => {
       coverageObject.messageBold = true
       coverageObject.statusColor = 'red'
       break
-    case 'processed':
+    case 'completed':
       if (
         minimum_coverage &&
         coverage_percent &&
@@ -72,7 +72,7 @@ export const getChecks = ({ data, repositoryName }: DataProps) => {
   switch (checks_status) {
     case 'waiting':
     case 'queued':
-    case 'processing':
+    case 'in_progress':
       checkObject.message = 'Processing...'
       checkObject.messageBold = true
       checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
@@ -84,7 +84,7 @@ export const getChecks = ({ data, repositoryName }: DataProps) => {
       checkObject.statusColor = 'red'
       checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
       break
-    case 'processed':
+    case 'completed':
       if (issues_count === 0) {
         checkObject.message = 'Passing. No issues detected.'
         checkObject.statusColor = 'green'

@@ -22,7 +22,7 @@ interface ChecksFetchResponse {
   (arg: UseFetchProps): void
 }
 
-const finishedStatuses: CheckStatus[] = ['succeeded', 'errored', 'canceled']
+const finishedStatuses: CheckStatus[] = ['completed', 'errored', 'canceled']
 
 const isCheckFinished = (status: CheckStatus | undefined) =>
   status && status in finishedStatuses
@@ -55,11 +55,11 @@ const Checks = ({ params: { repositoryName, commitSha } }: ChecksParams) => {
     if (data?.status) {
       switch (data.status) {
         case 'errored':
-        case 'succeeded':
+        case 'completed':
         case 'canceled':
           setAccessoryButtonState('rerun')
           break
-        case 'running':
+        case 'in_progress':
           setAccessoryButtonState('cancel')
           break
       }

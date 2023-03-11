@@ -16,7 +16,7 @@ const data = {
   check: {
     id: 321,
     plugin_name: 'cocov/brakeman',
-    status: 'succeeded',
+    status: 'completed',
     started_at: '2023-01-27T00:06:07Z',
     finished_at: '2023-01-27T00:06:44Z',
   },
@@ -28,7 +28,7 @@ export const Default: Story = {
 }
 
 export const InProgress: Story = {
-  args: { ...data, check: { ...data.check, status: 'running' } },
+  args: { ...data, check: { ...data.check, status: 'in_progress' } },
 }
 
 export const Errored: Story = {
@@ -40,7 +40,7 @@ export const Waiting: Story = {
 }
 
 export const Succeeded: Story = {
-  args: { ...data, check: { ...data.check, status: 'succeeded' } },
+  args: { ...data, check: { ...data.check, status: 'completed' } },
 }
 
 export const Canceled: Story = {

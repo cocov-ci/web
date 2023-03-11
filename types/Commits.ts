@@ -17,8 +17,8 @@ export type NavMenuProps = 'issues' | 'coverage'
 
 export type StatusKind =
   | 'waiting'
-  | 'processing'
-  | 'processed'
+  | 'in_progress'
+  | 'completed'
   | 'queued'
   | 'errored'
   | 'not_configured'

@@ -28,8 +28,8 @@ const data = {
     id: 231,
     author_email: 'hey@vito.io',
     author_name: 'Victor Gama',
-    checks_status: 'processed',
-    coverage_status: 'processed',
+    checks_status: 'completed',
+    coverage_status: 'completed',
     sha: 'aae70b022edb4b80dfdeab0fea40f03d5e3c7350',
     coverage_percent: null,
     issues_count: 26,
@@ -40,7 +40,7 @@ const data = {
     org_name: 'cocov-ci',
     user: { name: 'heyvito', avatar: 'https://github.com/heyvito.png' },
   },
-  status: 'processed',
+  status: 'completed',
   files: [
     {
       id: 5393,
