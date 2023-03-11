@@ -13,7 +13,7 @@ const Checks = {
     return await fetcher({
       url: `/api/repositories/${repositoryName}/commits/${commitSha}/checks/re_run`,
       args: {
-        method: 'DELETE',
+        method: 'POST',
       },
     })
   },
@@ -24,7 +24,7 @@ const Checks = {
     return await fetcher({
       url: `/api/repositories/${repositoryName}/commits/${commitSha}/checks/delete`,
       args: {
-        method: 'POST',
+        method: 'DELETE',
       },
     })
   },

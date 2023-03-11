@@ -42,7 +42,7 @@ const ChecksPage = ({
   const allSucceeded = useMemo(() => isCheckFinished(data?.status), [data])
 
   const onReRunChecks = async () => {
-    // TODO
+    setAccessoryButtonState('restarting')
     await Checks.reRun({ repositoryName, commitSha })
   }
 
@@ -65,6 +65,9 @@ const ChecksPage = ({
           break
         case 'in_progress':
           setAccessoryButtonState('cancel')
+          break
+        default:
+          setAccessoryButtonState('none')
           break
       }
     }

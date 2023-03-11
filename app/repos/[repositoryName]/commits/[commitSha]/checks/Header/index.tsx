@@ -1,3 +1,5 @@
+'use client'
+
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
 import CommitHeader from 'app/repos/[repositoryName]/commits/[commitSha]/CommitHeader'
@@ -5,7 +7,12 @@ import { HeadProps } from 'types/Commits'
 
 import styles from './Header.module.scss'
 
-export type AccessoryButtonState = 'none' | 'rerun' | 'cancel' | 'cancelling'
+export type AccessoryButtonState =
+  | 'none'
+  | 'rerun'
+  | 'cancel'
+  | 'cancelling'
+  | 'restarting'
 
 export interface HeaderProps {
   repositoryName: string
@@ -45,6 +52,13 @@ const Header = ({
       button = (
         <Button onClick={onReRun} style="secondary">
           Restart Checks
+        </Button>
+      )
+      break
+    case 'restarting':
+      button = (
+        <Button disabled style="secondary">
+          Restarting...
         </Button>
       )
       break
