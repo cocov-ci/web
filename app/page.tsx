@@ -10,21 +10,9 @@ import ListItem from 'app/repos/ListItem'
 import NoResults from 'app/repos/NoResults'
 import TopBarActions from 'app/repos/TopBarActions'
 import useBanner from 'hooks/useBanner'
-import useFetch from 'hooks/useFetch'
-import { PagingProps } from 'types/Paging'
-import { RepositoriesResponseProps } from 'types/Repositories'
+import API, { useAPI } from 'utils/api'
 
 import Loading from './loading'
-
-interface RepositoriesFetchResponse {
-  data: RepositoriesResponseProps
-  loading: boolean
-  refetch: () => void
-}
-
-const hasRepositoriesList = (
-  data: RepositoriesResponseProps | undefined,
-): boolean => (data as RepositoriesResponseProps)?.repositories !== undefined
 
 const Repositories = () => {
   const [search, setSearch] = useState<string>('')
@@ -33,36 +21,20 @@ const Repositories = () => {
 
   const isSearching = useMemo(() => search.length > 0, [search])
 
-  const { data, loading, refetch } = useFetch({
-    url: `/api/repositories`,
-    params: {
-      ...(search && { search_term: search }),
-      page: currentPage.toString(),
-    },
-    handler: [currentPage, search],
-  }) as RepositoriesFetchResponse
+  const { result, loading, reFetch } = useAPI(API.shared.repositoryList, {
+    search_term: search,
+    page: currentPage,
+  })
 
   const isEmpty = useMemo(
-    () => hasRepositoriesList(data) && data.repositories.length === 0,
-    [data],
-  )
-  const hasPagination = useMemo(
-    () => hasRepositoriesList(data) && data.paging[0].total_pages > 1,
-    [isSearching, data],
+    () => result && result.repositories.length === 0,
+    [result],
   )
 
-  const paging: PagingProps = useMemo(
-    () => data?.paging[0] as PagingProps,
-    [data],
-  )
-
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [search])
-
+  useEffect(() => setCurrentPage(1), [search])
   useEffect(() => {
     if (localStorage.getItem('repositoryDeleted')) {
-      refetch()
+      reFetch()
 
       showBanner({
         icon: Trash,
@@ -72,6 +44,26 @@ const Repositories = () => {
       localStorage.removeItem('repositoryDeleted')
     }
   }, [])
+
+  const repositoryList = useMemo(
+    () =>
+      result &&
+      result.repositories.length > 0 && (
+        <>
+          {result.repositories.map(item => (
+            <ListItem {...item} key={item.id} />
+          ))}
+          {result.paging.total_pages > 1 && (
+            <Pagination
+              currentPage={result.paging.page}
+              onPageClick={page => setCurrentPage(page)}
+              total={result.paging.total_pages}
+            />
+          )}
+        </>
+      ),
+    [result],
+  )
 
   return (
     <div>
@@ -88,20 +80,7 @@ const Repositories = () => {
       {isEmpty && isSearching && <NoResults />}
       {isEmpty && !isSearching && <Empty />}
 
-      {!isEmpty && hasRepositoriesList(data) && (
-        <>
-          {data?.repositories.map(item => (
-            <ListItem {...item} key={item.id} />
-          ))}
-          {hasPagination && (
-            <Pagination
-              currentPage={paging?.page}
-              onPageClick={page => setCurrentPage(page)}
-              total={paging?.total_pages}
-            />
-          )}
-        </>
-      )}
+      {repositoryList}
     </div>
   )
 }
