@@ -21,7 +21,7 @@ const Repositories = () => {
 
   const isSearching = useMemo(() => search.length > 0, [search])
 
-  const { result, loading, reFetch } = useAPI(API.shared.repositoryList, {
+  const { result, loading, refresh } = useAPI(API.shared.repositoryList, {
     search_term: search,
     page: currentPage,
   })
@@ -34,7 +34,7 @@ const Repositories = () => {
   useEffect(() => setCurrentPage(1), [search])
   useEffect(() => {
     if (localStorage.getItem('repositoryDeleted')) {
-      reFetch()
+      refresh()
 
       showBanner({
         icon: Trash,

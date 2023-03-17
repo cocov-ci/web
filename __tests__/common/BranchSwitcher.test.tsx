@@ -1,7 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 
 import BranchSwitcher from 'app/common/BranchSwitcher'
+
 import '@testing-library/jest-dom'
+import useAPIMock from '../../hooks/useAPIMock'
+import API from '../../utils/api'
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
@@ -32,6 +36,18 @@ describe('common/BranchSwitcher', () => {
     fireEvent.keyUp(input, { key: 'Escape', code: 'Escape' })
 
     expect(handleOnClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('loads data when opening', async () => {
+    useAPIMock(API.prototype.branchList, {
+      branches: ['branch1'],
+    })
+
+    await act(async () =>
+      render(<BranchSwitcher onClose={() => null} visible={true} />),
+    )
+
+    expect(screen.getByText('branch1')).toBeVisible()
   })
 
   it('renders BranchSwitcher snapshots', () => {

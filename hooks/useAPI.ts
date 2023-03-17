@@ -1,7 +1,7 @@
 'use client'
 
 import _ from 'lodash'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import usePrevious from 'hooks/usePrevious'
 
@@ -9,10 +9,10 @@ export interface UseAPIOutput<O> {
   result?: O
   loading: boolean
   error?: string
-  reFetch: () => void
+  refresh: () => void
 }
 
-const useAPI = <I, O>(
+const useAPIRequest = <I, O>(
   fn: (param: I) => Promise<O>,
   input: I,
 ): UseAPIOutput<O> => {
@@ -36,15 +36,47 @@ const useAPI = <I, O>(
       })
   }
 
+  return { loading, result, error, refresh: doFetch } as UseAPIOutput<O>
+}
+
+const useAPI = <I, O>(
+  fn: (param: I) => Promise<O>,
+  input: I,
+): UseAPIOutput<O> => {
+  const req = useAPIRequest(fn, input)
+
   const previousInput = usePrevious(input)
 
   useEffect(() => {
     if (!_.isEqual(previousInput, input)) {
-      doFetch()
+      req.refresh()
     }
   }, [input])
 
-  return { loading, result, error, reFetch: doFetch } as UseAPIOutput<O>
+  return req
+}
+
+const useLazyAPI = <I, O>(
+  fn: (param: I) => Promise<O>,
+  input: I,
+): UseAPIOutput<O> => {
+  const req = useAPIRequest(fn, input)
+
+  const previousInput = usePrevious(input)
+
+  const deferredRequest = useCallback(() => {
+    if (!_.isEqual(previousInput, input)) {
+      req.refresh()
+    }
+  }, [])
+
+  return {
+    loading: req.loading,
+    error: req.error,
+    result: req.result,
+    refresh: deferredRequest,
+  }
 }
 
 export default useAPI
+export { useLazyAPI }
