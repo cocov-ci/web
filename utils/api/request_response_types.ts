@@ -12,3 +12,11 @@ export interface RepositoryListOutput {
   repositories: RepositoryProps[]
   paging: PagingProps
 }
+
+export type BranchListInput = {
+  repositoryName: string
+}
+
+export interface BranchListOutput {
+  branches: string[]
+}
