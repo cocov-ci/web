@@ -48,7 +48,7 @@ const BranchSwitcher = ({
   }) as BranchesFetchResponse[]
 
   const onSearchChange = (term: string) => {
-    setResults(branches.filter(item => item.includes(term)))
+    setResults(branches?.filter(item => item.includes(term)))
   }
 
   const onSelectBranch = (selectedItem: string) => {
@@ -143,7 +143,7 @@ const BranchSwitcher = ({
             icon={Search}
             innerRef={inputRef}
             onChange={event =>
-              branches.length > 0 && onSearchChange(event.target.value)
+              branches?.length > 0 && onSearchChange(event.target.value)
             }
             onKeyUp={handleKeyUp}
             placeholder="Type to search..."
