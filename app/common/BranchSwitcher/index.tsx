@@ -8,9 +8,10 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Input from 'app/common/Input'
 import Kbd from 'app/common/Kbd'
 import Loading from 'app/common/Loading'
-import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
+import { useLazyAPI } from 'hooks/useAPI'
 import useOnClickOutside from 'hooks/useOnClickOutside'
 import useSegments from 'hooks/useSegments'
+import API from 'utils/api'
 import randomBetween from 'utils/randomBetween'
 
 import styles from './BranchSwitcher.module.scss'
@@ -19,12 +20,6 @@ type BranchSwitcherProps = {
   className?: string
   onClose: () => void
   visible: boolean
-}
-
-interface BranchesFetchResponse {
-  (arg: UseFetchProps): void
-  data: string[]
-  loading: boolean
 }
 
 const BranchSwitcher = ({
@@ -43,12 +38,19 @@ const BranchSwitcher = ({
 
   useOnClickOutside(branchSwitcherRef, onClose)
 
-  const [getBranches, { data: branches, loading }] = useLazyFetch({
-    url: `/api/repositories/${repositoryName}/branches`,
-  }) as BranchesFetchResponse[]
+  const {
+    loading,
+    error,
+    result,
+    refresh: refreshBranches,
+  } = useLazyAPI(API.shared.branchList, {
+    repositoryName: repositoryName,
+  })
+
+  const branches = useMemo(() => result?.branches || [], [result])
 
   const onSearchChange = (term: string) => {
-    setResults(branches?.filter(item => item.includes(term)))
+    setResults(result?.branches.filter(item => item.includes(term)))
   }
 
   const onSelectBranch = (selectedItem: string) => {
@@ -104,8 +106,8 @@ const BranchSwitcher = ({
 
   useEffect(() => {
     if (visible) {
-      if (!branches) {
-        getBranches({})
+      if (branches.length === 0) {
+        refreshBranches()
       }
 
       if (inputRef.current != null) {
@@ -143,7 +145,7 @@ const BranchSwitcher = ({
             icon={Search}
             innerRef={inputRef}
             onChange={event =>
-              branches?.length > 0 && onSearchChange(event.target.value)
+              branches.length > 0 && onSearchChange(event.target.value)
             }
             onKeyUp={handleKeyUp}
             placeholder="Type to search..."
