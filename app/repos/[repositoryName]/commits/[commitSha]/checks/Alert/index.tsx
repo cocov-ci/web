@@ -9,7 +9,7 @@ const Alert = () => {
   return (
     <div className={styles.alert}>
       <Text gutterBottom variant="description">
-        <strong>Notice:</strong> Those checks have already finished. See its
+        <strong>Notice:</strong> Those checks have already finished. See their
         results on the{' '}
         <Link className={styles.link} href="#">
           commit results page

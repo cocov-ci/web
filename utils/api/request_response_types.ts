@@ -1,7 +1,13 @@
 'use client'
 
+import { CheckProps, CheckStatus } from 'types/Checks'
+import { HeadProps } from 'types/Commits'
 import { PagingProps } from 'types/Paging'
 import { OrgRepo, RepositoryProps } from 'types/Repositories'
+
+export interface EmptyResponse {
+  [key: string]: never
+}
 
 export type RepositoryListInput = {
   page?: number
@@ -34,3 +40,26 @@ export interface OrgReposOutput {
   last_updated: string
   items: OrgRepo[]
 }
+
+export type ChecksListInput = {
+  repositoryName: string
+  commitSHA: string
+}
+
+export type ChecksCancelInput = ChecksListInput
+export type ChecksReRunInput = ChecksListInput
+
+export interface ChecksListOutput {
+  checks: CheckProps[]
+  commit: HeadProps
+  issues: Record<string, number>
+  status: CheckStatus
+}
+
+export type ChecksInfoInput = {
+  repositoryName: string
+  commitSHA: string
+  checkID: number
+}
+
+export type ChecksInfoOutput = CheckProps

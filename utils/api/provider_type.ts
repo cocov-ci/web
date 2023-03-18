@@ -3,6 +3,13 @@
 import {
   BranchListInput,
   BranchListOutput,
+  ChecksCancelInput,
+  ChecksInfoInput,
+  ChecksInfoOutput,
+  ChecksListInput,
+  ChecksListOutput,
+  ChecksReRunInput,
+  EmptyResponse,
   OrgReposInput,
   OrgReposOutput,
   RepositoryListInput,
@@ -15,4 +22,9 @@ export default interface APIProvider {
   branchList(params: BranchListInput): Promise<BranchListOutput>
 
   orgReposList(params: OrgReposInput): Promise<OrgReposOutput>
+
+  checksList(params: ChecksListInput): Promise<ChecksListOutput>
+  checksCancel(params: ChecksCancelInput): Promise<EmptyResponse>
+  checksReRun(params: ChecksReRunInput): Promise<EmptyResponse>
+  checksInfo(params: ChecksInfoInput): Promise<ChecksInfoOutput>
 }
