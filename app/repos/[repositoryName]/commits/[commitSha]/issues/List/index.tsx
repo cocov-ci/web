@@ -13,8 +13,8 @@ import RelativeTime from 'app/common/RelativeTime'
 import Text from 'app/common/Text'
 import useIssues from 'hooks/useIssues'
 import useModal from 'hooks/useModal'
-import Issues from 'services/issues'
 import { IssueIgnoreMetadata, IssueProps } from 'types/Issues'
+import API from 'utils/api'
 import { inconsolata } from 'utils/fonts'
 
 import IgnoreIssue from '../Modals/IgnoreIssue'
@@ -120,10 +120,10 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
 
   const undoIgnoreIssue = async () => {
     try {
-      await Issues.cancelIgnore({
+      await API.shared.issueCancelIgnore({
         repositoryName: repositoryName,
-        commitSha: commitSha,
-        id: issue.id,
+        commitSHA: commitSha,
+        issueID: issue.id,
       })
     } catch (err) {
       // TODO
@@ -198,7 +198,7 @@ const List = ({
   issues,
   loading,
 }: {
-  issues: IssueProps[]
+  issues?: IssueProps[]
   loading: boolean
 }) => {
   const { commitSha } = useIssues()
@@ -238,7 +238,8 @@ const List = ({
 
       {!loading && (
         <div className={styles.list} ref={listRef}>
-          {issues?.length > 0 &&
+          {issues &&
+            issues.length > 0 &&
             issues?.map(issue => {
               return (
                 <ListItem

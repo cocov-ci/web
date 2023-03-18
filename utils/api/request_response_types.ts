@@ -2,6 +2,7 @@
 
 import { CheckProps, CheckStatus } from 'types/Checks'
 import { HeadProps } from 'types/Commits'
+import { IssueIgnoreModes, IssueProps } from 'types/Issues'
 import { PagingProps } from 'types/Paging'
 import { OrgRepo, RepositoryProps } from 'types/Repositories'
 
@@ -63,3 +64,64 @@ export type ChecksInfoInput = {
 }
 
 export type ChecksInfoOutput = CheckProps
+
+export type IssuesListInput = {
+  repositoryName: string
+  commitSHA: string
+  source?: string
+  category?: string
+  state?: string
+  page: number
+}
+
+export interface IssuesListOutput {
+  commit: HeadProps
+  issues: IssueProps[]
+  paging: PagingProps[]
+  repository: Omit<RepositoryProps, 'head'>
+}
+
+export type IssuesStatesInput = {
+  repositoryName: string
+  commitSHA: string
+}
+
+export interface IssuesStatesOutput {
+  [arg: string]: number
+}
+
+export type IssuesSourcesInput = {
+  repositoryName: string
+  commitSHA: string
+}
+
+export interface IssuesSourcesOutput {
+  [arg: string]: number
+}
+
+export type IssuesCategoriesInput = {
+  repositoryName: string
+  commitSHA: string
+}
+
+export interface IssuesCategoriesOutput {
+  [arg: string]: number
+}
+
+export type IssueIgnoreInput = {
+  repositoryName: string
+  commitSHA: string
+  issueID: number
+  reason?: string
+  mode: IssueIgnoreModes
+}
+
+export type IssueIgnoreOutput = IssueProps
+
+export type IssueCancelIgnoreInput = {
+  repositoryName: string
+  commitSHA: string
+  issueID: number
+}
+
+export type IssueCancelIgnoreOutput = IssueProps

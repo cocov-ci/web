@@ -4,7 +4,6 @@ import classNames from 'classnames'
 
 import Loading from 'app/common/Loading'
 import Sidebar, { Item } from 'app/common/Sidebar'
-import { CommitsSourcesResponseProps } from 'types/Commits'
 
 import styles from './Sidebar.module.scss'
 
@@ -17,7 +16,7 @@ interface SidebarItemsProps {
 interface SidebarProps {
   className?: string
   allItemsText: string
-  data: CommitsSourcesResponseProps
+  data?: Record<string, number>
   loading: boolean
   defaultSelectedItem: string | null
   onSelectItem: (arg: Item) => void

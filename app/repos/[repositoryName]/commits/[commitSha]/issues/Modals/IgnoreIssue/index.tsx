@@ -6,17 +6,11 @@ import Button from 'app/common/Button'
 import Text from 'app/common/Text'
 import Textarea from 'app/common/Textarea'
 import useModal from 'hooks/useModal'
-import Issues from 'services/issues'
 import { IssueIgnoreModes } from 'types/Issues'
+import API from 'utils/api'
 import { satoshi } from 'utils/fonts'
 
 import styles from './IgnoreIssue.module.scss'
-
-export interface SecretsCheckNameParams {
-  code?: string
-  message?: string
-  status?: string
-}
 
 interface IgnoreIssueParams {
   onSuccess: () => void
@@ -41,14 +35,13 @@ const IgnoreIssue = ({
     setSubmitting(true)
 
     try {
-      await Issues.ignore({
+      await API.shared.issueIgnore({
         repositoryName: repositoryName,
-        commitSha: commitSha,
-        id: id,
+        commitSHA: commitSha,
+        issueID: id,
         mode: mode,
         reason: reason,
       })
-
       onSuccess()
     } catch (err) {
       // TODO
