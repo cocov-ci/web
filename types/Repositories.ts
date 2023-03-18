@@ -1,5 +1,3 @@
-import { PagingProps } from './Paging'
-
 export interface RepositoryProps {
   id: number
   name: string
@@ -10,11 +8,6 @@ export interface RepositoryProps {
   default_branch: string
   head: { checks_status: string; coverage_status: string }
   code?: number
-}
-
-export interface RepositoriesResponseProps {
-  repositories: RepositoryProps[]
-  paging: PagingProps[]
 }
 
 export interface DeleteRepositoriesResponseParams {
@@ -38,11 +31,10 @@ export interface OrgRepositoryProps {
   status: OrgRepositoryStatus
 }
 
-export interface OrgRepositoriesResponseProps {
-  status: 'updating' | 'ok'
-  paging: PagingProps[]
-  total_pages: number
-  current_page: number
-  last_updated: string
-  items: OrgRepositoryProps[]
+export interface OrgRepo {
+  name: string
+  description: string
+  created_at: string
+  pushed_at: string
+  status: 'absent' | 'present' | 'adding'
 }

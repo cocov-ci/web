@@ -1,7 +1,7 @@
 'use client'
 
 import { PagingProps } from 'types/Paging'
-import { RepositoryProps } from 'types/Repositories'
+import { OrgRepo, RepositoryProps } from 'types/Repositories'
 
 export type RepositoryListInput = {
   page?: number
@@ -19,4 +19,18 @@ export type BranchListInput = {
 
 export interface BranchListOutput {
   branches: string[]
+}
+
+export type OrgReposInput = {
+  page?: number
+  search_term?: string
+}
+
+export interface OrgReposOutput {
+  status: 'updating' | 'ok'
+  paging: PagingProps
+  total_pages: number
+  current_page: number
+  last_updated: string
+  items: OrgRepo[]
 }

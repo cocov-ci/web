@@ -4,9 +4,8 @@ import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
 import TopBar from 'app/common/TopBar'
-import useFetch from 'hooks/useFetch'
 import Repositories from 'services/repositories'
-import { OrgRepositoriesResponseProps } from 'types/Repositories'
+import API, { useAPI } from 'utils/api'
 
 import Header from './Header'
 import ListItems from './ListItems'
@@ -16,37 +15,27 @@ import styles from './Page.module.scss'
 import ReposPagination from './Pagination'
 import RefreshList from './RefreshList'
 
-interface RepositoriesFetchResponse {
-  data: OrgRepositoriesResponseProps
-  loading: boolean
-  refetch: () => void
-}
-
 const NewRepository = () => {
-  const [search, setSearch] = useState<string>('')
+  const [search, setSearch] = useState<string | undefined>(undefined)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [loadingPage, setLoadingPage] = useState<boolean>(true)
   const [updatingRepositories, setUpdatingRepositories] =
     useState<boolean>(false)
 
-  const { data, loading, refetch } = useFetch({
-    url: `/api/repositories/$org_repos`,
-    params: {
-      page: currentPage.toString(),
-      ...(search && { search_term: search }),
-    },
-    handler: [currentPage, search],
-  }) as RepositoriesFetchResponse
+  const { loading, error, result, refresh } = useAPI(API.shared.orgReposList, {
+    page: currentPage,
+    search_term: search,
+  })
 
   let polling: ReturnType<typeof setInterval>
 
-  const isSearching = useMemo(() => search.length > 0, [search])
+  const isSearching = useMemo(() => (search?.length || 0) > 0, [search])
   const isUpdating = useMemo(
-    () => (!loadingPage && !data) || data?.status === 'updating',
-    [data, loadingPage],
+    () => (!loadingPage && !result) || result?.status === 'updating',
+    [result, loadingPage],
   )
-  const hasPagination = useMemo(() => data?.total_pages > 1, [data])
-  const isEmpty = useMemo(() => data && data.items?.length === 0, [data])
+  const hasPagination = useMemo(() => (result?.total_pages || 0) > 1, [result])
+  const isEmpty = useMemo(() => result?.items?.length === 0, [result])
 
   const onUpdateOrgRepositories = async () => {
     setUpdatingRepositories(true)
@@ -57,7 +46,7 @@ const NewRepository = () => {
       // TODO
     } finally {
       setUpdatingRepositories(false)
-      setTimeout(() => refetch(), 1000)
+      setTimeout(() => refresh(), 1000)
     }
   }
 
@@ -66,20 +55,20 @@ const NewRepository = () => {
   }, [search])
 
   useEffect(() => {
-    if (data) {
+    if (result) {
       setLoadingPage(false)
     }
 
-    if (data && !isUpdating) {
+    if (result && !isUpdating) {
       clearInterval(polling)
     } else {
-      polling = setInterval(() => refetch(), 5000)
+      polling = setInterval(() => refresh(), 5000)
     }
 
     return () => {
       clearInterval(polling)
     }
-  }, [data])
+  }, [result])
 
   return (
     <>
@@ -92,9 +81,9 @@ const NewRepository = () => {
             searchFieldDisabled={(loading && !isSearching) || isUpdating}
             searchFieldLoading={loading && isSearching}
           />
-          {!loadingPage && !isUpdating && !isEmpty && (
+          {!loadingPage && !isUpdating && !isEmpty && result && (
             <RefreshList
-              data={data?.last_updated}
+              data={result.last_updated}
               loading={updatingRepositories}
               onRefresh={() => {
                 onUpdateOrgRepositories()
@@ -104,19 +93,19 @@ const NewRepository = () => {
           <div className={styles.info}>
             {isUpdating && <LoadingRepositories />}
             {isEmpty && isSearching && <NoResults />}
-            {!isUpdating && (
+            {!isUpdating && result && (
               <ListItems
-                data={data?.items}
+                data={result.items}
                 loading={loadingPage}
-                refetch={() => refetch()}
+                refetch={() => refresh()}
               />
             )}
           </div>
-          {hasPagination && (
+          {hasPagination && result && (
             <ReposPagination
-              currentPage={data?.current_page}
+              currentPage={result.current_page}
               onPageClick={page => setCurrentPage(page)}
-              total={data?.total_pages}
+              total={result.total_pages}
             />
           )}
         </div>
