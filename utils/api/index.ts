@@ -29,6 +29,13 @@ import {
   OrgReposOutput,
   RepositoryListInput,
   RepositoryListOutput,
+  SecretsCheckNameInput,
+  SecretsCheckNameOutput,
+  SecretsCreateInput,
+  SecretsCreateOutput,
+  SecretsDeleteInput,
+  SecretsListInput,
+  SecretsListOutput,
 } from './request_response_types'
 
 export { default as useAPI } from 'hooks/useAPI'
@@ -59,6 +66,13 @@ export type {
   OrgReposOutput,
   RepositoryListInput,
   RepositoryListOutput,
+  SecretsCheckNameInput,
+  SecretsCheckNameOutput,
+  SecretsCreateInput,
+  SecretsCreateOutput,
+  SecretsDeleteInput,
+  SecretsListInput,
+  SecretsListOutput,
 }
 
 class API extends BaseAPIExecutor implements APIProvider {
@@ -165,6 +179,63 @@ class API extends BaseAPIExecutor implements APIProvider {
       url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/:issueID/cancelIgnore`,
       params,
     })
+  }
+
+  secretsList(params: SecretsListInput): Promise<SecretsListOutput> {
+    if (params.repositoryName) {
+      return this.doRequest({
+        url: `/api/repositories/:repositoryName/secrets`,
+        params,
+      })
+    }
+
+    return this.doRequest({
+      url: `/api/secrets`,
+      params: {},
+    })
+  }
+
+  secretsCheckName(
+    params: SecretsCheckNameInput,
+  ): Promise<SecretsCheckNameOutput> {
+    let url = '/api/secrets/check_name'
+
+    if (params.repositoryName) {
+      url = '/api/repositories/:repositoryName/secrets/check_name'
+    }
+
+    return this.doRequest<SecretsCheckNameInput, SecretsCheckNameOutput>({
+      url,
+      params,
+    }).catch(err => {
+      if (err instanceof APIError && err.code == ErrorCode.SecretsInvalidName) {
+        return Promise.resolve({
+          status: 'invalid',
+        })
+      }
+
+      throw err
+    })
+  }
+
+  secretsCreate(params: SecretsCreateInput): Promise<SecretsCreateOutput> {
+    let url = '/api/secrets/new'
+
+    if (params.repositoryName) {
+      url = '/api/repositories/:repositoryName/secrets/new'
+    }
+
+    return this.doRequest({ url, params })
+  }
+
+  secretsDelete(params: SecretsDeleteInput): Promise<EmptyResponse> {
+    let url = '/api/secrets/delete/:secretID'
+
+    if (params.repositoryName) {
+      url = '/api/repositories/:repositoryName/secrets/delete/:secretID'
+    }
+
+    return this.doRequest({ url, params })
   }
 }
 
