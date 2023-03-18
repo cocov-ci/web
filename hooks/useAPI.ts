@@ -15,10 +15,11 @@ export interface UseAPIOutput<O> {
 const useAPIRequest = <I, O>(
   fn: (param: I) => Promise<O>,
   input: I,
+  initialLoading = true,
 ): UseAPIOutput<O> => {
   const [result, setResult] = useState<O | undefined>()
   const [error, setError] = useState<string | undefined>()
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(initialLoading)
 
   const doFetch = () => {
     setLoading(true)
@@ -60,7 +61,7 @@ const useLazyAPI = <I, O>(
   fn: (param: I) => Promise<O>,
   input: I,
 ): UseAPIOutput<O> => {
-  const req = useAPIRequest(fn, input)
+  const req = useAPIRequest(fn, input, false)
 
   const previousInput = usePrevious(input)
 

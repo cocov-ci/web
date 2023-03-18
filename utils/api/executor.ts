@@ -25,7 +25,7 @@ type RequestParams<I extends ParamList> = {
   params: I
 }
 
-const URL_PARAM_REGEXP = /:([a-z_0-9-]+):/gi
+const URL_PARAM_REGEXP = /:([a-z_0-9-]+)/gi
 
 type FormattedURL = { url: string; restParams?: Record<string, string> }
 
@@ -55,14 +55,19 @@ export default class BaseAPIExecutor {
 
     const matchedParams: string[] = []
 
-    url = url.replace(url, match => {
-      matchedParams.push(match)
+    url = url.replace(URL_PARAM_REGEXP, match => {
+      const param = match.substring(1)
+      matchedParams.push(param)
 
-      return `${params[match]}`
+      return `${params[param]}`
     })
 
     for (const k of Object.keys(params)) {
-      if (!matchedParams.includes(k)) {
+      if (
+        params[k] !== undefined &&
+        params[k] !== null &&
+        !matchedParams.includes(k)
+      ) {
         restParams[k] = `${params[k]}`
       }
     }
