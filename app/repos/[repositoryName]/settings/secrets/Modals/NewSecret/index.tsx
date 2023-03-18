@@ -16,7 +16,7 @@ import Text from 'app/common/Text'
 import Textarea from 'app/common/Textarea'
 import useModal from 'hooks/useModal'
 import useSegments from 'hooks/useSegments'
-import Secrets from 'services/secrets'
+import API from 'utils/api'
 import { inconsolata } from 'utils/fonts'
 
 import styles from './NewSecret.module.scss'
@@ -52,9 +52,8 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
     setLoading(true)
 
     try {
-      const secretNameValidation = await Secrets.checkName({
+      const secretNameValidation = await API.shared.secretsCheckName({
         repositoryName: repositoryName,
-
         name: value,
       })
 
@@ -80,8 +79,8 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
 
   const onAddNewSecret = async () => {
     try {
-      await Secrets.add({
-        repositoryName: repositoryName,
+      await API.shared.secretsCreate({
+        repositoryName,
         data: secretValue as string,
         name: secretName as string,
       })

@@ -18,8 +18,8 @@ import styles from './Items.module.scss'
 import Loading from './Loading'
 
 interface ItemParams {
-  repoSecrets: SecretParams[]
-  orgSecrets: SecretParams[]
+  repoSecrets?: SecretParams[]
+  orgSecrets?: SecretParams[]
   refetch: () => void
   loading: boolean
 }

@@ -7,8 +7,8 @@ import Secret from 'app/common/Secret'
 import Text from 'app/common/Text'
 import useModal from 'hooks/useModal'
 import useSegments from 'hooks/useSegments'
-import Secrets from 'services/secrets'
 import { SecretParams } from 'types/Secrets'
+import API from 'utils/api'
 
 import styles from './DeleteSecret.module.scss'
 
@@ -27,9 +27,9 @@ const DeleteSecret = ({ secret, onSuccess }: DeleteSecretParams) => {
     setLoading(true)
 
     try {
-      await Secrets.delete({
-        repositoryName: repositoryName,
-        id: secret.id,
+      await API.shared.secretsDelete({
+        repositoryName,
+        secretID: secret.id,
       })
 
       onSuccess()

@@ -11,6 +11,7 @@ export const ApiErrorHandler = ({
   if (axios.isAxiosError(err) && err.response) {
     return res.status(err.response.status).json(err.response.data)
   } else {
+    // FIXME: This may leak sensitive data
     return res.status(400).json(err)
   }
 }

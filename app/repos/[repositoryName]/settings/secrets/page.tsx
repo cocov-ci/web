@@ -1,11 +1,8 @@
 'use client'
 
-import { useEffect } from 'react'
-
 import FixedContent from 'app/common/FixedContent'
 import Text from 'app/common/Text'
-import useFetch from 'hooks/useFetch'
-import { SecretsFetchParams } from 'types/Secrets'
+import API, { useAPI } from 'utils/api'
 
 import Sidebar from '../Sidebar'
 
@@ -15,26 +12,19 @@ interface SecretsParams {
   params: { repositoryName: string; commitSha: string }
 }
 
-interface SecretsFetchResponse {
-  data: SecretsFetchParams
-  loading: boolean
-  refetch: () => void
-}
-
 const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
   const {
-    data: dataRepoSecrets,
-    loading: loadingRepoSecrets,
-    refetch,
-  } = useFetch({
-    url: `/api/repositories/${repositoryName}/secrets`,
-    handler: [],
-  }) as SecretsFetchResponse
+    result: repoSecretsList,
+    loading: repoSecretsLoading,
+    refresh: repoSecretsRefresh,
+    error: repoSecretsError,
+  } = useAPI(API.shared.secretsList, { repositoryName })
 
-  const { data: dataOrgSecrets, loading: loadingOrgSecrets } = useFetch({
-    url: `/api/secrets`,
-    handler: [],
-  }) as SecretsFetchResponse
+  const {
+    result: orgSecretsList,
+    loading: orgSecretsLoading,
+    error: orgSecretsError,
+  } = useAPI(API.shared.secretsList, {})
 
   return (
     <FixedContent>
@@ -42,9 +32,9 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
         <div className={styles.sidebar}>
           <Sidebar
             defaultSelectedItem="Secrets"
-            loading={loadingRepoSecrets || loadingOrgSecrets}
+            loading={repoSecretsLoading || orgSecretsLoading}
             repositoryName={repositoryName}
-            secretsCount={dataRepoSecrets?.secrets?.length}
+            secretsCount={repoSecretsList?.secrets.length ?? 0}
           />
         </div>
         <div className={styles.info}>
@@ -62,10 +52,10 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
             </Text>
           </div>
           <Items
-            loading={loadingRepoSecrets || loadingOrgSecrets}
-            orgSecrets={dataOrgSecrets?.secrets}
-            refetch={refetch}
-            repoSecrets={dataRepoSecrets?.secrets}
+            loading={repoSecretsLoading || orgSecretsLoading}
+            orgSecrets={orgSecretsList?.secrets}
+            refetch={repoSecretsRefresh}
+            repoSecrets={repoSecretsList?.secrets}
           />
         </div>
       </div>
