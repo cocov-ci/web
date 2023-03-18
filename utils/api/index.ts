@@ -1,6 +1,8 @@
 'use client'
 
 import { bindAll } from './bind_all'
+import APIError from './error'
+import ErrorCode from './error_codes'
 import BaseAPIExecutor from './executor'
 import APIProvider from './provider_type'
 import {
@@ -32,6 +34,7 @@ import {
 } from './request_response_types'
 
 export { default as useAPI } from 'hooks/useAPI'
+export { APIError, ErrorCode }
 export type {
   BranchListInput,
   BranchListOutput,

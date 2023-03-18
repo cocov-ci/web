@@ -2,7 +2,8 @@
 
 import axios, { AxiosRequestConfig } from 'axios'
 
-import { ErrorHandler } from 'utils/errorHandler'
+import APIError from './error'
+import ErrorCode from './error_codes'
 
 export type Method =
   | 'GET'
@@ -107,10 +108,31 @@ export default class BaseAPIExecutor {
         return resp.data
       })
       .catch(err => {
-        if (ErrorHandler(err.response?.data?.code)) {
-          window.location.href = ErrorHandler(err.response.data.code) as string
+        if (axios.isAxiosError(err)) {
+          if (
+            err.status &&
+            err.response?.data?.code &&
+            err.response?.data?.message
+          ) {
+            throw new APIError(
+              err.status,
+              err.response.data.code,
+              err.response.data.message,
+            )
+          }
         }
 
+        throw err
+      })
+      .catch(err => {
+        if (
+          err instanceof APIError &&
+          err.code === ErrorCode.AuthInvalidToken
+        ) {
+          window.location.href = '/auth/signin?invalid_token=true'
+        }
+
+        // Rethrow, even if we are being redirected.
         throw err
       })
   }
