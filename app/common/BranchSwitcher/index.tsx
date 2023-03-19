@@ -33,7 +33,7 @@ const BranchSwitcher = ({
   const router = useRouter()
   const segments = useSegments()
   const [selectedItem, setSelectedItem] = useState<number>(0)
-  const [results, setResults] = useState<Array<string> | undefined>()
+  const [results, setResults] = useState<Array<string>>([])
   const repositoryName = useMemo(() => segments[1], [segments])
 
   useOnClickOutside(branchSwitcherRef, onClose)
@@ -47,10 +47,10 @@ const BranchSwitcher = ({
     repositoryName: repositoryName,
   })
 
-  const branches = useMemo(() => result?.branches || [], [result])
+  const branches = useMemo(() => result ?? [], [result])
 
   const onSearchChange = (term: string) => {
-    setResults(result?.branches.filter(item => item.includes(term)))
+    setResults(branches.filter(item => item.includes(term)))
   }
 
   const onSelectBranch = (selectedItem: string) => {
@@ -65,7 +65,7 @@ const BranchSwitcher = ({
       return
     }
 
-    if (!results || results.length === 0) {
+    if (results.length === 0) {
       return
     }
 
@@ -170,7 +170,7 @@ const BranchSwitcher = ({
 
           {visible &&
             !loading &&
-            results?.map((name, idx) => (
+            results.map((name, idx) => (
               <button
                 className={classNames(styles.item, {
                   [styles.active]: selectedItem == idx,
