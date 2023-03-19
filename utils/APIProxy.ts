@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import formidable from 'formidable'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -14,14 +15,29 @@ type CocovAPIError = {
 
 type RedirectList = { [key: string]: RedirectMaker }
 
+export type HTTPMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
+
+export const nonGETConfig = {
+  api: {
+    bodyParser: false,
+  },
+}
+
+export interface ParsedNextAPIRequest extends NextApiRequest {
+  body: Record<string, string>
+}
+
 export default class APIProxy {
   private readonly baseURL: string | undefined
   private method = ''
   private url: string | undefined
   private headers: object | undefined
-  private paramMapper: ((req: NextApiRequest) => object) | undefined
+  private paramMapper:
+    | ((req: ParsedNextAPIRequest) => Record<string, any>)
+    | undefined
   private responseMapper: ((data: any) => any) | undefined
-  private urlMapper: ((req: NextApiRequest) => string) | undefined
+  private urlMapper: ((req: ParsedNextAPIRequest) => string) | undefined
+  private requiredMethod?: HTTPMethod
 
   constructor() {
     this.baseURL = process.env.COCOV_API_URL
@@ -39,6 +55,18 @@ export default class APIProxy {
   }
 
   private async call(req: NextApiRequest, res: NextApiResponse) {
+    if (
+      this.requiredMethod &&
+      req.method?.toLowerCase() !== this.requiredMethod.toLowerCase()
+    ) {
+      // Reject requests not matching expected HTTP method
+      res.status(405).json({
+        error: 'Method not allowed',
+      })
+
+      return
+    }
+
     let url: string
 
     const cocov_auth_token = req.cookies['cocov_auth_token']
@@ -48,10 +76,37 @@ export default class APIProxy {
       ...(req.headers || {}),
     }
 
+    const body: Record<string, string> = {}
+
+    if (this.requiredMethod && this.requiredMethod !== 'GET') {
+      const { fields } = await (new Promise((resolve, reject) => {
+        const form = new formidable.IncomingForm()
+        form.parse(req, (err: any, fields: any) => {
+          if (err) {
+            reject(err)
+
+            return
+          }
+
+          resolve({ fields })
+        })
+      }) as Promise<any>)
+
+      delete headers['content-type']
+      delete headers['content-length']
+
+      Object.keys(fields).forEach(k => {
+        body[k] = fields[k]
+      })
+    }
+
+    const parsedRequest: ParsedNextAPIRequest = req
+    parsedRequest.body = body
+
     if (this.url) {
       url = this.url
     } else if (this.urlMapper) {
-      url = this.urlMapper(req)
+      url = this.urlMapper(parsedRequest)
     } else {
       throw new Error(
         `Either provide an url through the ${this.method} call, or use mapURL to dynamically assemble one`,
@@ -62,7 +117,6 @@ export default class APIProxy {
       url: `${this.baseURL}${url}`,
       method: this.method,
       headers: headers,
-      params: {},
     }
 
     if (this.headers) {
@@ -76,7 +130,20 @@ export default class APIProxy {
     }
 
     if (this.paramMapper) {
-      args.params = this.paramMapper(req)
+      const mapped = this.paramMapper(parsedRequest)
+
+      if (this.requiredMethod && this.requiredMethod !== 'GET') {
+        const toPush: Record<string, any> = {}
+        Object.keys(mapped).forEach(k => {
+          if (mapped[k] !== undefined && mapped[k] !== null) {
+            toPush[k] = mapped[k]
+          }
+        })
+
+        args.data = toPush
+      } else {
+        args.params = mapped
+      }
     }
 
     let response
@@ -128,6 +195,12 @@ export default class APIProxy {
 
   delete(url?: string): NextHandler {
     return this.setBaseOptions('delete', url)
+  }
+
+  requireMethod(name: HTTPMethod): APIProxy {
+    this.requiredMethod = name
+
+    return this
   }
 
   mapURL(fn: (req: NextApiRequest) => string): APIProxy {

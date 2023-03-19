@@ -82,7 +82,7 @@ const ChecksPage = ({
   }, [allSucceeded])
 
   useEffect(() => {
-    setLoadingPage(result !== undefined)
+    setLoadingPage(result === undefined)
   }, [result])
 
   return (

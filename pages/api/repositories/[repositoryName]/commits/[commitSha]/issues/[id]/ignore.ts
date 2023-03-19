@@ -1,9 +1,11 @@
 import APIProxy from 'utils/APIProxy'
+export { nonGETConfig as config } from 'utils/APIProxy'
 
 export default new APIProxy()
+  .requireMethod('POST')
   .mapParams(req => ({
-    mode: req.query.mode,
-    reason: req.query.reason,
+    mode: req.body.mode,
+    reason: req.body.reason,
   }))
   .mapURL(req => {
     const { repositoryName, commitSha, id } = req.query

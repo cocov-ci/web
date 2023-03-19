@@ -135,7 +135,7 @@ class API extends BaseAPIExecutor implements APIProvider {
 
   checksReRun(params: ChecksReRunInput): Promise<EmptyResponse> {
     return this.doRequest({
-      url: `/api/repositories/:repositoryName/commits/:commitSHA/checks`,
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/checks/re_run`,
       method: 'POST',
       params,
     })
@@ -143,7 +143,7 @@ class API extends BaseAPIExecutor implements APIProvider {
 
   checksCancel(params: ChecksCancelInput): Promise<EmptyResponse> {
     return this.doRequest({
-      url: `/api/repositories/:repositoryName/commits/:commitSHA/checks`,
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/checks/delete`,
       method: 'DELETE',
       params,
     })
@@ -190,15 +190,16 @@ class API extends BaseAPIExecutor implements APIProvider {
     params: IssueCancelIgnoreInput,
   ): Promise<IssueCancelIgnoreOutput> {
     return this.doRequest({
-      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/:issueID/ignore`,
-      method: 'POST',
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/:issueID/cancelIgnore`,
+      method: 'DELETE',
       params,
     })
   }
 
   issueIgnore(params: IssueIgnoreInput): Promise<IssueIgnoreOutput> {
     return this.doRequest({
-      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/:issueID/cancelIgnore`,
+      method: 'POST',
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/:issueID/ignore`,
       params,
     })
   }
@@ -227,6 +228,7 @@ class API extends BaseAPIExecutor implements APIProvider {
     }
 
     return this.doRequest<SecretsCheckNameInput, SecretsCheckNameOutput>({
+      method: 'POST',
       url,
       params,
     }).catch(err => {
@@ -247,7 +249,11 @@ class API extends BaseAPIExecutor implements APIProvider {
       url = '/api/repositories/:repositoryName/secrets/new'
     }
 
-    return this.doRequest({ url, params })
+    return this.doRequest({
+      method: 'POST',
+      url,
+      params,
+    })
   }
 
   secretsDelete(params: SecretsDeleteInput): Promise<EmptyResponse> {
@@ -257,7 +263,11 @@ class API extends BaseAPIExecutor implements APIProvider {
       url = '/api/repositories/:repositoryName/secrets/delete/:secretID'
     }
 
-    return this.doRequest({ url, params })
+    return this.doRequest({
+      method: 'DELETE',
+      url,
+      params,
+    })
   }
 
   repositorySettings(
@@ -271,6 +281,7 @@ class API extends BaseAPIExecutor implements APIProvider {
 
   orgRefreshReposList(params: EmptyRequest): Promise<EmptyResponse> {
     return this.doRequest({
+      method: 'POST',
       url: `/api/repositories/$org_repos/update`,
       params,
     })
@@ -278,6 +289,7 @@ class API extends BaseAPIExecutor implements APIProvider {
 
   repositoryAdd(params: RepositoryAddInput): Promise<RepositoryAddOutput> {
     return this.doRequest({
+      method: 'POST',
       url: `/api/repositories/add`,
       params,
     })
@@ -285,6 +297,7 @@ class API extends BaseAPIExecutor implements APIProvider {
 
   repositoryDelete(params: RepositoryDeleteInput): Promise<EmptyResponse> {
     return this.doRequest({
+      method: 'POST',
       url: `/api/repositories/:repositoryName/settings/delete`,
       params,
     })
@@ -294,6 +307,7 @@ class API extends BaseAPIExecutor implements APIProvider {
     params: RepositoryRegenerateTokenInput,
   ): Promise<RepositoryRegenerateTokenOutput> {
     return this.doRequest({
+      method: 'POST',
       url: `/api/repositories/:repositoryName/settings/regen-token`,
       params,
     })
@@ -301,6 +315,7 @@ class API extends BaseAPIExecutor implements APIProvider {
 
   repositoryResync(params: RepositoryResyncInput): Promise<EmptyResponse> {
     return this.doRequest({
+      method: 'POST',
       url: `/api/repositories/:repositoryName/settings/sync-github`,
       params,
     })
