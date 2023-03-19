@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import formidable from 'formidable'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -16,14 +17,26 @@ type RedirectList = { [key: string]: RedirectMaker }
 
 export type HTTPMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
 
+export const nonGETConfig = {
+  api: {
+    bodyParser: false,
+  },
+}
+
+export interface ParsedNextAPIRequest extends NextApiRequest {
+  body: Record<string, string>
+}
+
 export default class APIProxy {
   private readonly baseURL: string | undefined
   private method = ''
   private url: string | undefined
   private headers: object | undefined
-  private paramMapper: ((req: NextApiRequest) => object) | undefined
+  private paramMapper:
+    | ((req: ParsedNextAPIRequest) => Record<string, any>)
+    | undefined
   private responseMapper: ((data: any) => any) | undefined
-  private urlMapper: ((req: NextApiRequest) => string) | undefined
+  private urlMapper: ((req: ParsedNextAPIRequest) => string) | undefined
   private requiredMethod?: HTTPMethod
 
   constructor() {
@@ -63,10 +76,37 @@ export default class APIProxy {
       ...(req.headers || {}),
     }
 
+    const body: Record<string, string> = {}
+
+    if (this.requiredMethod && this.requiredMethod !== 'GET') {
+      const { fields } = await (new Promise((resolve, reject) => {
+        const form = new formidable.IncomingForm()
+        form.parse(req, (err: any, fields: any) => {
+          if (err) {
+            reject(err)
+
+            return
+          }
+
+          resolve({ fields })
+        })
+      }) as Promise<any>)
+
+      delete headers['content-type']
+      delete headers['content-length']
+
+      Object.keys(fields).forEach(k => {
+        body[k] = fields[k]
+      })
+    }
+
+    const parsedRequest: ParsedNextAPIRequest = req
+    parsedRequest.body = body
+
     if (this.url) {
       url = this.url
     } else if (this.urlMapper) {
-      url = this.urlMapper(req)
+      url = this.urlMapper(parsedRequest)
     } else {
       throw new Error(
         `Either provide an url through the ${this.method} call, or use mapURL to dynamically assemble one`,
@@ -77,7 +117,6 @@ export default class APIProxy {
       url: `${this.baseURL}${url}`,
       method: this.method,
       headers: headers,
-      params: {},
     }
 
     if (this.headers) {
@@ -91,7 +130,20 @@ export default class APIProxy {
     }
 
     if (this.paramMapper) {
-      args.params = this.paramMapper(req)
+      const mapped = this.paramMapper(parsedRequest)
+
+      if (this.requiredMethod && this.requiredMethod !== 'GET') {
+        const toPush: Record<string, any> = {}
+        Object.keys(mapped).forEach(k => {
+          if (mapped[k] !== undefined && mapped[k] !== null) {
+            toPush[k] = mapped[k]
+          }
+        })
+
+        args.data = toPush
+      } else {
+        args.params = mapped
+      }
     }
 
     let response
