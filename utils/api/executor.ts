@@ -41,7 +41,9 @@ export default class BaseAPIExecutor {
       return { url }
     } else if (!hasURLParams && params) {
       for (const k of Object.keys(params)) {
-        restParams[k] = `${params[k]}`
+        if (params[k] !== undefined && params[k] !== null) {
+          restParams[k] = `${params[k]}`
+        }
       }
 
       return { url, restParams }
