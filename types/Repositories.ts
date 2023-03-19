@@ -10,18 +10,6 @@ export interface RepositoryProps {
   code?: number
 }
 
-export interface DeleteRepositoriesResponseParams {
-  code?: string
-}
-
-export interface RegenTokenResponseProps {
-  new_token: string
-}
-
-export interface UpdateOrgReposResponseProps {
-  [arg: string]: string
-}
-
 export type OrgRepositoryStatus = 'absent' | 'present' | 'adding'
 export interface OrgRepositoryProps {
   name: string

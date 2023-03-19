@@ -2,7 +2,8 @@ import classNames from 'classnames'
 import { Lock } from 'lucide-react'
 import React from 'react'
 
-import { inconsolata } from '../../../utils/fonts'
+import { inconsolata } from 'utils/fonts'
+
 import RelativeTime from '../RelativeTime'
 
 import styles from './Secret.module.scss'

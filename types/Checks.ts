@@ -1,5 +1,3 @@
-import { HeadProps } from './Commits'
-
 export type CheckStatus =
   | 'waiting'
   | 'in_progress'
@@ -14,16 +12,4 @@ export interface CheckProps {
   started_at: string
   finished_at: string
   error_output?: string
-}
-
-export interface ChecksResponseProps {
-  checks: CheckProps[]
-  commit: HeadProps
-  issues: { [arg: string]: number }
-  status: CheckStatus
-}
-
-export interface ChecksReRunAndCancel {
-  repositoryName: string
-  commitSha: string
 }
