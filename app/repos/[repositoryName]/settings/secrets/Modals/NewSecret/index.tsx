@@ -22,11 +22,6 @@ import { inconsolata } from 'utils/fonts'
 import styles from './NewSecret.module.scss'
 import { secretNameMap } from './Utils'
 
-export interface SecretsCheckNameParams {
-  code?: string
-  message?: string
-  status?: string
-}
 interface SecretsNameStatusParams {
   message: string
   status: string

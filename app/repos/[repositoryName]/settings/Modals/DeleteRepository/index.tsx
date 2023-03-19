@@ -6,7 +6,7 @@ import { useState } from 'react'
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
 import useModal from 'hooks/useModal'
-import Repositories from 'services/repositories'
+import API from 'utils/api'
 
 import styles from './DeleteRepository.module.scss'
 
@@ -20,7 +20,7 @@ const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
     setSubmitting(true)
 
     try {
-      await Repositories.delete({
+      await API.shared.repositoryDelete({
         repositoryName: repositoryName,
       })
 

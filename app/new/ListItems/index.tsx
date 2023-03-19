@@ -6,8 +6,8 @@ import { useState } from 'react'
 import Button from 'app/common/Button'
 import RelativeTime from 'app/common/RelativeTime'
 import Text from 'app/common/Text'
-import Repositories from 'services/repositories'
 import { OrgRepositoryProps } from 'types/Repositories'
+import API from 'utils/api'
 
 import styles from './ListItems.module.scss'
 import Loading from './Loading'
@@ -30,7 +30,7 @@ const Item = ({ item, onAddSuccess }: ItemParams) => {
     setAddingRepository(true)
 
     try {
-      await Repositories.add(item.name)
+      await API.shared.repositoryAdd({ name: item.name })
     } catch (err) {
       // TODO
     } finally {
