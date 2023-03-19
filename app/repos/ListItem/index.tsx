@@ -1,12 +1,8 @@
 'use client'
 
 import ListItem from 'app/common/ListItem'
-import useFetch from 'hooks/useFetch'
 import { RepositoryProps } from 'types/Repositories'
-import { StatsResponseProps } from 'types/Stats'
-interface GraphsFetchResponse {
-  data: StatsResponseProps
-}
+import API, { useAPI } from 'utils/api'
 
 type ListItemProps = Pick<
   RepositoryProps,
@@ -20,10 +16,9 @@ const RepositoryListItem = ({
   name,
   default_branch,
 }: ListItemProps) => {
-  const { data } = useFetch({
-    url: `/api/repositories/${name}/graphs`,
-    handler: [name],
-  }) as GraphsFetchResponse
+  const { result, error } = useAPI(API.shared.repositoryGraphs, {
+    repositoryName: name,
+  })
 
   return (
     <div>
@@ -35,8 +30,8 @@ const RepositoryListItem = ({
             : `/repos/${name}`
         }
         stats={{
-          issues: { value: issues, data: data?.issues },
-          coverage: { value: coverage, data: data?.coverage },
+          issues: { value: issues, data: result?.issues },
+          coverage: { value: coverage, data: result?.coverage },
         }}
         title={name}
       />

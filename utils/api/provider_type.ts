@@ -28,6 +28,8 @@ import {
   RepositoryAddInput,
   RepositoryAddOutput,
   RepositoryDeleteInput,
+  RepositoryGraphsInput,
+  RepositoryGraphsOutput,
   RepositoryListInput,
   RepositoryListOutput,
   RepositoryRegenerateTokenInput,
@@ -57,6 +59,9 @@ export default interface APIProvider {
     params: RepositoryRegenerateTokenInput,
   ): Promise<RepositoryRegenerateTokenOutput>
   repositoryResync(params: RepositoryResyncInput): Promise<EmptyResponse>
+  repositoryGraphs(
+    params: RepositoryGraphsInput,
+  ): Promise<RepositoryGraphsOutput>
 
   // Branch
 

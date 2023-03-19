@@ -195,3 +195,12 @@ export interface RepositoryRegenerateTokenOutput {
 export type RepositoryResyncInput = {
   repositoryName: string
 }
+
+export type RepositoryGraphsInput = {
+  repositoryName: string
+}
+
+export interface RepositoryGraphsOutput {
+  issues: number[]
+  coverage: number[]
+}
