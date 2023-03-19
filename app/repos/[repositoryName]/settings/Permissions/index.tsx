@@ -6,8 +6,7 @@ import Button from 'app/common/Button'
 import SnippetBox from 'app/common/SnippetBox'
 import Text from 'app/common/Text'
 import useModal from 'hooks/useModal'
-import Repositories from 'services/repositories'
-import { SettingsResponseProps } from 'types/Settings'
+import API, { RepositorySettingsOutput } from 'utils/api'
 
 import DeleteRepository from '../Modals/DeleteRepository'
 
@@ -16,7 +15,7 @@ import styles from './Permissions.module.scss'
 
 interface SidebarProps {
   loading: boolean
-  data: SettingsResponseProps
+  data?: RepositorySettingsOutput
 }
 
 const PermissionsComponent = ({ data, loading }: SidebarProps) => {
@@ -30,7 +29,7 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
     setToken(data?.repository?.token)
   }, [data])
 
-  if (loading) return <LoadingPermissions />
+  if (loading || !data) return <LoadingPermissions />
 
   const { permissions, repository } = data
 
@@ -42,7 +41,7 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
     setLoadingRegenerateToken(true)
 
     try {
-      const { new_token } = await Repositories.regenerateToken({
+      const { new_token } = await API.shared.repositoryRegenerateToken({
         repositoryName: repository.name,
       })
 
@@ -56,7 +55,7 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
 
   const onForceResyncClick = async () => {
     try {
-      await Repositories.forceResync({
+      await API.shared.repositoryResync({
         repositoryName: repository.name,
       })
 

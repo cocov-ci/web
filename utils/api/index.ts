@@ -14,6 +14,7 @@ import {
   ChecksListInput,
   ChecksListOutput,
   ChecksReRunInput,
+  EmptyRequest,
   EmptyResponse,
   IssueCancelIgnoreInput,
   IssueCancelIgnoreOutput,
@@ -29,8 +30,16 @@ import {
   IssuesStatesOutput,
   OrgReposInput,
   OrgReposOutput,
+  RepositoryAddInput,
+  RepositoryAddOutput,
+  RepositoryDeleteInput,
   RepositoryListInput,
   RepositoryListOutput,
+  RepositoryRegenerateTokenInput,
+  RepositoryRegenerateTokenOutput,
+  RepositoryResyncInput,
+  RepositorySettingsInput,
+  RepositorySettingsOutput,
   SecretsCheckNameInput,
   SecretsCheckNameOutput,
   SecretsCreateInput,
@@ -51,6 +60,7 @@ export type {
   ChecksListInput,
   ChecksListOutput,
   ChecksReRunInput,
+  EmptyRequest,
   EmptyResponse,
   IssueCancelIgnoreInput,
   IssueCancelIgnoreOutput,
@@ -66,8 +76,16 @@ export type {
   IssuesStatesOutput,
   OrgReposInput,
   OrgReposOutput,
+  RepositoryAddInput,
+  RepositoryAddOutput,
+  RepositoryDeleteInput,
   RepositoryListInput,
   RepositoryListOutput,
+  RepositoryRegenerateTokenInput,
+  RepositoryRegenerateTokenOutput,
+  RepositoryResyncInput,
+  RepositorySettingsInput,
+  RepositorySettingsOutput,
   SecretsCheckNameInput,
   SecretsCheckNameOutput,
   SecretsCreateInput,
@@ -238,6 +256,52 @@ class API extends BaseAPIExecutor implements APIProvider {
     }
 
     return this.doRequest({ url, params })
+  }
+
+  repositorySettings(
+    params: RepositorySettingsInput,
+  ): Promise<RepositorySettingsOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/settings`,
+      params,
+    })
+  }
+
+  orgRefreshReposList(params: EmptyRequest): Promise<EmptyResponse> {
+    return this.doRequest({
+      url: `/api/repositories/$org_repos/update`,
+      params,
+    })
+  }
+
+  repositoryAdd(params: RepositoryAddInput): Promise<RepositoryAddOutput> {
+    return this.doRequest({
+      url: `/api/repositories/add`,
+      params,
+    })
+  }
+
+  repositoryDelete(params: RepositoryDeleteInput): Promise<EmptyResponse> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/settings/delete`,
+      params,
+    })
+  }
+
+  repositoryRegenerateToken(
+    params: RepositoryRegenerateTokenInput,
+  ): Promise<RepositoryRegenerateTokenOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/settings/regen-token`,
+      params,
+    })
+  }
+
+  repositoryResync(params: RepositoryResyncInput): Promise<EmptyResponse> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/settings/sync-github`,
+      params,
+    })
   }
 }
 

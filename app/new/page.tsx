@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
 import TopBar from 'app/common/TopBar'
-import Repositories from 'services/repositories'
 import API, { useAPI } from 'utils/api'
 
 import Header from './Header'
@@ -41,7 +40,7 @@ const NewRepository = () => {
     setUpdatingRepositories(true)
 
     try {
-      await Repositories.refreshList()
+      await API.shared.orgRefreshReposList({})
     } catch (err) {
       // TODO
     } finally {
