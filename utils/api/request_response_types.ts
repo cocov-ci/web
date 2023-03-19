@@ -5,6 +5,7 @@ import { HeadProps } from 'types/Commits'
 import { IssueIgnoreModes, IssueProps } from 'types/Issues'
 import { PagingProps } from 'types/Paging'
 import { OrgRepo, RepositoryProps } from 'types/Repositories'
+import { SecretParams } from 'types/Secrets'
 
 export interface EmptyResponse {
   [key: string]: never
@@ -125,3 +126,34 @@ export type IssueCancelIgnoreInput = {
 }
 
 export type IssueCancelIgnoreOutput = IssueProps
+
+export type SecretsListInput = {
+  repositoryName?: string
+}
+
+export interface SecretsListOutput {
+  paging: PagingProps
+  secrets: SecretParams[]
+}
+
+export type SecretsCheckNameInput = {
+  repositoryName?: string
+  name: string
+}
+
+export interface SecretsCheckNameOutput {
+  status: 'ok' | 'conflict' | 'override' | 'invalid'
+}
+
+export type SecretsCreateInput = {
+  repositoryName?: string
+  name: string
+  data: string
+}
+
+export type SecretsCreateOutput = SecretParams
+
+export type SecretsDeleteInput = {
+  repositoryName?: string
+  secretID: number
+}
