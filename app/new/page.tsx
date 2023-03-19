@@ -29,12 +29,12 @@ const NewRepository = () => {
 
   let polling: ReturnType<typeof setInterval>
 
-  const isSearching = useMemo(() => (search?.length || 0) > 0, [search])
+  const isSearching = useMemo(() => (search?.length ?? 0) > 0, [search])
   const isUpdating = useMemo(
     () => (!loadingPage && !result) || result?.status === 'updating',
     [result, loadingPage],
   )
-  const hasPagination = useMemo(() => (result?.total_pages || 0) > 1, [result])
+  const hasPagination = useMemo(() => (result?.total_pages ?? 0) > 1, [result])
   const isEmpty = useMemo(() => result?.items?.length === 0, [result])
 
   const onUpdateOrgRepositories = async () => {
