@@ -1,7 +1,6 @@
 'use client'
 
 import { BoxSelect, Trash } from 'lucide-react'
-import { useMemo } from 'react'
 
 import AccessoryButton from 'app/common/AccessoryButton'
 import Alert from 'app/common/Alert'
@@ -58,7 +57,7 @@ const Items = ({ repoSecrets, orgSecrets, refetch, loading }: ItemParams) => {
         </div>
         <div className={styles.list}>
           {repoSecrets?.length === 0 && (
-            <NoRepositoryAlert description="Secrets available exclusivelly for this repository will appear here. Use the button above to create a new." />
+            <NoRepositoryAlert description="Secrets available exclusively for this repository will appear here. Use the button above to create a new." />
           )}
           {repoSecrets?.map(item => (
             <Secret

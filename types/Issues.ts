@@ -1,6 +1,6 @@
-import { HeadProps, StatusKind } from './Commits'
-import { PagingProps } from './Paging'
-import { RepositoryProps } from './Repositories'
+import React from 'react'
+
+import { StatusKind } from './Commits'
 
 type BasicIssueData = {
   type: 'line' | 'warn'
@@ -46,21 +46,6 @@ export interface IssueProps {
   status: StatusKind
   status_reason: string | null
   uid: string
-}
-
-export interface IssuesResponseProps {
-  commit: HeadProps
-  issues: IssueProps[]
-  paging: PagingProps[]
-  repository: Omit<RepositoryProps, 'head'>
-}
-
-export interface IssueIgnoreParams {
-  repositoryName: string
-  commitSha: string
-  id: number
-  mode: IssueIgnoreModes
-  reason?: string
 }
 
 export type IssueIgnoreModes = 'ephemeral' | 'permanent'
