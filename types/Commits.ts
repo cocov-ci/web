@@ -1,6 +1,3 @@
-export type CommitsCategoriesResponseProps = { [arg: string]: number }
-export type CommitsSourcesResponseProps = { [arg: string]: number }
-export type CommitsStatesResponseProps = { [arg: string]: number }
 export interface CommitHeaderProps {
   className?: string
   username?: string

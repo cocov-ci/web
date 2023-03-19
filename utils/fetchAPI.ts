@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import { ErrorHandler } from './errorHandler'
 
 const fetcher = async (url: string, args?: AxiosRequestConfig) => {
-  const response = await axios(url, args)
+  return await axios(url, args)
     .then(resp => {
       if (ErrorHandler(resp.data.code)) {
         redirect(ErrorHandler(resp.data.code) as string)
@@ -15,8 +15,6 @@ const fetcher = async (url: string, args?: AxiosRequestConfig) => {
     .catch(err => {
       throw err
     })
-
-  return response
 }
 
 export default fetcher

@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 
 import Button from 'app/common/Button'
 import PillNav from 'app/common/PillNav'
-import useIssues from 'hooks/useIssues'
 import { NavMenuProps } from 'types/Commits'
 
 import Loading from './Loading'

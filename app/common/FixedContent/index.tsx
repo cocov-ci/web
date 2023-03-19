@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Box from '../Box'
 
 import styles from './FixedContent.module.scss'

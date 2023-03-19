@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import React from 'react'
 
 import TopBar from 'app/repos/[repositoryName]/TopBar'
 import { RepositoryProps } from 'types/Repositories'

@@ -42,7 +42,7 @@ const Duration = ({ className, fromDate, toDate }: DurationProps) => {
     components.push('less than a second')
   }
 
-  let result = ''
+  let result
 
   if (components.length > 1) {
     const last = components.pop()

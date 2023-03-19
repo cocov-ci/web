@@ -2,10 +2,9 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 
 import BranchSwitcher from 'app/common/BranchSwitcher'
-
 import '@testing-library/jest-dom'
-import useAPIMock from '../../hooks/useAPIMock'
-import API from '../../utils/api'
+import useAPIMock from 'hooks/useAPIMock'
+import API from 'utils/api'
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
