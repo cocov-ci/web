@@ -1,7 +1,7 @@
 import { AlertTriangle, CheckCircle2, XSquare } from 'lucide-react'
 import { ReactElement } from 'react'
 
-import { SecretsCheckNameOutput } from 'utils/api'
+import { SecretsCheckNameOutput } from 'utils/api/request_response_types'
 
 interface SecretNameMapProps {
   response: SecretsCheckNameOutput

@@ -6,7 +6,8 @@ import Button from 'app/common/Button'
 import SnippetBox from 'app/common/SnippetBox'
 import Text from 'app/common/Text'
 import useModal from 'hooks/useModal'
-import API, { RepositorySettingsOutput } from 'utils/api'
+import API from 'utils/api'
+import { RepositorySettingsOutput } from 'utils/api/request_response_types'
 
 import DeleteRepository from '../Modals/DeleteRepository'
 
