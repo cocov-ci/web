@@ -14,6 +14,8 @@ type CocovAPIError = {
 
 type RedirectList = { [key: string]: RedirectMaker }
 
+export type HTTPMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
+
 export default class APIProxy {
   private readonly baseURL: string | undefined
   private method = ''
@@ -22,6 +24,7 @@ export default class APIProxy {
   private paramMapper: ((req: NextApiRequest) => object) | undefined
   private responseMapper: ((data: any) => any) | undefined
   private urlMapper: ((req: NextApiRequest) => string) | undefined
+  private requiredMethod?: HTTPMethod
 
   constructor() {
     this.baseURL = process.env.COCOV_API_URL
@@ -39,6 +42,18 @@ export default class APIProxy {
   }
 
   private async call(req: NextApiRequest, res: NextApiResponse) {
+    if (
+      this.requiredMethod &&
+      req.method?.toLowerCase() !== this.requiredMethod.toLowerCase()
+    ) {
+      // Reject requests not matching expected HTTP method
+      res.status(405).json({
+        error: 'Method not allowed',
+      })
+
+      return
+    }
+
     let url: string
 
     const cocov_auth_token = req.cookies['cocov_auth_token']
@@ -128,6 +143,12 @@ export default class APIProxy {
 
   delete(url?: string): NextHandler {
     return this.setBaseOptions('delete', url)
+  }
+
+  requireMethod(name: HTTPMethod): APIProxy {
+    this.requiredMethod = name
+
+    return this
   }
 
   mapURL(fn: (req: NextApiRequest) => string): APIProxy {
