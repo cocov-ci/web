@@ -20,15 +20,14 @@ const NewRepository = () => {
   const [loadingPage, setLoadingPage] = useState<boolean>(true)
   const [updatingRepositories, setUpdatingRepositories] =
     useState<boolean>(false)
+  const isSearching = useMemo(() => (search?.length ?? 0) > 0, [search])
 
   const { loading, error, result, refresh } = useAPI(API.shared.orgReposList, {
     page: currentPage,
-    search_term: search,
+    search_term: isSearching ? search : undefined,
   })
 
   let polling: ReturnType<typeof setInterval>
-
-  const isSearching = useMemo(() => (search?.length ?? 0) > 0, [search])
   const isUpdating = useMemo(
     () => (!loadingPage && !result) || result?.status === 'updating',
     [result, loadingPage],
