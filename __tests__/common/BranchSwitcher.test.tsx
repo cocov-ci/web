@@ -38,9 +38,7 @@ describe('common/BranchSwitcher', () => {
   })
 
   it('loads data when opening', async () => {
-    useAPIMock(API.prototype.branchList, {
-      branches: ['branch1'],
-    })
+    useAPIMock(API.prototype.branchList, ['branch1'])
 
     await act(async () =>
       render(<BranchSwitcher onClose={() => null} visible={true} />),
