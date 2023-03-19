@@ -1,10 +1,7 @@
 'use client'
 
 import FixedContent from 'app/common/FixedContent'
-import useFetch from 'hooks/useFetch'
-import { SettingsResponseProps } from 'types/Settings'
-
-import API, { useAPI } from '../../../../utils/api'
+import API, { useAPI } from 'utils/api'
 
 import styles from './Page.module.scss'
 import Permissions from './Permissions'

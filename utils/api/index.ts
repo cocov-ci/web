@@ -31,6 +31,8 @@ import {
   RepositoryAddInput,
   RepositoryAddOutput,
   RepositoryDeleteInput,
+  RepositoryGraphsInput,
+  RepositoryGraphsOutput,
   RepositoryListInput,
   RepositoryListOutput,
   RepositoryRegenerateTokenInput,
@@ -77,6 +79,8 @@ export type {
   RepositoryAddInput,
   RepositoryAddOutput,
   RepositoryDeleteInput,
+  RepositoryGraphsInput,
+  RepositoryGraphsOutput,
   RepositoryListInput,
   RepositoryListOutput,
   RepositoryRegenerateTokenInput,
@@ -298,6 +302,15 @@ class API extends BaseAPIExecutor implements APIProvider {
   repositoryResync(params: RepositoryResyncInput): Promise<EmptyResponse> {
     return this.doRequest({
       url: `/api/repositories/:repositoryName/settings/sync-github`,
+      params,
+    })
+  }
+
+  repositoryGraphs(
+    params: RepositoryGraphsInput,
+  ): Promise<RepositoryGraphsOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/graphs`,
       params,
     })
   }
