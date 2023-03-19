@@ -1,11 +1,16 @@
-'use client'
-
 import { bindAll } from './bind_all'
 import BaseAPIExecutor from './executor'
 import APIProvider from './provider_type'
 import {
   BranchListInput,
   BranchListOutput,
+  ChecksCancelInput,
+  ChecksInfoInput,
+  ChecksInfoOutput,
+  ChecksListInput,
+  ChecksListOutput,
+  ChecksReRunInput,
+  EmptyResponse,
   OrgReposInput,
   OrgReposOutput,
   RepositoryListInput,
@@ -13,14 +18,6 @@ import {
 } from './request_response_types'
 
 export { default as useAPI } from 'hooks/useAPI'
-export type {
-  RepositoryListInput,
-  RepositoryListOutput,
-  BranchListInput,
-  BranchListOutput,
-  OrgReposInput,
-  OrgReposOutput,
-}
 
 class API extends BaseAPIExecutor implements APIProvider {
   static shared: API
@@ -47,6 +44,36 @@ class API extends BaseAPIExecutor implements APIProvider {
   orgReposList(params: OrgReposInput): Promise<OrgReposOutput> {
     return this.doRequest({
       url: `/api/repositories/$org_repos`,
+      params,
+    })
+  }
+
+  checksList(params: ChecksListInput): Promise<ChecksListOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/checks`,
+      params,
+    })
+  }
+
+  checksReRun(params: ChecksReRunInput): Promise<EmptyResponse> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/checks`,
+      method: 'POST',
+      params,
+    })
+  }
+
+  checksCancel(params: ChecksCancelInput): Promise<EmptyResponse> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/checks`,
+      method: 'DELETE',
+      params,
+    })
+  }
+
+  checksInfo(params: ChecksInfoInput): Promise<ChecksInfoOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/checks/:checkID`,
       params,
     })
   }

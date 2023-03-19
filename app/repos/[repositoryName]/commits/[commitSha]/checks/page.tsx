@@ -3,9 +3,9 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
-import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
-import Checks from 'services/checks'
-import { ChecksResponseProps, CheckStatus } from 'types/Checks'
+import { useLazyAPI } from 'hooks/useAPI'
+import { CheckStatus } from 'types/Checks'
+import API from 'utils/api'
 
 import Alert from './Alert'
 import Check from './Check'
@@ -15,12 +15,6 @@ import styles from './Page.module.scss'
 
 interface ChecksParams {
   params: { repositoryName: string; commitSha: string }
-}
-
-interface ChecksFetchResponse {
-  data: ChecksResponseProps
-  loading: boolean
-  (arg: UseFetchProps): void
 }
 
 const finishedStatuses: CheckStatus[] = ['completed', 'errored', 'canceled']
@@ -33,31 +27,33 @@ const ChecksPage = ({
 }: ChecksParams) => {
   let polling: ReturnType<typeof setInterval>
   const [loadingPage, setLoadingPage] = useState(true)
-  const [getChecks, { data }] = useLazyFetch({
-    url: `/api/repositories/${repositoryName}/commits/${commitSha}/checks`,
-  }) as ChecksFetchResponse[]
+  const { error, result, refresh } = useLazyAPI(API.shared.checksList, {
+    repositoryName,
+    commitSHA: commitSha,
+  })
+
   const [accessoryButtonState, setAccessoryButtonState] =
     useState<AccessoryButtonState>('none')
 
-  const allSucceeded = useMemo(() => isCheckFinished(data?.status), [data])
+  const allSucceeded = useMemo(() => isCheckFinished(result?.status), [result])
 
   const onReRunChecks = async () => {
     setAccessoryButtonState('restarting')
-    await Checks.reRun({ repositoryName, commitSha })
+    await API.shared.checksReRun({ repositoryName, commitSHA: commitSha })
   }
 
   const onCancelChecks = async () => {
     setAccessoryButtonState('cancelling')
-    await Checks.cancel({ repositoryName, commitSha })
+    await API.shared.checksCancel({ repositoryName, commitSHA: commitSha })
   }
 
   useEffect(() => {
-    getChecks({})
+    refresh()
   }, [])
 
   useEffect(() => {
-    if (data?.status) {
-      switch (data.status) {
+    if (result?.status) {
+      switch (result.status) {
         case 'errored':
         case 'completed':
         case 'canceled':
@@ -71,13 +67,13 @@ const ChecksPage = ({
           break
       }
     }
-  }, [data])
+  }, [result])
 
   useEffect(() => {
     if (allSucceeded) {
       clearInterval(polling)
     } else {
-      polling = setInterval(() => getChecks({}), 5000)
+      polling = setInterval(() => refresh(), 5000)
     }
 
     return () => {
@@ -86,14 +82,14 @@ const ChecksPage = ({
   }, [allSucceeded])
 
   useEffect(() => {
-    data && setLoadingPage(false)
-  }, [data])
+    setLoadingPage(result !== undefined)
+  }, [result])
 
   return (
     <FixedContent>
       <Header
         accessoryButtonState={accessoryButtonState}
-        commit={data?.commit}
+        commit={result?.commit}
         loading={loadingPage}
         onCancel={onCancelChecks}
         onReRun={onReRunChecks}
@@ -102,10 +98,10 @@ const ChecksPage = ({
       <div className={styles.content}>
         {!loadingPage && allSucceeded && <Alert />}
         {loadingPage && <Loading />}
-        {data?.checks?.map(item => (
+        {result?.checks?.map(item => (
           <Check
             check={item}
-            issuesCounter={data.issues[item.plugin_name]}
+            issuesCounter={result.issues[item.plugin_name]}
             key={item.id}
           />
         ))}

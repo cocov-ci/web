@@ -16,7 +16,7 @@ export type AccessoryButtonState =
 
 export interface HeaderProps {
   repositoryName: string
-  commit: HeadProps
+  commit?: HeadProps
   loading: boolean
   onCancel?: () => void
   onReRun?: () => void

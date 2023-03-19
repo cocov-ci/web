@@ -8,9 +8,10 @@ import CodeBlock from 'app/common/CodeBlock'
 import Duration from 'app/common/Duration'
 import Loading from 'app/common/Loading'
 import Text from 'app/common/Text'
-import useLazyFetch, { UseFetchProps } from 'hooks/useLazyFetch'
+import { useLazyAPI } from 'hooks/useAPI'
 import useSegments from 'hooks/useSegments'
 import { CheckProps } from 'types/Checks'
+import API from 'utils/api'
 
 import styles from './Check.module.scss'
 
@@ -19,24 +20,23 @@ export interface CheckComponentProps {
   issuesCounter?: number
 }
 
-interface CheckFetchResponse {
-  data: CheckProps
-  (arg: UseFetchProps): void
-}
-
 const Check = ({ check, issuesCounter }: CheckComponentProps) => {
   const { status, plugin_name, started_at, finished_at, id } = check
   const [openDetails, setOpenDetails] = useState(false)
   const segments = useSegments()
   const repositoryName = useMemo(() => segments[1], [segments])
-  const commitSha = useMemo(() => segments[3], [segments])
+  const commitSHA = useMemo(() => segments[3], [segments])
 
-  const [getCheck, { data: dataCheck }] = useLazyFetch({
-    url: `/api/repositories/${repositoryName}/commits/${commitSha}/checks/${id}`,
-  }) as CheckFetchResponse[]
+  const { result, refresh } = useLazyAPI(API.shared.checksInfo, {
+    repositoryName,
+    commitSHA,
+    checkID: id,
+  })
 
   useEffect(() => {
-    if (status === 'errored') getCheck({})
+    if (status === 'errored') {
+      refresh()
+    }
   }, [status])
 
   const getIssuesReportedMessage = useMemo(() => {
@@ -114,7 +114,7 @@ const Check = ({ check, issuesCounter }: CheckComponentProps) => {
       </div>
       {openDetails && (
         <div className={styles.details}>
-          <CodeBlock plainText={dataCheck.error_output} />
+          <CodeBlock plainText={result?.error_output} />
         </div>
       )}
     </div>
