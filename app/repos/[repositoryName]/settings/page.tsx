@@ -4,6 +4,8 @@ import FixedContent from 'app/common/FixedContent'
 import useFetch from 'hooks/useFetch'
 import { SettingsResponseProps } from 'types/Settings'
 
+import API, { useAPI } from '../../../../utils/api'
+
 import styles from './Page.module.scss'
 import Permissions from './Permissions'
 import Sidebar from './Sidebar'
@@ -11,16 +13,10 @@ interface SettingsParams {
   params: { repositoryName: string; commitSha: string }
 }
 
-interface SettingsFetchResponse {
-  data: SettingsResponseProps
-  loading: boolean
-}
-
 const Settings = ({ params: { repositoryName } }: SettingsParams) => {
-  const { data, loading } = useFetch({
-    url: `/api/repositories/${repositoryName}/settings`,
-    handler: [],
-  }) as SettingsFetchResponse
+  const { result, error, loading } = useAPI(API.shared.repositorySettings, {
+    repositoryName,
+  })
 
   return (
     <FixedContent>
@@ -30,11 +26,11 @@ const Settings = ({ params: { repositoryName } }: SettingsParams) => {
             defaultSelectedItem="General"
             loading={loading}
             repositoryName={repositoryName}
-            secretsCount={data?.secrets_count}
+            secretsCount={result?.secrets_count ?? 0}
           />
         </div>
         <div className={styles.info}>
-          <Permissions data={data} loading={loading} />
+          <Permissions data={result} loading={loading} />
         </div>
       </div>
     </FixedContent>

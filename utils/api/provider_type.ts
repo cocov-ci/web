@@ -9,6 +9,7 @@ import {
   ChecksListInput,
   ChecksListOutput,
   ChecksReRunInput,
+  EmptyRequest,
   EmptyResponse,
   IssueCancelIgnoreInput,
   IssueCancelIgnoreOutput,
@@ -24,8 +25,16 @@ import {
   IssuesStatesOutput,
   OrgReposInput,
   OrgReposOutput,
+  RepositoryAddInput,
+  RepositoryAddOutput,
+  RepositoryDeleteInput,
   RepositoryListInput,
   RepositoryListOutput,
+  RepositoryRegenerateTokenInput,
+  RepositoryRegenerateTokenOutput,
+  RepositoryResyncInput,
+  RepositorySettingsInput,
+  RepositorySettingsOutput,
   SecretsCheckNameInput,
   SecretsCheckNameOutput,
   SecretsCreateInput,
@@ -39,6 +48,15 @@ export default interface APIProvider {
   // Repository
 
   repositoryList(params: RepositoryListInput): Promise<RepositoryListOutput>
+  repositorySettings(
+    params: RepositorySettingsInput,
+  ): Promise<RepositorySettingsOutput>
+  repositoryAdd(params: RepositoryAddInput): Promise<RepositoryAddOutput>
+  repositoryDelete(params: RepositoryDeleteInput): Promise<EmptyResponse>
+  repositoryRegenerateToken(
+    params: RepositoryRegenerateTokenInput,
+  ): Promise<RepositoryRegenerateTokenOutput>
+  repositoryResync(params: RepositoryResyncInput): Promise<EmptyResponse>
 
   // Branch
 
@@ -47,6 +65,7 @@ export default interface APIProvider {
   // Org
 
   orgReposList(params: OrgReposInput): Promise<OrgReposOutput>
+  orgRefreshReposList(params: EmptyRequest): Promise<EmptyResponse>
 
   // Checks
 

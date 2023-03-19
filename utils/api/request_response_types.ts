@@ -7,6 +7,8 @@ import { PagingProps } from 'types/Paging'
 import { OrgRepo, RepositoryProps } from 'types/Repositories'
 import { SecretParams } from 'types/Secrets'
 
+export type EmptyRequest = Record<string, never>
+
 export interface EmptyResponse {
   [key: string]: never
 }
@@ -156,4 +158,40 @@ export type SecretsCreateOutput = SecretParams
 export type SecretsDeleteInput = {
   repositoryName?: string
   secretID: number
+}
+
+export type RepositorySettingsInput = {
+  repositoryName: string
+}
+
+export interface RepositorySettingsOutput {
+  repository: Omit<RepositoryProps, 'head'>
+  secrets_count: number
+  permissions: {
+    can_delete: boolean
+    can_regen_token: boolean
+    can_sync_github: boolean
+  }
+}
+
+export type RepositoryAddInput = {
+  name: string
+}
+
+export type RepositoryAddOutput = RepositoryProps
+
+export type RepositoryDeleteInput = {
+  repositoryName: string
+}
+
+export type RepositoryRegenerateTokenInput = {
+  repositoryName: string
+}
+
+export interface RepositoryRegenerateTokenOutput {
+  new_token: string
+}
+
+export type RepositoryResyncInput = {
+  repositoryName: string
 }
