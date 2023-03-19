@@ -11,6 +11,18 @@ import {
   ChecksListOutput,
   ChecksReRunInput,
   EmptyResponse,
+  IssueCancelIgnoreInput,
+  IssueCancelIgnoreOutput,
+  IssueIgnoreInput,
+  IssueIgnoreOutput,
+  IssuesCategoriesInput,
+  IssuesCategoriesOutput,
+  IssuesListInput,
+  IssuesListOutput,
+  IssuesSourcesInput,
+  IssuesSourcesOutput,
+  IssuesStatesInput,
+  IssuesStatesOutput,
   OrgReposInput,
   OrgReposOutput,
   RepositoryListInput,
@@ -74,6 +86,53 @@ class API extends BaseAPIExecutor implements APIProvider {
   checksInfo(params: ChecksInfoInput): Promise<ChecksInfoOutput> {
     return this.doRequest({
       url: `/api/repositories/:repositoryName/commits/:commitSHA/checks/:checkID`,
+      params,
+    })
+  }
+
+  issuesCategories(
+    params: IssuesCategoriesInput,
+  ): Promise<IssuesCategoriesOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/categories`,
+      params,
+    })
+  }
+
+  issuesList(params: IssuesListInput): Promise<IssuesListOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues`,
+      params,
+    })
+  }
+
+  issuesSources(params: IssuesSourcesInput): Promise<IssuesSourcesOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/sources`,
+      params,
+    })
+  }
+
+  issuesStates(params: IssuesStatesInput): Promise<IssuesStatesOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/states`,
+      params,
+    })
+  }
+
+  issueCancelIgnore(
+    params: IssueCancelIgnoreInput,
+  ): Promise<IssueCancelIgnoreOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/:issueID/ignore`,
+      method: 'POST',
+      params,
+    })
+  }
+
+  issueIgnore(params: IssueIgnoreInput): Promise<IssueIgnoreOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/commits/:commitSHA/issues/:issueID/cancelIgnore`,
       params,
     })
   }
