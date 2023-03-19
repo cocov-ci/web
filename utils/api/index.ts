@@ -1,5 +1,3 @@
-'use client'
-
 import { bindAll } from './bind_all'
 import BaseAPIExecutor from './executor'
 import APIProvider from './provider_type'
@@ -20,21 +18,6 @@ import {
 } from './request_response_types'
 
 export { default as useAPI } from 'hooks/useAPI'
-export type {
-  BranchListInput,
-  BranchListOutput,
-  ChecksCancelInput,
-  ChecksInfoInput,
-  ChecksInfoOutput,
-  ChecksListInput,
-  ChecksListOutput,
-  ChecksReRunInput,
-  EmptyResponse,
-  OrgReposInput,
-  OrgReposOutput,
-  RepositoryListInput,
-  RepositoryListOutput,
-}
 
 class API extends BaseAPIExecutor implements APIProvider {
   static shared: API
