@@ -27,9 +27,7 @@ export type BranchListInput = {
   repositoryName: string
 }
 
-export interface BranchListOutput {
-  branches: string[]
-}
+export type BranchListOutput = Array<string>
 
 export type OrgReposInput = {
   page?: number
