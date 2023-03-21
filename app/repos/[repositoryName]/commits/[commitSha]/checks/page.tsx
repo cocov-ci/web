@@ -20,7 +20,7 @@ interface ChecksParams {
 const finishedStatuses: CheckStatus[] = ['completed', 'errored', 'canceled']
 
 const isCheckFinished = (status: CheckStatus | undefined) =>
-  status && status in finishedStatuses
+  status && finishedStatuses.includes(status)
 
 const ChecksPage = ({
   params: { repositoryName, commitSha },
