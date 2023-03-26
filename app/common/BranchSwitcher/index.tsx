@@ -54,8 +54,8 @@ const BranchSwitcher = ({
   }
 
   const onSelectBranch = (selectedItem: string) => {
-    router.push(`repos/${repositoryName}/branches/${selectedItem}`)
     onClose && onClose()
+    router.push(`repos/${repositoryName}/branches/${selectedItem}`)
   }
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {

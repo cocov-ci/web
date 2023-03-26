@@ -7,8 +7,12 @@ import useAPIMock from 'hooks/useAPIMock'
 import API from 'utils/api'
 
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(),
+  useRouter: jest.fn(() => ({
+    push: jest.fn(),
+  })),
 }))
+
+window.HTMLElement.prototype.scrollIntoView = jest.fn()
 
 describe('common/BranchSwitcher', () => {
   const { container } = render(
@@ -20,11 +24,11 @@ describe('common/BranchSwitcher', () => {
   })
 
   it('triggers onClose event', () => {
-    const handleClick = jest.fn()
+    const handleOnClose = jest.fn()
 
-    render(<BranchSwitcher onClose={handleClick} visible={true} />)
+    render(<BranchSwitcher onClose={handleOnClose} visible={true} />)
     fireEvent.click(screen.getByRole('button'))
-    expect(handleClick).toHaveBeenCalledTimes(1)
+    expect(handleOnClose).toHaveBeenCalledTimes(1)
   })
 
   it('triggers onKeyUp event', () => {
@@ -38,13 +42,106 @@ describe('common/BranchSwitcher', () => {
   })
 
   it('loads data when opening', async () => {
-    useAPIMock(API.prototype.branchList, ['branch1'])
+    useAPIMock(API.prototype.branchList, ['branch1', 'main'])
 
     await act(async () =>
       render(<BranchSwitcher onClose={() => null} visible={true} />),
     )
 
     expect(screen.getByText('branch1')).toBeVisible()
+  })
+
+  it('triggers onChange search with results', async () => {
+    useAPIMock(API.prototype.branchList, ['branch1', 'main'])
+
+    await act(async () => {
+      render(<BranchSwitcher onClose={() => null} visible={true} />)
+    })
+
+    const input = screen.getByRole('textbox') as HTMLInputElement
+
+    fireEvent.change(input, { target: { value: 'mai' } })
+
+    expect(screen.queryByText('main')).toBeVisible()
+    expect(screen.queryByText('branch1')).toBeNull()
+  })
+
+  it('triggers onChange search without results', async () => {
+    useAPIMock(API.prototype.branchList, ['branch1'])
+
+    await act(async () => {
+      render(<BranchSwitcher onClose={() => null} visible={true} />)
+    })
+
+    const input = screen.getByRole('textbox') as HTMLInputElement
+
+    fireEvent.change(input, { target: { value: 'mai' } })
+
+    await act(() => {
+      fireEvent.keyUp(input, { target: { value: '' } })
+    })
+
+    expect(screen.queryByText('branch1')).toBeNull()
+  })
+
+  it('triggers onKeyUp and onKeyDown navigation', async () => {
+    useAPIMock(API.prototype.branchList, ['branch1', 'branch2', 'branch3'])
+
+    await act(async () => {
+      render(<BranchSwitcher onClose={() => null} visible={true} />)
+    })
+
+    const input = screen.getByRole('textbox') as HTMLInputElement
+
+    fireEvent.keyUp(input, { key: 'ArrowUp' })
+
+    expect(screen.queryByText('branch3')).toHaveClass('active')
+
+    fireEvent.keyUp(input, { key: 'ArrowDown' })
+
+    expect(screen.queryByText('branch1')).toHaveClass('active')
+
+    fireEvent.keyUp(input, { key: 'ArrowDown' })
+
+    expect(screen.queryByText('branch2')).toHaveClass('active')
+
+    fireEvent.keyUp(input, { key: 'ArrowUp' })
+
+    expect(screen.queryByText('branch1')).toHaveClass('active')
+  })
+
+  it('triggers onSelect by Enter key', async () => {
+    const handleOnClose = jest.fn()
+    useAPIMock(API.prototype.branchList, ['branch1'])
+
+    await act(async () => {
+      render(<BranchSwitcher onClose={handleOnClose} visible={true} />)
+    })
+
+    const input = screen.getByRole('textbox') as HTMLInputElement
+
+    await act(() => {
+      fireEvent.keyUp(input, { key: 'Enter' })
+    })
+
+    expect(handleOnClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('triggers onSelect event clicking on item', async () => {
+    const handleOnClose = jest.fn()
+    useAPIMock(API.prototype.branchList, ['branch1'])
+
+    await act(async () => {
+      render(<BranchSwitcher onClose={handleOnClose} visible={true} />)
+    })
+
+    const branch = screen.getByText('branch1')
+
+    await act(() => {
+      fireEvent.click(branch)
+    })
+
+    expect(handleOnClose).toHaveBeenCalledTimes(1)
   })
 
   it('renders BranchSwitcher snapshots', () => {
