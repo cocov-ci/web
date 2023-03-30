@@ -46,7 +46,7 @@ const Secret = ({
         </span>
         {metadata && (
           <>
-            <span>
+            <span className={styles.createdAt}>
               Created <RelativeTime timestamp={metadata.createdAt} /> by{' '}
               {metadata.createdBy}
             </span>

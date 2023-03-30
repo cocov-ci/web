@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/Menu renders Menu snapshots 1`] = `
+<div>
+  <div
+    class="base"
+  >
+    <div
+      class="background"
+    />
+    <div
+      class="content"
+    >
+      <a
+        href="."
+      >
+        <div
+          class="item"
+        >
+          <span
+            class="label className"
+          >
+            Revoke Admin
+          </span>
+        </div>
+      </a>
+      <a
+        href="javascript:void(0)"
+      >
+        <div
+          class="item"
+        >
+          <span
+            class="label className"
+          >
+            Sync Permissions
+          </span>
+        </div>
+      </a>
+      <div
+        class="item"
+      >
+        <span
+          class="label className"
+        >
+          Force Logout
+        </span>
+      </div>
+      <div
+        class="item danger"
+      >
+        <span
+          class="label className"
+        >
+          Delete...
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

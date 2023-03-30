@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/StatusDisplay renders StatusDisplay snapshots 1`] = `
+<div>
+  <div
+    class="statusDisplay"
+  >
+    <div
+      class="box base"
+    >
+      <div
+        class="content"
+      >
+        <div
+          class="content"
+        >
+          <div
+            class="cell"
+          >
+            <span
+              class="text"
+            >
+              <div
+                class="dot yellow dot"
+              />
+              <span
+                class="label"
+              >
+                Coverage:
+              </span>
+              <span
+                class="message bold"
+              >
+                Processing...
+              </span>
+            </span>
+          </div>
+          <div
+            class="cell"
+          >
+            <span
+              class="text"
+            >
+              <div
+                class="dot yellow dot"
+              />
+              <span
+                class="label"
+              >
+                Checks:
+              </span>
+              <span
+                class="message bold"
+              >
+                Processing...
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/SnippetBox renders SnippetBox snapshots 1`] = `
+<div>
+  <div
+    class="base"
+  >
+    <input
+      class="singleLineInput className"
+      readonly=""
+      type="text"
+      value="crt_d3e4ad8b6735a2fa04f546f68b51df73039463df16"
+    />
+    <button
+      class="base copyButton squared"
+      title="Copy"
+    >
+      <div
+        class="iconWrapper"
+      >
+        <img
+          alt=""
+          data-nimg="1"
+          decoding="async"
+          height="13"
+          loading="lazy"
+          src="/icons/copy.svg"
+          srcset="/icons/copy.svg 1x, /icons/copy.svg 2x"
+          style="color: transparent;"
+          width="13"
+        />
+      </div>
+      <div
+        class="iconWrapper check"
+      >
+        <img
+          alt=""
+          data-nimg="1"
+          decoding="async"
+          height="11"
+          loading="lazy"
+          src="/icons/check.svg"
+          srcset="/icons/check.svg 1x, /icons/check.svg 2x"
+          style="color: transparent;"
+          width="16"
+        />
+      </div>
+    </button>
+  </div>
+</div>
+`;

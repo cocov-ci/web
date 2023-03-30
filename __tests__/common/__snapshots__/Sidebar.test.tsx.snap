@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/Sidebar renders Sidebar snapshots 1`] = `
+<div>
+  <div
+    class="base"
+  >
+    <a
+      class="item selected"
+      href="javascript:void(0)"
+    >
+      <span
+        class="label"
+      >
+        All Categories
+      </span>
+      <span
+        class="counter"
+      >
+        920
+      </span>
+    </a>
+    <a
+      class="item"
+      href="javascript:void(0)"
+    >
+      <span
+        class="label"
+      >
+        Complexity
+      </span>
+      <span
+        class="counter"
+      >
+        130
+      </span>
+    </a>
+  </div>
+</div>
+`;

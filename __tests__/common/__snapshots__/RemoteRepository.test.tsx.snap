@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/RemoteRepository renders RemoteRepository snapshots 1`] = `
+<div>
+  <div
+    class="base"
+  >
+    <div
+      class="icon"
+    >
+      <svg
+        class="lucide lucide-album"
+        fill="none"
+        height="25"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2px"
+        viewBox="0 0 24 24"
+        width="25"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          height="18"
+          rx="2"
+          ry="2"
+          width="18"
+          x="3"
+          y="3"
+        />
+        <polyline
+          points="11 3 11 11 14 8 17 11 17 3"
+        />
+      </svg>
+    </div>
+    <div
+      class="info"
+    >
+      <div
+        class="name"
+      >
+        api
+      </div>
+      <div
+        class="description empty"
+      >
+        No description
+      </div>
+      <div
+        class="dates"
+      >
+        Created 
+        <span
+          class=""
+          title="Mar 28, 2023, 11:44 PM GMT+1"
+        >
+          2 days ago
+        </span>
+         
+        • Last updated 
+        <span
+          class=""
+          title="Mar 29, 2023, 11:44 PM GMT+1"
+        >
+          yesterday
+        </span>
+      </div>
+    </div>
+    <div
+      class="button"
+    >
+      <button
+        class="className button secondary"
+      >
+        Add to Cocov
+      </button>
+    </div>
+  </div>
+</div>
+`;
