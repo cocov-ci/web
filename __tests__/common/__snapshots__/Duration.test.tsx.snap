@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/Duration renders Duration snapshots 1`] = `
+<div>
+  <span
+    class=""
+  >
+    3 seconds
+  </span>
+</div>
+`;

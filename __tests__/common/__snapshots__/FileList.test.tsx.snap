@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/FileList renders FileList snapshots 1`] = `
+<div>
+  <div
+    class="base"
+  >
+    <div
+      class="header"
+    >
+      <div
+        class="file"
+      >
+        File
+      </div>
+      <div
+        class="coverage"
+      >
+        Coverage
+      </div>
+    </div>
+    <div
+      class="fileList"
+    >
+      <a
+        class="fileItem"
+        href="/repos/api/commits/1234356/coverage/1"
+      >
+        <div
+          class="file"
+        >
+          app/models/application_record.rb
+        </div>
+        <div
+          class="percentage"
+        >
+          <div
+            class="percentageValue"
+          >
+            57.14
+            %
+          </div>
+          <div
+            class="percentageProgressBar"
+          >
+            <div
+              class="base"
+              style="width: 100%; height: 7px;"
+            >
+              <div
+                class="progressFill"
+                style="width: 57.14%;"
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+      <a
+        class="fileItem"
+        href="/repos/api/commits/1234356/coverage/2"
+      >
+        <div
+          class="file"
+        >
+          app/lib/cocov/git_hub.rb
+        </div>
+        <div
+          class="percentage"
+        >
+          <div
+            class="percentageValue"
+          >
+            90.48
+            %
+          </div>
+          <div
+            class="percentageProgressBar"
+          >
+            <div
+              class="base"
+              style="width: 100%; height: 7px;"
+            >
+              <div
+                class="progressFill"
+                style="width: 90.48%;"
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+`;

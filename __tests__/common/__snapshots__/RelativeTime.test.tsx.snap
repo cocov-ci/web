@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/RelativeTime renders RelativeTime snapshots 1`] = `
+<div>
+  <span
+    class=""
+    title="Mar 29, 2023, 10:27 PM GMT+1"
+  >
+    yesterday
+  </span>
+</div>
+`;
