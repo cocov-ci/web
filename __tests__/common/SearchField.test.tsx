@@ -38,6 +38,7 @@ describe('common/SearchField', () => {
 
     const input = screen.getByRole('textbox') as HTMLInputElement
 
+    fireEvent.change(input, { target: { value: 'text her' } })
     fireEvent.change(input, { target: { value: 'text here...' } })
 
     setTimeout(() => {

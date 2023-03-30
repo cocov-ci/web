@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/Kbd renders Kbd snapshots 1`] = `
+<div>
+  <kbd
+    class="base variable light"
+  >
+    esc
+  </kbd>
+</div>
+`;

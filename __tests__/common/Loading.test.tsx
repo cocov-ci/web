@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import { Info } from 'lucide-react'
 
 import Loading from 'app/common/Loading'
 
@@ -25,6 +26,12 @@ describe('common/Loading', () => {
     expect(
       container.getElementsByClassName('react-loading-skeleton').length,
     ).toEqual(3)
+  })
+
+  it('renders Loading spinner with "SpinnerIcon" param', () => {
+    const { container } = render(<Loading spinnerIcon={Info} />)
+
+    expect(container.querySelector('svg')).toBeVisible()
   })
 
   it('renders Loading snapshots', () => {

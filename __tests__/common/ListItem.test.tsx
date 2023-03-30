@@ -36,6 +36,14 @@ describe('common/ListItem', () => {
     )
   })
 
+  it('renders ListItem with small title', () => {
+    const { container } = render(<ListItem title="Hey" />)
+
+    expect(container.querySelector('span.backgroundText')).toHaveTextContent(
+      'Hey',
+    )
+  })
+
   it('renders ListItem snapshots', () => {
     expect(container).toMatchSnapshot()
   })

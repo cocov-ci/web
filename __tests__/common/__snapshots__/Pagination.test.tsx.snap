@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/Pagination renders Pagination snapshots 1`] = `
+<div>
+  <div
+    class="pagination"
+  >
+    <ul
+      class="pages"
+    >
+      <svg
+        class="arrow"
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <polyline
+          points="17 18 11 12 17 6"
+        />
+        <path
+          d="M7 6v12"
+        />
+      </svg>
+      <li
+        class="page"
+      >
+        1
+      </li>
+      <li
+        class="page active"
+      >
+        2
+      </li>
+      <li
+        class="page"
+      >
+        3
+      </li>
+      <li
+        class="page"
+      >
+        4
+      </li>
+      <li
+        class="page"
+      >
+        5
+      </li>
+      <li
+        class="page"
+      >
+        6
+      </li>
+      <li
+        class="page"
+      >
+        7
+      </li>
+      <li
+        class="page"
+      >
+        8
+      </li>
+      <li
+        class="page"
+      >
+        9
+      </li>
+      <li
+        class="page"
+      >
+        10
+      </li>
+      <svg
+        class="arrow"
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <polyline
+          points="7 18 13 12 7 6"
+        />
+        <path
+          d="M17 6v12"
+        />
+      </svg>
+    </ul>
+  </div>
+</div>
+`;

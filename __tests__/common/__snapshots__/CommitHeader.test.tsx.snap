@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/CommitHeader renders CommitHeader snapshots 1`] = `
+<div>
+  <div
+    class="base"
+  >
+    <div
+      class="avatarWrapper"
+    >
+      <img
+        alt=""
+        aria-hidden="true"
+        class="base"
+        src="https://avatars.githubusercontent.com/u/118852412?s=200&v=4"
+        style="height: 25px; width: 25px;"
+      />
+    </div>
+    <div
+      class="infoWrapper"
+    >
+      <div
+        class="commitMeta"
+      >
+        <span
+          class="username"
+        >
+          cocov-ci
+        </span>
+        <span>
+          committed
+        </span>
+        <a
+          class="headLink className"
+          href="https://github.com/cocov-ci/web"
+          rel="noreferrer"
+          target="_blank"
+        >
+          62bad0
+        </a>
+        <span
+          class=""
+          title="Nov 22, 2022, 9:25 PM GMT"
+        >
+          4 months ago
+        </span>
+      </div>
+      <div
+        class="commitTitle"
+      >
+        <a
+          href="https://github.com/cocov-ci/web"
+          rel="noreferrer"
+          target="_blank"
+        >
+          fix(rollout-restart): Ensure to keep watching rollout status
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

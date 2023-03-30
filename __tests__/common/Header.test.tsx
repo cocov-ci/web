@@ -1,30 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
+import AuthContext from '__tests__/__mocks__/AuthContext'
 import Header from 'app/common/Header'
-import { AuthContext } from 'context/AuthContext'
-import { AuthPropsContext } from 'types/Auth'
 
 import '@testing-library/jest-dom'
-
-const HeaderContext = ({
-  login,
-  logout,
-  loading,
-  isAuthenticated,
-  user,
-}: AuthPropsContext) => (
-  <AuthContext.Provider
-    value={{
-      login,
-      logout,
-      loading,
-      isAuthenticated,
-      user,
-    }}
-  >
-    <Header />
-  </AuthContext.Provider>
-)
 
 const props = {
   login: () => null,
@@ -34,7 +13,11 @@ const props = {
 }
 
 describe('common/Header', () => {
-  const { container } = render(<HeaderContext {...props} />)
+  const { container } = render(
+    <AuthContext {...props}>
+      <Header />
+    </AuthContext>,
+  )
 
   it('renders Header', () => {
     expect(container.querySelector('header')).toBeInTheDocument()
@@ -44,11 +27,13 @@ describe('common/Header', () => {
     const handleClick = jest.fn()
 
     render(
-      <HeaderContext
+      <AuthContext
         {...props}
         logout={handleClick}
         user={{ isAdmin: false, name: 'John Doe' }}
-      />,
+      >
+        <Header />
+      </AuthContext>,
     )
 
     fireEvent.click(screen.getByText(/Sign out/i))
@@ -56,7 +41,11 @@ describe('common/Header', () => {
   })
 
   it('renders Header snapshots', () => {
-    const { container } = render(<HeaderContext {...props} />)
+    const { container } = render(
+      <AuthContext {...props}>
+        <Header />
+      </AuthContext>,
+    )
     expect(container).toMatchSnapshot()
   })
 })

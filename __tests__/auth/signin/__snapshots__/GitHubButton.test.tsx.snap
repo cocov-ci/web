@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app/auth/signin/GitHubButton renders GitHubButton snapshots 1`] = `
+<div>
+  <div
+    class="gitHubButton"
+  >
+    <button
+      class="className button button secondary"
+    >
+      <img
+        alt="GitHub logo"
+        class="logo"
+        data-nimg="1"
+        decoding="async"
+        height="20"
+        loading="lazy"
+        src="/icons/github.svg"
+        srcset="/icons/github.svg 1x, /icons/github.svg 2x"
+        style="color: transparent;"
+        width="20"
+      />
+      Log in with GitHub
+    </button>
+  </div>
+</div>
+`;

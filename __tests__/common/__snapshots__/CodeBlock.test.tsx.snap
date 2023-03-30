@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/CodeBlock renders CodeBlock snapshots 1`] = `
+<div>
+  <div
+    class="base"
+  >
+    <table
+      class="table"
+    >
+      <tbody>
+        <tr>
+          <td
+            class="gutter className"
+          >
+            <div>
+              1
+            </div>
+          </td>
+          <td
+            class="codeblock-line line className"
+          >
+            <div>
+              <pre>
+                    
+                <span
+                  class="k"
+                >
+                  def
+                </span>
+                 
+                <span
+                  class="nf"
+                >
+                  repo_path
+                </span>
+                <span
+                  class="p"
+                >
+                  (
+                </span>
+                <span
+                  class="n"
+                >
+                  repo
+                </span>
+                <span
+                  class="p"
+                >
+                  )
+                </span>
+                
+
+              </pre>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="gutter"
+          />
+          <td
+            class="warningLine"
+          >
+            <pre>
+                    
+            </pre>
+            <div
+              class="warning"
+            >
+              <svg
+                class="icon"
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"
+                />
+                <line
+                  x1="12"
+                  x2="12"
+                  y1="9"
+                  y2="13"
+                />
+                <line
+                  x1="12"
+                  x2="12.01"
+                  y1="17"
+                  y2="17"
+                />
+              </svg>
+              <div
+                class="content"
+              >
+                Weak hashing algorithm used: SHA1
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="gutter className"
+          >
+            <div>
+              2
+            </div>
+          </td>
+          <td
+            class="codeblock-line line className"
+          >
+            <div>
+              <pre>
+                      
+                <span
+                  class="n"
+                >
+                  base
+                </span>
+                 
+                <span
+                  class="o"
+                >
+                  =
+                </span>
+                 
+                <span
+                  class="n"
+                >
+                  base_path
+                </span>
+                
+
+              </pre>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
