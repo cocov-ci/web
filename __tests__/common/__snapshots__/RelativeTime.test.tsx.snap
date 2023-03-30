@@ -4,7 +4,7 @@ exports[`common/RelativeTime renders RelativeTime snapshots 1`] = `
 <div>
   <span
     class=""
-    title="Mar 29, 2023, 11:44 PM GMT+1"
+    title="Mar 29, 2023, 11:59 PM GMT+1"
   >
     yesterday
   </span>

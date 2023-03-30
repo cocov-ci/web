@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common/SummarySelector renders SummarySelector snapshots 1`] = `
+<div>
+  <div
+    class="base"
+  >
+    <div
+      class="textContainer"
+    >
+      <svg
+        class="lucide lucide-git-branch"
+        fill="none"
+        height="18"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="18"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line
+          x1="6"
+          x2="6"
+          y1="3"
+          y2="15"
+        />
+        <circle
+          cx="18"
+          cy="6"
+          r="3"
+        />
+        <circle
+          cx="6"
+          cy="18"
+          r="3"
+        />
+        <path
+          d="M18 9a9 9 0 0 1-9 9"
+        />
+      </svg>
+      <span
+        class="disclaimer"
+      >
+        This is a summary of the
+         
+        <span
+          class="branchName className"
+        >
+          master
+        </span>
+         
+        branch.
+      </span>
+    </div>
+    <div
+      class="buttonContainer"
+    >
+      <div
+        class="buttonWrapper"
+      >
+        <button
+          class="className button mini"
+        >
+          Switch Branch
+        </button>
+        <div
+          class="base branchSwitcher"
+        >
+          <div
+            class="background"
+          />
+          <div
+            class="content"
+          >
+            <div
+              class="header"
+            >
+              <span
+                class="title"
+              >
+                Switch Branch
+              </span>
+              <div
+                class="close"
+              >
+                <kbd
+                  class="base variable dark mini"
+                >
+                  esc
+                </kbd>
+                <button
+                  class="closeButton"
+                >
+                  <svg
+                    class="lucide lucide-x"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="18"
+                      x2="6"
+                      y1="6"
+                      y2="18"
+                    />
+                    <line
+                      x1="6"
+                      x2="18"
+                      y1="6"
+                      y2="18"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="searchContainer"
+            >
+              <div
+                class="base dark"
+                style="width: 100%;"
+              >
+                <div
+                  class="inputWrapper searchInput"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <svg
+                      class="lucide lucide-search"
+                      fill="none"
+                      height="18"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="18"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="8"
+                      />
+                      <line
+                        x1="21"
+                        x2="16.65"
+                        y1="21"
+                        y2="16.65"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    class="input withIcon"
+                    placeholder="Type to search..."
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    class="loadingWrapper"
+                  >
+                    <div
+                      class="loading center tiny"
+                    >
+                      <img
+                        alt="A spinner indicating an ongoing operation"
+                        class="spinner"
+                        data-nimg="1"
+                        decoding="async"
+                        height="15"
+                        loading="lazy"
+                        src="/icons/spinner-dark.svg"
+                        srcset="/icons/spinner-dark.svg 1x, /icons/spinner-dark.svg 2x"
+                        style="color: transparent;"
+                        width="15"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="itemsContainer"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
