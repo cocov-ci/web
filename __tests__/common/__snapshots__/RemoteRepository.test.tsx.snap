@@ -52,7 +52,7 @@ exports[`common/RemoteRepository renders RemoteRepository snapshots 1`] = `
         Created 
         <span
           class=""
-          title="Mar 28, 2023, 11:59 PM GMT+1"
+          title="Mar 29, 2023, 12:01 AM GMT+1"
         >
           2 days ago
         </span>
@@ -60,7 +60,7 @@ exports[`common/RemoteRepository renders RemoteRepository snapshots 1`] = `
         • Last updated 
         <span
           class=""
-          title="Mar 29, 2023, 11:59 PM GMT+1"
+          title="Mar 30, 2023, 12:01 AM GMT+1"
         >
           yesterday
         </span>
