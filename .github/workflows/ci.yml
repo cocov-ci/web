@@ -1,13 +1,45 @@
-name: Docker Image CI
+name: CI
 
 on:
   push:
-    branches: [ "main" ]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      COCOV_REPOSITORY_TOKEN: ${{ secrets.COCOV_REPOSITORY_TOKEN }}
+      COCOV_API_URL: ${{ secrets.COCOV_API_URL }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Prepare coverage-reporter
+        run: |
+          curl -sSL https://vito.io/private/coverage-reporter > .coverage-reporter
+          chmod +x .coverage-reporter
+          ./.coverage-reporter prepare
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: yarn
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run tests
+        run: yarn test a --watchAll=false
+
+      - name: Push coverage report
+        run: ./.coverage-reporter submit
 
   build:
-
+    needs: test
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
