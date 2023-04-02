@@ -93,7 +93,7 @@ export default class BaseAPIExecutor {
 
     if (behavesLikeGet.includes(method)) {
       config.params = new URLSearchParams(restParams)
-    } else {
+    } else if (restParams && Object.keys(restParams).length > 0) {
       const fd = new FormData()
 
       for (const k in restParams) {
