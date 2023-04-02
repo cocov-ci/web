@@ -79,25 +79,29 @@ export default class APIProxy {
     const body: Record<string, string> = {}
 
     if (this.requiredMethod && this.requiredMethod !== 'GET') {
-      const { fields } = await (new Promise((resolve, reject) => {
-        const form = new formidable.IncomingForm()
-        form.parse(req, (err: any, fields: any) => {
-          if (err) {
-            reject(err)
+      const length = parseInt(headers['content-length'] || '0', 10)
 
-            return
-          }
+      if (length > 0) {
+        const { fields } = await (new Promise((resolve, reject) => {
+          const form = new formidable.IncomingForm()
+          form.parse(req, (err: any, fields: any) => {
+            if (err) {
+              reject(err)
 
-          resolve({ fields })
+              return
+            }
+
+            resolve({ fields })
+          })
+        }) as Promise<any>)
+
+        Object.keys(fields).forEach(k => {
+          body[k] = fields[k]
         })
-      }) as Promise<any>)
+      }
 
       delete headers['content-type']
       delete headers['content-length']
-
-      Object.keys(fields).forEach(k => {
-        body[k] = fields[k]
-      })
     }
 
     const parsedRequest: ParsedNextAPIRequest = req
