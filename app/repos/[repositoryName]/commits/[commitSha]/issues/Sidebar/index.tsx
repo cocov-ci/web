@@ -41,6 +41,9 @@ const SidebarComponent = ({
       />
     )
 
+  // eslint-disable-next-line no-console
+  console.log(data)
+
   if (!data || data?.length === 0) return null
 
   const allItems = {
