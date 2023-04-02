@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new/LoadingRepositories renders LoadingRepositories snapshots 1`] = `
+<div>
+  <div
+    class="alert alert"
+  >
+    <div
+      class="box"
+    >
+      <div
+        class="loading center loading"
+      >
+        <img
+          alt="A spinner indicating an ongoing operation"
+          class="spinner"
+          data-nimg="1"
+          decoding="async"
+          height="30"
+          loading="lazy"
+          src="/icons/spinner.svg"
+          srcset="/icons/spinner.svg 1x, /icons/spinner.svg 2x"
+          style="color: transparent;"
+          width="30"
+        />
+      </div>
+      <div
+        class="content"
+      >
+        <h2>
+          Loading Repositories…
+        </h2>
+        <h3>
+          Wait a moment while Cocov loads the repository list from GitHub. This shouldn’t take long.
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+`;

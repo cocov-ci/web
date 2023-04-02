@@ -7,7 +7,7 @@ import Text from 'app/common/Text'
 
 import styles from './Error.module.scss'
 
-export default function Error({ error }: { error: Error; reset: () => void }) {
+export default function Error({ error }: { error: Error }) {
   useEffect(() => {
     // TODO: ERROR REPORTING SERVICE HERE
     console.error(error)

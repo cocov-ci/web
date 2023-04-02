@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new/Header renders Header snapshots 1`] = `
+<div>
+  <div
+    class="header"
+  >
+    <p
+      class="text description"
+    >
+      Below is a list of repositories from your GitHub Organization. Use the button at the side of the repository you wish to add to Cocov to add it to this instance. As the list may be quite large, the field on the right can be used to filter through repositories.
+    </p>
+    <div
+      class="searchField searchField"
+    >
+      <div
+        class="base light"
+        style="width: 208px;"
+      >
+        <div
+          class="inputWrapper input"
+        >
+          <div
+            class="iconContainer"
+          >
+            <svg
+              class="lucide lucide-search"
+              fill="none"
+              height="18"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <line
+                x1="21"
+                x2="16.65"
+                y1="21"
+                y2="16.65"
+              />
+            </svg>
+          </div>
+          <input
+            class="input withIcon"
+            placeholder="Type to Search"
+            type="text"
+            value=""
+          />
+          <div
+            class="loadingWrapper"
+          >
+            <div
+              class="loading center tiny"
+            >
+              <img
+                alt="A spinner indicating an ongoing operation"
+                class="spinner"
+                data-nimg="1"
+                decoding="async"
+                height="15"
+                loading="lazy"
+                src="/icons/spinner.svg"
+                srcset="/icons/spinner.svg 1x, /icons/spinner.svg 2x"
+                style="color: transparent;"
+                width="15"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

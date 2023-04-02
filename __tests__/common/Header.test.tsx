@@ -6,8 +6,8 @@ import Header from 'app/common/Header'
 import '@testing-library/jest-dom'
 
 const props = {
-  login: () => null,
-  logout: () => null,
+  login: () => jest.fn(),
+  logout: () => jest.fn(),
   loading: false,
   isAuthenticated: true,
 }

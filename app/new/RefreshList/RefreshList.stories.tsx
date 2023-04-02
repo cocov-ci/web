@@ -13,5 +13,9 @@ export default meta
 type Story = StoryObj<typeof RefreshList>
 
 export const Default: Story = {
-  args: {},
+  args: {
+    loading: false,
+    date: '2022-11-22T21:06:17.000Z',
+    onRefresh: () => null,
+  },
 }

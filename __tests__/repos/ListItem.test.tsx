@@ -8,6 +8,7 @@ describe('Repositories/ListItem', () => {
   const { container } = render(
     <ListItem
       coverage={10}
+      default_branch="main"
       description="repo description"
       issues={10}
       name="repo name"

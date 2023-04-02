@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new/ListItems renders ListItems snapshots 1`] = `
+<div>
+  <div>
+    <div
+      class="item"
+    >
+      <svg
+        class="icon"
+        fill="none"
+        height="27"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="27"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          height="18"
+          rx="2"
+          ry="2"
+          width="18"
+          x="3"
+          y="3"
+        />
+        <polyline
+          points="11 3 11 11 14 8 17 11 17 3"
+        />
+      </svg>
+      <div
+        class="data"
+      >
+        <p
+          class="text name title"
+        >
+          .github
+        </p>
+        <p
+          class="text"
+        >
+          Community health files for the @cocov-ci organization
+        </p>
+        <p
+          class="text timestamp"
+        >
+          Created 
+          <span
+            class=""
+            title="Jan 3, 2023, 7:43 PM GMT"
+          >
+            3 months ago
+          </span>
+           
+          • Last updated
+           
+          <span
+            class=""
+            title="Jan 3, 2023, 8:12 PM GMT"
+          >
+            3 months ago
+          </span>
+        </p>
+      </div>
+      <button
+        class="className button secondary"
+      >
+        Add to Cocov
+      </button>
+    </div>
+    <div
+      class="item"
+    >
+      <svg
+        class="icon"
+        fill="none"
+        height="27"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="27"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          height="18"
+          rx="2"
+          ry="2"
+          width="18"
+          x="3"
+          y="3"
+        />
+        <polyline
+          points="11 3 11 11 14 8 17 11 17 3"
+        />
+      </svg>
+      <div
+        class="data"
+      >
+        <p
+          class="text name title"
+        >
+          api
+        </p>
+        <p
+          class="text"
+        >
+          Cocov's API.
+        </p>
+        <p
+          class="text timestamp"
+        >
+          Created 
+          <span
+            class=""
+            title="Nov 22, 2022, 9:06 PM GMT"
+          >
+            4 months ago
+          </span>
+           
+          • Last updated
+           
+          <span
+            class=""
+            title="Mar 6, 2023, 1:09 AM GMT"
+          >
+            4 weeks ago
+          </span>
+        </p>
+      </div>
+      <p
+        class="text alreadyAddedStatus"
+      >
+        Already added
+      </p>
+    </div>
+  </div>
+</div>
+`;

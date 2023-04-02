@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new/RefreshList renders RefreshList snapshots 1`] = `
+<div>
+  <div
+    class="refreshList"
+  >
+    <svg
+      class="lucide lucide-clock"
+      fill="none"
+      height="19"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      width="19"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+      />
+      <polyline
+        points="12 6 12 12 16 14"
+      />
+    </svg>
+    <p
+      class="text description"
+    >
+      This list was last updated 
+      <span
+        class=""
+        title="Mar 30, 2023, 12:00 AM GMT+1"
+      >
+        2 days ago
+      </span>
+      . You can refresh it in case you feel like something is missing.
+    </p>
+    <button
+      class="className button mini"
+    >
+      Refresh now
+    </button>
+  </div>
+</div>
+`;

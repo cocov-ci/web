@@ -9,17 +9,17 @@ import Text from 'app/common/Text'
 import styles from './RefreshList.module.scss'
 
 interface RefreshListParams {
-  data: string
+  date: string
   onRefresh: () => void
   loading: boolean
 }
 
-const RefreshList = ({ data, onRefresh, loading }: RefreshListParams) => {
+const RefreshList = ({ date, onRefresh, loading }: RefreshListParams) => {
   return (
     <div className={styles.refreshList}>
       <Clock size={19} />
       <Text className={styles.description}>
-        This list was last updated <RelativeTime timestamp={new Date(data)} />.
+        This list was last updated <RelativeTime timestamp={new Date(date)} />.
         You can refresh it in case you feel like something is missing.
       </Text>
       <Button disabled={loading} onClick={() => onRefresh()} style="mini">

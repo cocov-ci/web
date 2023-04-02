@@ -81,7 +81,7 @@ const NewRepository = () => {
           />
           {!loadingPage && !isUpdating && !isEmpty && result && (
             <RefreshList
-              data={result.last_updated}
+              date={result.last_updated}
               loading={updatingRepositories}
               onRefresh={() => {
                 onUpdateOrgRepositories()
