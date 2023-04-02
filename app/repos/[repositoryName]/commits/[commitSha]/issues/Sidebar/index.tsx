@@ -41,12 +41,12 @@ const SidebarComponent = ({
       />
     )
 
-  if (!data) return null
+  if (!data || data?.length === 0) return null
 
   const allItems = {
     id: 0,
     name: allItemsText,
-    counter: Object.values(data).reduce((prev, next) => prev + next),
+    counter: Object.values(data).reduce((prev, next) => prev + next) || 0,
   }
 
   const items: SidebarItemsProps[] = Object.keys(data)
