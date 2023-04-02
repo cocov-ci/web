@@ -1,6 +1,7 @@
 'use client'
 
 import classNames from 'classnames'
+import { isEmpty } from 'lodash'
 
 import Loading from 'app/common/Loading'
 import Sidebar, { Item } from 'app/common/Sidebar'
@@ -41,10 +42,7 @@ const SidebarComponent = ({
       />
     )
 
-  // eslint-disable-next-line no-console
-  console.log(data)
-
-  if (!data || data?.length === 0) return null
+  if (!data || isEmpty(data)) return null
 
   const allItems = {
     id: 0,
