@@ -1,11 +1,13 @@
 'use client'
 
+import { isEmpty } from 'lodash'
 import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
 import { useLazyAPI } from 'hooks/useAPI'
 import { CheckStatus } from 'types/Checks'
 import API from 'utils/api'
+import { ChecksListOutput } from 'utils/api/request_response_types'
 
 import Alert from './Alert'
 import Check from './Check'
@@ -27,6 +29,7 @@ const ChecksPage = ({
 }: ChecksParams) => {
   let polling: ReturnType<typeof setInterval>
   const [loadingPage, setLoadingPage] = useState(true)
+  const [data, setData] = useState<ChecksListOutput>()
   const { error, result, refresh } = useLazyAPI(API.shared.checksList, {
     repositoryName,
     commitSHA: commitSha,
@@ -40,6 +43,7 @@ const ChecksPage = ({
   const onReRunChecks = async () => {
     setAccessoryButtonState('restarting')
     await API.shared.checksReRun({ repositoryName, commitSHA: commitSha })
+    refresh()
   }
 
   const onCancelChecks = async () => {
@@ -52,6 +56,10 @@ const ChecksPage = ({
   }, [])
 
   useEffect(() => {
+    if (result) {
+      setData(result)
+    }
+
     if (result?.status) {
       switch (result.status) {
         case 'errored':
@@ -82,14 +90,14 @@ const ChecksPage = ({
   }, [allSucceeded])
 
   useEffect(() => {
-    setLoadingPage(result === undefined)
-  }, [result])
+    setLoadingPage(isEmpty(data))
+  }, [data])
 
   return (
     <FixedContent>
       <Header
         accessoryButtonState={accessoryButtonState}
-        commit={result?.commit}
+        commit={data?.commit}
         loading={loadingPage}
         onCancel={onCancelChecks}
         onReRun={onReRunChecks}
@@ -98,10 +106,10 @@ const ChecksPage = ({
       <div className={styles.content}>
         {!loadingPage && allSucceeded && <Alert />}
         {loadingPage && <Loading />}
-        {result?.checks?.map(item => (
+        {data?.checks?.map(item => (
           <Check
             check={item}
-            issuesCounter={result.issues[item.plugin_name]}
+            issuesCounter={data.issues[item.plugin_name]}
             key={item.id}
           />
         ))}

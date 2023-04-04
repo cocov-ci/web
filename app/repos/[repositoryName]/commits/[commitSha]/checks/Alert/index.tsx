@@ -8,7 +8,7 @@ import styles from './Alert.module.scss'
 const Alert = () => {
   return (
     <div className={styles.alert}>
-      <Text gutterBottom variant="description">
+      <Text variant="description">
         <strong>Notice:</strong> Those checks have already finished. See their
         results on the{' '}
         <Link className={styles.link} href="#">
