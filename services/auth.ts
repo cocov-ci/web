@@ -38,7 +38,7 @@ const Auth = {
   getAccount: (): UserProps | undefined => {
     const account = isClientSide && localStorage.getItem('cocov_user_account')
 
-    if (typeof account === 'string') {
+    if (typeof account === 'string' && getCookie('cocov_auth_token')) {
       return JSON.parse(account)
     }
 
