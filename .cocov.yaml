@@ -1,0 +1,4 @@
+version: "0.1.alpha"
+
+checks:
+  - plugin: cocov/eslint:v0.1
