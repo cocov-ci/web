@@ -5,6 +5,12 @@
   overflow: hidden;
 }
 
+.headerWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
 .fileList {
   padding-top: 25px;
 }

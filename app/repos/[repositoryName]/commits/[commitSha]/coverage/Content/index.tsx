@@ -24,12 +24,14 @@ const PageContent = ({
 }: PageContentParams) => {
   return (
     <FixedContent>
-      <CommitHeader head={data?.commit} repositoryName={repositoryName} />
-      <NavMenu
-        active="coverage"
-        commitSha={commitSha}
-        repositoryName={repositoryName}
-      />
+      <div className={styles.headerWrapper}>
+        <CommitHeader head={data?.commit} repositoryName={repositoryName} />
+        <NavMenu
+          active="coverage"
+          commitSha={commitSha}
+          repositoryName={repositoryName}
+        />
+      </div>
 
       <div className={styles.content}>
         {data?.status === 'waiting' && (
