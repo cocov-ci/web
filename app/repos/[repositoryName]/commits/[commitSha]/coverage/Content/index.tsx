@@ -3,9 +3,9 @@ import { AlertTriangle, Cog, Send } from 'lucide-react'
 import Alert from 'app/common/Alert'
 import FileList from 'app/common/FileList'
 import FixedContent from 'app/common/FixedContent'
-import CommitHeader from 'app/repos/[repositoryName]/commits/[commitSha]/CommitHeader'
-import NavMenu from 'app/repos/[repositoryName]/commits/[commitSha]/NavMenu'
 import { CoverageResponseProps } from 'types/Coverage'
+
+import SectionHeader from '../../SectionHeader'
 
 import styles from './Content.module.scss'
 
@@ -24,14 +24,12 @@ const PageContent = ({
 }: PageContentParams) => {
   return (
     <FixedContent>
-      <div className={styles.headerWrapper}>
-        <CommitHeader head={data?.commit} repositoryName={repositoryName} />
-        <NavMenu
-          active="coverage"
-          commitSha={commitSha}
-          repositoryName={repositoryName}
-        />
-      </div>
+      <SectionHeader
+        activeItem="coverage"
+        commit={data?.commit}
+        commitSha={commitSha}
+        repositoryName={repositoryName}
+      />
 
       <div className={styles.content}>
         {data?.status === 'waiting' && (
