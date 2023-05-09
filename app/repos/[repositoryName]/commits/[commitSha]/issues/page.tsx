@@ -124,18 +124,6 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
           loading={pageLoading}
           repositoryName={repositoryName}
         />
-        <CommitHeader
-          head={issuesList?.commit}
-          loading={pageLoading}
-          repositoryName={repositoryName}
-        />
-        <NavMenu
-          active="issues"
-          commitSha={commitSha}
-          counter={issuesList?.repository.issues}
-          loading={pageLoading}
-          repositoryName={repositoryName}
-        />
         <div className={styles.content}>
           <div className={styles.sidebar}>
             <Sidebar
