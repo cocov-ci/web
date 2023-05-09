@@ -32,6 +32,41 @@ const Arrow = ({ direction, disabled, onClick }: ArrowProps) => {
   )
 }
 
+const slidingPaginationWindow = (numPages: number, current: number) => {
+  const maxPerWindow = 9 // Odd is better!
+  let pages: number[]
+
+  if (current > maxPerWindow / 2 && numPages > maxPerWindow) {
+    const around = (maxPerWindow - 1) / 2
+    const first = Math.max(current - around, 1)
+    const last = current + around
+
+    const result = []
+
+    for (let i = first; i <= Math.min(last, numPages); i++) {
+      result.push(i)
+    }
+
+    if (result.length < maxPerWindow) {
+      const upTo = result[0]
+
+      for (let i = upTo - (maxPerWindow - result.length); i < upTo; i++) {
+        result.unshift(i)
+      }
+    }
+
+    pages = result
+  } else {
+    pages = [...Array(numPages)].map((i, idx) => idx + 1)
+  }
+
+  if (pages.length > maxPerWindow) {
+    pages = pages.slice(0, maxPerWindow)
+  }
+
+  return pages
+}
+
 const Pagination = ({
   total,
   currentPage,
@@ -52,21 +87,21 @@ const Pagination = ({
           }
         />
 
-        {[...Array(total)].map((item, index): React.ReactElement => {
-          const pageNumber = index + 1
-
-          return (
-            <li
-              className={classNames(styles.page, {
-                [styles.active]: pageNumber === currentPage,
-              })}
-              key={pageNumber}
-              onClick={() => onPageClick && onPageClick(pageNumber)}
-            >
-              {pageNumber}
-            </li>
-          )
-        })}
+        {slidingPaginationWindow(total, currentPage).map(
+          (page, index): React.ReactElement => {
+            return (
+              <li
+                className={classNames(styles.page, {
+                  [styles.active]: page === currentPage,
+                })}
+                key={page}
+                onClick={() => onPageClick && onPageClick(page)}
+              >
+                {page}
+              </li>
+            )
+          },
+        )}
 
         <Arrow
           direction="next"

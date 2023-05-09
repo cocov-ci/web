@@ -18,3 +18,31 @@ export const Default: Story = {
     currentPage: 1,
   },
 }
+
+export const Empty: Story = {
+  args: {
+    total: 0,
+    currentPage: 1,
+  },
+}
+
+export const LargeBegin: Story = {
+  args: {
+    total: 44,
+    currentPage: 1,
+  },
+}
+
+export const LargeMiddle: Story = {
+  args: {
+    total: 44,
+    currentPage: 22,
+  },
+}
+
+export const LargeEnd: Story = {
+  args: {
+    total: 44,
+    currentPage: 44,
+  },
+}
