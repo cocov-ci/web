@@ -12,6 +12,8 @@ import IssuesProvider from 'context/IssuesContext'
 import { PagingProps } from 'types/Paging'
 import API, { useAPI } from 'utils/api'
 
+import SectionHeader from '../SectionHeader'
+
 import List from './List'
 import styles from './Page.module.scss'
 import Sidebar from './Sidebar'
@@ -114,6 +116,14 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
       repositoryName={repositoryName}
     >
       <FixedContent>
+        <SectionHeader
+          activeItem="issues"
+          commit={issuesList?.commit}
+          commitSha={commitSha}
+          counter={issuesList?.repository.issues}
+          loading={pageLoading}
+          repositoryName={repositoryName}
+        />
         <CommitHeader
           head={issuesList?.commit}
           loading={pageLoading}
