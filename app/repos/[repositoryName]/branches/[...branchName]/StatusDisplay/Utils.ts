@@ -78,12 +78,21 @@ export const getChecks = ({ data, repositoryName }: DataProps) => {
       checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
       checkObject.statusColor = 'yellow'
       break
+
     case 'errored':
       checkObject.message = 'Failed running'
       checkObject.messageBold = true
       checkObject.statusColor = 'red'
       checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
       break
+
+    case 'failure':
+      checkObject.message = 'Errored'
+      checkObject.messageBold = true
+      checkObject.statusColor = 'red'
+      checkObject.detailsHref = `/repos/${repositoryName}/commits/${sha}/checks`
+      break
+
     case 'completed':
       if (issues_count === 0) {
         checkObject.message = 'Passing. No issues detected.'

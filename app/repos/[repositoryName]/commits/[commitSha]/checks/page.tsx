@@ -12,6 +12,7 @@ import { ChecksListOutput } from 'utils/api/request_response_types'
 import Alert from './Alert'
 import Check from './Check'
 import Loading from './Check/Loading'
+import Failure from './Failure'
 import Header, { AccessoryButtonState } from './Header'
 import styles from './Page.module.scss'
 
@@ -70,6 +71,11 @@ const ChecksPage = ({
         case 'in_progress':
           setAccessoryButtonState('cancel')
           break
+        case 'cancelling':
+          setAccessoryButtonState('cancelling')
+          break
+
+        case 'failure':
         default:
           setAccessoryButtonState('none')
           break
@@ -93,6 +99,26 @@ const ChecksPage = ({
     setLoadingPage(isEmpty(data))
   }, [data])
 
+  const checkResults = () => (
+    <>
+      {!loadingPage && allSucceeded && <Alert />}
+      {loadingPage && <Loading />}
+      {data?.checks?.map(item => (
+        <Check
+          check={item}
+          issuesCounter={data.issues[item.plugin_name]}
+          key={item.id}
+        />
+      ))}
+    </>
+  )
+
+  const failureResult = () =>
+    data &&
+    data.failure_reason && (
+      <Failure details={data.failure_details} reason={data.failure_reason} />
+    )
+
   return (
     <FixedContent>
       <Header
@@ -104,15 +130,7 @@ const ChecksPage = ({
         repositoryName={repositoryName}
       />
       <div className={styles.content}>
-        {!loadingPage && allSucceeded && <Alert />}
-        {loadingPage && <Loading />}
-        {data?.checks?.map(item => (
-          <Check
-            check={item}
-            issuesCounter={data.issues[item.plugin_name]}
-            key={item.id}
-          />
-        ))}
+        {data?.status == 'failure' ? failureResult() : checkResults()}
       </div>
     </FixedContent>
   )

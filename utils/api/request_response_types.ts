@@ -51,11 +51,24 @@ export type ChecksListInput = {
 export type ChecksCancelInput = ChecksListInput
 export type ChecksReRunInput = ChecksListInput
 
+export type ChecksFailureReason =
+  | 'commit_fetch_failed'
+  | 'manifest_root_must_be_mapping'
+  | 'manifest_missing_version'
+  | 'manifest_version_type_mismatch'
+  | 'manifest_version_unsupported'
+  | 'manifest_unknown_secret'
+  | 'manifest_duplicated_mount_destination'
+  | 'manifest_invalid_mount_source'
+  | 'manifest_invalid_or_missing_data'
+
 export interface ChecksListOutput {
   checks: CheckProps[]
   commit: HeadProps
   issues: Record<string, number>
   status: CheckStatus
+  failure_reason?: ChecksFailureReason
+  failure_details?: string
 }
 
 export type ChecksInfoInput = {

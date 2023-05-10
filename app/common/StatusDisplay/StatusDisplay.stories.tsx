@@ -23,6 +23,8 @@ export const Default: Story = {
       statusColor: 'yellow',
       messageBold: true,
       message: 'Processing...',
+      detailsHref: '/',
+      detailsKind: 'details',
     },
   },
 }
@@ -37,6 +39,8 @@ export const CoverageWaitingChecksProcessing: Story = {
       statusColor: 'yellow',
       messageBold: true,
       message: 'Processing...',
+      detailsHref: '/',
+      detailsKind: 'details',
     },
   },
 }
@@ -145,6 +149,23 @@ export const CoveragePassingChecksCanceled: Story = {
       statusColor: 'grey',
       message: 'Canceled',
       messageBold: false,
+      detailsKind: 'details',
+      detailsHref: '/',
+    },
+  },
+}
+
+export const CoveragePassingChecksFailure: Story = {
+  args: {
+    coverage: {
+      statusColor: 'green',
+      message: '95%',
+      detailsHref: '/',
+    },
+    checks: {
+      statusColor: 'red',
+      message: 'Failure',
+      messageBold: true,
       detailsKind: 'details',
       detailsHref: '/',
     },

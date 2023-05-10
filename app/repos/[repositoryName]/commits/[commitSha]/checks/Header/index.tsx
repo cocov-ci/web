@@ -44,7 +44,7 @@ const Header = ({
     case 'cancelling':
       button = (
         <Button disabled style="danger">
-          Cancelling Run...
+          Cancelling...
         </Button>
       )
       break

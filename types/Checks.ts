@@ -4,6 +4,8 @@ export type CheckStatus =
   | 'completed'
   | 'errored'
   | 'canceled'
+  | 'cancelling'
+  | 'failure'
 
 export interface CheckProps {
   id: number
