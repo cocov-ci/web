@@ -1,23 +1,22 @@
-'use client'
+import Button from "../common/Button";
+import Text from '../common/Text'
 
-import { Trash } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import Base from './Base'
+import BaseStyles from './Base/Base.module.scss'
 
-import Pagination from 'app/common/Pagination'
-import TopBar from 'app/common/TopBar'
-import Empty from 'app/repos/Empty'
-import ListItem from 'app/repos/ListItem'
-import NoResults from 'app/repos/NoResults'
-import TopBarActions from 'app/repos/TopBarActions'
-import useBanner from 'hooks/useBanner'
-import API, { useAPI } from 'utils/api'
+const Page = () => (
+  <Base currentPage="">
+    <Text className={BaseStyles.title} variant="title">
+      Sidekiq Dashboard
+    </Text>
+    <Text className={BaseStyles.bottomMargin}>
+      Sidekiq is responsible for running Cocov’s background tasks. Clicking the
+      button below will redirect you to its dashboard, which shows Sidekiq’s
+      statistics, along with pending, running, scheduled and failed jobs.
+    </Text>
 
-const Adminland = () => {
-  return (
-    <div>
-      Henlo
-    </div>
-  )
-}
+    <Button style="secondary">Access Dashboard</Button>
+  </Base>
+)
 
-export default Adminland
+export default Page
