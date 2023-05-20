@@ -1,3 +1,18 @@
 .base {
   display: flex;
+  border-bottom: 1px solid #cacaca;
+  padding: 16px 16px 11px;
+}
+
+.iconWrapper {
+  margin-right: 9px;
+  margin-top: 4px;
+}
+
+.iconActive, .active {
+  color: #1b8d0c;
+}
+
+.infoWrapper {
+  flex: 1;
 }
