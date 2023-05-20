@@ -1,17 +1,19 @@
-import { AlertTriangle, Info } from "lucide-react";
-import Link from 'next/link'
+import { AlertTriangle } from 'lucide-react'
+import React from 'react'
 
 import Text from 'app/common/Text'
 
 import styles from './Alert.module.scss'
 
-const Alert = () => {
+interface AlertProps {
+  children: React.ReactNode
+}
+
+const Alert = ({ children }: AlertProps) => {
   return (
     <div className={styles.alert}>
-      <Text variant="description">
-        <strong>Caution:</strong> Unlike User Tokens, Service Tokens have irrestrict access to all repository and data stored on this instance. Handle those tokens as passwords.
-      </Text>
       <AlertTriangle className={styles.icon} size="64" />
+      <Text variant="description">{children}</Text>
     </div>
   )
 }

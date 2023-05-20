@@ -1,4 +1,4 @@
-import Button from "../common/Button";
+import Button from '../common/Button'
 import Text from '../common/Text'
 
 import Base from './Base'
@@ -15,7 +15,9 @@ const Page = () => (
       statistics, along with pending, running, scheduled and failed jobs.
     </Text>
 
-    <Button style="secondary">Access Dashboard</Button>
+    <div>
+      <Button style="secondary">Access Dashboard</Button>
+    </div>
   </Base>
 )
 

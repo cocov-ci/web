@@ -29,6 +29,8 @@
   .info {
     flex: 1;
     padding: 23px 21px;
+    display: flex;
+    flex-direction: column;
   }
 }
 
