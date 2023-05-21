@@ -1,8 +1,9 @@
 'use client'
 
 import classNames from 'classnames'
-import { Key, Trash } from 'lucide-react'
+import { Key, Lock, Trash } from "lucide-react";
 import React from 'react'
+import { inconsolata } from "../../../../utils/fonts";
 
 import AccessoryButton from '../../../common/AccessoryButton'
 import Button from '../../../common/Button'
@@ -11,7 +12,7 @@ import RelativeTime from '../../../common/RelativeTime'
 import styles from './Item.module.scss'
 
 interface ItemProps {
-  description: string
+  title: string
   created_at: string
   created_by: string
   last_used_at?: string
@@ -19,7 +20,7 @@ interface ItemProps {
 }
 
 const Item = ({
-  description,
+  title,
   created_at,
   created_by,
   last_used_at,
@@ -38,11 +39,11 @@ const Item = ({
           [styles.iconActive]: !!last_used_at,
         })}
       >
-        <Key size={17} />
+        <Lock size={17} />
       </div>
       <div className={styles.infoWrapper}>
-        <div className={classNames(styles.title, conditionalActive)}>
-          {description}
+        <div className={classNames(styles.title, inconsolata.className, conditionalActive)}>
+          {title}
         </div>
         <div className={styles.createdAt}>
           Created <RelativeTime timestamp={createdAtDate} /> ago by {created_by}

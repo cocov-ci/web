@@ -47,6 +47,7 @@ import {
   SecretsDeleteInput,
   SecretsListInput,
   SecretsListOutput,
+  ServiceTokensOutput,
 } from './request_response_types'
 
 export { default as useAPI } from 'hooks/useAPI'
@@ -282,6 +283,13 @@ class API extends BaseAPIExecutor implements APIProvider {
     return this.doRequest({
       url: `/api/repositories/:repositoryName/graphs`,
       params,
+    })
+  }
+
+  serviceTokens(): Promise<ServiceTokensOutput> {
+    return this.doRequest({
+      url: '/api/adminland/service_tokens',
+      params: {},
     })
   }
 }

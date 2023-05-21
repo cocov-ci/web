@@ -215,3 +215,15 @@ export interface RepositoryGraphsOutput {
   issues: number[]
   coverage: number[]
 }
+
+export interface ServiceToken {
+  id: string
+  description: string
+  created_by: string
+  created_at: string
+  last_used_at?: string
+}
+
+export interface ServiceTokensOutput {
+  tokens: ServiceToken[]
+}
