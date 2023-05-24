@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import Item from './index'
 
 const meta: Meta<typeof Item> = {
-  title: 'Adminland/Service Tokens/Item',
+  title: 'Adminland/ServiceTokens/Item',
   component: Item,
   tags: ['autodocs'],
 }

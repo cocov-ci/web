@@ -4,6 +4,7 @@ import React from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
+import useModal from 'hooks/useModal'
 import API, { useAPI } from 'utils/api'
 
 import Base from '../Base'
@@ -11,14 +12,34 @@ import BaseStyles from '../Base/Base.module.scss'
 
 import Alert from './Alert'
 import Item from './Item'
+import AddNewToken from './Modals/AddNewToken'
+import NewTokenSuccess from './Modals/NewTokenSuccess'
 import styles from './ServiceTokens.module.scss'
 
 const Page = () => {
   const {
-    result: secretsList,
-    loading: secretsLoading,
-    error: secretsError,
+    result: tokensList,
+    loading: tokensLoading,
+    error: tokensError,
+    refresh: tokensRefresh,
   } = useAPI(API.shared.serviceTokens, {})
+
+  const { openModal } = useModal()
+
+  const onNewTokenClick = () => {
+    openModal(
+      <AddNewToken
+        onSuccess={(token: string) => {
+          newTokenSuccess(token)
+          tokensRefresh()
+        }}
+      />,
+    )
+  }
+
+  const newTokenSuccess = (token: string) => {
+    openModal(<NewTokenSuccess token={token} />)
+  }
 
   return (
     <Base currentPage="/service-tokens">
@@ -35,19 +56,14 @@ const Page = () => {
         Handle those tokens as passwords.
       </Alert>
       <div className={styles.toolbar}>
-        <Button style="primary">New Token</Button>
+        <Button onClick={onNewTokenClick} style="primary">
+          New Token
+        </Button>
       </div>
       <div className={styles.list}>
-        {secretsList &&
-          secretsList.tokens.map(s => (
-            <Item
-              created_at={s.created_at}
-              created_by={s.created_by}
-              description={s.description}
-              key={s.id}
-              last_used_at={s.last_used_at}
-            />
-          ))}
+        {tokensList?.tokens?.map(s => (
+          <Item {...s} key={s.id} onDelete={() => tokensRefresh()} />
+        ))}
       </div>
     </Base>
   )

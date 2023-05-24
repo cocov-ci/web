@@ -1,0 +1,15 @@
+@import "styles/variables.module";
+
+.content {
+  max-width: 582px;
+
+  .title {
+    font-variation-settings: "wght" 600;
+    margin-bottom: 8px;
+  }
+
+  .buttons {
+    text-align: right;
+    margin-top: 20px;
+  }
+}

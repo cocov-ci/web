@@ -14,6 +14,7 @@ type AccessoryButtonProps = {
   onClick?: (ev: React.MouseEvent) => void
   title?: string
   href?: Url
+  disabled?: boolean
   hrefTarget?: HTMLAttributeAnchorTarget
 }
 
@@ -25,12 +26,16 @@ const AccessoryButton = ({
   title,
   href,
   hrefTarget,
+  disabled,
 }: AccessoryButtonProps) => {
   const baseProps = {
     className: classNames(
       styles.base,
       className,
       ...kind.split('-').map(i => styles[i]),
+      {
+        [styles.disabled]: disabled,
+      },
     ),
     title: title,
   }

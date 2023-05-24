@@ -4,6 +4,10 @@ import ErrorCode from './error_codes'
 import BaseAPIExecutor from './executor'
 import APIProvider from './provider_type'
 import {
+  AdminServiceTokenCreateInput,
+  AdminServiceTokenCreateOutput,
+  AdminServiceTokenDeleteInput,
+  AdminServiceTokenDeleteOutput,
   BranchListInput,
   BranchListOutput,
   ChecksCancelInput,
@@ -290,6 +294,26 @@ class API extends BaseAPIExecutor implements APIProvider {
     return this.doRequest({
       url: '/api/adminland/service_tokens',
       params: {},
+    })
+  }
+
+  adminServiceTokenCreate(
+    params: AdminServiceTokenCreateInput,
+  ): Promise<AdminServiceTokenCreateOutput> {
+    return this.doRequest({
+      method: 'POST',
+      url: '/api/adminland/service_tokens/new',
+      params,
+    })
+  }
+
+  adminServiceTokenDelete(
+    params: AdminServiceTokenDeleteInput,
+  ): Promise<AdminServiceTokenDeleteOutput> {
+    return this.doRequest({
+      method: 'DELETE',
+      url: '/api/adminland/service_tokens/delete',
+      params,
     })
   }
 }

@@ -92,7 +92,7 @@ export default interface APIProvider {
     params: IssueCancelIgnoreInput,
   ): Promise<IssueCancelIgnoreOutput>
 
-  // Secrets
+  // Secre
 
   secretsList(params: SecretsListInput): Promise<SecretsListOutput>
   secretsCheckName(

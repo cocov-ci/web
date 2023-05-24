@@ -2,10 +2,11 @@
 
 import classNames from 'classnames'
 import { Key, Trash } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
+
+import API from 'utils/api'
 
 import AccessoryButton from '../../../common/AccessoryButton'
-import Button from '../../../common/Button'
 import RelativeTime from '../../../common/RelativeTime'
 
 import styles from './Item.module.scss'
@@ -15,7 +16,8 @@ interface ItemProps {
   created_at: string
   created_by: string
   last_used_at?: string
-  onDelete?: () => void
+  id: number
+  onDelete: () => void
 }
 
 const Item = ({
@@ -23,13 +25,32 @@ const Item = ({
   created_at,
   created_by,
   last_used_at,
+  id,
   onDelete,
 }: ItemProps) => {
+  const [loading, setLoading] = useState(false)
+
   const conditionalActive = {
     [styles.active]: !!last_used_at,
   }
   const createdAtDate = new Date(created_at)
   const lastUsedDate = last_used_at ? new Date(last_used_at) : null
+
+  const onDeleteToken = async () => {
+    setLoading(true)
+
+    try {
+      await API.shared.adminServiceTokenDelete({
+        id: id,
+      })
+
+      onDelete()
+    } catch (err) {
+      // TODO
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className={styles.base}>
@@ -55,11 +76,14 @@ const Item = ({
           )}
         </div>
       </div>
-      <div className={styles.ButtonWrapper}>
-        <AccessoryButton kind="squared" onClick={onDelete}>
-          <Trash size={17} />
-        </AccessoryButton>
-      </div>
+
+      <AccessoryButton
+        disabled={loading}
+        kind="squared"
+        onClick={() => (!loading ? onDeleteToken() : null)}
+      >
+        <Trash size={17} />
+      </AccessoryButton>
     </div>
   )
 }

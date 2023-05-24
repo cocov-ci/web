@@ -4,7 +4,6 @@
   display: flex;
   border-bottom: 1px solid $colorGray;
   padding: 16px 16px 11px;
-  //flex: 1;
   width: 100%;
 }
 
@@ -13,7 +12,8 @@
   margin-top: 4px;
 }
 
-.iconActive, .active {
+.iconActive,
+.active {
   color: $colorGreen;
 }
 

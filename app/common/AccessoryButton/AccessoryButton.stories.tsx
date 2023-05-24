@@ -20,6 +20,13 @@ export const EllipsisButtonMuted: Story = {
   },
 }
 
+export const DisabledButton: Story = {
+  args: {
+    kind: 'squared',
+    children: <MoreVertical disabled />,
+  },
+}
+
 export const CopyButton: Story = {
   args: {
     kind: 'squared',
