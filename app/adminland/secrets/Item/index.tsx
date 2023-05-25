@@ -1,12 +1,11 @@
 'use client'
 
 import classNames from 'classnames'
-import { Key, Lock, Trash } from "lucide-react";
+import { Lock, Trash } from 'lucide-react'
 import React from 'react'
-import { inconsolata } from "../../../../utils/fonts";
 
+import { inconsolata } from '../../../../utils/fonts'
 import AccessoryButton from '../../../common/AccessoryButton'
-import Button from '../../../common/Button'
 import RelativeTime from '../../../common/RelativeTime'
 
 import styles from './Item.module.scss'
@@ -42,7 +41,13 @@ const Item = ({
         <Lock size={17} />
       </div>
       <div className={styles.infoWrapper}>
-        <div className={classNames(styles.title, inconsolata.className, conditionalActive)}>
+        <div
+          className={classNames(
+            styles.title,
+            inconsolata.className,
+            conditionalActive,
+          )}
+        >
           {title}
         </div>
         <div className={styles.createdAt}>

@@ -16,8 +16,9 @@ export const Default: Story = {
   args: {
     created_at: '2023-02-02T03:04:05Z',
     created_by: 'heyvito',
-    description: 'Worker Service Token',
     last_used_at: '2023-02-02T03:04:05Z',
+    id: 132,
+    onDelete: () => null,
   },
 }
 
@@ -25,6 +26,7 @@ export const NeverUsed: Story = {
   args: {
     created_at: '2023-02-02T03:04:05Z',
     created_by: 'heyvito',
-    description: 'Worker Service Token',
+    id: 132,
+    onDelete: () => null,
   },
 }

@@ -25,7 +25,5 @@ export default meta
 type Story = StoryObj<typeof NewTokenSuccess>
 
 export const Default: Story = {
-  args: {
-    onSuccess: () => null,
-  },
+  args: {},
 }
