@@ -4,6 +4,10 @@ import ErrorCode from './error_codes'
 import BaseAPIExecutor from './executor'
 import APIProvider from './provider_type'
 import {
+  AdminServiceTokenCreateInput,
+  AdminServiceTokenCreateOutput,
+  AdminServiceTokenDeleteInput,
+  AdminServiceTokenDeleteOutput,
   BranchListInput,
   BranchListOutput,
   ChecksCancelInput,
@@ -47,6 +51,7 @@ import {
   SecretsDeleteInput,
   SecretsListInput,
   SecretsListOutput,
+  ServiceTokensOutput,
 } from './request_response_types'
 
 export { default as useAPI } from 'hooks/useAPI'
@@ -281,6 +286,33 @@ class API extends BaseAPIExecutor implements APIProvider {
   ): Promise<RepositoryGraphsOutput> {
     return this.doRequest({
       url: `/api/repositories/:repositoryName/graphs`,
+      params,
+    })
+  }
+
+  serviceTokens(): Promise<ServiceTokensOutput> {
+    return this.doRequest({
+      url: '/api/adminland/service_tokens',
+      params: {},
+    })
+  }
+
+  adminServiceTokenCreate(
+    params: AdminServiceTokenCreateInput,
+  ): Promise<AdminServiceTokenCreateOutput> {
+    return this.doRequest({
+      method: 'POST',
+      url: '/api/adminland/service_tokens/new',
+      params,
+    })
+  }
+
+  adminServiceTokenDelete(
+    params: AdminServiceTokenDeleteInput,
+  ): Promise<AdminServiceTokenDeleteOutput> {
+    return this.doRequest({
+      method: 'DELETE',
+      url: '/api/adminland/service_tokens/delete',
       params,
     })
   }

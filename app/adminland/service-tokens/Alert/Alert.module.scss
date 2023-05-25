@@ -1,0 +1,31 @@
+@import "styles/variables.module";
+
+.alert {
+  padding: 15px;
+  display: flex;
+  margin-bottom: 10px;
+  border: 1px solid #E6D341;
+  border-radius: 8px;
+  align-items: center;
+  height: 54px;
+  background-color: #F4EEBD;
+  position: relative;
+  overflow: hidden;
+
+  p {
+    margin-bottom: 0;
+    z-index: 1;
+  }
+
+  .link {
+    text-decoration: underline;
+  }
+
+  .icon {
+    color: opacify(#E6D341, 0.3);
+    right: 0;
+    position: absolute;
+    top: 2px;
+    z-index: 0;
+  }
+}

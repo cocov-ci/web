@@ -215,3 +215,31 @@ export interface RepositoryGraphsOutput {
   issues: number[]
   coverage: number[]
 }
+
+export interface ServiceToken {
+  id: number
+  description: string
+  created_by: string
+  created_at: string
+  last_used_at?: string
+}
+
+export interface ServiceTokensOutput {
+  tokens: ServiceToken[]
+}
+
+export type AdminServiceTokenCreateInput = {
+  description: string
+}
+
+export interface AdminServiceTokenCreateOutput extends ServiceToken {
+  token_value: string
+}
+
+export type AdminServiceTokenDeleteInput = {
+  id: number
+}
+
+export interface AdminServiceTokenDeleteOutput {
+  token_value: string
+}

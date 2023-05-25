@@ -26,7 +26,7 @@ const Menu = () => {
         </li>
         {loggedUser?.isAdmin && (
           <li>
-            <Link href="#">Adminland</Link>
+            <Link href="/adminland">Adminland</Link>
           </li>
         )}
         <li>
