@@ -6,6 +6,7 @@ import { useState } from 'react'
 import Button from 'app/common/Button'
 import RelativeTime from 'app/common/RelativeTime'
 import Text from 'app/common/Text'
+import { useErrorBanner } from 'hooks/useBanner'
 import { OrgRepositoryProps } from 'types/Repositories'
 import API from 'utils/api'
 
@@ -24,15 +25,18 @@ interface ListItemsParams {
 }
 
 const Item = ({ item, onAddSuccess }: ItemParams) => {
+  const { showBanner } = useErrorBanner()
   const [addingRepository, setAddingRepository] = useState<boolean>(false)
 
   const onAddRepository = async () => {
     setAddingRepository(true)
 
     try {
-      await API.shared.repositoryAdd({ name: item.name })
+      await API.shared.repositoryAdd({ name: item.name + 111 })
     } catch (err) {
-      // TODO
+      showBanner({
+        children: `We cannot add the repository "${item.name}". Please try again!`,
+      })
     } finally {
       setAddingRepository(false)
       onAddSuccess()

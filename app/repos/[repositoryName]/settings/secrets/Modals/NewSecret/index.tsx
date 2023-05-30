@@ -30,9 +30,10 @@ interface SecretsNameStatusParams {
 
 interface NewSecretParams {
   onSuccess: () => void
+  onFailure: (arg?: string) => void
 }
 
-const NewSecret = ({ onSuccess }: NewSecretParams) => {
+const NewSecret = ({ onSuccess, onFailure }: NewSecretParams) => {
   const { closeModal } = useModal()
   const segments = useSegments()
   const [secretName, setSecretName] = useState<string>()
@@ -82,7 +83,8 @@ const NewSecret = ({ onSuccess }: NewSecretParams) => {
 
       onSuccess()
     } catch (err) {
-      // TODO
+      onFailure(secretName)
+      closeModal()
     } finally {
       setSubmitting(false)
       closeModal()

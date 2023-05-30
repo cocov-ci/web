@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
 import TopBar from 'app/common/TopBar'
+import { useErrorBanner } from 'hooks/useBanner'
 import API, { useAPI } from 'utils/api'
 
 import Header from './Header'
@@ -15,6 +16,7 @@ import ReposPagination from './Pagination'
 import RefreshList from './RefreshList'
 
 const NewRepository = () => {
+  const { showBanner } = useErrorBanner()
   const [search, setSearch] = useState<string | undefined>(undefined)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [loadingPage, setLoadingPage] = useState<boolean>(true)
@@ -41,7 +43,9 @@ const NewRepository = () => {
     try {
       await API.shared.orgRefreshReposList({})
     } catch (err) {
-      // TODO
+      showBanner({
+        children: `We cannot update the repository list. Please try again!`,
+      })
     } finally {
       setUpdatingRepositories(false)
       setTimeout(() => refresh(), 1000)

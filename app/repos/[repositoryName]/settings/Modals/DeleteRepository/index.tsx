@@ -5,12 +5,14 @@ import { useState } from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
+import { useErrorBanner } from 'hooks/useBanner'
 import useModal from 'hooks/useModal'
 import API from 'utils/api'
 
 import styles from './DeleteRepository.module.scss'
 
 const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
+  const { showBanner } = useErrorBanner()
   const [checked, setChecked] = useState(false)
   const [submitting, setSubmitting] = useState<boolean>()
   const { closeModal } = useModal()
@@ -26,7 +28,9 @@ const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
 
       localStorage.setItem('repositoryDeleted', repositoryName)
     } catch (err) {
-      // TODO
+      showBanner({
+        children: `We cannot delete the repository "${repositoryName}". Please try again!`,
+      })
     } finally {
       setSubmitting(false)
       router.push('/')

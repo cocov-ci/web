@@ -6,8 +6,6 @@ import { useEffect, useMemo, useState } from 'react'
 import FixedContent from 'app/common/FixedContent'
 import Pagination from 'app/common/Pagination'
 import { Item } from 'app/common/Sidebar'
-import CommitHeader from 'app/repos/[repositoryName]/commits/[commitSha]/CommitHeader'
-import NavMenu from 'app/repos/[repositoryName]/commits/[commitSha]/NavMenu'
 import IssuesProvider from 'context/IssuesContext'
 import { PagingProps } from 'types/Paging'
 import API, { useAPI } from 'utils/api'
@@ -121,7 +119,7 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
           commit={issuesList?.commit}
           commitSha={commitSha}
           counter={issuesList?.repository.issues}
-          loading={pageLoading}
+          loading={pageLoading || issuesLoading}
           repositoryName={repositoryName}
         />
         <div className={styles.content}>

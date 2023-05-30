@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { createContext, useMemo, useState } from 'react'
 
+import { useErrorBanner } from 'hooks/useBanner'
 import Auth from 'services/auth'
 import { AuthBeginReponseProps, AuthPropsContext } from 'types/Auth'
 
@@ -20,6 +21,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = Auth.getAccount()
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { showBanner } = useErrorBanner()
 
   const login = async () => {
     setLoading(true)
@@ -32,7 +34,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         : data.redirect_to
     } catch {
       setLoading(false)
-      // TODO: HANDLE WITH THIS RESPONSE
+      showBanner({
+        children: `We cannot proceed with your request. Please try again!`,
+      })
     }
   }
 

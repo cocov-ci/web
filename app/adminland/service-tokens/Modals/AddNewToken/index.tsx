@@ -15,9 +15,10 @@ import styles from './AddNewToken.module.scss'
 
 interface NewTokenParams {
   onSuccess: (args: string) => void
+  onFailure: (args?: string) => void
 }
 
-const NewToken = ({ onSuccess }: NewTokenParams) => {
+const NewToken = ({ onSuccess, onFailure }: NewTokenParams) => {
   const { closeModal } = useModal()
   const [tokenName, setTokenName] = useState<string>()
   const [submitting, setSubmitting] = useState<boolean>()
@@ -30,7 +31,7 @@ const NewToken = ({ onSuccess }: NewTokenParams) => {
 
       onSuccess(data.token_value)
     } catch (err) {
-      // TODO
+      onFailure(tokenName)
       closeModal()
     } finally {
       setSubmitting(false)

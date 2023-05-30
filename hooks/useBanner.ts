@@ -1,7 +1,23 @@
 import { useContext } from 'react'
 
-import { BannerContext } from 'context/BannerContext'
+import { BannerContext, ShowBannerProps } from 'context/BannerContext'
 
-const useBanner = () => useContext(BannerContext)
+const useBanner = () => {
+  return useContext(BannerContext)
+}
+
+export const useErrorBanner = () => {
+  const { showBanner } = useContext(BannerContext)
+
+  const showErrorBanner = ({ children }: ShowBannerProps) => {
+    showBanner({
+      autoClose: true,
+      children: children,
+      variation: 'warning',
+    })
+  }
+
+  return { showBanner: showErrorBanner }
+}
 
 export default useBanner

@@ -13,17 +13,26 @@ interface SectionHeaderParams {
   loading?: boolean
 }
 
-const SectionHeader = (params: SectionHeaderParams) => (
-  <div className={styles.headerWrapper}>
-    <CommitHeader head={params.commit} repositoryName={params.repositoryName} />
-    <NavMenu
-      active={params.activeItem}
-      commitSha={params.commitSha}
-      counter={params.counter}
-      loading={params.loading}
-      repositoryName={params.repositoryName}
-    />
-  </div>
-)
+const SectionHeader = (params: SectionHeaderParams) => {
+  const { commit, activeItem, commitSha, counter, loading, repositoryName } =
+    params
+
+  return (
+    <div className={styles.headerWrapper}>
+      <CommitHeader
+        head={commit}
+        loading={loading}
+        repositoryName={repositoryName}
+      />
+      <NavMenu
+        active={activeItem}
+        commitSha={commitSha}
+        counter={counter}
+        loading={loading}
+        repositoryName={repositoryName}
+      />
+    </div>
+  )
+}
 
 export default SectionHeader
