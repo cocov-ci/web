@@ -137,13 +137,12 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
         commitSHA: commitSha,
         issueID: issue.id,
       })
+      onUpdateListCallback()
+      refetch()
     } catch (err) {
       showBanner({
         children: `We cannot proceed with your request, the issue "${issue.id}" is still being ignored. Please try again!`,
       })
-    } finally {
-      onUpdateListCallback()
-      refetch()
     }
   }
 

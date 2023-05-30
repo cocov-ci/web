@@ -84,7 +84,6 @@ const NewSecret = ({ onSuccess, onFailure }: NewSecretParams) => {
       onSuccess()
     } catch (err) {
       onFailure(secretName)
-      closeModal()
     } finally {
       setSubmitting(false)
       closeModal()
