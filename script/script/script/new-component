@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -e
+
+componentName="$1"
+
+[[ "$componentName" =~ ^[A-Z][a-zA-Z]+$ ]] || {
+  echo "usage: script/new-component ComponentName";
+  exit 1;
+}
+
+target=app/common/"$componentName"
+mkdir "$target"
+cp script/template/component/* "$target"
+
+mv "$target"/module.scss "$target/$componentName.module.scss"
+mv "$target"/stories.tsx "$target/$componentName.stories.tsx"
+
+os=$(uname -o)
+SED_REPLACER="s/COMPONENTNAME/$componentName/g"
+
+function fixFile() {
+  if [[ "$os" == "Darwin" ]]; then
+    sed -i '' "$SED_REPLACER" "$1"
+  else
+    sed -i "$SED_REPLACER" "$1"
+  fi
+}
+
+fixFile "$target/$componentName.stories.tsx"
+fixFile "$target/index.tsx"

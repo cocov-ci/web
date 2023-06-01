@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+rootPath="$(git rev-parse --show-toplevel)"
+pushd . > /dev/null || exit 1
+
+cd "$rootPath"
+repoPath=$(mktemp -d 2>/dev/null || mktemp -d -t 'cocovwebtmp')
+
+git clone git@github.com:cocov-ci/api.git "$repoPath"
+
+node script/generator/error-types.mjs "$repoPath" "$rootPath"
+rm -rf "$repoPath"
+
+popd > /dev/null || exit 1
