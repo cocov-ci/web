@@ -11,9 +11,19 @@ import styles from './Sidebar.module.scss'
 interface SidebarProps {
   loading: boolean
   currentSelectedPath: string | null
+  counters?: {
+    tokens: number
+    secrets: number
+    repositories: number
+    users: number
+  }
 }
 
-const SidebarComponent = ({ loading, currentSelectedPath }: SidebarProps) => {
+const SidebarComponent = ({
+  loading,
+  currentSelectedPath,
+  counters,
+}: SidebarProps) => {
   const router = useRouter()
 
   const data = useMemo(
@@ -26,29 +36,29 @@ const SidebarComponent = ({ loading, currentSelectedPath }: SidebarProps) => {
       {
         id: 1,
         name: 'Service Tokens',
-        counter: 0,
+        counter: counters?.tokens,
         href: '/service-tokens',
       },
       {
         id: 2,
         name: 'Secrets',
-        counter: 0,
+        counter: counters?.secrets,
         href: '/secrets',
       },
       {
         id: 3,
         name: 'Repositories',
-        counter: 0,
+        counter: counters?.repositories,
         href: '/repositories',
       },
       {
         id: 4,
         name: 'Users',
-        counter: 0,
+        counter: counters?.users,
         href: '/users',
       },
     ],
-    [0],
+    [counters],
   )
 
   if (loading)

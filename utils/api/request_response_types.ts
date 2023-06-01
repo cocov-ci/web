@@ -243,3 +243,10 @@ export type AdminServiceTokenDeleteInput = {
 export interface AdminServiceTokenDeleteOutput {
   token_value: string
 }
+
+export interface AdminSidebarCountersOutput {
+  tokens: number
+  secrets: number
+  repositories: number
+  users: number
+}

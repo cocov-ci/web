@@ -8,6 +8,7 @@ import {
   AdminServiceTokenCreateOutput,
   AdminServiceTokenDeleteInput,
   AdminServiceTokenDeleteOutput,
+  AdminSidebarCountersOutput,
   BranchListInput,
   BranchListOutput,
   ChecksCancelInput,
@@ -314,6 +315,14 @@ class API extends BaseAPIExecutor implements APIProvider {
       method: 'DELETE',
       url: '/api/adminland/service_tokens/delete',
       params,
+    })
+  }
+
+  adminSidebarCounters(): Promise<AdminSidebarCountersOutput> {
+    return this.doRequest({
+      method: 'GET',
+      url: '/api/adminland/sidebar_counters',
+      params: {},
     })
   }
 }

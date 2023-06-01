@@ -2,6 +2,7 @@
 
 import FixedContent from 'app/common/FixedContent'
 import TopBar from 'app/common/TopBar'
+import API, { useAPI } from 'utils/api'
 
 import Sidebar from '../Sidebar'
 
@@ -13,6 +14,8 @@ interface AdminlandBaseProps {
 }
 
 const AdminlandBase = ({ currentPage, children }: AdminlandBaseProps) => {
+  const { result, error, loading } = useAPI(API.shared.adminSidebarCounters, {})
+
   return (
     <div>
       <TopBar title="Adminland" />
@@ -21,7 +24,11 @@ const AdminlandBase = ({ currentPage, children }: AdminlandBaseProps) => {
           <div className={styles.warningStripes} />
           <div className={styles.content}>
             <div className={styles.sidebar}>
-              <Sidebar currentSelectedPath={currentPage} loading={false} />
+              <Sidebar
+                counters={result}
+                currentSelectedPath={currentPage}
+                loading={loading}
+              />
             </div>
             <div className={styles.info}>{children}</div>
           </div>
