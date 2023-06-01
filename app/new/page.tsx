@@ -44,7 +44,7 @@ const NewRepository = () => {
       await API.shared.orgRefreshReposList({})
     } catch (err) {
       showBanner({
-        children: `We cannot update the repository list. Please try again!`,
+        children: `Failed updating the repository list. Please try again.`,
       })
     } finally {
       setUpdatingRepositories(false)

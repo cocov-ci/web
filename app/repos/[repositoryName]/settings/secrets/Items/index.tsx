@@ -33,7 +33,7 @@ const Items = ({ repoSecrets, orgSecrets, refetch, loading }: ItemParams) => {
       <DeleteSecret
         onFailure={secret => {
           showBanner({
-            children: `We cannot delete the secret "${secret}". Please try again!`,
+            children: `Failed deleting the secret "${secret}". Please try again.`,
           })
         }}
         onSuccess={() => refetch()}
@@ -47,7 +47,7 @@ const Items = ({ repoSecrets, orgSecrets, refetch, loading }: ItemParams) => {
       <NewSecret
         onFailure={secret => {
           showBanner({
-            children: `We cannot create the secret "${secret}". Please try again!`,
+            children: `Failed creating the secret "${secret}". Please try again.`,
           })
         }}
         onSuccess={() => refetch()}

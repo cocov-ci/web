@@ -49,7 +49,7 @@ const Item = ({
       onDelete()
     } catch (err) {
       showBanner({
-        children: `We cannot delete the token "${description}". Please try again!`,
+        children: `Failed deleting token "${description}". Please try again.`,
       })
     } finally {
       setLoading(false)

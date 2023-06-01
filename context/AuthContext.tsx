@@ -35,7 +35,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     } catch {
       setLoading(false)
       showBanner({
-        children: `We cannot proceed with your request. Please try again!`,
+        children: `Your request could not be completed. Please try again.`,
       })
     }
   }

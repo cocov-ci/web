@@ -94,7 +94,7 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
         mode="ephemeral"
         onFailure={id =>
           showBanner({
-            children: `We cannot proceed with your request, the issue "${id}" is not ignored yet. Please try again!`,
+            children: `Failed setting ignored status for the issue "${id}". Please try again.`,
           })
         }
         onSuccess={() => {
@@ -116,7 +116,7 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
         mode="permanent"
         onFailure={id =>
           showBanner({
-            children: `We cannot proceed with your request, the issue "${id}" is not ignored yet. Please try again!`,
+            children: `Failed setting ignored status for the issue "${id}". Please try again.`,
           })
         }
         onSuccess={() => {
@@ -141,7 +141,7 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
       refetch()
     } catch (err) {
       showBanner({
-        children: `We cannot proceed with your request, the issue "${issue.id}" is still being ignored. Please try again!`,
+        children: `Failed setting ignored status for the issue "${issue.id}". Please try again.`,
       })
     }
   }

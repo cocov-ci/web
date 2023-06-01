@@ -29,7 +29,7 @@ const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
       localStorage.setItem('repositoryDeleted', repositoryName)
     } catch (err) {
       showBanner({
-        children: `We cannot delete the repository "${repositoryName}". Please try again!`,
+        children: `Failed deleting the repository "${repositoryName}". Please try again.`,
       })
     } finally {
       setSubmitting(false)

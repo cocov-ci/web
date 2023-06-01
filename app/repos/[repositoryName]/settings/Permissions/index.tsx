@@ -51,7 +51,7 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
       setToken(new_token)
     } catch (err) {
       showBanner({
-        children: `We cannot renegerate the token. Please try again!`,
+        children: `Failed generating new token. Please try again.`,
       })
     } finally {
       setLoadingRegenerateToken(false)
@@ -67,7 +67,7 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
       setResyncGithub(true)
     } catch (err) {
       showBanner({
-        children: `We cannot resync the repository. Please try again!`,
+        children: `Failed syncing this repository. Please try again.`,
       })
     }
   }

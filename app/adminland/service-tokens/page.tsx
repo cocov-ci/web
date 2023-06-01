@@ -33,7 +33,7 @@ const Page = () => {
       <AddNewToken
         onFailure={(token?: string) => {
           showBanner({
-            children: `We cannot create the token "${token}". Please try again!`,
+            children: `Failed creating token "${token}". Please try again.`,
           })
         }}
         onSuccess={(token: string) => {
