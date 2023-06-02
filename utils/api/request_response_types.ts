@@ -250,3 +250,22 @@ export interface AdminSidebarCountersOutput {
   repositories: number
   users: number
 }
+
+export interface AdminRepository {
+  id: number
+  name: string
+  description: string
+  cache_size: number
+  commits_size: number
+  created_at: string
+  accessible_by_count: number
+}
+export interface AdminRepositoryListOutput {
+  paging: PagingProps
+  repositories: AdminRepository[]
+}
+
+export type AdminRepositoryListInput = {
+  page: number
+  searchTerm?: string
+}
