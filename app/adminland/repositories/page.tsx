@@ -1,7 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 
+import Pagination from 'app/common/Pagination'
 import SearchField from 'app/common/SearchField'
 import Text from 'app/common/Text'
 import API, { useAPI } from 'utils/api'
@@ -13,9 +14,13 @@ import Item from './Item'
 import styles from './Repositories.module.scss'
 
 const Page = () => {
+  const [search, setSearch] = useState<string>('')
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const { result, loading, error } = useAPI(API.shared.adminRepositories, {
-    page: 1,
+    searchTerm: search,
+    page: currentPage,
   })
+  const isSearching = useMemo(() => search.length > 0, [search])
 
   return (
     <Base currentPage="/repositories">
@@ -23,7 +28,11 @@ const Page = () => {
         <Text className={BaseStyles.title} variant="title">
           Repositories
         </Text>
-        <SearchField onSearch={() => {}} />
+        <SearchField
+          disabled={loading && isSearching}
+          loading={loading && !isSearching}
+          onSearch={term => setSearch(term)}
+        />
       </div>
       <div className={styles.list}>
         {result?.repositories.map(i => (
@@ -38,6 +47,13 @@ const Page = () => {
           />
         ))}
       </div>
+      {result && result.paging.total_pages > 1 && (
+        <Pagination
+          currentPage={result.paging.page}
+          onPageClick={page => setCurrentPage(page)}
+          total={result.paging.total_pages}
+        />
+      )}
     </Base>
   )
 }
