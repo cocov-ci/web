@@ -80,7 +80,7 @@ const NewRepository = () => {
           <Header
             loading={loadingPage}
             onSearchChange={term => setSearch(term)}
-            searchFieldDisabled={(loading && !isSearching) || isUpdating}
+            searchFieldDisabled={loading && !isSearching}
             searchFieldLoading={loading && isSearching}
           />
           {!loadingPage && !isUpdating && !isEmpty && result && (
