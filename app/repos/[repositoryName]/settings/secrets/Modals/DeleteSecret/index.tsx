@@ -15,9 +15,10 @@ import styles from './DeleteSecret.module.scss'
 interface DeleteSecretParams {
   secret: SecretParams
   onSuccess: () => void
+  onFailure: (arg: string) => void
 }
 
-const DeleteSecret = ({ secret, onSuccess }: DeleteSecretParams) => {
+const DeleteSecret = ({ secret, onSuccess, onFailure }: DeleteSecretParams) => {
   const { closeModal } = useModal()
   const segments = useSegments()
   const repositoryName = useMemo(() => segments[1], [segments])
@@ -34,7 +35,7 @@ const DeleteSecret = ({ secret, onSuccess }: DeleteSecretParams) => {
 
       onSuccess()
     } catch (err) {
-      // TODO
+      onFailure(secret.name)
     } finally {
       closeModal()
       setLoading(false)

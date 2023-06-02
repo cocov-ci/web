@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { Key, Trash } from 'lucide-react'
 import React, { useState } from 'react'
 
+import { useErrorBanner } from 'hooks/useBanner'
 import API from 'utils/api'
 
 import AccessoryButton from '../../../common/AccessoryButton'
@@ -29,6 +30,7 @@ const Item = ({
   onDelete,
 }: ItemProps) => {
   const [loading, setLoading] = useState(false)
+  const { showBanner } = useErrorBanner()
 
   const conditionalActive = {
     [styles.active]: !!last_used_at,
@@ -46,7 +48,9 @@ const Item = ({
 
       onDelete()
     } catch (err) {
-      // TODO
+      showBanner({
+        children: `Failed deleting token "${description}". Please try again.`,
+      })
     } finally {
       setLoading(false)
     }

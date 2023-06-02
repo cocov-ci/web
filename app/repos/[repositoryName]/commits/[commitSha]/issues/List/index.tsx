@@ -11,6 +11,7 @@ import CodeBlock from 'app/common/CodeBlock'
 import { MenuItem } from 'app/common/Menu'
 import RelativeTime from 'app/common/RelativeTime'
 import Text from 'app/common/Text'
+import { useErrorBanner } from 'hooks/useBanner'
 import useIssues from 'hooks/useIssues'
 import useModal from 'hooks/useModal'
 import { IssueIgnoreMetadata, IssueProps } from 'types/Issues'
@@ -83,6 +84,7 @@ export const IgnoreBlock = ({ meta }: IgnoreBlockProps) => {
 export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
   const { repositoryName, commitSha, refetch } = useIssues()
   const { openModal } = useModal()
+  const { showBanner } = useErrorBanner()
 
   const ignoreIssue = () => {
     openModal(
@@ -90,6 +92,11 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
         commitSha={commitSha}
         id={issue.id}
         mode="ephemeral"
+        onFailure={id =>
+          showBanner({
+            children: `Failed setting ignored status for the issue "${id}". Please try again.`,
+          })
+        }
         onSuccess={() => {
           onUpdateListCallback()
           setTimeout(() => {
@@ -107,6 +114,11 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
         commitSha={commitSha}
         id={issue.id}
         mode="permanent"
+        onFailure={id =>
+          showBanner({
+            children: `Failed setting ignored status for the issue "${id}". Please try again.`,
+          })
+        }
         onSuccess={() => {
           onUpdateListCallback()
           setTimeout(() => {
@@ -125,11 +137,12 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
         commitSHA: commitSha,
         issueID: issue.id,
       })
-    } catch (err) {
-      // TODO
-    } finally {
       onUpdateListCallback()
       refetch()
+    } catch (err) {
+      showBanner({
+        children: `Failed setting ignored status for the issue "${issue.id}". Please try again.`,
+      })
     }
   }
 

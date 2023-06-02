@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import Button from 'app/common/Button'
 import SnippetBox from 'app/common/SnippetBox'
 import Text from 'app/common/Text'
+import { useErrorBanner } from 'hooks/useBanner'
 import useModal from 'hooks/useModal'
 import API from 'utils/api'
 import { RepositorySettingsOutput } from 'utils/api/request_response_types'
@@ -22,6 +23,7 @@ interface SidebarProps {
 const PermissionsComponent = ({ data, loading }: SidebarProps) => {
   const { openModal } = useModal()
   const [token, setToken] = useState<string>()
+  const { showBanner } = useErrorBanner()
   const [resyncGithub, setResyncGithub] = useState<boolean>()
   const [loadingRegenerateToken, setLoadingRegenerateToken] =
     useState<boolean>()
@@ -48,7 +50,9 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
 
       setToken(new_token)
     } catch (err) {
-      // TODO
+      showBanner({
+        children: `Failed generating new token. Please try again.`,
+      })
     } finally {
       setLoadingRegenerateToken(false)
     }
@@ -62,7 +66,9 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
 
       setResyncGithub(true)
     } catch (err) {
-      // TODO
+      showBanner({
+        children: `Failed syncing this repository. Please try again.`,
+      })
     }
   }
 

@@ -14,6 +14,7 @@ import styles from './IgnoreIssue.module.scss'
 
 interface IgnoreIssueParams {
   onSuccess: () => void
+  onFailure: (arg: number) => void
   repositoryName: string
   commitSha: string
   mode: IssueIgnoreModes
@@ -22,6 +23,7 @@ interface IgnoreIssueParams {
 
 const IgnoreIssue = ({
   onSuccess,
+  onFailure,
   mode,
   repositoryName,
   commitSha,
@@ -44,7 +46,7 @@ const IgnoreIssue = ({
       })
       onSuccess()
     } catch (err) {
-      // TODO
+      onFailure(id)
     } finally {
       setSubmitting(false)
       closeModal()

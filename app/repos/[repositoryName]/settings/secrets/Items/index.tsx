@@ -7,6 +7,7 @@ import Alert from 'app/common/Alert'
 import Button from 'app/common/Button'
 import Secret from 'app/common/Secret'
 import Text from 'app/common/Text'
+import { useErrorBanner } from 'hooks/useBanner'
 import useModal from 'hooks/useModal'
 import { SecretParams } from 'types/Secrets'
 
@@ -25,13 +26,33 @@ interface ItemParams {
 
 const Items = ({ repoSecrets, orgSecrets, refetch, loading }: ItemParams) => {
   const { openModal } = useModal()
+  const { showBanner } = useErrorBanner()
 
   const onDeleteSecretClick = (secret: SecretParams) => {
-    openModal(<DeleteSecret onSuccess={() => refetch()} secret={secret} />)
+    openModal(
+      <DeleteSecret
+        onFailure={secret => {
+          showBanner({
+            children: `Failed deleting the secret "${secret}". Please try again.`,
+          })
+        }}
+        onSuccess={() => refetch()}
+        secret={secret}
+      />,
+    )
   }
 
   const onNewSecretClick = () => {
-    openModal(<NewSecret onSuccess={() => refetch()} />)
+    openModal(
+      <NewSecret
+        onFailure={secret => {
+          showBanner({
+            children: `Failed creating the secret "${secret}". Please try again.`,
+          })
+        }}
+        onSuccess={() => refetch()}
+      />,
+    )
   }
 
   const NoRepositoryAlert = ({ description }: { description: string }) => {

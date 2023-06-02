@@ -4,6 +4,7 @@ import React from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
+import { useErrorBanner } from 'hooks/useBanner'
 import useModal from 'hooks/useModal'
 import API, { useAPI } from 'utils/api'
 
@@ -24,11 +25,17 @@ const Page = () => {
     refresh: tokensRefresh,
   } = useAPI(API.shared.serviceTokens, {})
 
+  const { showBanner } = useErrorBanner()
   const { openModal } = useModal()
 
   const onNewTokenClick = () => {
     openModal(
       <AddNewToken
+        onFailure={(token?: string) => {
+          showBanner({
+            children: `Failed creating token "${token}". Please try again.`,
+          })
+        }}
         onSuccess={(token: string) => {
           newTokenSuccess(token)
           tokensRefresh()
