@@ -2,22 +2,19 @@
 
 import classNames from 'classnames'
 import { Key, Trash } from 'lucide-react'
-import React, { useState } from 'react'
+import React from 'react'
 
 import { useErrorBanner } from 'hooks/useBanner'
-import API from 'utils/api'
+import useModal from 'hooks/useModal'
+import { ServiceTokenParams } from 'types/ServiceTokens'
 
 import AccessoryButton from '../../../common/AccessoryButton'
 import RelativeTime from '../../../common/RelativeTime'
+import DeleteToken from '../Modals/DeleteToken'
 
 import styles from './Item.module.scss'
 
-interface ItemProps {
-  description: string
-  created_at: string
-  created_by: string
-  last_used_at?: string
-  id: number
+interface ItemProps extends ServiceTokenParams {
   onDelete: () => void
 }
 
@@ -29,8 +26,8 @@ const Item = ({
   id,
   onDelete,
 }: ItemProps) => {
-  const [loading, setLoading] = useState(false)
   const { showBanner } = useErrorBanner()
+  const { openModal } = useModal()
 
   const conditionalActive = {
     [styles.active]: !!last_used_at,
@@ -38,22 +35,24 @@ const Item = ({
   const createdAtDate = new Date(created_at)
   const lastUsedDate = last_used_at ? new Date(last_used_at) : null
 
-  const onDeleteToken = async () => {
-    setLoading(true)
-
-    try {
-      await API.shared.adminServiceTokenDelete({
-        id: id,
-      })
-
-      onDelete()
-    } catch (err) {
-      showBanner({
-        children: `Failed deleting token "${description}". Please try again.`,
-      })
-    } finally {
-      setLoading(false)
-    }
+  const onDeleteTokenClick = () => {
+    openModal(
+      <DeleteToken
+        onFailure={token => {
+          showBanner({
+            children: `Failed deleting the token "${token}". Please try again.`,
+          })
+        }}
+        onSuccess={() => onDelete()}
+        token={{
+          description,
+          created_at,
+          created_by,
+          last_used_at,
+          id,
+        }}
+      />,
+    )
   }
 
   return (
@@ -81,11 +80,7 @@ const Item = ({
         </div>
       </div>
 
-      <AccessoryButton
-        disabled={loading}
-        kind="squared"
-        onClick={() => (!loading ? onDeleteToken() : null)}
-      >
+      <AccessoryButton kind="squared" onClick={() => onDeleteTokenClick()}>
         <Trash size={17} />
       </AccessoryButton>
     </div>

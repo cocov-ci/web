@@ -6,6 +6,7 @@ import { IssueIgnoreModes, IssueProps } from 'types/Issues'
 import { PagingProps } from 'types/Paging'
 import { OrgRepo, RepositoryProps } from 'types/Repositories'
 import { SecretParams } from 'types/Secrets'
+import { ServiceTokenParams } from 'types/ServiceTokens'
 
 export type EmptyRequest = Record<string, never>
 
@@ -216,23 +217,15 @@ export interface RepositoryGraphsOutput {
   coverage: number[]
 }
 
-export interface ServiceToken {
-  id: number
-  description: string
-  created_by: string
-  created_at: string
-  last_used_at?: string
-}
-
 export interface ServiceTokensOutput {
-  tokens: ServiceToken[]
+  tokens: ServiceTokenParams[]
 }
 
 export type AdminServiceTokenCreateInput = {
   description: string
 }
 
-export interface AdminServiceTokenCreateOutput extends ServiceToken {
+export interface AdminServiceTokenCreateOutput extends ServiceTokenParams {
   token_value: string
 }
 
