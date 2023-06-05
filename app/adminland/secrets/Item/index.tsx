@@ -55,7 +55,9 @@ const Item = ({
         </div>
         <div className={classNames(styles.lastUsed, conditionalActive)}>
           {lastUsedDate ? (
-            <RelativeTime timestamp={lastUsedDate} />
+            <>
+              Last used <RelativeTime timestamp={lastUsedDate} />
+            </>
           ) : (
             'Never Used'
           )}

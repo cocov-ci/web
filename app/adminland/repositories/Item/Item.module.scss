@@ -1,0 +1,23 @@
+.base {
+  display: flex;
+  border-bottom: 1px solid #cacaca;
+  padding: 16px;
+
+  .iconWrapper {
+    margin-right: 10px;
+
+    svg {
+      stroke-width: 1.5;
+    }
+  }
+
+  .dataWrapper {
+    flex: 1;
+  }
+
+  .createdAt,
+  .accessibleBy,
+  .usageData {
+    color: #8a8a8a;
+  }
+}

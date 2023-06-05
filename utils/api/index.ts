@@ -4,6 +4,8 @@ import ErrorCode from './error_codes'
 import BaseAPIExecutor from './executor'
 import APIProvider from './provider_type'
 import {
+  AdminRepositoryListInput,
+  AdminRepositoryListOutput,
   AdminServiceTokenCreateInput,
   AdminServiceTokenCreateOutput,
   AdminServiceTokenDeleteInput,
@@ -323,6 +325,16 @@ class API extends BaseAPIExecutor implements APIProvider {
       method: 'GET',
       url: '/api/adminland/sidebar_counters',
       params: {},
+    })
+  }
+
+  adminRepositories(
+    params: AdminRepositoryListInput,
+  ): Promise<AdminRepositoryListOutput> {
+    return this.doRequest({
+      method: 'GET',
+      url: '/api/adminland/repositories',
+      params: params,
     })
   }
 }
