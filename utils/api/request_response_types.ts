@@ -1,12 +1,13 @@
 'use client'
 
+import { AdminRepository } from 'types/AdminRepositories'
+import { ServiceTokenParams } from 'types/AdminServiceTokens'
 import { CheckProps, CheckStatus } from 'types/Checks'
 import { HeadProps } from 'types/Commits'
 import { IssueIgnoreModes, IssueProps } from 'types/Issues'
 import { PagingProps } from 'types/Paging'
 import { OrgRepo, RepositoryProps } from 'types/Repositories'
 import { SecretParams } from 'types/Secrets'
-import { ServiceTokenParams } from 'types/ServiceTokens'
 
 export type EmptyRequest = Record<string, never>
 
@@ -244,15 +245,6 @@ export interface AdminSidebarCountersOutput {
   users: number
 }
 
-export interface AdminRepository {
-  id: number
-  name: string
-  description: string
-  cache_size: number
-  commits_size: number
-  created_at: string
-  accessible_by_count: number
-}
 export interface AdminRepositoryListOutput {
   paging: PagingProps
   repositories: AdminRepository[]
@@ -261,4 +253,13 @@ export interface AdminRepositoryListOutput {
 export type AdminRepositoryListInput = {
   page: number
   searchTerm?: string
+}
+
+export type AdminRepositoryDeleteInput = {
+  id: number
+}
+
+export type AdminRepositoryDeleteOutput = {
+  paging: PagingProps
+  repositories: AdminRepository[]
 }

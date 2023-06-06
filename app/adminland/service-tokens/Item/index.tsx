@@ -6,7 +6,7 @@ import React from 'react'
 
 import { useErrorBanner } from 'hooks/useBanner'
 import useModal from 'hooks/useModal'
-import { ServiceTokenParams } from 'types/ServiceTokens'
+import { ServiceTokenParams } from 'types/AdminServiceTokens'
 
 import AccessoryButton from '../../../common/AccessoryButton'
 import RelativeTime from '../../../common/RelativeTime'
@@ -38,9 +38,9 @@ const Item = ({
   const onDeleteTokenClick = () => {
     openModal(
       <DeleteToken
-        onFailure={token => {
+        onFailure={() => {
           showBanner({
-            children: `Failed deleting the token "${token}". Please try again.`,
+            children: `Failed deleting the token "${description}". Please try again.`,
           })
         }}
         onSuccess={() => onDelete()}

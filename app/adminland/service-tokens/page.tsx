@@ -68,8 +68,8 @@ const Page = () => {
         </Button>
       </div>
       <div className={styles.list}>
-        {tokensList?.tokens?.map(s => (
-          <Item {...s} key={s.id} onDelete={() => tokensRefresh()} />
+        {tokensList?.tokens?.map(token => (
+          <Item {...token} key={token.id} onDelete={() => tokensRefresh()} />
         ))}
       </div>
     </Base>

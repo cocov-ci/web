@@ -25,5 +25,7 @@ export default meta
 type Story = StoryObj<typeof NewTokenSuccess>
 
 export const Default: Story = {
-  args: {},
+  args: {
+    token: '7316253765127365712',
+  },
 }

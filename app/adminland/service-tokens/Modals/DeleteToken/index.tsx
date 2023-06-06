@@ -6,7 +6,7 @@ import Button from 'app/common/Button'
 import Secret from 'app/common/Secret'
 import Text from 'app/common/Text'
 import useModal from 'hooks/useModal'
-import { ServiceTokenParams } from 'types/ServiceTokens'
+import { ServiceTokenParams } from 'types/AdminServiceTokens'
 import API from 'utils/api'
 
 import styles from './DeleteSecret.module.scss'

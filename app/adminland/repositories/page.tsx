@@ -16,7 +16,12 @@ import styles from './Repositories.module.scss'
 const Page = () => {
   const [search, setSearch] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const { result, loading, error } = useAPI(API.shared.adminRepositories, {
+  const {
+    result,
+    loading,
+    error,
+    refresh: tokensRefresh,
+  } = useAPI(API.shared.adminRepositories, {
     searchTerm: search,
     page: currentPage,
   })
@@ -35,15 +40,11 @@ const Page = () => {
         />
       </div>
       <div className={styles.list}>
-        {result?.repositories.map(i => (
+        {result?.repositories.map(repository => (
           <Item
-            accessible_by_count={i.accessible_by_count}
-            cache_size={i.cache_size}
-            commits_size={i.commits_size}
-            created_at={i.created_at}
-            description={i.description}
-            key={i.id}
-            name={i.name}
+            {...repository}
+            key={repository.id}
+            onDelete={() => tokensRefresh()}
           />
         ))}
       </div>
@@ -59,4 +60,3 @@ const Page = () => {
 }
 
 export default Page
-// coa_95b72c58037942ff5f25dff16e582500020c75dc962daef4c2eafe172659b0af

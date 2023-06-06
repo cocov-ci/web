@@ -4,6 +4,8 @@ import ErrorCode from './error_codes'
 import BaseAPIExecutor from './executor'
 import APIProvider from './provider_type'
 import {
+  AdminRepositoryDeleteInput,
+  AdminRepositoryDeleteOutput,
   AdminRepositoryListInput,
   AdminRepositoryListOutput,
   AdminServiceTokenCreateInput,
@@ -333,6 +335,16 @@ class API extends BaseAPIExecutor implements APIProvider {
   ): Promise<AdminRepositoryListOutput> {
     return this.doRequest({
       method: 'GET',
+      url: '/api/adminland/repositories',
+      params: params,
+    })
+  }
+
+  adminRepositoriesDelete(
+    params: AdminRepositoryDeleteInput,
+  ): Promise<AdminRepositoryDeleteOutput> {
+    return this.doRequest({
+      method: 'DELETE',
       url: '/api/adminland/repositories',
       params: params,
     })
