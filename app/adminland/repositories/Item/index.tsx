@@ -39,6 +39,7 @@ const Item = ({
           })
         }}
         onSuccess={() => onDelete()}
+        repositoryName={name}
       />,
     )
   }

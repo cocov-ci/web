@@ -4,16 +4,20 @@ import React from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
-import { SecretParams } from 'types/Secrets'
+import { useErrorBanner } from 'hooks/useBanner'
+import useModal from 'hooks/useModal'
 import API, { useAPI } from 'utils/api'
 
 import Base from '../Base'
 import BaseStyles from '../Base/Base.module.scss'
 
 import Item from './Item'
+import NewSecret from './Modals/NewSecret'
 import styles from './Secrets.module.scss'
 
 const Page = () => {
+  const { showBanner } = useErrorBanner()
+  const { openModal } = useModal()
   const {
     result: secretList,
     loading: secretLoading,
@@ -21,8 +25,19 @@ const Page = () => {
     refresh: secretRefresh,
   } = useAPI(API.shared.secretsList, {})
 
-  const onDeleteCallback = (item: SecretParams) => {
-    // TODO
+  const onNewSecretClick = () => {
+    openModal(
+      <NewSecret
+        onFailure={(token?: string) => {
+          showBanner({
+            children: `Failed creating token "${token}". Please try again.`,
+          })
+        }}
+        onSuccess={() => {
+          secretRefresh()
+        }}
+      />,
+    )
   }
 
   return (
@@ -41,17 +56,16 @@ const Page = () => {
         organization.
       </Text>
       <div className={styles.toolbar}>
-        <Button style="primary">New Secret</Button>
+        <Button onClick={() => onNewSecretClick()} style="primary">
+          New Secret
+        </Button>
       </div>
       <div className={styles.list}>
-        {secretList?.secrets.map(i => (
+        {secretList?.secrets.map(secret => (
           <Item
-            created_at={i.created_at}
-            created_by={i.owner.login}
-            key={i.id}
-            last_used_at={i.last_used_at}
-            onDelete={() => onDeleteCallback(i)}
-            title={i.name}
+            key={secret.id}
+            onDelete={() => secretRefresh()}
+            secret={secret}
           />
         ))}
       </div>

@@ -263,3 +263,19 @@ export type AdminRepositoryDeleteOutput = {
   paging: PagingProps
   repositories: AdminRepository[]
 }
+
+export type AdminSecretCreateInput = {
+  description: string
+}
+
+export interface AdminSecretCreateOutput extends SecretParams {
+  token_value: string
+}
+
+export type AdminSecretDeleteInput = {
+  id: number
+}
+
+export interface AdminSecretDeleteOutput {
+  token_value: string
+}

@@ -11,6 +11,7 @@ import styles from './DeleteRepository.module.scss'
 
 interface DeleteRepositoryParams {
   id: number
+  repositoryName: string
   onSuccess: () => void
   onFailure: () => void
 }
@@ -19,6 +20,7 @@ const DeleteRepository = ({
   id,
   onFailure,
   onSuccess,
+  repositoryName,
 }: DeleteRepositoryParams) => {
   const [checked, setChecked] = useState(false)
   const [loading, setLoading] = useState<boolean>()
@@ -44,7 +46,7 @@ const DeleteRepository = ({
   return (
     <div className={styles.content}>
       <Text className={styles.title} variant="title">
-        Delete Repository
+        {`Delete Repository: "${repositoryName}"`}
       </Text>
       <Text gutterBottom variant="description">
         You are about to perform a destructive action.
