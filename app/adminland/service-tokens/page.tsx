@@ -34,6 +34,7 @@ const Page = () => {
         onFailure={(token?: string) => {
           showBanner({
             children: `Failed creating token "${token}". Please try again.`,
+            autoClose: true,
           })
         }}
         onSuccess={(token: string) => {

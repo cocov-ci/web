@@ -41,6 +41,7 @@ const Item = ({
         onFailure={() => {
           showBanner({
             children: `Failed deleting the token "${description}". Please try again.`,
+            autoClose: true,
           })
         }}
         onSuccess={() => onDelete()}

@@ -1,12 +1,6 @@
 'use client'
 
-import React, {
-  createContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, { createContext, useEffect, useMemo, useState } from 'react'
 
 import Banner, { BannerProps } from 'app/common/Banner'
 

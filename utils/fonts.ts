@@ -1,4 +1,4 @@
-import localFont from '@next/font/local'
+import localFont from 'next/font/local'
 
 export const satoshi = localFont({
   src: '../public/fonts/Satoshi.ttf',

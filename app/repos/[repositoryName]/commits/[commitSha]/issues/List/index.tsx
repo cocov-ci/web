@@ -95,6 +95,7 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
         onFailure={id =>
           showBanner({
             children: `Failed setting ignored status for the issue "${id}". Please try again.`,
+            autoClose: true,
           })
         }
         onSuccess={() => {
@@ -117,6 +118,7 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
         onFailure={id =>
           showBanner({
             children: `Failed setting ignored status for the issue "${id}". Please try again.`,
+            autoClose: true,
           })
         }
         onSuccess={() => {
@@ -142,6 +144,7 @@ export const ListItem = ({ issue, onUpdateListCallback }: ListItemParams) => {
     } catch (err) {
       showBanner({
         children: `Failed setting ignored status for the issue "${issue.id}". Please try again.`,
+        autoClose: true,
       })
     }
   }

@@ -36,6 +36,7 @@ const Item = ({ secret, onDelete }: ItemProps) => {
         onFailure={() => {
           showBanner({
             children: `Failed deleting the secret "${name}". Please try again.`,
+            autoClose: true,
           })
         }}
         onSuccess={() => onDelete()}

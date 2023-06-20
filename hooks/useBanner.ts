@@ -9,11 +9,10 @@ const useBanner = () => {
 export const useErrorBanner = () => {
   const { showBanner } = useContext(BannerContext)
 
-  const showErrorBanner = ({ children }: ShowBannerProps) => {
+  const showErrorBanner = (props: ShowBannerProps) => {
     showBanner({
-      autoClose: true,
-      children: children,
       variation: 'warning',
+      ...props,
     })
   }
 

@@ -30,6 +30,7 @@ const DeleteRepository = ({ repositoryName }: { repositoryName: string }) => {
     } catch (err) {
       showBanner({
         children: `Failed deleting the repository "${repositoryName}". Please try again.`,
+        autoClose: true,
       })
     } finally {
       setSubmitting(false)
