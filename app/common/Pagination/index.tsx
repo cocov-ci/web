@@ -88,7 +88,7 @@ const Pagination = ({
         />
 
         {slidingPaginationWindow(total, currentPage).map(
-          (page, index): React.ReactElement => {
+          (page): React.ReactElement => {
             return (
               <li
                 className={classNames(styles.page, {

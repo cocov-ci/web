@@ -5,13 +5,13 @@ export const getUpdatedUrl = ({
   pathname,
   param,
 }: {
-  searchParams: URLSearchParams
+  searchParams: URLSearchParams | null
   pathname: string
   param: { [arg: string]: string | null }
 }): string => {
-  const category = searchParams.get('category')
-  const source = searchParams.get('source')
-  const status = searchParams.get('status')
+  const category = searchParams?.get('category')
+  const source = searchParams?.get('source')
+  const status = searchParams?.get('status')
 
   const validParams = omitBy(
     { status: status, source: source, category: category, ...param },

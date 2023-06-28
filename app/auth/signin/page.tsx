@@ -54,7 +54,7 @@ const SignIn = () => {
   const isExchangeFlow = useMemo(
     () =>
       isEqual(
-        exchangeParams.filter((k: string) => searchParams.get(k)),
+        exchangeParams.filter((k: string) => searchParams?.get(k)),
         exchangeParams,
       ),
     [searchParams],
@@ -72,7 +72,7 @@ const SignIn = () => {
     if (isExchangeFlow) {
       const params = {
         ...(exchangeParams.reduce(
-          (ac, a) => ({ ...ac, [a]: searchParams.get(a) }),
+          (ac, a) => ({ ...ac, [a]: searchParams?.get(a) }),
           {},
         ) as AuthExchangeRequestProps),
       }
@@ -85,7 +85,7 @@ const SignIn = () => {
               name: data.name,
               isAdmin: data.admin,
             })
-            router.push(searchParams.get('next') || '/')
+            router.push(searchParams?.get('next') || '/')
           } else {
             router.replace('/auth/signin')
           }

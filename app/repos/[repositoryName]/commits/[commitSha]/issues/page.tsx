@@ -25,10 +25,10 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
   const searchParams = useSearchParams()
   const pathname = usePathname() as string
   const router = useRouter()
-  const category = searchParams.get('category') as string
-  const source = searchParams.get('source') as string
-  const state = searchParams.get('state') as string
-  const page = searchParams.get('page') as string
+  const category = searchParams?.get('category') as string
+  const source = searchParams?.get('source') as string
+  const state = searchParams?.get('state') as string
+  const page = searchParams?.get('page') as string
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [currentPage, setCurrentPage] = useState<number>(parseInt(page) || 1)
 
