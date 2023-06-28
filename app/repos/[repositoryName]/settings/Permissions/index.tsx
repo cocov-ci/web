@@ -52,6 +52,7 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
     } catch (err) {
       showBanner({
         children: `Failed generating new token. Please try again.`,
+        autoClose: true,
       })
     } finally {
       setLoadingRegenerateToken(false)
@@ -68,6 +69,7 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
     } catch (err) {
       showBanner({
         children: `Failed syncing this repository. Please try again.`,
+        autoClose: true,
       })
     }
   }

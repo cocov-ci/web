@@ -36,6 +36,7 @@ const Item = ({
         onFailure={() => {
           showBanner({
             children: `Failed deleting the repository "${name}". Please try again.`,
+            autoClose: true,
           })
         }}
         onSuccess={() => onDelete()}

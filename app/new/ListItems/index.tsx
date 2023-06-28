@@ -37,6 +37,7 @@ const Item = ({ item, onAddSuccess }: ItemParams) => {
     } catch (err) {
       showBanner({
         children: `Failed adding the repository "${item.name}". Please try again.`,
+        autoClose: true,
       })
     } finally {
       setAddingRepository(false)

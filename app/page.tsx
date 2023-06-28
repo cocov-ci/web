@@ -9,7 +9,7 @@ import Empty from 'app/repos/Empty'
 import ListItem from 'app/repos/ListItem'
 import NoResults from 'app/repos/NoResults'
 import TopBarActions from 'app/repos/TopBarActions'
-import useBanner from 'hooks/useBanner'
+import useBanner, { useErrorBanner } from 'hooks/useBanner'
 import API, { useAPI } from 'utils/api'
 
 import Loading from './loading'
@@ -18,13 +18,17 @@ const Repositories = () => {
   const [search, setSearch] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
   const { showBanner } = useBanner()
+  const { showBanner: showErrorBanner } = useErrorBanner()
 
   const isSearching = useMemo(() => search.length > 0, [search])
 
-  const { result, loading, refresh } = useAPI(API.shared.repositoryList, {
-    search_term: search,
-    page: currentPage,
-  })
+  const { result, loading, error, refresh } = useAPI(
+    API.shared.repositoryList,
+    {
+      search_term: search,
+      page: currentPage,
+    },
+  )
 
   const isEmpty = useMemo(
     () => result && result.repositories.length === 0,
@@ -32,6 +36,16 @@ const Repositories = () => {
   )
 
   useEffect(() => setCurrentPage(1), [search])
+
+  useEffect(() => {
+    if (error) {
+      showErrorBanner({
+        children: 'Ops! Something went wrong. Please try it again.',
+        autoClose: false,
+      })
+    }
+  }, [error])
+
   useEffect(() => {
     if (localStorage.getItem('repositoryDeleted')) {
       refresh()
@@ -70,7 +84,7 @@ const Repositories = () => {
       <TopBar title="Repositories">
         <TopBarActions
           onSearchChange={term => setSearch(term)}
-          searchFieldDisabled={loading && !isSearching}
+          searchFieldDisabled={(loading && !isSearching) || Boolean(error)}
           searchFieldLoading={loading && isSearching}
         />
       </TopBar>

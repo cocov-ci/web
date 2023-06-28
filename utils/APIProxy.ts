@@ -179,6 +179,10 @@ export default class APIProxy {
     data: any,
   ) {
     for (const k in axiosResponse.headers) {
+      if (k === 'transfer-encoding') {
+        continue
+      }
+
       res.setHeader(k, axiosResponse.headers[k] as string)
     }
 

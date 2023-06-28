@@ -45,6 +45,7 @@ const NewRepository = () => {
     } catch (err) {
       showBanner({
         children: `Failed updating the repository list. Please try again.`,
+        autoClose: true,
       })
     } finally {
       setUpdatingRepositories(false)

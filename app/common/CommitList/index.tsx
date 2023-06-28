@@ -70,8 +70,8 @@ const CommitList = ({
   onChangePage,
 }: CommitListProps) => {
   const searchParams = useSearchParams()
-  const repositoryName = searchParams.get('repositoryName')
-  const branchName = searchParams.get('branchName')
+  const repositoryName = searchParams?.get('repositoryName')
+  const branchName = searchParams?.get('branchName')
 
   const commitList = () =>
     commits.map(c => (

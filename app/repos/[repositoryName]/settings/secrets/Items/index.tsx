@@ -34,6 +34,7 @@ const Items = ({ repoSecrets, orgSecrets, refetch, loading }: ItemParams) => {
         onFailure={secret => {
           showBanner({
             children: `Failed deleting the secret "${secret}". Please try again.`,
+            autoClose: true,
           })
         }}
         onSuccess={() => refetch()}
@@ -48,6 +49,7 @@ const Items = ({ repoSecrets, orgSecrets, refetch, loading }: ItemParams) => {
         onFailure={secret => {
           showBanner({
             children: `Failed creating the secret "${secret}". Please try again.`,
+            autoClose: true,
           })
         }}
         onSuccess={() => refetch()}
