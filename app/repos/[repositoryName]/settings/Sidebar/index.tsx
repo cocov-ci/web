@@ -52,7 +52,7 @@ const SidebarComponent = ({
     )
 
   const onClick = (id: number) => {
-    router.push(`repos/${repositoryName}/settings${data[id].href}`)
+    router.push(`/repos/${repositoryName}/settings${data[id].href}`)
   }
 
   if (!data) return null
