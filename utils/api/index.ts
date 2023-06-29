@@ -345,7 +345,7 @@ class API extends BaseAPIExecutor implements APIProvider {
   ): Promise<AdminRepositoryDeleteOutput> {
     return this.doRequest({
       method: 'DELETE',
-      url: '/api/adminland/repositories',
+      url: '/api/adminland/repositories/delete',
       params: params,
     })
   }
