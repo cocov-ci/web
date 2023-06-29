@@ -9,6 +9,7 @@ import Input from 'app/common/Input'
 import Kbd from 'app/common/Kbd'
 import Loading from 'app/common/Loading'
 import { useLazyAPI } from 'hooks/useAPI'
+import { useErrorBanner } from 'hooks/useBanner'
 import useOnClickOutside from 'hooks/useOnClickOutside'
 import useSegments from 'hooks/useSegments'
 import API from 'utils/api'
@@ -35,6 +36,7 @@ const BranchSwitcher = ({
   const [selectedItem, setSelectedItem] = useState<number>(0)
   const [results, setResults] = useState<Array<string>>([])
   const repositoryName = useMemo(() => segments[1], [segments])
+  const { showBanner } = useErrorBanner()
 
   useOnClickOutside(branchSwitcherRef, onClose)
 
@@ -46,6 +48,15 @@ const BranchSwitcher = ({
   } = useLazyAPI(API.shared.branchList, {
     repositoryName: repositoryName,
   })
+
+  useEffect(() => {
+    if (error) {
+      showBanner({
+        children: `Failed requesting the branches list. Please try again.`,
+        autoClose: true,
+      })
+    }
+  }, [error])
 
   const branches = useMemo(() => result ?? [], [result])
 

@@ -5,25 +5,16 @@ import { useMemo } from 'react'
 
 import Loading from 'app/common/Loading'
 import Sidebar from 'app/common/Sidebar'
+import API, { useAPI } from 'utils/api'
 
 import styles from './Sidebar.module.scss'
 
 interface SidebarProps {
-  loading: boolean
   currentSelectedPath: string | null
-  counters?: {
-    tokens: number
-    secrets: number
-    repositories: number
-    users: number
-  }
 }
 
-const SidebarComponent = ({
-  loading,
-  currentSelectedPath,
-  counters,
-}: SidebarProps) => {
+const SidebarComponent = ({ currentSelectedPath }: SidebarProps) => {
+  const { result, loading } = useAPI(API.shared.adminSidebarCounters, {})
   const router = useRouter()
 
   const data = useMemo(
@@ -36,29 +27,29 @@ const SidebarComponent = ({
       {
         id: 1,
         name: 'Service Tokens',
-        counter: counters?.tokens,
+        counter: result?.tokens,
         href: '/service-tokens',
       },
       {
         id: 2,
         name: 'Secrets',
-        counter: counters?.secrets,
+        counter: result?.secrets,
         href: '/secrets',
       },
       {
         id: 3,
         name: 'Repositories',
-        counter: counters?.repositories,
+        counter: result?.repositories,
         href: '/repositories',
       },
       {
         id: 4,
         name: 'Users',
-        counter: counters?.users,
+        counter: result?.users,
         href: '/users',
       },
     ],
-    [counters],
+    [result],
   )
 
   if (loading)

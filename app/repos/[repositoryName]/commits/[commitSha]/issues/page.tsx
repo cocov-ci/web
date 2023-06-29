@@ -7,6 +7,7 @@ import FixedContent from 'app/common/FixedContent'
 import Pagination from 'app/common/Pagination'
 import { Item } from 'app/common/Sidebar'
 import IssuesProvider from 'context/IssuesContext'
+import { useErrorBanner } from 'hooks/useBanner'
 import { PagingProps } from 'types/Paging'
 import API, { useAPI } from 'utils/api'
 
@@ -22,6 +23,7 @@ interface IssuesParams {
 }
 
 const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
+  const { showBanner } = useErrorBanner()
   const searchParams = useSearchParams()
   const pathname = usePathname() as string
   const router = useRouter()
@@ -77,6 +79,42 @@ const Issues = ({ params: { repositoryName, commitSha } }: IssuesParams) => {
   })
 
   if (!issuesList && !issuesLoading) router.push(`/repos/${repositoryName}`)
+
+  useEffect(() => {
+    if (issuesError) {
+      showBanner({
+        children: `Failed requesting the issues list. Please try again.`,
+        autoClose: false,
+      })
+    }
+  }, [issuesError])
+
+  useEffect(() => {
+    if (statesError) {
+      showBanner({
+        children: `Failed requesting the issues states list. Please try again.`,
+        autoClose: true,
+      })
+    }
+  }, [statesError])
+
+  useEffect(() => {
+    if (sourcesError) {
+      showBanner({
+        children: `Failed requesting the issues sources list. Please try again.`,
+        autoClose: true,
+      })
+    }
+  }, [sourcesError])
+
+  useEffect(() => {
+    if (categoriesError) {
+      showBanner({
+        children: `Failed requesting the issues categories list. Please try again.`,
+        autoClose: true,
+      })
+    }
+  }, [categoriesError])
 
   useEffect(() => {
     if (issuesList) setPageLoading(false)

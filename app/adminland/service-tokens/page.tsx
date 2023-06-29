@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
@@ -27,6 +27,15 @@ const Page = () => {
 
   const { showBanner } = useErrorBanner()
   const { openModal } = useModal()
+
+  useEffect(() => {
+    if (tokensError) {
+      showBanner({
+        children: `Failed requesting the service tokens list. Please try again.`,
+        autoClose: false,
+      })
+    }
+  }, [tokensError])
 
   const onNewTokenClick = () => {
     openModal(

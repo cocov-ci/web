@@ -1,7 +1,10 @@
 'use client'
 
+import React, { useEffect } from 'react'
+
 import FixedContent from 'app/common/FixedContent'
 import Text from 'app/common/Text'
+import { useErrorBanner } from 'hooks/useBanner'
 import API, { useAPI } from 'utils/api'
 
 import Sidebar from '../Sidebar'
@@ -13,6 +16,7 @@ interface SecretsParams {
 }
 
 const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
+  const { showBanner } = useErrorBanner()
   const {
     result: repoSecretsList,
     loading: repoSecretsLoading,
@@ -25,6 +29,24 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
     loading: orgSecretsLoading,
     error: orgSecretsError,
   } = useAPI(API.shared.secretsList, {})
+
+  useEffect(() => {
+    if (repoSecretsError) {
+      showBanner({
+        children: `Failed requesting the repository secrets. Please try again.`,
+        autoClose: false,
+      })
+    }
+  }, [repoSecretsError])
+
+  useEffect(() => {
+    if (orgSecretsError) {
+      showBanner({
+        children: `Failed requesting the organization secrets. Please try again.`,
+        autoClose: false,
+      })
+    }
+  }, [orgSecretsError])
 
   return (
     <FixedContent>

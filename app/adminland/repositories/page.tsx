@@ -1,19 +1,22 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import Pagination from 'app/common/Pagination'
 import SearchField from 'app/common/SearchField'
 import Text from 'app/common/Text'
+import { useErrorBanner } from 'hooks/useBanner'
 import API, { useAPI } from 'utils/api'
 
 import Base from '../Base'
 import BaseStyles from '../Base/Base.module.scss'
 
 import Item from './Item'
+import Loading from './Loading'
 import styles from './Repositories.module.scss'
 
 const Page = () => {
+  const { showBanner } = useErrorBanner()
   const [search, setSearch] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
   const {
@@ -26,6 +29,15 @@ const Page = () => {
     page: currentPage,
   })
   const isSearching = useMemo(() => search.length > 0, [search])
+
+  useEffect(() => {
+    if (error) {
+      showBanner({
+        children: `Failed requesting the repositories list. Please try again.`,
+        autoClose: false,
+      })
+    }
+  }, [error])
 
   return (
     <Base currentPage="/repositories">
@@ -47,6 +59,8 @@ const Page = () => {
             onDelete={() => tokensRefresh()}
           />
         ))}
+
+        {loading && <Loading />}
       </div>
       {result && result.paging.total_pages > 1 && (
         <Pagination

@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import FixedContent from 'app/common/FixedContent'
 import { useLazyAPI } from 'hooks/useAPI'
+import { useErrorBanner } from 'hooks/useBanner'
 import { CheckStatus } from 'types/Checks'
 import API from 'utils/api'
 import { ChecksListOutput } from 'utils/api/request_response_types'
@@ -31,6 +32,7 @@ const ChecksPage = ({
   let polling: ReturnType<typeof setInterval>
   const [loadingPage, setLoadingPage] = useState(true)
   const [data, setData] = useState<ChecksListOutput>()
+  const { showBanner } = useErrorBanner()
   const { error, result, refresh } = useLazyAPI(API.shared.checksList, {
     repositoryName,
     commitSHA: commitSha,
@@ -51,6 +53,15 @@ const ChecksPage = ({
     setAccessoryButtonState('cancelling')
     await API.shared.checksCancel({ repositoryName, commitSHA: commitSha })
   }
+
+  useEffect(() => {
+    if (error) {
+      showBanner({
+        children: `Failed requesting the checks list. Please try again.`,
+        autoClose: false,
+      })
+    }
+  }, [error])
 
   useEffect(() => {
     refresh()

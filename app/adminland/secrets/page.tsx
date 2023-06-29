@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
@@ -12,6 +12,7 @@ import Base from '../Base'
 import BaseStyles from '../Base/Base.module.scss'
 
 import Item from './Item'
+import Loading from './Loading'
 import NewSecret from './Modals/NewSecret'
 import styles from './Secrets.module.scss'
 
@@ -19,10 +20,10 @@ const Page = () => {
   const { showBanner } = useErrorBanner()
   const { openModal } = useModal()
   const {
-    result: secretList,
-    loading: secretLoading,
-    error: secretError,
-    refresh: secretRefresh,
+    result: secretsList,
+    loading: secretsLoading,
+    error: secretsError,
+    refresh: secretsRefresh,
   } = useAPI(API.shared.secretsList, {})
 
   const onNewSecretClick = () => {
@@ -35,11 +36,20 @@ const Page = () => {
           })
         }}
         onSuccess={() => {
-          secretRefresh()
+          secretsRefresh()
         }}
       />,
     )
   }
+
+  useEffect(() => {
+    if (secretsError) {
+      showBanner({
+        children: `Failed requesting the secrets list. Please try again.`,
+        autoClose: false,
+      })
+    }
+  }, [secretsError])
 
   return (
     <Base currentPage="/secrets">
@@ -62,13 +72,14 @@ const Page = () => {
         </Button>
       </div>
       <div className={styles.list}>
-        {secretList?.secrets.map(secret => (
+        {secretsList?.secrets.map(secret => (
           <Item
             key={secret.id}
-            onDelete={() => secretRefresh()}
+            onDelete={() => secretsRefresh()}
             secret={secret}
           />
         ))}
+        {secretsLoading && <Loading />}
       </div>
     </Base>
   )

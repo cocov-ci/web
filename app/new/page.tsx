@@ -37,6 +37,15 @@ const NewRepository = () => {
   const hasPagination = useMemo(() => (result?.total_pages ?? 0) > 1, [result])
   const isEmpty = useMemo(() => result?.items?.length === 0, [result])
 
+  useEffect(() => {
+    if (error) {
+      showBanner({
+        children: `Failed requesting the repositories list. Please try again.`,
+        autoClose: false,
+      })
+    }
+  }, [error])
+
   const onUpdateOrgRepositories = async () => {
     setUpdatingRepositories(true)
 

@@ -2,18 +2,17 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-}
-
-.warningStripes {
-  background: repeating-linear-gradient(
-                  45deg,
-                  #E6D341,
-                  #E6D341 10px,
-                  #171717 10px,
-                  #171717 20px
-  );
-  height: 15px;
-  width: 100%
+  padding-top: 15px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #e6d341,
+      #e6d341 10px,
+      #171717 10px,
+      #171717 20px
+    );
+  background-size: 100% 15px;
+  background-repeat: no-repeat;
 }
 
 .content {

@@ -16,7 +16,7 @@ const RepositoryListItem = ({
   name,
   default_branch,
 }: ListItemProps) => {
-  const { result, error } = useAPI(API.shared.repositoryGraphs, {
+  const { result } = useAPI(API.shared.repositoryGraphs, {
     repositoryName: name,
   })
 
