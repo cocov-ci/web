@@ -1,8 +1,8 @@
-import Button from '../common/Button'
 import Text from '../common/Text'
 
 import Base from './Base'
 import BaseStyles from './Base/Base.module.scss'
+import SidekiqButton from './SidekiqButton'
 
 const Page = () => (
   <Base currentPage="">
@@ -16,7 +16,7 @@ const Page = () => (
     </Text>
 
     <div>
-      <Button style="secondary">Access Dashboard</Button>
+      <SidekiqButton />
     </div>
   </Base>
 )

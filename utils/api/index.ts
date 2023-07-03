@@ -349,6 +349,14 @@ class API extends BaseAPIExecutor implements APIProvider {
       params: params,
     })
   }
+
+  adminSidekiqPanelToken(): Promise<AdminSidebarCountersOutput> {
+    return this.doRequest({
+      method: 'POST',
+      url: '/api/adminland/sidekiq_panel/token',
+      params: {},
+    })
+  }
 }
 
 API.shared = new API()
