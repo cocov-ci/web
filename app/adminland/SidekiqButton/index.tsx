@@ -13,7 +13,9 @@ const AdminlandBase = () => {
     setLoading(true)
 
     try {
-      await API.shared.adminSidekiqPanelToken()
+      const { url_redirection } = await API.shared.adminSidekiqPanelToken()
+
+      window.open(url_redirection)
     } catch (err) {
       // console.log(err)
     } finally {

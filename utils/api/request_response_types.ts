@@ -279,3 +279,7 @@ export type AdminSecretDeleteInput = {
 export interface AdminSecretDeleteOutput {
   token_value: string
 }
+
+export type AdminSidekiqTokenOutput = {
+  url_redirection: string
+}

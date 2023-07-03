@@ -13,6 +13,7 @@ import {
   AdminServiceTokenDeleteInput,
   AdminServiceTokenDeleteOutput,
   AdminSidebarCountersOutput,
+  AdminSidekiqTokenOutput,
   BranchListInput,
   BranchListOutput,
   ChecksCancelInput,
@@ -350,7 +351,7 @@ class API extends BaseAPIExecutor implements APIProvider {
     })
   }
 
-  adminSidekiqPanelToken(): Promise<AdminSidebarCountersOutput> {
+  adminSidekiqPanelToken(): Promise<AdminSidekiqTokenOutput> {
     return this.doRequest({
       method: 'POST',
       url: '/api/adminland/sidekiq_panel/token',
