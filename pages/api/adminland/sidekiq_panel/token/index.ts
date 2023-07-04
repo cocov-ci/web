@@ -6,7 +6,7 @@ export default new APIProxy()
   .mapURL(() => '/v1/admin/sidekiq_panel_token')
   .mapResponse(data => {
     return {
-      url_redirection: `${process.env.NEXT_PUBLIC_COCOV_API_URL}/admin/sidekiq_panel?token=${data.token}`,
+      url_redirection: `${process.env.COCOV_PUBLIC_API_URL}/admin/sidekiq_panel?token=${data.token}`,
     }
   })
   .post()
