@@ -1,6 +1,7 @@
 'use client'
 
 import { Trash } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
 import Pagination from 'app/common/Pagination'
@@ -9,6 +10,7 @@ import Empty from 'app/repos/Empty'
 import ListItem from 'app/repos/ListItem'
 import NoResults from 'app/repos/NoResults'
 import TopBarActions from 'app/repos/TopBarActions'
+import useAuth from 'hooks/useAuth'
 import useBanner, { useErrorBanner } from 'hooks/useBanner'
 import API, { useAPI } from 'utils/api'
 
@@ -18,6 +20,8 @@ const Repositories = () => {
   const [search, setSearch] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
   const { showBanner } = useBanner()
+  const router = useRouter()
+  const { isAuthenticated } = useAuth()
   const { showBanner: showErrorBanner } = useErrorBanner()
 
   const isSearching = useMemo(() => search.length > 0, [search])
@@ -34,6 +38,12 @@ const Repositories = () => {
     () => result && result.repositories.length === 0,
     [result],
   )
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/auth/signin')
+    }
+  }, [isAuthenticated])
 
   useEffect(() => setCurrentPage(1), [search])
 
