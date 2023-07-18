@@ -20,6 +20,10 @@ export default function Head() {
         type="image/png"
       />
       <link href="/site.webmanifest" rel="manifest" />
+      <meta
+        content={process.env.COCOV_PUBLIC_API_URL as string}
+        name="cocov-api-beacon"
+      />
     </>
   )
 }

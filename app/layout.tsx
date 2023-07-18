@@ -13,9 +13,6 @@ import { satoshi } from 'utils/fonts'
 
 export const metadata: Metadata = {
   title: 'Cocov',
-  other: {
-    'cocov-api-beacon': process.env.COCOV_PUBLIC_API_URL as string,
-  },
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
