@@ -30,7 +30,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const data: AuthBeginReponseProps = await Auth.begin()
 
       window.location.href = searchParams?.get('next')
-        ? `${data.redirect_to}?next=${searchParams.get('next')}`
+        ? `${data.redirect_to}&next=${searchParams.get('next')}`
         : data.redirect_to
     } catch {
       setLoading(false)

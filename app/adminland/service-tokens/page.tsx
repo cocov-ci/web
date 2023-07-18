@@ -20,7 +20,6 @@ import styles from './ServiceTokens.module.scss'
 const Page = () => {
   const {
     result: tokensList,
-    loading: tokensLoading,
     error: tokensError,
     refresh: tokensRefresh,
   } = useAPI(API.shared.serviceTokens, {})

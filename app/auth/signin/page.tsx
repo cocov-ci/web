@@ -85,7 +85,9 @@ const SignIn = () => {
               name: data.name,
               isAdmin: data.admin,
             })
-            router.push(searchParams?.get('next') || '/')
+
+            // WORKAROUND TO REDIRECT TO THE HOMEPAGE WITHOUT LOSING THE localStorage USER CONTEXT
+            window.location.replace(searchParams?.get('next') || '/')
           } else {
             router.replace('/auth/signin')
           }
