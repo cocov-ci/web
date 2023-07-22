@@ -1,4 +1,4 @@
-import { LucideXOctagon } from 'lucide-react'
+import { XOctagon } from 'lucide-react'
 
 import CodeBlock from 'app/common/CodeBlock'
 import { ChecksFailureReason } from 'utils/api/request_response_types'
@@ -148,7 +148,7 @@ const Failure = ({ details, reason }: FailureProps) => {
   return (
     <div className={styles.base}>
       <div className={styles.icon}>
-        <LucideXOctagon size={19} />
+        <XOctagon size={19} />
       </div>
       <div className={styles.body}>
         <div className={styles.text}>{component()}</div>
