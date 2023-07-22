@@ -9,7 +9,7 @@ import useModal from 'hooks/useModal'
 import { ServiceTokenParams } from 'types/AdminServiceTokens'
 import API from 'utils/api'
 
-import styles from './DeleteSecret.module.scss'
+import styles from './DeleteToken.module.scss'
 
 interface DeleteTokenParams {
   token: ServiceTokenParams
