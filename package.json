@@ -12,7 +12,7 @@
     "lint": "yarn lint:eslint && yarn lint:tsc",
     "lint:eslint": "eslint app/ --ext '.js,.jsx,.ts,.tsx'",
     "lint:tsc": "tsc --noEmit",
-    "lint:fix": "yarn lint:eslint -- --fix",
+    "lint:fix": "yarn lint:eslint --fix",
     "prepare": "husky install",
     "test": "jest --watch",
     "storybook": "storybook dev -p 6006",
