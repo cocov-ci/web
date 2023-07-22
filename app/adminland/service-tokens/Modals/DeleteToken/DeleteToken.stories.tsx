@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import Modal from 'app/common/Modal'
 
-import DeleteSecret from './index'
+import DeleteToken from './index'
 
-const meta: Meta<typeof DeleteSecret> = {
-  title: 'Settings/Secrets/Modals/Delete',
-  component: DeleteSecret,
+const meta: Meta<typeof DeleteToken> = {
+  title: 'Adminland/ServiceTokens/Modals/Delete',
+  component: DeleteToken,
   tags: ['autodocs'],
   decorators: [
     Story => (
@@ -21,7 +21,7 @@ const meta: Meta<typeof DeleteSecret> = {
 
 export default meta
 
-type Story = StoryObj<typeof DeleteSecret>
+type Story = StoryObj<typeof DeleteToken>
 
 export const Default: Story = {
   args: {
