@@ -1,0 +1,22 @@
+.base {
+  display: flex;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 11px 35px 16px 16px;
+
+  .iconContainer {
+    svg {
+      stroke-width: 1.5;
+    }
+
+    margin-right: 8px;
+  }
+
+  .metadata {
+    flex: 1;
+    color: #8a8a8a;
+
+    .filename {
+      color: #000;
+    }
+  }
+}

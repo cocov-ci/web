@@ -36,6 +36,11 @@ const SidebarComponent = ({
         counter: secretsCount,
         href: '/secrets',
       },
+      {
+        id: 2,
+        name: 'Cache',
+        href: '/cache',
+      },
     ],
     [secretsCount],
   )
@@ -44,7 +49,7 @@ const SidebarComponent = ({
     return (
       <Loading
         className={styles.loading}
-        count={2}
+        count={3}
         height="30px"
         type="skeleton"
         width="230px"

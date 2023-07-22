@@ -44,6 +44,10 @@ import {
   OrgReposOutput,
   RepositoryAddInput,
   RepositoryAddOutput,
+  RepositoryCacheDeleteInput,
+  RepositoryCacheListInput,
+  RepositoryCacheListOutput,
+  RepositoryCachePurgeInput,
   RepositoryDeleteInput,
   RepositoryGraphsInput,
   RepositoryGraphsOutput,
@@ -296,6 +300,35 @@ class API extends BaseAPIExecutor implements APIProvider {
   ): Promise<RepositoryGraphsOutput> {
     return this.doRequest({
       url: `/api/repositories/:repositoryName/graphs`,
+      params,
+    })
+  }
+
+  repositoryCacheList(
+    params: RepositoryCacheListInput,
+  ): Promise<RepositoryCacheListOutput> {
+    return this.doRequest({
+      url: `/api/repositories/:repositoryName/settings/cache`,
+      params,
+    })
+  }
+
+  repositoryCachePurge(
+    params: RepositoryCachePurgeInput,
+  ): Promise<EmptyResponse> {
+    return this.doRequest({
+      method: 'POST',
+      url: `/api/repositories/:repositoryName/settings/cache/purge`,
+      params,
+    })
+  }
+
+  repositoryCacheDelete(
+    params: RepositoryCacheDeleteInput,
+  ): Promise<EmptyResponse> {
+    return this.doRequest({
+      method: 'DELETE',
+      url: `/api/repositories/:repositoryName/settings/cache/delete`,
       params,
     })
   }

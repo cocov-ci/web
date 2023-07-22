@@ -219,6 +219,39 @@ export interface RepositoryGraphsOutput {
   coverage: number[]
 }
 
+export type RepositoryCacheListInput = {
+  repositoryName: string
+}
+
+export interface RepositoryCacheArtifact {
+  id: number
+  name: string
+  size: number
+  created_at: string
+  last_used_at: string
+}
+
+export interface RepositoryCacheListOutput {
+  repository: Omit<RepositoryProps, 'head'>
+  enabled: boolean
+
+  // If enabled, following props will be available
+
+  storage_used: number
+  storage_limit: number
+  artifacts: RepositoryCacheArtifact[]
+  paging: PagingProps
+}
+
+export type RepositoryCacheDeleteInput = {
+  repositoryName: string
+  artifactID: number
+}
+
+export type RepositoryCachePurgeInput = {
+  repositoryName: string
+}
+
 export interface ServiceTokensOutput {
   tokens: ServiceTokenParams[]
 }
