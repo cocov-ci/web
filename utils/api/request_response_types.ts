@@ -2,6 +2,7 @@
 
 import { AdminRepository } from 'types/AdminRepositories'
 import { ServiceTokenParams } from 'types/AdminServiceTokens'
+import { AdminUser } from 'types/AdminUser'
 import { CheckProps, CheckStatus } from 'types/Checks'
 import { HeadProps } from 'types/Commits'
 import { IssueIgnoreModes, IssueProps } from 'types/Issues'
@@ -282,4 +283,14 @@ export interface AdminSecretDeleteOutput {
 
 export type AdminSidekiqTokenOutput = {
   url_redirection: string
+}
+
+export type AdminUserListInput = {
+  page: number
+  searchTerm?: string
+}
+
+export type AdminUserListOutput = {
+  paging: PagingProps
+  users: AdminUser[]
 }

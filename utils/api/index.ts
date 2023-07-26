@@ -14,6 +14,8 @@ import {
   AdminServiceTokenDeleteOutput,
   AdminSidebarCountersOutput,
   AdminSidekiqTokenOutput,
+  AdminUserListInput,
+  AdminUserListOutput,
   BranchListInput,
   BranchListOutput,
   ChecksCancelInput,
@@ -356,6 +358,14 @@ class API extends BaseAPIExecutor implements APIProvider {
       method: 'POST',
       url: '/api/adminland/sidekiq_panel/token',
       params: {},
+    })
+  }
+
+  adminUsers(params: AdminUserListInput): Promise<AdminUserListOutput> {
+    return this.doRequest({
+      method: 'GET',
+      url: '/api/adminland/users',
+      params: params,
     })
   }
 }
