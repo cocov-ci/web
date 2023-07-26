@@ -265,22 +265,6 @@ export type AdminRepositoryDeleteOutput = {
   repositories: AdminRepository[]
 }
 
-export type AdminSecretCreateInput = {
-  description: string
-}
-
-export interface AdminSecretCreateOutput extends SecretParams {
-  token_value: string
-}
-
-export type AdminSecretDeleteInput = {
-  id: number
-}
-
-export interface AdminSecretDeleteOutput {
-  token_value: string
-}
-
 export type AdminSidekiqTokenOutput = {
   url_redirection: string
 }
@@ -293,4 +277,13 @@ export type AdminUserListInput = {
 export type AdminUserListOutput = {
   paging: PagingProps
   users: AdminUser[]
+}
+
+export type AdminUserChangeRoleInput = {
+  userID: number
+  newRole: 'user' | 'admin'
+}
+
+export type AdminUserSimpleOperation = {
+  userID: number
 }
