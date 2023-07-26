@@ -1,5 +1,3 @@
-'use client'
-
 import Loading from 'app/common/Loading'
 
 import styles from '../Item/Item.module.scss'

@@ -7,7 +7,6 @@ import SearchField from 'app/common/SearchField'
 import Text from 'app/common/Text'
 import { useErrorBanner } from 'hooks/useBanner'
 import API, { useAPI } from 'utils/api'
-import randomBetween from 'utils/randomBetween'
 
 import Base from '../Base'
 import BaseStyles from '../Base/Base.module.scss'
@@ -29,6 +28,7 @@ const Page = () => {
     searchTerm: search,
     page: currentPage,
   })
+
   const isSearching = useMemo(() => search.length > 0, [search])
 
   useEffect(() => {
@@ -57,10 +57,7 @@ const Page = () => {
           <Item item={item} key={item.user.id} />
         ))}
 
-        {loading &&
-          new Array(randomBetween(3, 7))
-            .fill(0)
-            .map(i => <LoadingItem key={i} />)}
+        {loading && new Array(4).fill(0).map(i => <LoadingItem key={i} />)}
       </div>
       {result && result.paging.total_pages > 1 && (
         <Pagination
