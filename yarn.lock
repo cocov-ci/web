@@ -4465,12 +4465,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/formidable@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "@types/formidable@npm:2.0.5"
+"@types/formidable@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@types/formidable@npm:3.4.0"
   dependencies:
     "@types/node": "*"
-  checksum: 2de9a08a539309229f0d15074dc9587b7e1316f29da1092ef2eb1e7c9f10ce4b02f1a0b7da5fe21391a5946c9fe5d2be7bfabd5bc6b93005acda22bcc424a456
+  checksum: 8136835e4964015a389595bea39a271e65fa8dce2590770b0e69cb8f29cbd2cd2f7376a8714766fda5796838c426929a3f575cdd565ecf0f19b048f40e0d456f
   languageName: node
   linkType: hard
 
@@ -6705,7 +6705,7 @@ __metadata:
     "@storybook/testing-library": ^0.2.0
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
-    "@types/formidable": ^2.0.5
+    "@types/formidable": ^3.4.0
     "@types/lodash": ^4.14.191
     "@types/node": 18.11.17
     "@types/react": 18.0.26

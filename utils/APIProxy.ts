@@ -83,7 +83,7 @@ export default class APIProxy {
 
       if (length > 0) {
         const { fields } = await (new Promise((resolve, reject) => {
-          const form = new formidable.IncomingForm()
+          const form = formidable()
           form.parse(req, (err: any, fields: any) => {
             if (err) {
               reject(err)
@@ -96,7 +96,7 @@ export default class APIProxy {
         }) as Promise<any>)
 
         Object.keys(fields).forEach(k => {
-          body[k] = fields[k]
+          body[k] = fields[k][0]
         })
       }
 
