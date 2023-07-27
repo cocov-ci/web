@@ -3,9 +3,11 @@
 
   .button {
     position: relative;
+    z-index: 10;
   }
 
   .container {
+    z-index: 20;
     position: absolute;
     top: 0;
     right: 0;
