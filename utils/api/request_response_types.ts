@@ -2,6 +2,7 @@
 
 import { AdminRepository } from 'types/AdminRepositories'
 import { ServiceTokenParams } from 'types/AdminServiceTokens'
+import { AdminUser } from 'types/AdminUser'
 import { CheckProps, CheckStatus } from 'types/Checks'
 import { HeadProps } from 'types/Commits'
 import { IssueIgnoreModes, IssueProps } from 'types/Issues'
@@ -264,22 +265,25 @@ export type AdminRepositoryDeleteOutput = {
   repositories: AdminRepository[]
 }
 
-export type AdminSecretCreateInput = {
-  description: string
-}
-
-export interface AdminSecretCreateOutput extends SecretParams {
-  token_value: string
-}
-
-export type AdminSecretDeleteInput = {
-  id: number
-}
-
-export interface AdminSecretDeleteOutput {
-  token_value: string
-}
-
 export type AdminSidekiqTokenOutput = {
   url_redirection: string
+}
+
+export type AdminUserListInput = {
+  page: number
+  searchTerm?: string
+}
+
+export type AdminUserListOutput = {
+  paging: PagingProps
+  users: AdminUser[]
+}
+
+export type AdminUserChangeRoleInput = {
+  userID: number
+  newRole: 'user' | 'admin'
+}
+
+export type AdminUserSimpleOperation = {
+  userID: number
 }

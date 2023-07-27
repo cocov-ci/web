@@ -12,8 +12,8 @@ import Base from '../Base'
 import BaseStyles from '../Base/Base.module.scss'
 
 import Item from './Item'
-import Loading from './Loading'
-import styles from './Repositories.module.scss'
+import { LoadingItem } from './Loading'
+import styles from './Users.module.scss'
 
 const Page = () => {
   const { showBanner } = useErrorBanner()
@@ -24,26 +24,27 @@ const Page = () => {
     loading,
     error,
     refresh: tokensRefresh,
-  } = useAPI(API.shared.adminRepositories, {
+  } = useAPI(API.shared.adminUsers, {
     searchTerm: search,
     page: currentPage,
   })
+
   const isSearching = useMemo(() => search.length > 0, [search])
 
   useEffect(() => {
     if (error) {
       showBanner({
-        children: `Failed requesting the repositories list. Please try again.`,
+        children: `Failed requesting the users list. Please try again.`,
         autoClose: false,
       })
     }
   }, [error])
 
   return (
-    <Base currentPage="/repositories">
+    <Base currentPage="/users">
       <div className={styles.titleWrapper}>
         <Text className={BaseStyles.title} variant="title">
-          Repositories
+          Users
         </Text>
         <SearchField
           disabled={loading && !isSearching}
@@ -52,15 +53,11 @@ const Page = () => {
         />
       </div>
       <div className={styles.list}>
-        {result?.repositories.map(repository => (
-          <Item
-            {...repository}
-            key={repository.id}
-            onDelete={() => tokensRefresh()}
-          />
+        {result?.users.map(item => (
+          <Item item={item} key={item.user.id} />
         ))}
 
-        {loading && <Loading />}
+        {loading && new Array(4).fill(0).map(i => <LoadingItem key={i} />)}
       </div>
       {result && result.paging.total_pages > 1 && (
         <Pagination

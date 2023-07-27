@@ -14,6 +14,10 @@ import {
   AdminServiceTokenDeleteOutput,
   AdminSidebarCountersOutput,
   AdminSidekiqTokenOutput,
+  AdminUserChangeRoleInput,
+  AdminUserListInput,
+  AdminUserListOutput,
+  AdminUserSimpleOperation,
   BranchListInput,
   BranchListOutput,
   ChecksCancelInput,
@@ -356,6 +360,52 @@ class API extends BaseAPIExecutor implements APIProvider {
       method: 'POST',
       url: '/api/adminland/sidekiq_panel/token',
       params: {},
+    })
+  }
+
+  adminUsers(params: AdminUserListInput): Promise<AdminUserListOutput> {
+    return this.doRequest({
+      method: 'GET',
+      url: '/api/adminland/users',
+      params: params,
+    })
+  }
+
+  adminUserChangeRole(
+    params: AdminUserChangeRoleInput,
+  ): Promise<EmptyResponse> {
+    return this.doRequest({
+      method: 'POST',
+      url: '/api/adminland/users/:userID/change_role',
+      params: params,
+    })
+  }
+
+  adminUserRequestSync(
+    params: AdminUserSimpleOperation,
+  ): Promise<EmptyResponse> {
+    return this.doRequest({
+      method: 'POST',
+      url: '/api/adminland/users/:userID/resync',
+      params: params,
+    })
+  }
+
+  adminUserRequestLogout(
+    params: AdminUserSimpleOperation,
+  ): Promise<EmptyResponse> {
+    return this.doRequest({
+      method: 'POST',
+      url: '/api/adminland/users/:userID/logout',
+      params: params,
+    })
+  }
+
+  adminUserDelete(params: AdminUserSimpleOperation): Promise<EmptyResponse> {
+    return this.doRequest({
+      method: 'DELETE',
+      url: '/api/adminland/users/:userID/delete',
+      params: params,
     })
   }
 }
