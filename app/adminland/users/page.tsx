@@ -47,8 +47,8 @@ const Page = () => {
           Users
         </Text>
         <SearchField
-          disabled={loading && isSearching}
-          loading={loading && !isSearching}
+          disabled={loading && !isSearching}
+          loading={loading && isSearching}
           onSearch={term => setSearch(term)}
         />
       </div>
