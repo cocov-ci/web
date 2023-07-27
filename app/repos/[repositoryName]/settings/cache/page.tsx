@@ -103,17 +103,20 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
               />
             </div>
           )}
-          {!cacheListLoading &&
-            cacheList?.artifacts?.map(i => (
-              <Item
-                createdAt={i.created_at}
-                filename={i.name}
-                id={i.id}
-                key={i.id}
-                lastAccessAt={i.last_used_at}
-                size={i.size}
-              />
-            ))}
+          {!cacheListLoading && (
+            <div className={styles.items}>
+              {cacheList?.artifacts?.map(i => (
+                <Item
+                  createdAt={i.created_at}
+                  filename={i.name}
+                  id={i.id}
+                  key={i.id}
+                  lastAccessAt={i.last_used_at}
+                  size={i.size}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </FixedContent>
