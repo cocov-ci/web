@@ -1,7 +1,7 @@
 @import "styles/variables.module";
 
 .base {
-  background: #141414;
+  background: $colorGrayDark;
   display: block;
   position: relative;
   padding: 14px 18px 16px;
@@ -12,14 +12,14 @@
   .title {
     font-weight: 500;
     font-size: 18px;
-    color: #cacaca;
+    color: $colorGray;
     letter-spacing: 0;
     margin-bottom: 4px;
   }
 
   .body {
     font-size: 15px;
-    color: #cacaca;
+    color: $colorGray;
     letter-spacing: 0;
   }
 

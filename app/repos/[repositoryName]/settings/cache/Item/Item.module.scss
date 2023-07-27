@@ -1,6 +1,8 @@
+@import "styles/variables.module";
+
 .base {
   display: flex;
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid $colorWhiteDark;
   padding: 11px 35px 16px 16px;
 
   .iconContainer {
@@ -13,10 +15,10 @@
 
   .metadata {
     flex: 1;
-    color: #8a8a8a;
+    color: $colorGrayMedium;
 
     .filename {
-      color: #000;
+      color: $colorBlack;
     }
   }
 }

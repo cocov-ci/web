@@ -104,7 +104,7 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
             </div>
           )}
           {!cacheListLoading &&
-            cacheList?.artifacts.map(i => (
+            cacheList?.artifacts?.map(i => (
               <Item
                 createdAt={i.created_at}
                 filename={i.name}

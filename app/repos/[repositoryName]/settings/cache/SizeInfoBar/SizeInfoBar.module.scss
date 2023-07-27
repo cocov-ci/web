@@ -4,8 +4,8 @@
   display: flex;
   justify-content: space-between;
   padding: 5px 15px;
-  border-top: 1px solid #cacaca;
-  border-bottom: 1px solid #cacaca;
+  border-top: 1px solid $colorGray;
+  border-bottom: 1px solid $colorGray;
 
   .usageIndicator {
     display: flex;
