@@ -1,27 +1,42 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import Loading from 'app/common/Loading'
 import Sidebar from 'app/common/Sidebar'
+import useAPI from 'hooks/useAPI'
+import { useErrorBanner } from 'hooks/useBanner'
+import API from 'utils/api'
 
 import styles from './Sidebar.module.scss'
 
 interface SidebarProps {
-  loading: boolean
   defaultSelectedItem: string | null
   repositoryName: string
-  secretsCount: number
 }
 
 const SidebarComponent = ({
-  loading,
   defaultSelectedItem,
   repositoryName,
-  secretsCount,
 }: SidebarProps) => {
   const router = useRouter()
+  const { showBanner } = useErrorBanner()
+
+  const {
+    result: repositoryMeta,
+    loading: repositoryMetaLoading,
+    error: repositoryMetaError,
+  } = useAPI(API.shared.repositorySettings, { repositoryName })
+
+  useEffect(() => {
+    if (repositoryMetaError) {
+      showBanner({
+        children: `Failed requesting repository metadata. Please try again.`,
+        autoClose: false,
+      })
+    }
+  }, [repositoryMetaError])
 
   const data = useMemo(
     () => [
@@ -33,7 +48,7 @@ const SidebarComponent = ({
       {
         id: 1,
         name: 'Secrets',
-        counter: secretsCount,
+        counter: repositoryMeta?.secrets_count ?? 0,
         href: '/secrets',
       },
       {
@@ -42,10 +57,10 @@ const SidebarComponent = ({
         href: '/cache',
       },
     ],
-    [secretsCount],
+    [repositoryMeta?.secrets_count],
   )
 
-  if (loading)
+  if (repositoryMetaLoading)
     return (
       <Loading
         className={styles.loading}

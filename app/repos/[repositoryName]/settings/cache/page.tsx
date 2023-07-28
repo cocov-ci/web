@@ -9,18 +9,17 @@ import { useErrorBanner } from 'hooks/useBanner'
 import API, { useAPI } from 'utils/api'
 
 import Alert from '../../../../common/Alert'
-import Box from '../../../../common/Box'
 import Sidebar from '../Sidebar'
 
 import styles from './Cache.module.scss'
 import Item, { ItemLoading } from './Item'
 import SizeInfoBar from './SizeInfoBar'
 
-interface SecretsParams {
+interface CacheParams {
   params: { repositoryName: string; commitSha: string }
 }
 
-const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
+const Cache = ({ params: { repositoryName } }: CacheParams) => {
   const { showBanner } = useErrorBanner()
   const {
     result: cacheList,
@@ -28,12 +27,6 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
     refresh: cacheListRefresh,
     error: cacheListError,
   } = useAPI(API.shared.repositoryCacheList, { repositoryName })
-
-  const {
-    result: repositoryMeta,
-    loading: repositoryMetaLoading,
-    error: repositoryMetaError,
-  } = useAPI(API.shared.repositorySettings, { repositoryName })
 
   useEffect(() => {
     if (cacheListError) {
@@ -44,24 +37,13 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
     }
   }, [cacheListError])
 
-  useEffect(() => {
-    if (repositoryMetaError) {
-      showBanner({
-        children: `Failed requesting repository metadata. Please try again.`,
-        autoClose: false,
-      })
-    }
-  }, [repositoryMetaError])
-
   return (
     <FixedContent>
       <div className={styles.content}>
         <div className={styles.sidebar}>
           <Sidebar
             defaultSelectedItem="Cache"
-            loading={repositoryMetaLoading}
             repositoryName={repositoryName}
-            secretsCount={repositoryMeta?.secrets_count ?? 0}
           />
         </div>
         <div className={styles.contentWrapper}>
@@ -91,6 +73,7 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
               enabled={true}
               limit={cacheList?.storage_limit}
               loading={cacheListLoading}
+              refetch={cacheListRefresh}
               used={cacheList?.storage_used}
             />
           )}
@@ -105,14 +88,12 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
           )}
           {!cacheListLoading && (
             <div className={styles.items}>
-              {cacheList?.artifacts?.map(i => (
+              {cacheList?.artifacts?.map(artifact => (
                 <Item
-                  createdAt={i.created_at}
-                  filename={i.name}
-                  id={i.id}
-                  key={i.id}
-                  lastAccessAt={i.last_used_at}
-                  size={i.size}
+                  key={artifact.id}
+                  refetch={cacheListRefresh}
+                  repositoryName={repositoryName}
+                  {...artifact}
                 />
               ))}
             </div>
@@ -123,4 +104,4 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
   )
 }
 
-export default Secrets
+export default Cache

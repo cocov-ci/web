@@ -6,7 +6,10 @@ import Button from 'app/common/Button'
 import Loading from 'app/common/Loading'
 import ProgressBar from 'app/common/ProgressBar'
 import SizeFormatter from 'app/common/SizeFormatter'
+import { useErrorBanner } from 'hooks/useBanner'
+import useModal from 'hooks/useModal'
 
+import PurgeCache from '../Modals/PurgeCache'
 import UsagePopover from '../UsagePopover'
 
 import styles from './SizeInfoBar.module.scss'
@@ -16,10 +19,33 @@ type SizeInfoProps = {
   enabled?: boolean
   limit?: number
   used?: number
+  refetch: () => void
 }
 
-const SizeInfoBar = ({ loading, enabled, limit, used }: SizeInfoProps) => {
+const SizeInfoBar = ({
+  loading,
+  enabled,
+  limit,
+  used,
+  refetch,
+}: SizeInfoProps) => {
   const [showPopover, setShowPopover] = useState(true)
+  const { openModal } = useModal()
+  const { showBanner } = useErrorBanner()
+
+  const onPurgeCacheClick = () => {
+    openModal(
+      <PurgeCache
+        onFailure={() => {
+          showBanner({
+            children: `Failed purging cache. Please try again.`,
+            autoClose: true,
+          })
+        }}
+        onSuccess={() => refetch()}
+      />,
+    )
+  }
 
   const limitLabel = () => {
     if (limit === undefined) {
@@ -69,7 +95,11 @@ const SizeInfoBar = ({ loading, enabled, limit, used }: SizeInfoProps) => {
         {usageIndicatorOrLoader()}
       </div>
       {!loading && used !== undefined && (
-        <Button disabled={used === 0 || !enabled} style="danger">
+        <Button
+          disabled={used === 0 || !enabled}
+          onClick={() => onPurgeCacheClick()}
+          style="danger"
+        >
           Purge Cache
         </Button>
       )}

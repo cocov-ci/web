@@ -3,6 +3,7 @@
 import { AdminRepository } from 'types/AdminRepositories'
 import { ServiceTokenParams } from 'types/AdminServiceTokens'
 import { AdminUser } from 'types/AdminUser'
+import { RepositoryCacheArtifact } from 'types/Cache'
 import { CheckProps, CheckStatus } from 'types/Checks'
 import { HeadProps } from 'types/Commits'
 import { IssueIgnoreModes, IssueProps } from 'types/Issues'
@@ -221,14 +222,6 @@ export interface RepositoryGraphsOutput {
 
 export type RepositoryCacheListInput = {
   repositoryName: string
-}
-
-export interface RepositoryCacheArtifact {
-  id: number
-  name: string
-  size: number
-  created_at: string
-  last_used_at: string
 }
 
 export interface RepositoryCacheListOutput {
