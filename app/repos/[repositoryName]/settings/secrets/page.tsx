@@ -54,9 +54,7 @@ const Secrets = ({ params: { repositoryName } }: SecretsParams) => {
         <div className={styles.sidebar}>
           <Sidebar
             defaultSelectedItem="Secrets"
-            loading={repoSecretsLoading || orgSecretsLoading}
             repositoryName={repositoryName}
-            secretsCount={repoSecretsList?.secrets.length ?? 0}
           />
         </div>
         <div className={styles.info}>

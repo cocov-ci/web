@@ -1,0 +1,27 @@
+@import "styles/variables.module";
+
+.base {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 1px solid $colorGray;
+
+  .usageIndicator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+
+    .progressBar {
+      margin: 0 10px;
+      position: relative;
+
+      .popover {
+        cursor: default;
+        position: absolute;
+        top: 25px;
+        right: -90px;
+      }
+    }
+  }
+}

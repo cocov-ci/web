@@ -34,9 +34,7 @@ const Settings = ({ params: { repositoryName } }: SettingsParams) => {
         <div className={styles.sidebar}>
           <Sidebar
             defaultSelectedItem="General"
-            loading={loading}
             repositoryName={repositoryName}
-            secretsCount={result?.secrets_count ?? 0}
           />
         </div>
         <div className={styles.info}>

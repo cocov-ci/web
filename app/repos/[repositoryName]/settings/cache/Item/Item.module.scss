@@ -1,0 +1,24 @@
+@import "styles/variables.module";
+
+.base {
+  display: flex;
+  border-bottom: 1px solid $colorWhiteDark;
+  padding: 11px 35px 16px 16px;
+
+  .iconContainer {
+    svg {
+      stroke-width: 1.5;
+    }
+
+    margin-right: 8px;
+  }
+
+  .metadata {
+    flex: 1;
+    color: $colorGrayMedium;
+
+    .filename {
+      color: $colorBlack;
+    }
+  }
+}

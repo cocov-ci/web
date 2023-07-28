@@ -3,6 +3,7 @@
 import { AdminRepository } from 'types/AdminRepositories'
 import { ServiceTokenParams } from 'types/AdminServiceTokens'
 import { AdminUser } from 'types/AdminUser'
+import { RepositoryCacheArtifact } from 'types/Cache'
 import { CheckProps, CheckStatus } from 'types/Checks'
 import { HeadProps } from 'types/Commits'
 import { IssueIgnoreModes, IssueProps } from 'types/Issues'
@@ -217,6 +218,31 @@ export type RepositoryGraphsInput = {
 export interface RepositoryGraphsOutput {
   issues: number[]
   coverage: number[]
+}
+
+export type RepositoryCacheListInput = {
+  repositoryName: string
+}
+
+export interface RepositoryCacheListOutput {
+  repository: Omit<RepositoryProps, 'head'>
+  enabled: boolean
+
+  // If enabled, following props will be available
+
+  storage_used: number
+  storage_limit: number
+  artifacts: RepositoryCacheArtifact[]
+  paging: PagingProps
+}
+
+export type RepositoryCacheDeleteInput = {
+  repositoryName: string
+  artifactID: number
+}
+
+export type RepositoryCachePurgeInput = {
+  repositoryName: string
 }
 
 export interface ServiceTokensOutput {

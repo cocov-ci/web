@@ -1,0 +1,39 @@
+@import "styles/variables.module";
+
+.content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar,
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.contentWrapper {
+  flex: 1;
+
+  .header {
+    padding: 20px;
+    border-bottom: 1px solid $colorGray;
+
+    .title {
+      font-variation-settings: "wght" 600;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      max-width: 630px;
+    }
+  }
+
+  .disabledNotice {
+    padding-top: 30px;
+  }
+
+  .items {
+    overflow: scroll;
+  }
+}
