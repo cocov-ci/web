@@ -16,9 +16,9 @@ type Story = StoryObj<typeof Item>
 export const Default: Story = {
   args: {
     id: 1,
-    filename: 'go.mod+go.sum.zstd',
+    name: 'go.mod+go.sum.zstd',
     size: 1024 * 1024 * 27,
-    createdAt: '2023-03-02T00:03:13Z',
-    lastAccessAt: '2023-05-02T00:03:13Z',
+    created_at: '2023-03-02T00:03:13Z',
+    last_used_at: '2023-05-02T00:03:13Z',
   },
 }

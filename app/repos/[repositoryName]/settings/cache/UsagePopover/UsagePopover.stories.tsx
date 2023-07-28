@@ -14,9 +14,5 @@ export default meta
 type Story = StoryObj<typeof UsagePopover>
 
 export const Default: Story = {
-  args: {
-    loading: false,
-    limit: 0,
-    used: 1024 * 1024,
-  },
+  args: {},
 }

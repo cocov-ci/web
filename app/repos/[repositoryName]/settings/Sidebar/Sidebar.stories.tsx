@@ -14,8 +14,7 @@ type Story = StoryObj<typeof Sidebar>
 
 export const Default: Story = {
   args: {
-    secretsCount: 4,
-    loading: false,
-    defaultSelectedItem: 'General',
+    repositoryName: 'web',
+    defaultSelectedItem: '/general',
   },
 }
