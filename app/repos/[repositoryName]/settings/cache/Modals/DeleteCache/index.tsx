@@ -36,6 +36,7 @@ const DeleteCache = ({ id, onSuccess, onFailure, name }: DeleteCacheParams) => {
     } catch (err) {
       onFailure(name)
     } finally {
+      closeModal()
       setLoading(false)
     }
   }
