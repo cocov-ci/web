@@ -51,7 +51,7 @@ const DeleteCache = ({ id, onSuccess, onFailure, name }: DeleteCacheParams) => {
         <strong>Bad things will happen if you don’t read this message!</strong>
       </Text>
       <Text gutterBottom variant="description">
-        By continuing, the following cache will be deleted permanently:
+        By continuing, the following cache artifact will be deleted permanently:
       </Text>
       <Text gutterBottom variant="description">
         <strong>{name}</strong>
