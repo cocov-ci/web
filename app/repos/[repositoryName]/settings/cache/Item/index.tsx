@@ -8,8 +8,10 @@ import Loading from 'app/common/Loading'
 import RelativeTime from 'app/common/RelativeTime'
 import SizeFormatter from 'app/common/SizeFormatter'
 import { useErrorBanner } from 'hooks/useBanner'
+import useModal from 'hooks/useModal'
 import { RepositoryCacheArtifact } from 'types/Cache'
-import API from 'utils/api'
+
+import DeleteCache from '../Modals/DeleteCache'
 
 import styles from './Item.module.scss'
 
@@ -24,32 +26,30 @@ const Item = ({
   size,
   created_at,
   last_used_at,
-  repositoryName,
   refetch,
 }: ItemParams) => {
   const { showBanner } = useErrorBanner()
+  const { openModal } = useModal()
   const created = new Date(Date.parse(created_at))
   const used = new Date(Date.parse(last_used_at))
   const [loading, setLoading] = useState(false)
 
-  const onDeleteCache = async () => {
+  const onDeleteCacheClick = () => {
     setLoading(true)
-
-    try {
-      await API.shared.repositoryCacheDelete({
-        artifactID: id,
-        repositoryName,
-      })
-
-      refetch()
-    } catch (err) {
-      showBanner({
-        children: `Failed deleting the artifact Id ${id}. Please try again.`,
-        autoClose: false,
-      })
-    } finally {
-      setLoading(false)
-    }
+    openModal(
+      <DeleteCache
+        id={id}
+        name={name}
+        onFailure={name => {
+          setLoading(false)
+          showBanner({
+            children: `Failed deleting cache: ${name}. Please try again.`,
+            autoClose: true,
+          })
+        }}
+        onSuccess={() => refetch()}
+      />,
+    )
   }
 
   return (
@@ -73,7 +73,7 @@ const Item = ({
         <AccessoryButton
           disabled={loading}
           kind="squared"
-          onClick={() => !loading && onDeleteCache()}
+          onClick={() => !loading && onDeleteCacheClick()}
         >
           <Trash width="18px" />
         </AccessoryButton>
