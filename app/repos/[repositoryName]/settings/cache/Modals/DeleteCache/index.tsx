@@ -73,6 +73,7 @@ const DeleteCache = ({ id, onSuccess, onFailure, name }: DeleteCacheParams) => {
         <Button
           disabled={loading}
           onClick={() => {
+            setLoading(false)
             closeModal()
           }}
           style="secondary"

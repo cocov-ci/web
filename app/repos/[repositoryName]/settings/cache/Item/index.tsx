@@ -1,7 +1,6 @@
 'use client'
 
 import { Package, Trash } from 'lucide-react'
-import { useState } from 'react'
 
 import AccessoryButton from 'app/common/AccessoryButton'
 import Loading from 'app/common/Loading'
@@ -32,16 +31,13 @@ const Item = ({
   const { openModal } = useModal()
   const created = new Date(Date.parse(created_at))
   const used = new Date(Date.parse(last_used_at))
-  const [loading, setLoading] = useState(false)
 
   const onDeleteCacheClick = () => {
-    setLoading(true)
     openModal(
       <DeleteCache
         id={id}
         name={name}
         onFailure={name => {
-          setLoading(false)
           showBanner({
             children: `Failed deleting cache: ${name}. Please try again.`,
             autoClose: true,
@@ -70,11 +66,7 @@ const Item = ({
         </div>
       </div>
       <div className={styles.accessory}>
-        <AccessoryButton
-          disabled={loading}
-          kind="squared"
-          onClick={() => !loading && onDeleteCacheClick()}
-        >
+        <AccessoryButton kind="squared" onClick={() => onDeleteCacheClick()}>
           <Trash width="18px" />
         </AccessoryButton>
       </div>

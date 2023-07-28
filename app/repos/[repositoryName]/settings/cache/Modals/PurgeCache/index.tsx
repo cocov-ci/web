@@ -71,6 +71,7 @@ const PurgeCache = ({ onSuccess, onFailure }: PurgeCacheParams) => {
         <Button
           disabled={loading}
           onClick={() => {
+            setLoading(false)
             closeModal()
           }}
           style="secondary"

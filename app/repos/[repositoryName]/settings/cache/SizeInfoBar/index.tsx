@@ -29,7 +29,7 @@ const SizeInfoBar = ({
   used,
   refetch,
 }: SizeInfoProps) => {
-  const [showPopover, setShowPopover] = useState(true)
+  const [showPopover, setShowPopover] = useState(false)
   const { openModal } = useModal()
   const { showBanner } = useErrorBanner()
 

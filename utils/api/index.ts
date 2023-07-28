@@ -328,7 +328,7 @@ class API extends BaseAPIExecutor implements APIProvider {
   ): Promise<EmptyResponse> {
     return this.doRequest({
       method: 'DELETE',
-      url: `/api/repositories/:repositoryName/settings/cache/delete`,
+      url: `/api/repositories/:repositoryName/settings/cache/delete/:artifactID`,
       params,
     })
   }
