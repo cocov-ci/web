@@ -106,11 +106,7 @@ const NewRepository = () => {
             {isUpdating && <LoadingRepositories />}
             {isEmpty && isSearching && <NoResults />}
             {!isUpdating && result && (
-              <ListItems
-                data={result.items}
-                loading={loadingPage}
-                refetch={() => refresh()}
-              />
+              <ListItems data={result.items} loading={loadingPage} />
             )}
           </div>
           {hasPagination && result && (
