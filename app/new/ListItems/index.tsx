@@ -1,6 +1,7 @@
 'use client'
 
 import { Album } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import Button from 'app/common/Button'
@@ -15,16 +16,15 @@ import Loading from './Loading'
 
 interface ItemParams {
   item: OrgRepositoryProps
-  onAddSuccess: () => void
 }
 
 interface ListItemsParams {
   data: OrgRepositoryProps[]
   loading: boolean
-  refetch: () => void
 }
 
-const Item = ({ item, onAddSuccess }: ItemParams) => {
+const Item = ({ item }: ItemParams) => {
+  const router = useRouter()
   const { showBanner } = useErrorBanner()
   const [addingRepository, setAddingRepository] = useState<boolean>(false)
 
@@ -32,8 +32,9 @@ const Item = ({ item, onAddSuccess }: ItemParams) => {
     setAddingRepository(true)
 
     try {
-      await API.shared.repositoryAdd({ name: item.name })
-      onAddSuccess()
+      const repo = await API.shared.repositoryAdd({ name: item.name })
+
+      router.push(`/repos/${repo?.name}`)
     } catch (err) {
       showBanner({
         children: `Failed adding the repository "${item.name}". Please try again.`,
@@ -80,13 +81,13 @@ const Item = ({ item, onAddSuccess }: ItemParams) => {
   )
 }
 
-const ListItems = ({ data, refetch, loading }: ListItemsParams) => {
+const ListItems = ({ data, loading }: ListItemsParams) => {
   if (loading) return <Loading />
 
   return (
     <div>
       {data?.map(item => (
-        <Item item={item} key={item.name} onAddSuccess={() => refetch()} />
+        <Item item={item} key={item.name} />
       ))}
     </div>
   )
