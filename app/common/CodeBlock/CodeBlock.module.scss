@@ -71,7 +71,7 @@
       width: calc(100% - 3px);
       z-index: 3;
       left: 3px;
-      top: -1px;
+      top: 0;
 
       & + div {
         position: relative;
