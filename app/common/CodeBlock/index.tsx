@@ -108,7 +108,7 @@ const CoverageBlock = ({ kind, span }: CoverageBlockProps) => {
   return (
     <div
       className={classNames(styles.block, styles[kind])}
-      style={{ height: `${span * 20 + 2}px` }}
+      style={{ height: `${span * 19 + 1}px` }}
     />
   )
 }
