@@ -24,7 +24,7 @@ const Coverage = async ({
 
   if (!data || data?.code === 404) redirect(`/repos/${repositoryName}`)
 
-  if (!dataFileId || dataFileId?.code === 404)
+  if (!dataFileId || dataFileId?.code === 404 || dataFileId?.code === 500)
     redirect(`/repos/${repositoryName}/commits/${commitSha}/coverage`)
 
   return (
