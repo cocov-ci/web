@@ -79,7 +79,7 @@ const Item = ({ secret, onDelete }: ItemProps) => {
         </div>
       </div>
       <div className={styles.ButtonWrapper}>
-        <AccessoryButton kind="squared" onClick={onDelete}>
+        <AccessoryButton kind="squared">
           <Trash onClick={() => onDeleteSecretClick()} size={17} />
         </AccessoryButton>
       </div>
