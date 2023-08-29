@@ -98,6 +98,15 @@ const Cache = ({ params: { repositoryName } }: CacheParams) => {
               ))}
             </div>
           )}
+          {!cacheListLoading && cacheList?.artifacts?.length === 0 && (
+            <div className={styles.emptyNotice}>
+              <Alert
+                description="No plugins requested to store artifacts yet. When this happen, artifacts will be shown here."
+                icon={BoxSelect}
+                title="No artifacts... yet."
+              />
+            </div>
+          )}
         </div>
       </div>
     </FixedContent>
