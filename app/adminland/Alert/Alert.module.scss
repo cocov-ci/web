@@ -1,14 +1,13 @@
 @import "styles/variables.module";
 
 .alert {
-  padding: 15px;
+  padding: 15px 80px 15px 15px;
   display: flex;
-  margin-bottom: 10px;
-  border: 1px solid #E6D341;
+  border: 1px solid #e6d341;
   border-radius: 8px;
   align-items: center;
-  height: 54px;
-  background-color: #F4EEBD;
+  min-height: 54px;
+  background-color: #f4eebd;
   position: relative;
   overflow: hidden;
 
@@ -22,10 +21,10 @@
   }
 
   .icon {
-    color: opacify(#E6D341, 0.3);
-    right: 0;
+    color: #e6d34192;
+    right: -15px;
     position: absolute;
-    top: 2px;
+    bottom: -12px;
     z-index: 0;
   }
 }

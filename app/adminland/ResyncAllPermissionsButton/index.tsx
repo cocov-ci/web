@@ -7,7 +7,7 @@ import API from 'utils/api'
 
 import Button from '../../common/Button'
 
-const SidekiqButton = () => {
+const ResyncAllPermissionsButton = () => {
   const [loading, setLoading] = useState(false)
   const { showBanner } = useErrorBanner()
 
@@ -15,12 +15,10 @@ const SidekiqButton = () => {
     setLoading(true)
 
     try {
-      const { url_redirection } = await API.shared.adminSidekiqPanelToken()
-
-      window.open(url_redirection)
+      await API.shared.adminResyncAllPermissions()
     } catch (err) {
       showBanner({
-        children: `Failed requesting the dashboard access. Please try again.`,
+        children: `Failed resyncing permissions. Please try again.`,
         autoClose: true,
       })
     } finally {
@@ -29,10 +27,10 @@ const SidekiqButton = () => {
   }
 
   return (
-    <Button disabled={loading} onClick={onButtonClick} style="secondary">
-      Access Dashboard
+    <Button disabled={loading} onClick={onButtonClick} style="danger">
+      Resync All Permissions
     </Button>
   )
 }
 
-export default SidekiqButton
+export default ResyncAllPermissionsButton

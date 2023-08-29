@@ -104,21 +104,21 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
           </Button>
         )}
       </div>
-      <div className={styles.item}>
-        <Text className={styles.titleItem} variant="title">
-          Rename
-        </Text>
-        <Text
-          className={styles.descriptionItem}
-          gutterBottom
-          variant="description"
-        >
-          This repository’s name comes from GitHub. In case the repository name
-          changed and this instance appears out-of-sync, you can force the
-          update by clicking the button below.
-        </Text>
+      {permissions.can_sync_github && (
+        <div className={styles.item}>
+          <Text className={styles.titleItem} variant="title">
+            Rename
+          </Text>
+          <Text
+            className={styles.descriptionItem}
+            gutterBottom
+            variant="description"
+          >
+            This repository’s name comes from GitHub. In case the repository
+            name changed and this instance appears out-of-sync, you can force
+            the update by clicking the button below.
+          </Text>
 
-        {permissions.can_sync_github && (
           <Button
             disabled={resyncGithub}
             onClick={() => onForceResyncClick()}
@@ -126,39 +126,41 @@ const PermissionsComponent = ({ data, loading }: SidebarProps) => {
           >
             {resyncGithub ? 'Queued' : 'Force Resync'}
           </Button>
-        )}
-      </div>
-      <div className={styles.item}>
-        <Text className={styles.titleItem} variant="title">
-          Delete Repository
-        </Text>
-        <Text
-          className={styles.descriptionItem}
-          gutterBottom
-          variant="description"
-        >
-          Delete the repository from this instance. This will only remove data
-          related to this repository from this Cocov instance, and will NOT
-          delete the repository from GitHub or touch any files within it.
-          <br />
-          If you wish, the repository can be re-added by clicking the “Add
-          Repository” button on the Repositories page.
-        </Text>
-        <Text className={styles.descriptionItem} variant="description">
-          By performing this action, the following data will be deleted forever:
-        </Text>
-        <ul className={styles.listItem}>
-          <li>- Issues History</li>
-          <li>- Coverage History</li>
-          <li>- Cached commits from this repository</li>
-          <li>- Repository Secrets</li>
-        </ul>
-        {permissions.can_delete && (
+        </div>
+      )}
+      {permissions.can_delete && (
+        <div className={styles.item}>
+          <Text className={styles.titleItem} variant="title">
+            Delete Repository
+          </Text>
+          <Text
+            className={styles.descriptionItem}
+            gutterBottom
+            variant="description"
+          >
+            Delete the repository from this instance. This will only remove data
+            related to this repository from this Cocov instance, and will NOT
+            delete the repository from GitHub or touch any files within it.
+            <br />
+            If you wish, the repository can be re-added by clicking the “Add
+            Repository” button on the Repositories page.
+          </Text>
+          <Text className={styles.descriptionItem} variant="description">
+            By performing this action, the following data will be deleted
+            forever:
+          </Text>
+          <ul className={styles.listItem}>
+            <li>- Issues History</li>
+            <li>- Coverage History</li>
+            <li>- Cached commits from this repository</li>
+            <li>- Repository Secrets</li>
+          </ul>
+
           <Button onClick={() => onDeleteRepositoryClick()} style="danger">
             Delete Repository
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </>
   )
 }

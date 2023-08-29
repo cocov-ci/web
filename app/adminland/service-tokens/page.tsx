@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react'
 
+import Alert from 'app/adminland/Alert'
 import Button from 'app/common/Button'
 import Text from 'app/common/Text'
 import { useErrorBanner } from 'hooks/useBanner'
@@ -11,7 +12,6 @@ import API, { useAPI } from 'utils/api'
 import Base from '../Base'
 import BaseStyles from '../Base/Base.module.scss'
 
-import Alert from './Alert'
 import Item from './Item'
 import AddNewToken from './Modals/AddNewToken'
 import NewTokenSuccess from './Modals/NewTokenSuccess'

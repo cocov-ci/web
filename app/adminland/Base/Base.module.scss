@@ -1,3 +1,5 @@
+@import "styles/variables.module";
+
 .wrapper {
   display: flex;
   flex: 1;
@@ -22,7 +24,7 @@
   .sidebar {
     padding-top: 3px;
     width: 250px;
-    border-right: 1px solid #cacaca;
+    border-right: 1px solid $colorGray;
   }
 
   .info {
@@ -41,4 +43,12 @@
 
 .bottomMargin {
   margin-bottom: 23px;
+}
+
+.divisor {
+  border-top: 1px solid $colorGray;
+  margin-left: -23px;
+  width: calc(100% + 46px);
+  margin-top: 25px;
+  margin-bottom: 25px;
 }

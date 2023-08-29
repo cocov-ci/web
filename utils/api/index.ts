@@ -441,6 +441,14 @@ class API extends BaseAPIExecutor implements APIProvider {
       params: params,
     })
   }
+
+  adminResyncAllPermissions() {
+    return this.doRequest({
+      method: 'POST',
+      url: '/api/adminland/resync_permissions',
+      params: {},
+    })
+  }
 }
 
 API.shared = new API()
