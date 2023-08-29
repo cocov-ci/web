@@ -6,6 +6,7 @@ import Pagination from 'app/common/Pagination'
 import SearchField from 'app/common/SearchField'
 import Text from 'app/common/Text'
 import { useErrorBanner } from 'hooks/useBanner'
+import usePrevious from 'hooks/usePrevious'
 import API, { useAPI } from 'utils/api'
 
 import Base from '../Base'
@@ -19,17 +20,17 @@ const Page = () => {
   const { showBanner } = useErrorBanner()
   const [search, setSearch] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const {
-    result,
-    loading,
-    error,
-    refresh: tokensRefresh,
-  } = useAPI(API.shared.adminUsers, {
+  const { result, loading, error } = useAPI(API.shared.adminUsers, {
     searchTerm: search,
     page: currentPage,
   })
 
-  const isSearching = useMemo(() => search.length > 0, [search])
+  const previousSearch = usePrevious(search) as string
+
+  const isSearching = useMemo(
+    () => search.length > 0 || previousSearch?.length > 0,
+    [search],
+  )
 
   useEffect(() => {
     if (error) {

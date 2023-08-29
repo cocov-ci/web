@@ -61,8 +61,8 @@ const LoadingItem = () => {
 
 const LoadingItems = () => (
   <div>
-    {new Array(6).fill(0).map(item => (
-      <LoadingItem key={item} />
+    {new Array(6).fill(0).map(() => (
+      <LoadingItem key={Math.floor(Math.random() * 100) + 1} />
     ))}
   </div>
 )

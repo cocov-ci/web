@@ -6,6 +6,7 @@ import Pagination from 'app/common/Pagination'
 import SearchField from 'app/common/SearchField'
 import Text from 'app/common/Text'
 import { useErrorBanner } from 'hooks/useBanner'
+import usePrevious from 'hooks/usePrevious'
 import API, { useAPI } from 'utils/api'
 
 import Base from '../Base'
@@ -28,7 +29,13 @@ const Page = () => {
     searchTerm: search,
     page: currentPage,
   })
-  const isSearching = useMemo(() => search.length > 0, [search])
+
+  const previousSearch = usePrevious(search) as string
+
+  const isSearching = useMemo(
+    () => search.length > 0 || previousSearch?.length > 0,
+    [search],
+  )
 
   useEffect(() => {
     if (error) {
